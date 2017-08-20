@@ -8,4 +8,10 @@
     <string name="news_item_more_description">More actions</string>
     <string name="join">Join</string>
 
+    <!--Login and Register-->
+    <string name="go">Go</string>
+    <string name="password_hint">Password</string>
+    <string name="email_hint">Email</string>
+    <string name="facebook">Facebook</string>
+
 </resources>
