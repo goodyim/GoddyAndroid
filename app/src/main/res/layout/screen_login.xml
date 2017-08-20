@@ -3,21 +3,13 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/sign_in_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F1F5F7">
+    android:layout_height="match_parent">
 
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/sign_in_facebook"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/auth_facebook_background"
-        android:gravity="center"
-        android:paddingBottom="16dp"
-        android:paddingTop="16dp"
-        android:text="@string/facebook"
-        android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:textColor="@color/white"
+        style="@style/FacebookAuthStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
