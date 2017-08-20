@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">GoddyAndroid</string>
+
+    <!-- News item -->
+    <string name="news_item_image_description">Deal main image</string>
+    <string name="news_item_avatar_description">User avatar</string>
+    <string name="news_item_share_description">Share</string>
+    <string name="join">Join</string>
+
 </resources>
