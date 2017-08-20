@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#4CAF50</color>
-    <color name="primary_dark">#388E3C</color>
-    <color name="primary_light">#C8E6C9</color>
-    <color name="accent">#FF9800</color>
+    <color name="primary">#388E3C</color>
+    <color name="primary_dark">#2C772F</color>
+    <color name="accent">#FF6D00</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
 
@@ -12,4 +11,8 @@
     <!-- following material guidelines -->
     <color name="divider">#BDBDBD</color>
     <color name="icon">#727272</color>
+
+    <color name="auth_cardview_background">#F7F9F8</color>
+    <color name="auth_field_border">#EAEAEA</color>
+    <color name="auth_facebook_background">#3F569B</color>
 </resources>
