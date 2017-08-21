@@ -1,4 +1,4 @@
-package com.goddy.goddyandroid;
+package im.goody.android;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.goddy.goddyandroid", appContext.getPackageName());
+        assertEquals("im.goody.android", appContext.getPackageName());
     }
 }
