@@ -8,8 +8,8 @@
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/sign_in_facebook"
-        android:layout_width="0dp"
         style="@style/FacebookAuthStyle"
+        android:layout_width="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -17,36 +17,33 @@
     <android.support.v7.widget.CardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginLeft="@dimen/auth_cardview_horizontal_margin"
+        android:layout_marginRight="@dimen/auth_cardview_horizontal_margin"
         android:background="@color/auth_cardview_background"
         app:layout_constraintBottom_toTopOf="@+id/sign_in_facebook"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        card_view:cardElevation="2dp"
         card_view:cardUseCompatPadding="true">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <EditText
                 android:id="@+id/sign_in_name"
                 android:layout_width="0dp"
-                android:layout_height="52dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_height="@dimen/edit_text_height_big"
+                android:layout_marginEnd="@dimen/medium_margin"
+                android:layout_marginLeft="@dimen/medium_margin"
+                android:layout_marginRight="@dimen/medium_margin"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/auth_form_views_margin_top"
                 android:background="@drawable/auth_field_background"
                 android:ems="10"
                 android:hint="@string/email_hint"
                 android:inputType="textEmailAddress"
-                android:padding="16dp"
-                app:layout_constraintHorizontal_bias="0.0"
+                android:padding="@dimen/medium_padding"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -54,13 +51,12 @@
             <EditText
                 android:id="@+id/sign_in_password"
                 android:layout_width="0dp"
-                android:layout_height="52dp"
-                android:layout_marginTop="24dp"
+                android:layout_height="@dimen/edit_text_height_big"
+                android:layout_marginTop="@dimen/auth_form_views_margin_top"
                 android:background="@drawable/auth_field_background"
                 android:hint="@string/password_hint"
                 android:inputType="textPassword"
-                android:padding="16dp"
-                app:layout_constraintHorizontal_bias="1.0"
+                android:padding="@dimen/medium_padding"
                 app:layout_constraintLeft_toLeftOf="@+id/sign_in_name"
                 app:layout_constraintRight_toRightOf="@+id/sign_in_name"
                 app:layout_constraintTop_toBottomOf="@+id/sign_in_name" />
@@ -68,9 +64,9 @@
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/sign_in_submit"
                 android:layout_width="0dp"
-                android:layout_height="65dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_height="@dimen/button_height_big"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/auth_form_views_margin_top"
                 android:text="@string/go"
                 android:textColor="@android:color/white"
                 app:backgroundTint="@color/accent"
