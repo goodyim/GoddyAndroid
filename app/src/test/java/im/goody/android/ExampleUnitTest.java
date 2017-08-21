@@ -1,4 +1,4 @@
-package com.goddy.goddyandroid;
+package im.goody.android;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.goddy.goddyandroid;
+package im.goody.android;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
