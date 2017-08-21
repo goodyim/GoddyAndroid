@@ -1,4 +1,4 @@
-package com.valentun.goddyandroid;
+package com.goddy.goddyandroid;
 
 import org.junit.Test;
 
