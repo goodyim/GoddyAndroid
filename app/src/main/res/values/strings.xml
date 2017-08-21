@@ -6,14 +6,23 @@
     <string name="news_item_avatar_description">User avatar</string>
     <string name="news_item_share_description">Share</string>
     <string name="news_item_more_description">More actions</string>
-    <string name="join">Join</string>
 
-    <!--Login and Register-->
+    <string name="join">Join</string>
+    <!--End news item -->
+
+    <!-- Login and Register -->
     <string name="register_avatar_description">Choose avatar</string>
     <string name="go">Go</string>
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>
-    <string name="facebook">Facebook</string>
     <string name="name_hint">Name</string>
+
+    <string name="facebook">Facebook</string>
+    <string name="google">Google</string>
+    <string name="vk">VK</string>
+    <string name="oauth_google_description">Authenticate via Google</string>
+    <string name="oauth_facebook_description">Authenticate via Facebook</string>
+    <string name="oauth_vk_description">Authenticate via VK</string>
+    <!-- Login and Register -->
 
 </resources>

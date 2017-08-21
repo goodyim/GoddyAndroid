@@ -14,5 +14,8 @@
 
     <color name="auth_cardview_background">#F7F9F8</color>
     <color name="auth_field_border">#EAEAEA</color>
+
     <color name="auth_facebook_background">#3F569B</color>
+    <color name="auth_google_background">#DA4336</color>
+    <color name="auth_vk_background">#6287AE</color>
 </resources>

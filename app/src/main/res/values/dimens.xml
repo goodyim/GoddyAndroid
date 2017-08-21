@@ -14,4 +14,6 @@
     <dimen name="small_margin">8dp</dimen>
     <dimen name="textview_drawable_padding">4dp</dimen>
     <dimen name="cardview_head_height">72dp</dimen>
+    <dimen name="small_padding">8dp</dimen>
+    <dimen name="oauth_button_size">50dp</dimen>
 </resources>
