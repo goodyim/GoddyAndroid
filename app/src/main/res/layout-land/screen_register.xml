@@ -8,22 +8,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <include
+            android:id="@+id/oauth_panel"
+            layout="@layout/oauth_panel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/small_margin"
+            android:layout_marginRight="@dimen/small_margin"
+            app:layout_constraintLeft_toLeftOf="@+id/vertical_guideline"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/register_form" />
+
         <android.support.v7.widget.CardView
             android:id="@+id/register_form"
             cardUseCompatPadding="true"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/auth_cardview_horizontal_margin"
-            android:layout_marginLeft="@dimen/auth_cardview_horizontal_margin"
-            android:layout_marginRight="@dimen/auth_cardview_horizontal_margin"
-            android:layout_marginStart="@dimen/auth_cardview_horizontal_margin"
-            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/small_margin"
+            android:layout_marginLeft="@dimen/small_margin"
+            android:layout_marginRight="@dimen/small_margin"
+            android:layout_marginStart="@dimen/small_margin"
+            android:layout_marginTop="@dimen/medium_margin"
             android:background="@color/auth_cardview_background"
-            app:cardElevation="2dp"
             app:cardUseCompatPadding="true"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/vertical_guideline"
             app:layout_constraintTop_toTopOf="parent">
 
             <android.support.constraint.ConstraintLayout
@@ -108,17 +117,12 @@
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>
 
-        <include
-            android:id="@+id/oauth_panel"
-            layout="@layout/oauth_panel"
+        <android.support.constraint.Guideline
+            android:id="@+id/vertical_guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/medium_margin"
-            android:layout_marginTop="@dimen/small_margin"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@+id/register_form"
-            app:layout_constraintRight_toRightOf="@+id/register_form"
-            app:layout_constraintTop_toBottomOf="@+id/register_form" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.55" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
