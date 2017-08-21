@@ -9,7 +9,7 @@ public class AppConfig {
     static final boolean LOG_ENABLED = DEBUG;
 
     // Retrofit config
-    public static final String BASE_URL = "http://";
+    public static final String BASE_URL = "http://goody.im/api/v1/";
     public static final int MAX_CONNECTION_TIMEOUT = 10000;
     public static final int MAX_READ_TIMEOUT = 10000;
     public static final int MAX_WRITE_TIMEOUT = 5000;

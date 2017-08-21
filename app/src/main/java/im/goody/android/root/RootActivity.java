@@ -78,7 +78,7 @@ public class RootActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+        return false; // TODO: 21.08.2017
     }
 
     @Override
@@ -138,7 +138,7 @@ public class RootActivity extends AppCompatActivity
 
     @Override
     public void setToolBarMenuItem(List<MenuItemHolder> items) {
-
+        // TODO: 21.08.2017
     }
 
     //endregion
