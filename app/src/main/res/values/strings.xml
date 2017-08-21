@@ -1,5 +1,19 @@
 <resources>
-    <string name="app_name">Goddy</string>
+    <string name="app_name">Goody</string>
+
+    <!-- activity_root -->
+    <string name="open_drawer">open_drawer</string>
+    <string name="close_drawer">close_drawer</string>
+
+    <string name="action_settings">Настройки</string>
+    <string name="action_support">Служба поддержки</string>
+    <string name="action_about">О программе</string>
+
+    <!-- screen_main -->
+    <string name="main_title">Новости</string>
+
+    <!-- screen_intro -->
+
 
     <!-- News item -->
     <string name="news_item_image_description">Deal main image</string>

@@ -14,4 +14,6 @@
     <dimen name="small_margin">8dp</dimen>
     <dimen name="textview_drawable_padding">4dp</dimen>
     <dimen name="cardview_head_height">72dp</dimen>
+
+    <dimen name="drawer_height">172dp</dimen>
 </resources>
