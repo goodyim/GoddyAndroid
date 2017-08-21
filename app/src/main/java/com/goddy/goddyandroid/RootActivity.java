@@ -1,4 +1,4 @@
-package com.valentun.goddyandroid;
+package com.goddy.goddyandroid;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GoddyAndroid</string>
+    <string name="app_name">Goddy</string>
 
     <!-- News item -->
     <string name="news_item_image_description">Deal main image</string>
