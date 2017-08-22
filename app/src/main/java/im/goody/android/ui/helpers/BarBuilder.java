@@ -2,6 +2,7 @@ package im.goody.android.ui.helpers;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class BarBuilder {
     }
 
     @NonNull
-    public BarBuilder setTitleRes(Integer titleRes) {
+    public BarBuilder setTitleRes(@StringRes @NonNull Integer titleRes) {
         this.titleRes = titleRes;
         return this;
     }

@@ -15,6 +15,6 @@ public interface RootComponent {
     void inject(RootActivity activity);
     void inject(RootPresenter presenter);
 
-    MainController.Component plusMain();
+    MainController.Component plusMain(MainController.Module module);
     IntroController.Component plusIntro();
 }
