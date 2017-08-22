@@ -6,6 +6,7 @@ import im.goody.android.di.DaggerScope;
 import im.goody.android.di.modules.RootModule;
 import im.goody.android.root.RootActivity;
 import im.goody.android.root.RootPresenter;
+import im.goody.android.screens.auth.login.LoginController;
 import im.goody.android.screens.intro.IntroController;
 import im.goody.android.screens.main.MainController;
 
@@ -15,6 +16,7 @@ public interface RootComponent {
     void inject(RootActivity activity);
     void inject(RootPresenter presenter);
 
-    MainController.Component plusMain(MainController.Module module);
+    MainController.Component plusMain();
+    LoginController.Component plusLogin();
     IntroController.Component plusIntro();
 }

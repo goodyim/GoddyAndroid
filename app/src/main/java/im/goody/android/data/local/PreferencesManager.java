@@ -49,5 +49,9 @@ public class PreferencesManager {
         return sharedPreferences.getString(USER_TOKEN_KEY, "");
     }
 
+    public boolean isTokenPresent() {
+        return sharedPreferences.contains(USER_TOKEN_KEY);
+    }
+
     //endregion
 }

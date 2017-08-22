@@ -22,22 +22,22 @@ import javax.inject.Inject;
 
 import im.goody.android.App;
 import im.goody.android.R;
+import im.goody.android.data.local.PreferencesManager;
 import im.goody.android.databinding.ActivityRootBinding;
 import im.goody.android.di.components.RootComponent;
+import im.goody.android.screens.auth.login.LoginController;
 import im.goody.android.screens.main.MainController;
 import im.goody.android.ui.helpers.MenuItemHolder;
 
 public class RootActivity extends AppCompatActivity
         implements IRootView, NavigationView.OnNavigationItemSelectedListener {
 
-    private ActionBar actionBar;
-    private ActionBarDrawerToggle drawerToggle;
-
-    private ActivityRootBinding binding;
-    private Router router;
-
     @Inject
     IRootPresenter presenter;
+    private ActionBar actionBar;
+    private ActionBarDrawerToggle drawerToggle;
+    private ActivityRootBinding binding;
+    private Router router;
 
     //region ================= Life cycle =================
 
@@ -52,8 +52,16 @@ public class RootActivity extends AppCompatActivity
 
         initToolBar();
 
+//        === Uncomment if need to test MainController ===
+//        if (!router.hasRootController())
+//            router.setRoot(RouterTransaction.with(new MainController()));
+
         if (!router.hasRootController())
-            router.setRoot(RouterTransaction.with(new MainController()));
+            if (new PreferencesManager(this).isTokenPresent()) {
+                router.setRoot(RouterTransaction.with(new MainController()));
+            } else {
+                router.setRoot(RouterTransaction.with(new LoginController()));
+            }
     }
 
     private void initDaggerComponent() {

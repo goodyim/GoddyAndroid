@@ -29,5 +29,8 @@
     <string name="email_hint">Email</string>
     <string name="facebook">Facebook</string>
     <string name="name_hint">Name</string>
+    <string name="login_redirect">Do not have account? Register</string>
+    <string name="login_title">Login</string>
+    <string name="invalid_fields_message">Please make all fields valid</string>
 
 </resources>

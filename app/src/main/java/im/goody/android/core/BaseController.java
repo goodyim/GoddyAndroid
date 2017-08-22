@@ -11,6 +11,7 @@ import im.goody.android.App;
 import im.goody.android.data.IRepository;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.root.IRootPresenter;
+import io.reactivex.disposables.Disposable;
 
 public abstract class BaseController<V extends BaseView> extends Controller {
 
@@ -20,6 +21,8 @@ public abstract class BaseController<V extends BaseView> extends Controller {
     protected IRootPresenter rootPresenter;
 
     protected V attachedView;
+
+    protected Disposable disposable;
 
     public BaseController() {
         RootComponent rootComponent = App.getRootComponent();
@@ -46,6 +49,7 @@ public abstract class BaseController<V extends BaseView> extends Controller {
         attachedView.dropController();
         attachedView = null;
 
+        if (disposable != null && !disposable.isDisposed()) disposable.dispose();
         super.onDetach(view);
     }
 }

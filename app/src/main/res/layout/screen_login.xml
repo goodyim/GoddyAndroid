@@ -1,81 +1,118 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/sign_in_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="user"
+            type="im.goody.android.screens.auth.login.LoginViewModel" />
+    </data>
+
+    <im.goody.android.screens.auth.login.LoginView
+        android:id="@+id/sign_in_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/sign_in_facebook"
-        style="@style/FacebookAuthStyle"
-        android:layout_width="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/sign_in_facebook"
+            style="@style/FacebookAuthStyle"
+            android:layout_width="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
-    <android.support.v7.widget.CardView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/auth_cardview_horizontal_margin"
-        android:layout_marginRight="@dimen/auth_cardview_horizontal_margin"
-        android:background="@color/auth_cardview_background"
-        app:layout_constraintBottom_toTopOf="@+id/sign_in_facebook"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        card_view:cardUseCompatPadding="true">
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/auth_cardview_horizontal_margin"
+            android:layout_marginRight="@dimen/auth_cardview_horizontal_margin"
+            android:background="@color/auth_cardview_background"
+            app:layout_constraintBottom_toTopOf="@+id/sign_in_facebook"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.502"
+            card_view:cardUseCompatPadding="true">
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/sign_in_name"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/edit_text_height_big"
-                android:layout_marginEnd="@dimen/medium_margin"
-                android:layout_marginLeft="@dimen/medium_margin"
-                android:layout_marginRight="@dimen/medium_margin"
-                android:layout_marginStart="@dimen/medium_margin"
-                android:layout_marginTop="@dimen/auth_form_views_margin_top"
-                android:background="@drawable/auth_field_background"
-                android:ems="10"
-                android:hint="@string/email_hint"
-                android:inputType="textEmailAddress"
-                android:padding="@dimen/medium_padding"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <EditText
+                    android:id="@+id/sign_in_email"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/edit_text_height_big"
+                    android:layout_marginEnd="@dimen/medium_margin"
+                    android:layout_marginLeft="@dimen/medium_margin"
+                    android:layout_marginRight="@dimen/medium_margin"
+                    android:layout_marginStart="@dimen/medium_margin"
+                    android:layout_marginTop="@dimen/auth_form_views_margin_top"
+                    android:background="@{user.emailRes}"
+                    android:ems="10"
+                    android:hint="@string/email_hint"
+                    android:inputType="textEmailAddress"
+                    android:padding="@dimen/medium_padding"
+                    android:text="@={user.email}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/sign_in_password"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/edit_text_height_big"
-                android:layout_marginTop="@dimen/auth_form_views_margin_top"
-                android:background="@drawable/auth_field_background"
-                android:hint="@string/password_hint"
-                android:inputType="textPassword"
-                android:padding="@dimen/medium_padding"
-                app:layout_constraintLeft_toLeftOf="@+id/sign_in_name"
-                app:layout_constraintRight_toRightOf="@+id/sign_in_name"
-                app:layout_constraintTop_toBottomOf="@+id/sign_in_name" />
+                <EditText
+                    android:id="@+id/sign_in_password"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/edit_text_height_big"
+                    android:layout_marginTop="@dimen/auth_form_views_margin_top"
+                    android:background="@{user.passwordRes}"
+                    android:hint="@string/password_hint"
+                    android:inputType="textPassword"
+                    android:padding="@dimen/medium_padding"
+                    android:text="@={user.password}"
+                    app:layout_constraintLeft_toLeftOf="@+id/sign_in_email"
+                    app:layout_constraintRight_toRightOf="@+id/sign_in_email"
+                    app:layout_constraintTop_toBottomOf="@+id/sign_in_email" />
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/sign_in_submit"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/button_height_big"
-                android:layout_marginBottom="@dimen/medium_margin"
-                android:layout_marginTop="@dimen/auth_form_views_margin_top"
-                android:text="@string/go"
-                android:textColor="@android:color/white"
-                app:backgroundTint="@color/accent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="@+id/sign_in_password"
-                app:layout_constraintRight_toRightOf="@+id/sign_in_password"
-                app:layout_constraintTop_toBottomOf="@+id/sign_in_password" />
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/sign_in_submit"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height_big"
+                    android:layout_marginTop="@dimen/auth_form_views_margin_top"
+                    android:text="@string/go"
+                    android:textColor="@android:color/white"
+                    app:backgroundTint="@color/accent"
+                    app:layout_constraintLeft_toLeftOf="@+id/sign_in_password"
+                    app:layout_constraintRight_toRightOf="@+id/sign_in_password"
+                    app:layout_constraintTop_toBottomOf="@+id/sign_in_password" />
 
-        </android.support.constraint.ConstraintLayout>
-    </android.support.v7.widget.CardView>
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/sign_in_redirect"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height_big"
+                    android:layout_marginBottom="@dimen/medium_margin"
+                    android:text="@string/login_redirect"
+                    android:textColor="@android:color/white"
+                    app:backgroundTint="@color/primary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@+id/sign_in_password"
+                    app:layout_constraintRight_toRightOf="@+id/sign_in_password"
+                    app:layout_constraintTop_toBottomOf="@+id/sign_in_submit" />
 
-</android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
+
+        <ProgressBar
+            android:id="@+id/sign_in_progress"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/cardView"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </im.goody.android.screens.auth.login.LoginView>
+</layout>
