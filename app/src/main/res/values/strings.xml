@@ -32,5 +32,7 @@
     <string name="login_redirect">Do not have account? Register</string>
     <string name="login_title">Login</string>
     <string name="invalid_fields_message">Please make all fields valid</string>
+    <string name="register_progress_title">Signing up</string>
+    <string name="login_progress_title">Loging in</string>
 
 </resources>

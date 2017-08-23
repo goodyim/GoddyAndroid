@@ -7,4 +7,8 @@ public interface IRootPresenter {
 
     void showIntroScreen();
     void showMainScreen();
+
+    void hideProgress();
+    void showRegisterProgress();
+    void showLoginProgress();
 }

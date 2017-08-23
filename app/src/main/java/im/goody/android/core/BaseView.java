@@ -55,11 +55,11 @@ public abstract class BaseView<C extends Controller, B extends ViewDataBinding> 
 
     protected abstract void onDetached();
 
-    protected void showSnackbarMessage(@StringRes int stringRes) {
+    public void showSnackbarMessage(@StringRes int stringRes) {
         Snackbar.make(this, stringRes, Snackbar.LENGTH_LONG).show();
     }
 
-    protected void showSnackbarMessage(String text) {
+    public void showSnackbarMessage(String text) {
         Snackbar.make(this, text, Snackbar.LENGTH_LONG).show();
     }
 }

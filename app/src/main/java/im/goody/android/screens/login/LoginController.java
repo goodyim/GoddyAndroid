@@ -1,4 +1,4 @@
-package im.goody.android.screens.auth.login;
+package im.goody.android.screens.login;
 
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -18,10 +18,16 @@ public class LoginController extends BaseController<LoginView> {
 
     public void login() {
         if (authData.isValid()) {
-            attachedView.showProgress();
+            rootPresenter.showLoginProgress();
             disposable = repository.login(authData.body()).subscribe(
-                    result -> rootPresenter.showMainScreen(),
-                    error -> attachedView.showAuthError(error.getMessage())
+                    result -> {
+                        rootPresenter.hideProgress();
+                        rootPresenter.showMainScreen();
+                    },
+                    error -> {
+                        rootPresenter.hideProgress();
+                        attachedView.showSnackbarMessage(error.getMessage());
+                    }
             );
         } else {
             attachedView.showInvalidFieldsMessage();

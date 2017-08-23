@@ -1,4 +1,4 @@
-package im.goody.android.screens.auth.login;
+package im.goody.android.screens.login;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -16,24 +16,8 @@ public class LoginView extends BaseView<LoginController, ScreenLoginBinding> {
         binding.setUser(data);
     }
 
-    public void showProgress() {
-        binding.signInProgress.setVisibility(VISIBLE);
-        binding.signInSubmit.setEnabled(false);
-        binding.signInRedirect.setEnabled(false);
-        binding.signInFacebook.setEnabled(false);
-    }
-
     public void showInvalidFieldsMessage() {
         showSnackbarMessage(R.string.invalid_fields_message);
-    }
-
-    public void showAuthError(String text) {
-        binding.signInProgress.setVisibility(GONE);
-        binding.signInSubmit.setEnabled(true);
-        binding.signInRedirect.setEnabled(true);
-        binding.signInFacebook.setEnabled(true);
-
-        showSnackbarMessage(text);
     }
 
     @Override

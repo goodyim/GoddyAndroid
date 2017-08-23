@@ -1,4 +1,4 @@
-package im.goody.android.screens.auth.login;
+package im.goody.android.screens.login;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
@@ -82,12 +82,14 @@ public class LoginViewModel extends BaseObservable {
 
     private void setEmailDrawable() {
         int res = isEmailValid() ? R.drawable.auth_field_valid : R.drawable.auth_field_invalid;
+        if (TextUtils.isEmpty(email)) res = R.drawable.auth_field_background;
         emailRes = ContextCompat.getDrawable(context, res);
         notifyPropertyChanged(BR.emailRes);
     }
 
     private void setPasswordDrawable() {
         int res = isPasswordValid() ? R.drawable.auth_field_valid : R.drawable.auth_field_invalid;
+        if (TextUtils.isEmpty(password)) res = R.drawable.auth_field_background;
         passwordRes = ContextCompat.getDrawable(context, res);
         notifyPropertyChanged(BR.passwordRes);
     }

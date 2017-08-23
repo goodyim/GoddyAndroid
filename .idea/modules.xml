@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GoddyAndroid.iml" filepath="$PROJECT_DIR$/GoddyAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Goody.iml" filepath="$PROJECT_DIR$/Goody.iml" />
       <module fileurl="file://$PROJECT_DIR$/Goody.iml" filepath="$PROJECT_DIR$/Goody.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

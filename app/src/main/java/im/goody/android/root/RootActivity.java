@@ -1,8 +1,10 @@
 package im.goody.android.root;
 
+import android.app.ProgressDialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -25,10 +27,11 @@ import im.goody.android.R;
 import im.goody.android.data.local.PreferencesManager;
 import im.goody.android.databinding.ActivityRootBinding;
 import im.goody.android.di.components.RootComponent;
-import im.goody.android.screens.auth.login.LoginController;
+import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.main.MainController;
 import im.goody.android.ui.helpers.MenuItemHolder;
 
+@SuppressWarnings("deprecation")
 public class RootActivity extends AppCompatActivity
         implements IRootView, NavigationView.OnNavigationItemSelectedListener {
 
@@ -38,6 +41,7 @@ public class RootActivity extends AppCompatActivity
     private ActionBarDrawerToggle drawerToggle;
     private ActivityRootBinding binding;
     private Router router;
+    private ProgressDialog progressDialog;
 
     //region ================= Life cycle =================
 
@@ -156,6 +160,24 @@ public class RootActivity extends AppCompatActivity
     @Override
     public void showScreen(Controller controller) {
         router.replaceTopController(RouterTransaction.with(controller));
+    }
+
+    @Override
+    public void showProgress(@StringRes int titleRes) {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setCancelable(false);
+        }
+        progressDialog.setTitle(titleRes);
+        progressDialog.show();
+    }
+
+    public void hideProgress() {
+        if (progressDialog != null) {
+            if (progressDialog.isShowing()) {
+                progressDialog.hide();
+            }
+        }
     }
 
     //endregion
