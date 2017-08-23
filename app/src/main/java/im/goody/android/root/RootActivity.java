@@ -106,6 +106,15 @@ public class RootActivity extends AppCompatActivity
         super.onStop();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (router.getBackstackSize() > 1) {
+            router.popCurrentController();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     //endregion
 
     //region ================= IBarView =================
@@ -158,8 +167,20 @@ public class RootActivity extends AppCompatActivity
     //region ================= IRootView =================
 
     @Override
-    public void showScreen(Controller controller) {
-        router.replaceTopController(RouterTransaction.with(controller));
+    public void showScreen(Class<? extends Controller> controllerClass) {
+        String tag = controllerClass.getName();
+        Controller controller = router.getControllerWithTag(tag);
+        if (controller == null) {
+            controller = instantiateController(controllerClass);
+        }
+        router.pushController(RouterTransaction.with(controller).tag(tag));
+    }
+
+    @Override
+    public void showScreenAsRoot(Class<? extends Controller> controllerClass) {
+        String tag = controllerClass.getName();
+        Controller controller = instantiateController(controllerClass);
+        router.setRoot(RouterTransaction.with(controller).tag(tag));
     }
 
     @Override
@@ -181,4 +202,13 @@ public class RootActivity extends AppCompatActivity
     }
 
     //endregion
+
+    private <C extends Controller> C instantiateController(Class<C> controllerClass) {
+        try {
+            return controllerClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

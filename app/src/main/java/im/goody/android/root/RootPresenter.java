@@ -26,25 +26,25 @@ public class RootPresenter implements IRootPresenter {
     @Override
     public void showIntroScreen() {
         if (rootView != null)
-            rootView.showScreen(new IntroController());
+            rootView.showScreen(IntroController.class);
     }
 
     @Override
     public void showMainScreen() {
         if (rootView != null)
-            rootView.showScreen(new MainController());
+            rootView.showScreenAsRoot(MainController.class);
     }
 
     @Override
     public void showLoginScreen() {
         if (rootView != null)
-            rootView.showScreen(new LoginController());
+            rootView.showScreen(LoginController.class);
     }
 
     @Override
     public void showRegisterScreen() {
         if (rootView != null)
-            rootView.showScreen(new RegisterController());
+            rootView.showScreen(RegisterController.class);
     }
 
     @Override
