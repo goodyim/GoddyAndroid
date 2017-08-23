@@ -60,12 +60,15 @@ public class RootActivity extends AppCompatActivity
 //        if (!router.hasRootController())
 //            router.setRoot(RouterTransaction.with(new MainController()));
 
-        if (!router.hasRootController())
+        if (!router.hasRootController()) {
+            Class<? extends Controller> controllerClass;
             if (new PreferencesManager(this).isTokenPresent()) {
-                router.setRoot(RouterTransaction.with(new MainController()));
+                controllerClass = MainController.class;
             } else {
-                router.setRoot(RouterTransaction.with(new LoginController()));
+                controllerClass = LoginController.class;
             }
+            showScreenAsRoot(controllerClass);
+        }
     }
 
     private void initDaggerComponent() {
