@@ -1,8 +1,8 @@
-package im.goody.android.data.dto;
+package im.goody.android.data.network.req;
 
 import android.graphics.Bitmap;
 
-public class Register {
+public class RegisterReq {
     private String name;
     private String email;
     private String password;
@@ -30,22 +30,22 @@ public class Register {
 
     // ======= region setters =======
 
-    public Register setName(String name) {
+    public RegisterReq setName(String name) {
         this.name = name;
         return this;
     }
 
-    public Register setEmail(String email) {
+    public RegisterReq setEmail(String email) {
         this.email = email;
         return this;
     }
 
-    public Register setPassword(String password) {
+    public RegisterReq setPassword(String password) {
         this.password = password;
         return this;
     }
 
-    public Register setAvatar(Bitmap avatar) {
+    public RegisterReq setAvatar(Bitmap avatar) {
         this.avatar = avatar;
         return this;
     }

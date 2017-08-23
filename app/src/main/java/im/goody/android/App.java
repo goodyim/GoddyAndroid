@@ -11,6 +11,7 @@ import im.goody.android.di.modules.RootModule;
 
 public class App extends Application {
     private static Context appContext;
+    private static DataComponent dataComponent;
     private static RootComponent rootComponent;
 
     @Override
@@ -20,26 +21,30 @@ public class App extends Application {
         initDaggerComponents();
     }
 
-    public static RootComponent getRootComponent() {
-        return rootComponent;
-    }
-
     public static Context getAppContext() {
         return appContext;
     }
 
     //region ================= DI =================
 
+    public static DataComponent getDataComponent() {
+        return dataComponent;
+    }
+
+    public static RootComponent getRootComponent() {
+        return rootComponent;
+    }
+
     private void initDaggerComponents() {
         AppComponent appComponent = DaggerApp_AppComponent.builder()
                 .appModule(new AppModule(appContext))
                 .build();
-        DataComponent dataComponent = appComponent.plus(new DataModule());
+        dataComponent = appComponent.plus(new DataModule());
         rootComponent = dataComponent.plus(new RootModule());
     }
 
     @dagger.Module
-    public class AppModule {
+    class AppModule {
         private Context context;
 
         AppModule(Context context) {
@@ -53,7 +58,7 @@ public class App extends Application {
     }
 
     @dagger.Component(modules = AppModule.class)
-    public interface AppComponent {
+    interface AppComponent {
         Context getContext();
         DataComponent plus(DataModule module);
     }

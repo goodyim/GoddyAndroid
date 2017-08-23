@@ -22,7 +22,7 @@
     <string name="news_item_more_description">More actions</string>
     <string name="join">Join</string>
 
-    <!--Login and Register-->
+    <!--Login and RegisterReq-->
     <string name="register_avatar_description">Choose avatar</string>
     <string name="go">Go</string>
     <string name="password_hint">Password</string>

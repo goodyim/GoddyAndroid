@@ -42,11 +42,6 @@ public class MainView extends BaseView<MainController, ScreenMainBinding> implem
         binding.mainNewsList.setAdapter(new MainAdapter(data));
     }
 
-    public void showProgress() {
-        binding.progressBar.setVisibility(VISIBLE);
-        binding.mainNewsList.setVisibility(GONE);
-    }
-
     // region ========= OnRefreshListener =============
 
     @Override

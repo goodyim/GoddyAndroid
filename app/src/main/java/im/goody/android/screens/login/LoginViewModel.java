@@ -10,15 +10,15 @@ import android.text.TextUtils;
 import im.goody.android.App;
 import im.goody.android.BR;
 import im.goody.android.R;
-import im.goody.android.data.dto.Auth;
+import im.goody.android.data.network.req.LoginReq;
 
 import static android.util.Patterns.EMAIL_ADDRESS;
 import static im.goody.android.Constants.MIN_PASSWORD_LENGTH;
 
+@SuppressWarnings("unused")
 public class LoginViewModel extends BaseObservable {
     private String email;
     private String password;
-    private Context context;
 
     @Bindable
     private Drawable emailRes;
@@ -26,18 +26,26 @@ public class LoginViewModel extends BaseObservable {
     @Bindable
     private Drawable passwordRes;
 
-    public LoginViewModel() {
-        context = App.getAppContext();
-        emailRes = ContextCompat.getDrawable(context, R.drawable.auth_field_background);
-        passwordRes = ContextCompat.getDrawable(context, R.drawable.auth_field_background);
+    private Drawable emptyFieldDrawable;
+    private Drawable validFieldDrawable;
+    private Drawable invalidFieldDrawable;
+
+    LoginViewModel() {
+        Context context = App.getAppContext();
+        emptyFieldDrawable = ContextCompat.getDrawable(context, R.drawable.field_background);
+        validFieldDrawable = ContextCompat.getDrawable(context, R.drawable.field_valid);
+        invalidFieldDrawable = ContextCompat.getDrawable(context, R.drawable.field_invalid);
+
+        emailRes = emptyFieldDrawable;
+        passwordRes = emptyFieldDrawable;
     }
 
-    public boolean isValid() {
+    boolean isValid() {
         return isEmailValid() && isPasswordValid();
     }
 
-    public Auth body() {
-        return new Auth()
+    LoginReq body() {
+        return new LoginReq()
                 .setEmail(email)
                 .setPassword(password);
     }
@@ -81,16 +89,24 @@ public class LoginViewModel extends BaseObservable {
     }
 
     private void setEmailDrawable() {
-        int res = isEmailValid() ? R.drawable.auth_field_valid : R.drawable.auth_field_invalid;
-        if (TextUtils.isEmpty(email)) res = R.drawable.auth_field_background;
-        emailRes = ContextCompat.getDrawable(context, res);
+        if (TextUtils.isEmpty(email))
+            emailRes = emptyFieldDrawable;
+        else
+        if (isEmailValid())
+            emailRes = validFieldDrawable;
+        else
+            emailRes = invalidFieldDrawable;
         notifyPropertyChanged(BR.emailRes);
     }
 
     private void setPasswordDrawable() {
-        int res = isPasswordValid() ? R.drawable.auth_field_valid : R.drawable.auth_field_invalid;
-        if (TextUtils.isEmpty(password)) res = R.drawable.auth_field_background;
-        passwordRes = ContextCompat.getDrawable(context, res);
+        if (TextUtils.isEmpty(password))
+            passwordRes = emptyFieldDrawable;
+        else
+        if (isPasswordValid())
+            passwordRes = validFieldDrawable;
+        else
+            passwordRes = invalidFieldDrawable;
         notifyPropertyChanged(BR.passwordRes);
     }
 

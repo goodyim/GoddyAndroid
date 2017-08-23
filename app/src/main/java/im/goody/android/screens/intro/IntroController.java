@@ -45,8 +45,4 @@ public class IntroController extends BaseController {
     }
 
     //endregion
-
-    void onNextClick() {
-        rootPresenter.showMainScreen();
-    }
 }

@@ -17,7 +17,7 @@ public class MainController extends BaseController<MainView> {
 
     private List<Deal> data;
 
-    public void refreshData() {
+    void refreshData() {
         disposable = repository.getNews().subscribe(result -> {
             data = result;
             attachedView.showData(data);
@@ -65,8 +65,4 @@ public class MainController extends BaseController<MainView> {
     }
 
     //endregion
-
-    void onNextClick() {
-        rootPresenter.showIntroScreen();
-    }
 }

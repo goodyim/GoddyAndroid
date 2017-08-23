@@ -7,9 +7,14 @@ import android.preference.PreferenceManager;
 public class PreferencesManager {
     private final SharedPreferences sharedPreferences;
 
+    private static final String USER_ID_KEY = "USER_ID";
+    private static final String USER_TOKEN_KEY = "USER_TOKEN";
+
     public PreferencesManager(Context context) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
+
+    //region ================= Private methods =================
 
     private void setStringValue(String keyName, String keyValue) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -23,9 +28,9 @@ public class PreferencesManager {
         editor.apply();
     }
 
-    //region ================= User Id =================
+    //endregion
 
-    private static final String USER_ID_KEY = "USER_ID";
+    //region ================= User =================
 
     public void saveUserId(int userId) {
         setIntValue(USER_ID_KEY, userId);
@@ -34,12 +39,6 @@ public class PreferencesManager {
     public int getUserId() {
         return sharedPreferences.getInt(USER_ID_KEY, 0);
     }
-
-    //endregion
-
-    //region ================= User Token =================
-
-    private static final String USER_TOKEN_KEY = "USER_TOKEN";
 
     public void saveUserToken(String userToken) {
         setStringValue(USER_TOKEN_KEY, userToken);

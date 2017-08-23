@@ -7,6 +7,7 @@ import im.goody.android.core.BaseView;
 import im.goody.android.databinding.ScreenRegisterBinding;
 
 public class RegisterView extends BaseView<RegisterController, ScreenRegisterBinding> {
+
     public RegisterView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }

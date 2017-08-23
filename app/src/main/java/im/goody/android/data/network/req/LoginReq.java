@@ -1,6 +1,6 @@
-package im.goody.android.data.dto;
+package im.goody.android.data.network.req;
 
-public class Auth {
+public class LoginReq {
     private String email;
     private String password;
 
@@ -8,7 +8,7 @@ public class Auth {
         return email;
     }
 
-    public Auth setEmail(String email) {
+    public LoginReq setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -17,7 +17,7 @@ public class Auth {
         return password;
     }
 
-    public Auth setPassword(String password) {
+    public LoginReq setPassword(String password) {
         this.password = password;
         return this;
     }

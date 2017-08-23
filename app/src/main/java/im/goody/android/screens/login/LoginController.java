@@ -12,14 +12,14 @@ import im.goody.android.di.components.RootComponent;
 
 public class LoginController extends BaseController<LoginView> {
 
-    private LoginViewModel authData = new LoginViewModel();
+    private LoginViewModel loginData = new LoginViewModel();
 
     //======= region LoginController =======
 
     void login() {
-        if (authData.isValid()) {
-            rootPresenter.showLoginProgress();
-            disposable = repository.login(authData.body()).subscribe(
+        if (loginData.isValid()) {
+            rootPresenter.showProgress(R.string.register_progress_title);
+            disposable = repository.login(loginData.body()).subscribe(
                     result -> {
                         rootPresenter.hideProgress();
                         rootPresenter.showMainScreen();
@@ -60,7 +60,7 @@ public class LoginController extends BaseController<LoginView> {
     @Override
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
-        attachedView.setAuthData(authData);
+        attachedView.setAuthData(loginData);
     }
 
     @NonNull

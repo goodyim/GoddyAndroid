@@ -24,11 +24,8 @@ import javax.inject.Inject;
 
 import im.goody.android.App;
 import im.goody.android.R;
-import im.goody.android.data.local.PreferencesManager;
 import im.goody.android.databinding.ActivityRootBinding;
 import im.goody.android.di.components.RootComponent;
-import im.goody.android.screens.login.LoginController;
-import im.goody.android.screens.main.MainController;
 import im.goody.android.ui.helpers.MenuItemHolder;
 
 @SuppressWarnings("deprecation")
@@ -37,6 +34,7 @@ public class RootActivity extends AppCompatActivity
 
     @Inject
     IRootPresenter presenter;
+
     private ActionBar actionBar;
     private ActionBarDrawerToggle drawerToggle;
     private ActivityRootBinding binding;
@@ -56,16 +54,8 @@ public class RootActivity extends AppCompatActivity
 
         initToolBar();
 
-//        === Uncomment if need to test MainController ===
-//        if (!router.hasRootController())
-//            router.setRoot(RouterTransaction.with(new MainController()));
-
         if (!router.hasRootController())
-            if (new PreferencesManager(this).isTokenPresent()) {
-                router.setRoot(RouterTransaction.with(new MainController()));
-            } else {
-                router.setRoot(RouterTransaction.with(new LoginController()));
-            }
+            router.setRoot(RouterTransaction.with(presenter.getStartController()));
     }
 
     private void initDaggerComponent() {

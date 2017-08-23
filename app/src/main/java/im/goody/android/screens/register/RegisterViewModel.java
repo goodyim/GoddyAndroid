@@ -16,7 +16,7 @@ import java.io.IOException;
 import im.goody.android.App;
 import im.goody.android.BR;
 import im.goody.android.R;
-import im.goody.android.data.dto.Register;
+import im.goody.android.data.network.req.RegisterReq;
 import im.goody.android.utils.BitmapUtils;
 
 import static android.util.Patterns.EMAIL_ADDRESS;
@@ -30,8 +30,6 @@ public class RegisterViewModel extends BaseObservable{
     private String email;
     private String password;
 
-    private Context context;
-
     @Bindable
     private Drawable nameRes;
 
@@ -44,12 +42,19 @@ public class RegisterViewModel extends BaseObservable{
     @Bindable
     private RoundedBitmapDrawable avatar;
 
+    private Drawable emptyFieldDrawable;
+    private Drawable validFieldDrawable;
+    private Drawable invalidFieldDrawable;
+
     RegisterViewModel() {
-        context = App.getAppContext();
-        nameRes = ContextCompat.getDrawable(context, R.drawable.auth_field_background);
-        context = App.getAppContext();
-        emailRes = ContextCompat.getDrawable(context, R.drawable.auth_field_background);
-        passwordRes = ContextCompat.getDrawable(context, R.drawable.auth_field_background);
+        Context context = App.getAppContext();
+        emptyFieldDrawable = ContextCompat.getDrawable(context, R.drawable.field_background);
+        validFieldDrawable = ContextCompat.getDrawable(context, R.drawable.field_valid);
+        invalidFieldDrawable = ContextCompat.getDrawable(context, R.drawable.field_invalid);
+
+        nameRes = emptyFieldDrawable;
+        emailRes = emptyFieldDrawable;
+        passwordRes = emptyFieldDrawable;
     }
 
     boolean isValid() {
@@ -57,8 +62,8 @@ public class RegisterViewModel extends BaseObservable{
                 && isNameValid() && avatar != null;
     }
 
-    Register body() {
-        return new Register()
+    RegisterReq body() {
+        return new RegisterReq()
                 .setEmail(email)
                 .setAvatar(avatar.getBitmap())
                 .setPassword(password)
@@ -133,23 +138,35 @@ public class RegisterViewModel extends BaseObservable{
     }
 
     private void setEmailDrawable() {
-        int res = isEmailValid() ? R.drawable.auth_field_valid : R.drawable.auth_field_invalid;
-        if (TextUtils.isEmpty(email)) res = R.drawable.auth_field_background;
-        emailRes = ContextCompat.getDrawable(context, res);
+        if (TextUtils.isEmpty(email))
+            emailRes = emptyFieldDrawable;
+        else
+        if (isEmailValid())
+            emailRes = validFieldDrawable;
+        else
+            emailRes = invalidFieldDrawable;
         notifyPropertyChanged(BR.emailRes);
     }
 
     private void setPasswordDrawable() {
-        int res = isPasswordValid() ? R.drawable.auth_field_valid : R.drawable.auth_field_invalid;
-        if (TextUtils.isEmpty(password)) res = R.drawable.auth_field_background;
-        passwordRes = ContextCompat.getDrawable(context, res);
+        if (TextUtils.isEmpty(password))
+            passwordRes = emptyFieldDrawable;
+        else
+        if (isPasswordValid())
+            passwordRes = validFieldDrawable;
+        else
+            passwordRes = invalidFieldDrawable;
         notifyPropertyChanged(BR.passwordRes);
     }
 
     private void setNameDrawable() {
-        int res = isNameValid() ? R.drawable.auth_field_valid : R.drawable.auth_field_invalid;
-        if (TextUtils.isEmpty(name)) res = R.drawable.auth_field_background;
-        nameRes = ContextCompat.getDrawable(context, res);
+        if (TextUtils.isEmpty(name))
+            nameRes = emptyFieldDrawable;
+        else
+        if (isNameValid())
+            nameRes = validFieldDrawable;
+        else
+            nameRes = invalidFieldDrawable;
         notifyPropertyChanged(BR.nameRes);
     }
 
@@ -160,6 +177,7 @@ public class RegisterViewModel extends BaseObservable{
     }
 
     void setAvatar(Uri imageUri) {
+        Context context = App.getAppContext();
         try {
             Bitmap original = MediaStore.Images.Media.getBitmap(context.getContentResolver(), imageUri);
             avatar = BitmapUtils.prepareAvatar(original, context);

@@ -51,7 +51,6 @@ public class RegisterController extends BaseController<RegisterView> {
 
     // ======= region RegisterController =======
 
-
     @Override
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
@@ -68,7 +67,7 @@ public class RegisterController extends BaseController<RegisterView> {
 
     void register() {
         if (viewModel.isValid()) {
-            rootPresenter.showRegisterProgress();
+            rootPresenter.showProgress(R.string.register_progress_title);
             disposable = repository.register(viewModel.body()).subscribe(
                     result -> {
                         rootPresenter.hideProgress();
@@ -80,7 +79,7 @@ public class RegisterController extends BaseController<RegisterView> {
                     }
             );
         } else {
-            attachedView.showSnackbarMessage(R.string.invalid_fields_message);;
+            attachedView.showSnackbarMessage(R.string.invalid_fields_message);
         }
     }
 
@@ -104,9 +103,17 @@ public class RegisterController extends BaseController<RegisterView> {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == GALLERY_REQUEST && resultCode == Activity.RESULT_OK) {
-            Uri uri = data.getData();
-            viewModel.setAvatar(uri);
+            if (data != null) {
+                Uri uri = data.getData();
+                viewModel.setAvatar(uri);
+            }
         }
+    }
+
+    private void makeGalleryRequest() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/**");
+        startActivityForResult(intent, GALLERY_REQUEST);
     }
 
     // ======= region DI =======
@@ -118,10 +125,4 @@ public class RegisterController extends BaseController<RegisterView> {
     }
 
     //endregion
-
-    private void makeGalleryRequest() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/**");
-        startActivityForResult(intent, GALLERY_REQUEST);
-    }
 }
