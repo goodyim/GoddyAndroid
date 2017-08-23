@@ -9,6 +9,7 @@ import im.goody.android.root.RootPresenter;
 import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.intro.IntroController;
 import im.goody.android.screens.main.MainController;
+import im.goody.android.screens.register.RegisterController;
 
 @Subcomponent(modules = RootModule.class)
 @DaggerScope(RootActivity.class)
@@ -18,5 +19,6 @@ public interface RootComponent {
 
     MainController.Component plusMain();
     LoginController.Component plusLogin();
+    RegisterController.Component plusRegister();
     IntroController.Component plusIntro();
 }

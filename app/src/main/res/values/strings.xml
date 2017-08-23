@@ -34,5 +34,8 @@
     <string name="invalid_fields_message">Please make all fields valid</string>
     <string name="register_progress_title">Signing up</string>
     <string name="login_progress_title">Loging in</string>
+    <string name="register_title">Register</string>
+    <string name="read_permission_denied">Please give us permissions first</string>
+    <string name="register_redirect">Have an acount? Log in</string>
 
 </resources>

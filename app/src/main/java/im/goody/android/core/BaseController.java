@@ -1,6 +1,8 @@
 package im.goody.android.core;
 
+import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.bluelinelabs.conductor.Controller;
@@ -52,4 +54,12 @@ public abstract class BaseController<V extends BaseView> extends Controller {
         if (disposable != null && !disposable.isDisposed()) disposable.dispose();
         super.onDetach(view);
     }
+
+    //======= region Permissions =======
+
+    protected boolean isPermissionGranted(String permission) {
+        return ContextCompat.checkSelfPermission(App.getAppContext(), permission) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    //endregion
 }

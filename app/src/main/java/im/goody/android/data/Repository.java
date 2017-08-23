@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import im.goody.android.data.dto.Auth;
 import im.goody.android.data.dto.Deal;
+import im.goody.android.data.dto.Register;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -35,5 +36,12 @@ public class Repository implements IRepository{
         } else {
             return Observable.error(new Throwable("Invalid cridentials"));
         }
+    }
+
+    @Override
+    public Observable<String> register(Register data) {
+        return Observable.just("Completed")
+                .delay(3, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }

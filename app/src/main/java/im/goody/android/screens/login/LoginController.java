@@ -12,11 +12,11 @@ import im.goody.android.di.components.RootComponent;
 
 public class LoginController extends BaseController<LoginView> {
 
-    protected LoginViewModel authData = new LoginViewModel();
+    private LoginViewModel authData = new LoginViewModel();
 
     //======= region LoginController =======
 
-    public void login() {
+    void login() {
         if (authData.isValid()) {
             rootPresenter.showLoginProgress();
             disposable = repository.login(authData.body()).subscribe(
@@ -30,8 +30,12 @@ public class LoginController extends BaseController<LoginView> {
                     }
             );
         } else {
-            attachedView.showInvalidFieldsMessage();
+            attachedView.showSnackbarMessage(R.string.invalid_fields_message);
         }
+    }
+
+    void goToRegister() {
+        rootPresenter.showRegisterScreen();
     }
 
     //endregion
