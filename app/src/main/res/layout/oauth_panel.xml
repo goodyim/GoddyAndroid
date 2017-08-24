@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardUseCompatPadding="true"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="@+id/register_form"
+    app:layout_constraintRight_toRightOf="@+id/register_form"
+    app:layout_constraintTop_toBottomOf="@+id/register_form">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/small_padding">
+
+        <ImageView
+            android:contentDescription="@string/oauth_facebook_description"
+            android:id="@+id/oauth_facebook"
+            android:layout_width="@dimen/oauth_button_size"
+            android:layout_height="@dimen/oauth_button_size"
+            android:layout_marginBottom="@dimen/small_padding"
+            android:layout_marginLeft="@dimen/small_padding"
+            android:layout_marginStart="@dimen/small_padding"
+            android:layout_marginTop="@dimen/small_padding"
+            android:tint="@color/auth_facebook_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_facebook_box" />
+
+        <ImageView
+            android:contentDescription="@string/oauth_google_description"
+            android:id="@+id/oauth_google"
+            android:layout_width="@dimen/oauth_button_size"
+            android:layout_height="@dimen/oauth_button_size"
+            android:layout_marginLeft="@dimen/medium_margin"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:tint="@color/auth_google_background"
+            app:layout_constraintBottom_toBottomOf="@+id/oauth_facebook"
+            app:layout_constraintLeft_toRightOf="@+id/oauth_facebook"
+            app:layout_constraintTop_toTopOf="@+id/oauth_facebook"
+            app:srcCompat="@drawable/ic_google_plus_box" />
+
+        <ImageView
+            android:contentDescription="@string/oauth_vk_description"
+            android:id="@+id/oauth_vk"
+            android:layout_width="@dimen/oauth_button_size"
+            android:layout_height="@dimen/oauth_button_size"
+            android:layout_marginLeft="@dimen/medium_margin"
+            android:layout_marginRight="@dimen/medium_margin"
+            android:tint="@color/auth_vk_background"
+            app:layout_constraintBottom_toBottomOf="@+id/oauth_google"
+            app:layout_constraintLeft_toRightOf="@+id/oauth_google"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/oauth_google"
+            app:srcCompat="@drawable/ic_vk_box" />
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

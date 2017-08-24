@@ -1,45 +1,43 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    <data>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-        <variable
-            name="data"
-            type="im.goody.android.screens.register.RegisterViewModel" />
-    </data>
-
-    <im.goody.android.screens.register.RegisterView
-        android:id="@+id/sign_up_container"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/register_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/register_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+        <include
+            android:id="@+id/oauth_panel"
+            layout="@layout/oauth_panel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/small_margin"
+            android:layout_marginRight="@dimen/small_margin"
+            app:layout_constraintLeft_toLeftOf="@+id/vertical_guideline"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/register_form" />
 
         <android.support.v7.widget.CardView
+            android:id="@+id/register_form"
+            cardUseCompatPadding="true"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="@dimen/auth_cardview_horizontal_margin"
-            android:layout_marginRight="@dimen/auth_cardview_horizontal_margin"
-            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginEnd="@dimen/small_margin"
+            android:layout_marginLeft="@dimen/small_margin"
+            android:layout_marginRight="@dimen/small_margin"
+            android:layout_marginStart="@dimen/small_margin"
+            android:layout_marginTop="@dimen/medium_margin"
             android:background="@color/auth_cardview_background"
-            app:layout_constraintBottom_toTopOf="@+id/register_facebook"
+            app:cardUseCompatPadding="true"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            card_view:cardElevation="2dp"
-            card_view:cardUseCompatPadding="true">
+            app:layout_constraintRight_toLeftOf="@+id/vertical_guideline"
+            app:layout_constraintTop_toTopOf="parent">
 
-                    <android.support.constraint.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/register_image"
@@ -47,15 +45,15 @@
                     android:layout_height="@dimen/register_avatar_size"
                     android:layout_centerInParent="true"
                     android:layout_marginTop="@dimen/medium_margin"
-                    android:adjustViewBounds="true"
+                    android:adjustViewBounds="false"
                     android:background="@drawable/register_avatar_background"
                     android:contentDescription="@string/register_avatar_description"
                     android:padding="@dimen/medium_padding"
+                    android:tint="@color/accent"
                     app:layout_constraintLeft_toLeftOf="@+id/register_email"
                     app:layout_constraintRight_toRightOf="@+id/register_email"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:selected="@{data.avatar}"
-                    app:srcCompat="@drawable/ic_add_accent" />
+                    app:srcCompat="@drawable/ic_add_24dp" />
 
                 <EditText
                     android:id="@+id/register_email"
@@ -66,11 +64,10 @@
                     android:layout_marginRight="@dimen/medium_margin"
                     android:layout_marginStart="@dimen/medium_margin"
                     android:layout_marginTop="@dimen/auth_form_views_margin_top"
-                    android:background="@{data.emailRes}"
+                    android:background="@drawable/auth_field_background"
                     android:hint="@string/email_hint"
                     android:inputType="textEmailAddress"
                     android:padding="@dimen/medium_padding"
-                    android:text="@={data.email}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/register_image" />
@@ -80,12 +77,11 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/edit_text_height_big"
                     android:layout_marginTop="@dimen/auth_form_views_margin_top"
-                    android:background="@{data.nameRes}"
+                    android:background="@drawable/auth_field_background"
                     android:ems="10"
                     android:hint="@string/name_hint"
                     android:inputType="textPersonName"
                     android:padding="@dimen/medium_padding"
-                    android:text="@={data.name}"
                     app:layout_constraintLeft_toLeftOf="@+id/register_email"
                     app:layout_constraintRight_toRightOf="@+id/register_email"
                     app:layout_constraintTop_toBottomOf="@+id/register_email" />
@@ -95,11 +91,10 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/edit_text_height_big"
                     android:layout_marginTop="@dimen/auth_form_views_margin_top"
-                    android:background="@{data.passwordRes}"
+                    android:background="@drawable/auth_field_background"
                     android:hint="@string/password_hint"
                     android:inputType="textPassword"
                     android:padding="@dimen/medium_padding"
-                    android:text="@={data.password}"
                     app:layout_constraintLeft_toLeftOf="@+id/register_name"
                     app:layout_constraintRight_toRightOf="@+id/register_name"
                     app:layout_constraintTop_toBottomOf="@+id/register_name" />
@@ -108,42 +103,26 @@
                     android:id="@+id/register_submit"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/button_height_big"
+                    android:layout_marginBottom="@dimen/medium_margin"
                     android:layout_marginTop="@dimen/auth_form_views_margin_top"
                     android:text="@string/go"
                     android:textColor="@color/white"
                     app:backgroundTint="@color/accent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="@+id/register_password"
                     app:layout_constraintRight_toRightOf="@+id/register_password"
                     app:layout_constraintTop_toBottomOf="@+id/register_password" />
 
-                <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/register_redirect"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/button_height_big"
-                    android:layout_marginBottom="@dimen/small_margin"
-                    android:text="@string/register_redirect"
-                    android:textColor="@color/white"
-                    app:backgroundTint="@color/primary"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="@+id/register_password"
-                    app:layout_constraintRight_toRightOf="@+id/register_password"
-                    app:layout_constraintTop_toBottomOf="@+id/register_submit" />
 
-
-                    </android.support.constraint.ConstraintLayout>
-                </android.support.v7.widget.CardView>
-
-                <include
-                    android:id="@+id/oauth_panel"
-                    layout="@layout/oauth_panel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/medium_margin"
-                    android:layout_marginTop="@dimen/small_margin"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="@+id/register_form"
-                    app:layout_constraintRight_toRightOf="@+id/register_form"
-                    app:layout_constraintTop_toBottomOf="@+id/register_form" />
             </android.support.constraint.ConstraintLayout>
-        </ScrollView>
-</im.goody.android.screens.register.RegisterView>
+        </android.support.v7.widget.CardView>
+
+        <android.support.constraint.Guideline
+            android:id="@+id/vertical_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.55" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

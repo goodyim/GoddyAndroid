@@ -16,4 +16,6 @@
     <dimen name="cardview_head_height">72dp</dimen>
 
     <dimen name="drawer_height">172dp</dimen>
+    <dimen name="small_padding">8dp</dimen>
+    <dimen name="oauth_button_size">50dp</dimen>
 </resources>
