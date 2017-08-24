@@ -14,6 +14,8 @@ public class BarBuilder {
 
     private boolean backArrow;
     private boolean toolbarVisible;
+    private boolean statusBarVisible = true;
+
     @Nullable
     private Integer titleRes;
     private List<MenuItemHolder> items = new ArrayList<>();
@@ -46,6 +48,12 @@ public class BarBuilder {
         return this;
     }
 
+    @NonNull
+    public BarBuilder setStatusBarVisible(boolean statusBarVisible) {
+        this.statusBarVisible = statusBarVisible;
+        return this;
+    }
+
     public void build() {
         if (view != null) {
             view.setToolBarVisible(toolbarVisible);
@@ -55,6 +63,7 @@ public class BarBuilder {
 
             view.setBackArrow(backArrow);
             view.setToolBarMenuItem(items);
+            view.setStatusBarVisible(statusBarVisible);
         }
     }
 }

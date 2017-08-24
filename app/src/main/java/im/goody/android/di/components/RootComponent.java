@@ -6,8 +6,8 @@ import im.goody.android.di.DaggerScope;
 import im.goody.android.di.modules.RootModule;
 import im.goody.android.root.RootActivity;
 import im.goody.android.root.RootPresenter;
-import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.intro.IntroController;
+import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.main.MainController;
 import im.goody.android.screens.register.RegisterController;
 

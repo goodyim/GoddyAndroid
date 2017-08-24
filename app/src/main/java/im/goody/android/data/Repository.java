@@ -69,6 +69,16 @@ public class Repository implements IRepository{
         return preferencesManager.isTokenPresent();
     }
 
+    @Override
+    public boolean isFirstLaunch() {
+        return preferencesManager.isFirstStart();
+    }
+
+    @Override
+    public void firstLaunched() {
+        preferencesManager.saveFirstLaunched();
+    }
+
     //endregion
 
     //region ================= News =================

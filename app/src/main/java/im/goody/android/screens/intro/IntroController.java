@@ -10,7 +10,19 @@ import im.goody.android.core.BaseController;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 
-public class IntroController extends BaseController {
+public class IntroController extends BaseController<IntroView> {
+    private IntroPageAdapter adapter;
+
+    public IntroController() {
+        super();
+        adapter = new IntroPageAdapter(this);
+    }
+
+    @Override
+    protected void onAttach(@NonNull View view) {
+        super.onAttach(view);
+        attachedView.setAdapter(adapter);
+    }
 
     //region ================= BaseController =================
 
@@ -25,6 +37,8 @@ public class IntroController extends BaseController {
     protected void initActionBar() {
         rootPresenter.newBarBuilder()
                 .setToolbarVisible(false)
+                .setBackArrow(true)
+                .setStatusBarVisible(false)
                 .build();
     }
 
@@ -32,6 +46,14 @@ public class IntroController extends BaseController {
     @Override
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
         return inflater.inflate(R.layout.screen_intro, container, false);
+    }
+
+    void close() {
+        if (repository.isSigned()) {
+            rootPresenter.showMainScreen();
+        } else {
+            rootPresenter.showLoginScreen();
+        }
     }
 
     //endregion

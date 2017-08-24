@@ -14,8 +14,10 @@ public interface IRootPresenter {
     void hideProgress();
 
     // Show screen methods
-    void showIntroScreen();
     void showMainScreen();
     void showLoginScreen();
     void showRegisterScreen();
+
+    //first start
+    void launched();
 }

@@ -9,6 +9,7 @@ public class PreferencesManager {
 
     private static final String USER_ID_KEY = "USER_ID";
     private static final String USER_TOKEN_KEY = "USER_TOKEN";
+    private static final String FIRST_LAUNCH_KEY = "Goody.firstLaunch";
 
     public PreferencesManager(Context context) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -25,6 +26,12 @@ public class PreferencesManager {
     private void setIntValue(String keyName, int keyValue) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(keyName, keyValue);
+        editor.apply();
+    }
+
+    private void setBooleanValue(String key, boolean value) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(key, value);
         editor.apply();
     }
 
@@ -50,6 +57,19 @@ public class PreferencesManager {
 
     public boolean isTokenPresent() {
         return sharedPreferences.contains(USER_TOKEN_KEY);
+    }
+
+    //endregion
+
+
+    //======= region App prefs =======
+
+    public void saveFirstLaunched() {
+        setBooleanValue(FIRST_LAUNCH_KEY, false);
+    }
+
+    public boolean isFirstStart() {
+        return !sharedPreferences.contains(FIRST_LAUNCH_KEY);
     }
 
     //endregion

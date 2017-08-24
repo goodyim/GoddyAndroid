@@ -43,6 +43,7 @@ dependencies {
 
     // Conductor
     compile 'com.bluelinelabs:conductor:2.1.4'
+    compile 'com.bluelinelabs:conductor-support:2.1.4'
 
     // Dagger 2
     annotationProcessor 'com.google.dagger:dagger-compiler:2.10'

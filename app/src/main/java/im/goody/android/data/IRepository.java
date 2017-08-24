@@ -13,5 +13,8 @@ public interface IRepository {
     Observable<String> register(RegisterReq data);
     boolean isSigned();
 
+    boolean isFirstLaunch();
+    void firstLaunched();
+
     Observable<List<Deal>> getNews();
 }

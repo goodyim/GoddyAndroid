@@ -1,6 +1,7 @@
 package im.goody.android.core;
 
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -26,11 +27,15 @@ public abstract class BaseController<V extends BaseView> extends Controller {
 
     protected Disposable disposable;
 
-    public BaseController() {
+    protected BaseController() {
         RootComponent rootComponent = App.getRootComponent();
         if (rootComponent != null) {
             initDaggerComponent(rootComponent);
         }
+    }
+
+    protected BaseController(Bundle args) {
+        super(args);
     }
 
     protected abstract void initDaggerComponent(RootComponent parentComponent);
@@ -42,6 +47,7 @@ public abstract class BaseController<V extends BaseView> extends Controller {
         attachedView = (V) view;
         attachedView.takeController(this);
         initActionBar();
+        rootPresenter.launched();
     }
 
     protected abstract void initActionBar();

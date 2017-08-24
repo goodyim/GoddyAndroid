@@ -10,9 +10,16 @@
     <string name="action_about">About</string>
 
     <!-- screen_main -->
-    <string name="main_title">Новости</string>
+    <string name="main_title">News</string>
 
     <!-- screen_intro -->
+    <string name="welcome_title_1">Title 1</string>
+    <string name="welcome_title_2">Title 2</string>
+    <string name="welcome_title_3">Title 3</string>
+
+    <string name="welcome_description_1">Description 1</string>
+    <string name="welcome_description_2">Description 2</string>
+    <string name="welcome_description_3">Description 3</string>
 
 
     <!-- News item -->
@@ -22,7 +29,6 @@
     <string name="news_item_more_description">More actions</string>
 
     <string name="join">Join</string>
-    <!--End news item -->
 
     <!-- Login and Register -->
     <string name="register_avatar_description">Choose avatar</string>
@@ -45,6 +51,5 @@
     <string name="oauth_google_description">Authenticate via Google</string>
     <string name="oauth_facebook_description">Authenticate via Facebook</string>
     <string name="oauth_vk_description">Authenticate via VK</string>
-    <!-- Login and Register -->
-
+    <string name="close">Close</string>
 </resources>

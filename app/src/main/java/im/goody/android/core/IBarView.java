@@ -8,6 +8,6 @@ public interface IBarView {
     void setToolbarTitle(Integer titleRes);
     void setToolBarVisible(boolean visible);
     void setBackArrow(boolean enabled);
-
+    void setStatusBarVisible(boolean visible);
     void setToolBarMenuItem(List<MenuItemHolder> items);
 }

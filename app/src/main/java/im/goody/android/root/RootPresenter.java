@@ -16,10 +16,9 @@ import im.goody.android.ui.helpers.BarBuilder;
 
 public class RootPresenter implements IRootPresenter {
 
-    private IRootView rootView;
-
     @Inject
     IRepository repository;
+    private IRootView rootView;
 
     public RootPresenter() {
         RootComponent component = App.getRootComponent();
@@ -48,7 +47,9 @@ public class RootPresenter implements IRootPresenter {
 
     @Override
     public BaseController getStartController() {
-        if (repository.isSigned())
+        if (repository.isFirstLaunch())
+            return new IntroController();
+        else if (repository.isSigned())
             return new MainController();
         else
             return new LoginController();
@@ -69,12 +70,6 @@ public class RootPresenter implements IRootPresenter {
     //region ================= IRootPresenter - Show screens methods =================
 
     @Override
-    public void showIntroScreen() {
-        if (rootView != null)
-            rootView.showScreen(IntroController.class);
-    }
-
-    @Override
     public void showMainScreen() {
         if (rootView != null)
             rootView.showScreenAsRoot(MainController.class);
@@ -83,13 +78,18 @@ public class RootPresenter implements IRootPresenter {
     @Override
     public void showLoginScreen() {
         if (rootView != null)
-            rootView.showScreen(LoginController.class);
+            rootView.showScreenAsRoot(LoginController.class);
     }
 
     @Override
     public void showRegisterScreen() {
         if (rootView != null)
             rootView.showScreen(RegisterController.class);
+    }
+
+    @Override
+    public void launched() {
+        if (repository.isFirstLaunch()) repository.firstLaunched();
     }
 
     //endregion
