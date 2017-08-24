@@ -1,4 +1,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools">
+
     <data>
 
         <variable
@@ -7,127 +10,131 @@
     </data>
 
     <im.goody.android.screens.register.RegisterView
-        android:id="@+id/sign_up_container"
+        android:id="@+id/register_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/register_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
 
-        <android.support.v7.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="@dimen/auth_cardview_horizontal_margin"
-            android:layout_marginRight="@dimen/auth_cardview_horizontal_margin"
-            android:layout_marginTop="@dimen/small_margin"
-            android:background="@color/auth_cardview_background"
-            app:layout_constraintBottom_toTopOf="@+id/register_facebook"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            card_view:cardElevation="2dp"
-            card_view:cardUseCompatPadding="true">
+                <android.support.v7.widget.CardView
+                    android:id="@+id/register_form"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/auth_cardview_horizontal_margin"
+                    android:layout_marginLeft="@dimen/auth_cardview_horizontal_margin"
+                    android:layout_marginRight="@dimen/auth_cardview_horizontal_margin"
+                    android:layout_marginStart="@dimen/auth_cardview_horizontal_margin"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    android:background="@color/auth_cardview_background"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    card_view:cardElevation="2dp"
+                    card_view:cardUseCompatPadding="true">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/register_image"
-                    android:layout_width="@dimen/register_avatar_size"
-                    android:layout_height="@dimen/register_avatar_size"
-                    android:layout_centerInParent="true"
-                    android:layout_marginTop="@dimen/medium_margin"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/register_avatar_background"
-                    android:contentDescription="@string/register_avatar_description"
-                    android:padding="@dimen/medium_padding"
-                    app:layout_constraintLeft_toLeftOf="@+id/register_email"
-                    app:layout_constraintRight_toRightOf="@+id/register_email"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:selected="@{data.avatar}"
-                    app:srcCompat="@drawable/ic_add_accent" />
+                        <ImageView
+                            android:id="@+id/register_image"
+                            android:layout_width="@dimen/register_avatar_size"
+                            android:layout_height="@dimen/register_avatar_size"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="@dimen/medium_margin"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/register_avatar_background"
+                            android:contentDescription="@string/register_avatar_description"
+                            android:padding="@dimen/medium_padding"
+                            app:layout_constraintLeft_toLeftOf="@+id/register_email"
+                            app:layout_constraintRight_toRightOf="@+id/register_email"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:selected="@{data.avatar}"
+                            app:srcCompat="@drawable/ic_add_accent" />
 
-                <EditText
-                    android:id="@+id/register_email"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/edit_text_height_big"
-                    android:layout_marginEnd="@dimen/medium_margin"
-                    android:layout_marginLeft="@dimen/medium_margin"
-                    android:layout_marginRight="@dimen/medium_margin"
-                    android:layout_marginStart="@dimen/medium_margin"
-                    android:layout_marginTop="@dimen/auth_form_views_margin_top"
-                    android:background="@{data.emailRes}"
-                    android:hint="@string/email_hint"
-                    android:inputType="textEmailAddress"
-                    android:padding="@dimen/medium_padding"
-                    android:text="@={data.email}"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/register_image" />
+                        <EditText
+                            android:id="@+id/register_email"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height_big"
+                            android:layout_marginEnd="@dimen/medium_margin"
+                            android:layout_marginLeft="@dimen/medium_margin"
+                            android:layout_marginRight="@dimen/medium_margin"
+                            android:layout_marginStart="@dimen/medium_margin"
+                            android:layout_marginTop="@dimen/auth_form_views_margin_top"
+                            android:background="@{data.emailRes}"
+                            android:hint="@string/email_hint"
+                            android:inputType="textEmailAddress"
+                            android:padding="@dimen/medium_padding"
+                            android:text="@={data.email}"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/register_image" />
 
-                <EditText
-                    android:id="@+id/register_name"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/edit_text_height_big"
-                    android:layout_marginTop="@dimen/auth_form_views_margin_top"
-                    android:background="@{data.nameRes}"
-                    android:ems="10"
-                    android:hint="@string/name_hint"
-                    android:inputType="textPersonName"
-                    android:padding="@dimen/medium_padding"
-                    android:text="@={data.name}"
-                    app:layout_constraintLeft_toLeftOf="@+id/register_email"
-                    app:layout_constraintRight_toRightOf="@+id/register_email"
-                    app:layout_constraintTop_toBottomOf="@+id/register_email" />
+                        <EditText
+                            android:id="@+id/register_name"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height_big"
+                            android:layout_marginTop="@dimen/auth_form_views_margin_top"
+                            android:background="@{data.nameRes}"
+                            android:ems="10"
+                            android:hint="@string/name_hint"
+                            android:inputType="textPersonName"
+                            android:padding="@dimen/medium_padding"
+                            android:text="@={data.name}"
+                            app:layout_constraintLeft_toLeftOf="@+id/register_email"
+                            app:layout_constraintRight_toRightOf="@+id/register_email"
+                            app:layout_constraintTop_toBottomOf="@+id/register_email" />
 
-                <EditText
-                    android:id="@+id/register_password"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/edit_text_height_big"
-                    android:layout_marginTop="@dimen/auth_form_views_margin_top"
-                    android:background="@{data.passwordRes}"
-                    android:hint="@string/password_hint"
-                    android:inputType="textPassword"
-                    android:padding="@dimen/medium_padding"
-                    android:text="@={data.password}"
-                    app:layout_constraintLeft_toLeftOf="@+id/register_name"
-                    app:layout_constraintRight_toRightOf="@+id/register_name"
-                    app:layout_constraintTop_toBottomOf="@+id/register_name" />
+                        <EditText
+                            android:id="@+id/register_password"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height_big"
+                            android:layout_marginTop="@dimen/auth_form_views_margin_top"
+                            android:background="@{data.passwordRes}"
+                            android:hint="@string/password_hint"
+                            android:inputType="textPassword"
+                            android:padding="@dimen/medium_padding"
+                            android:text="@={data.password}"
+                            app:layout_constraintLeft_toLeftOf="@+id/register_name"
+                            app:layout_constraintRight_toRightOf="@+id/register_name"
+                            app:layout_constraintTop_toBottomOf="@+id/register_name" />
 
-                <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/register_submit"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/button_height_big"
-                    android:layout_marginTop="@dimen/auth_form_views_margin_top"
-                    android:text="@string/go"
-                    android:textColor="@color/white"
-                    app:backgroundTint="@color/accent"
-                    app:layout_constraintLeft_toLeftOf="@+id/register_password"
-                    app:layout_constraintRight_toRightOf="@+id/register_password"
-                    app:layout_constraintTop_toBottomOf="@+id/register_password" />
+                        <android.support.v7.widget.AppCompatButton
+                            android:id="@+id/register_submit"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/button_height_big"
+                            android:layout_marginTop="@dimen/auth_form_views_margin_top"
+                            android:text="@string/go"
+                            android:textColor="@color/white"
+                            app:backgroundTint="@color/accent"
+                            app:layout_constraintLeft_toLeftOf="@+id/register_password"
+                            app:layout_constraintRight_toRightOf="@+id/register_password"
+                            app:layout_constraintTop_toBottomOf="@+id/register_password" />
 
-                <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/register_redirect"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/button_height_big"
-                    android:layout_marginBottom="@dimen/small_margin"
-                    android:text="@string/register_redirect"
-                    android:textColor="@color/white"
-                    app:backgroundTint="@color/primary"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="@+id/register_password"
-                    app:layout_constraintRight_toRightOf="@+id/register_password"
-                    app:layout_constraintTop_toBottomOf="@+id/register_submit" />
+                        <android.support.v7.widget.AppCompatButton
+                            android:id="@+id/register_redirect"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/button_height_big"
+                            android:layout_marginBottom="@dimen/small_margin"
+                            android:text="@string/register_redirect"
+                            android:textColor="@color/white"
+                            app:backgroundTint="@color/primary"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="@+id/register_password"
+                            app:layout_constraintRight_toRightOf="@+id/register_password"
+                            app:layout_constraintTop_toBottomOf="@+id/register_submit" />
 
 
                     </android.support.constraint.ConstraintLayout>
@@ -146,4 +153,5 @@
                     app:layout_constraintTop_toBottomOf="@+id/register_form" />
             </android.support.constraint.ConstraintLayout>
         </ScrollView>
-</im.goody.android.screens.register.RegisterView>
+    </im.goody.android.screens.register.RegisterView>
+</layout>
