@@ -21,7 +21,7 @@ public class IntroController extends BaseController<IntroView> {
     @Override
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
-        attachedView.setAdapter(adapter);
+        view().setAdapter(adapter);
     }
 
     //region ================= BaseController =================

@@ -23,8 +23,6 @@ public abstract class BaseController<V extends BaseView> extends Controller {
     @Inject
     protected IRootPresenter rootPresenter;
 
-    protected V attachedView;
-
     protected Disposable disposable;
 
     protected BaseController() {
@@ -44,8 +42,7 @@ public abstract class BaseController<V extends BaseView> extends Controller {
     @Override
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
-        attachedView = (V) view;
-        attachedView.takeController(this);
+        view().takeController(this);
         initActionBar();
         rootPresenter.launched();
     }
@@ -54,11 +51,14 @@ public abstract class BaseController<V extends BaseView> extends Controller {
 
     @Override
     protected void onDetach(@NonNull View view) {
-        attachedView.dropController();
-        attachedView = null;
-
+        view().dropController();
         if (disposable != null && !disposable.isDisposed()) disposable.dispose();
         super.onDetach(view);
+    }
+
+    @SuppressWarnings("unchecked")
+    protected V view() {
+        return (V) getView();
     }
 
     //======= region Permissions =======

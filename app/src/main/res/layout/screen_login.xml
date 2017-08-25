@@ -11,22 +11,13 @@
 
     <im.goody.android.screens.login.LoginView
         android:id="@+id/sign_in_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        style="@style/FullExpandLayout">
 
         <android.support.v7.widget.CardView
             android:id="@+id/sign_in_form"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            style="@style/LoginCardView"
             android:layout_marginBottom="8dp"
-            android:layout_marginLeft="@dimen/auth_cardview_horizontal_margin"
-            android:layout_marginRight="@dimen/auth_cardview_horizontal_margin"
-            android:background="@color/auth_cardview_background"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.35"
             card_view:cardUseCompatPadding="true">
 
@@ -36,62 +27,62 @@
 
                 <EditText
                     android:id="@+id/sign_in_email"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/edit_text_height_big"
-                    android:layout_marginEnd="@dimen/medium_margin"
-                    android:layout_marginLeft="@dimen/medium_margin"
-                    android:layout_marginRight="@dimen/medium_margin"
-                    android:layout_marginStart="@dimen/medium_margin"
-                    android:layout_marginTop="@dimen/auth_form_views_margin_top"
+                    style="@style/LoginControl"
                     android:background="@{user.emailRes}"
                     android:ems="10"
                     android:hint="@string/email_hint"
                     android:inputType="textEmailAddress"
-                    android:padding="@dimen/medium_padding"
                     android:text="@={user.email}"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:imeOptions="actionNext"
+                    android:nextFocusDown="@+id/sign_in_password"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <EditText
                     android:id="@+id/sign_in_password"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/edit_text_height_big"
-                    android:layout_marginTop="@dimen/auth_form_views_margin_top"
+                    style="@style/LoginControl"
+                    android:layout_marginTop="@dimen/size_medium"
                     android:background="@{user.passwordRes}"
                     android:hint="@string/password_hint"
                     android:inputType="textPassword"
-                    android:padding="@dimen/medium_padding"
+                    android:imeOptions="actionDone"
                     android:text="@={user.password}"
-                    app:layout_constraintLeft_toLeftOf="@+id/sign_in_email"
-                    app:layout_constraintRight_toRightOf="@+id/sign_in_email"
                     app:layout_constraintTop_toBottomOf="@+id/sign_in_email" />
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/sign_in_submit"
-                    android:layout_width="0dp"
+                    style="@style/LoginControl"
                     android:layout_height="@dimen/button_height_big"
-                    android:layout_marginTop="@dimen/auth_form_views_margin_top"
                     android:text="@string/go"
                     android:textColor="@android:color/white"
                     app:backgroundTint="@color/accent"
-                    app:layout_constraintLeft_toLeftOf="@+id/sign_in_password"
-                    app:layout_constraintRight_toRightOf="@+id/sign_in_password"
                     app:layout_constraintTop_toBottomOf="@+id/sign_in_password" />
 
+                <TextView
+                    android:id="@+id/sign_in_redirect"
+                    style="@style/FullWidthFromParen"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/size_normal"
+                    android:gravity="center_horizontal"
+                    android:textSize="16sp"
+                    android:textColor="@color/secondary_text"
+                    android:text="@string/login_redirect"
+                    app:layout_constraintTop_toBottomOf="@+id/sign_in_submit"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+<!--
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/sign_in_redirect"
-                    android:layout_width="0dp"
+                    style="@style/LoginControl"
                     android:layout_height="@dimen/button_height_big"
                     android:layout_marginBottom="@dimen/medium_margin"
                     android:text="@string/login_redirect"
                     android:textColor="@android:color/white"
                     app:backgroundTint="@color/primary"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="@+id/sign_in_password"
-                    app:layout_constraintRight_toRightOf="@+id/sign_in_password"
                     app:layout_constraintTop_toBottomOf="@+id/sign_in_submit" />
+-->
             </android.support.constraint.ConstraintLayout>
+
         </android.support.v7.widget.CardView>
 
         <include
@@ -99,9 +90,9 @@
             layout="@layout/oauth_panel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/small_margin"
-            android:layout_marginRight="@dimen/small_margin"
-            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginLeft="@dimen/size_small"
+            android:layout_marginRight="@dimen/size_small"
+            android:layout_marginTop="@dimen/size_small"
             app:layout_constraintLeft_toLeftOf="@+id/sign_in_form"
             app:layout_constraintRight_toRightOf="@+id/sign_in_form"
             app:layout_constraintTop_toBottomOf="@+id/sign_in_form" />

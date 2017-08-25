@@ -54,7 +54,7 @@ public class RegisterController extends BaseController<RegisterView> {
     @Override
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
-        attachedView.setData(viewModel);
+        view().setData(viewModel);
     }
 
     void chooseAvatar() {
@@ -75,11 +75,11 @@ public class RegisterController extends BaseController<RegisterView> {
                     },
                     error -> {
                         rootPresenter.hideProgress();
-                        attachedView.showSnackbarMessage(error.getMessage());
+                        view().showMessage(error.getMessage());
                     }
             );
         } else {
-            attachedView.showSnackbarMessage(R.string.invalid_fields_message);
+            view().showMessage(R.string.invalid_fields_message);
         }
     }
 
@@ -95,7 +95,7 @@ public class RegisterController extends BaseController<RegisterView> {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 makeGalleryRequest();
             } else {
-                attachedView.showSnackbarMessage(R.string.read_permission_denied);
+                view().showMessage(R.string.read_permission_denied);
             }
         }
     }

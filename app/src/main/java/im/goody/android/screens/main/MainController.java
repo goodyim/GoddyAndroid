@@ -20,7 +20,7 @@ public class MainController extends BaseController<MainView> {
     void refreshData() {
         disposable = repository.getNews().subscribe(result -> {
             data = result;
-            attachedView.showData(data);
+            view().showData(data);
         });
     }
 
@@ -45,7 +45,7 @@ public class MainController extends BaseController<MainView> {
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
         if (data == null) refreshData();
-        else attachedView.showData(data);
+        else view().showData(data);
     }
 
     @NonNull

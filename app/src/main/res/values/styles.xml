@@ -17,8 +17,22 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <!-- activity_root -->
+    <style name="FullExpandFromParen">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintLeft_toLeftOf">parent</item>
+        <item name="layout_constraintRight_toRightOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
 
+    <style name="FullWidthFromParen">
+        <item name="android:layout_width">0dp</item>
+        <item name="layout_constraintLeft_toLeftOf">parent</item>
+        <item name="layout_constraintRight_toRightOf">parent</item>
+    </style>
+
+    <!-- activity_root -->
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColorPrimary">@color/white</item>
         <item name="colorControlNormal">@color/white</item>
@@ -38,6 +52,34 @@
         <item name="android:layout_height">@dimen/button_height_big</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- screen_login -->
+    <style name="LoginCardView" parent="FullWidthFromParen">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/size_middle</item>
+        <item name="android:layout_marginRight">@dimen/size_middle</item>
+        <item name="android:background">@color/auth_cardview_background</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+
+    <style name="LoginControl" parent="FullWidthFromParen">
+        <item name="android:layout_height">@dimen/edit_text_size</item>
+        <item name="android:layout_marginLeft">@dimen/size_normal</item>
+        <item name="android:layout_marginRight">@dimen/size_normal</item>
+        <item name="android:layout_marginTop">@dimen/size_normal</item>
+        <item name="android:padding">@dimen/size_normal</item>
+    </style>
+
+    <style name="RegisterAvatar">
+        <item name="android:layout_width">@dimen/register_avatar_size</item>
+        <item name="android:layout_height">@dimen/register_avatar_size</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_marginTop">@dimen/size_normal</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:background">@drawable/register_avatar_background</item>
+        <item name="android:padding">@dimen/size_normal</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
     </style>
 
 </resources>

@@ -66,7 +66,7 @@ public class NewPostController extends BaseController<NewPostView> {
     @Override
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
-        attachedView.setData(viewModel);
+        view().setData(viewModel);
         setHasOptionsMenu(true);
     }
 
@@ -109,7 +109,7 @@ public class NewPostController extends BaseController<NewPostView> {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         switch (requestCode) {
             case PLACE_PICKER_REQUEST:
-                if (resultCode == RESULT_OK) {
+                if (resultCode == RESULT_OK && getActivity() != null && data != null) {
                     Place place = PlacePicker.getPlace(getActivity(), data);
                     viewModel.setLocation(place);
                 }
@@ -135,14 +135,14 @@ public class NewPostController extends BaseController<NewPostView> {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     makePlacePickerRequest();
                 } else {
-                    attachedView.showSnackbarMessage(R.string.location_permission_denied);
+                    view().showMessage(R.string.location_permission_denied);
                 }
                 break;
             case STORAGE_PERMISSION_REQUEST:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     makeGalleryRequest();
                 } else {
-                    attachedView.showSnackbarMessage(R.string.read_permission_denied);
+                    view().showMessage(R.string.read_permission_denied);
                 }
         }
     }
@@ -171,7 +171,7 @@ public class NewPostController extends BaseController<NewPostView> {
                 },
                 error -> {
                     rootPresenter.hideProgress();
-                    attachedView.showSnackbarMessage(error.getMessage());
+                    view().showMessage(error.getMessage());
                 }
         );
     }
@@ -180,7 +180,8 @@ public class NewPostController extends BaseController<NewPostView> {
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
         try {
-            startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
+            if (getActivity() != null)
+                startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
         } catch (Exception e){
             e.printStackTrace();
         }

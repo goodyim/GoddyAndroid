@@ -26,11 +26,11 @@ public class LoginController extends BaseController<LoginView> {
                     },
                     error -> {
                         rootPresenter.hideProgress();
-                        attachedView.showSnackbarMessage(error.getMessage());
+                        view().showMessage(error.getMessage());
                     }
             );
         } else {
-            attachedView.showSnackbarMessage(R.string.invalid_fields_message);
+            view().showMessage(R.string.invalid_fields_message);
         }
     }
 
@@ -60,7 +60,7 @@ public class LoginController extends BaseController<LoginView> {
     @Override
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
-        attachedView.setAuthData(loginData);
+        view().setAuthData(loginData);
     }
 
     @NonNull
