@@ -54,6 +54,10 @@ public class MainController extends BaseController<MainView> {
         return inflater.inflate(R.layout.screen_main, container, false);
     }
 
+    void showNewPostScreen() {
+        rootPresenter.showNewPostScreen();
+    }
+
     //endregion
 
     //region ================= DI =================

@@ -10,6 +10,7 @@ import im.goody.android.data.dto.Deal;
 import im.goody.android.data.local.PreferencesManager;
 import im.goody.android.data.network.RestService;
 import im.goody.android.data.network.req.LoginReq;
+import im.goody.android.data.network.req.NewPostReq;
 import im.goody.android.data.network.req.RegisterReq;
 import im.goody.android.di.components.DataComponent;
 import io.reactivex.Observable;
@@ -91,7 +92,14 @@ public class Repository implements IRepository{
                 .flatMap(index -> Observable.just(Deal.getFake()))
                 .toList()
                 .toObservable()
-                .delay(3, TimeUnit.SECONDS)
+                .delay(2, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<String> createPost(NewPostReq body) {
+        return Observable.just("Created")
+                .delay(2, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

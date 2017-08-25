@@ -9,6 +9,7 @@ import im.goody.android.root.RootPresenter;
 import im.goody.android.screens.intro.IntroController;
 import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.main.MainController;
+import im.goody.android.screens.new_post.NewPostController;
 import im.goody.android.screens.register.RegisterController;
 
 @Subcomponent(modules = RootModule.class)
@@ -21,4 +22,5 @@ public interface RootComponent {
     LoginController.Component plusLogin();
     RegisterController.Component plusRegister();
     IntroController.Component plusIntro();
+    NewPostController.Component plusNewPost();
 }

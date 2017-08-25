@@ -11,6 +11,7 @@ import im.goody.android.di.components.RootComponent;
 import im.goody.android.screens.intro.IntroController;
 import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.main.MainController;
+import im.goody.android.screens.new_post.NewPostController;
 import im.goody.android.screens.register.RegisterController;
 import im.goody.android.ui.helpers.BarBuilder;
 
@@ -88,9 +89,15 @@ public class RootPresenter implements IRootPresenter {
     }
 
     @Override
-    public void launched() {
-        if (repository.isFirstLaunch()) repository.firstLaunched();
+    public void showNewPostScreen() {
+        if (rootView != null)
+            rootView.showScreen(NewPostController.class);
     }
 
     //endregion
+
+    @Override
+    public void launched() {
+        if (repository.isFirstLaunch()) repository.firstLaunched();
+    }
 }

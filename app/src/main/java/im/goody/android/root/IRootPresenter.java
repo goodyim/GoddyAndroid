@@ -17,6 +17,7 @@ public interface IRootPresenter {
     void showMainScreen();
     void showLoginScreen();
     void showRegisterScreen();
+    void showNewPostScreen();
 
     //first start
     void launched();

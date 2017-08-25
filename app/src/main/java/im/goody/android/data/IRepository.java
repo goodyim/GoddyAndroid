@@ -4,6 +4,7 @@ import java.util.List;
 
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.network.req.LoginReq;
+import im.goody.android.data.network.req.NewPostReq;
 import im.goody.android.data.network.req.RegisterReq;
 import io.reactivex.Observable;
 
@@ -17,4 +18,6 @@ public interface IRepository {
     void firstLaunched();
 
     Observable<List<Deal>> getNews();
+
+    Observable<String> createPost(NewPostReq body);
 }

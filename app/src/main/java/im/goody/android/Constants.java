@@ -3,6 +3,7 @@ package im.goody.android;
 public class Constants {
     public static final int MIN_PASSWORD_LENGTH = 6;
     public static final int MIN_NAME_LENGTH = 4;
+    public static final int FAB_HIDE_THRESHOLD = 5;
 
     public static class Welcome {
         public static final int PAGES_COUNT = 3;
