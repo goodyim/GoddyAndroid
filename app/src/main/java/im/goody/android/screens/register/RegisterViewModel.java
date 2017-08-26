@@ -17,6 +17,7 @@ import im.goody.android.App;
 import im.goody.android.BR;
 import im.goody.android.R;
 import im.goody.android.data.network.req.RegisterReq;
+import im.goody.android.data.network.req.UserReq;
 import im.goody.android.utils.BitmapUtils;
 
 import static android.util.Patterns.EMAIL_ADDRESS;
@@ -59,15 +60,16 @@ public class RegisterViewModel extends BaseObservable{
 
     boolean isValid() {
         return isEmailValid() && isPasswordValid()
-                && isNameValid() && avatar != null;
+                && isNameValid()/* && avatar != null*/;
     }
 
     RegisterReq body() {
-        return new RegisterReq()
+        return new RegisterReq(new UserReq(name, email, password));
+        /*return new RegisterReq()
                 .setEmail(email)
                 .setAvatar(avatar.getBitmap())
                 .setPassword(password)
-                .setName(name);
+                .setName(name);*/
     }
 
     // ======= region getters =======

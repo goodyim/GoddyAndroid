@@ -68,15 +68,16 @@ public class RegisterController extends BaseController<RegisterView> {
     void register() {
         if (viewModel.isValid()) {
             rootPresenter.showProgress(R.string.register_progress_title);
-            disposable = repository.register(viewModel.body()).subscribe(
-                    result -> {
-                        rootPresenter.hideProgress();
-                        rootPresenter.showMainScreen(true);
-                    },
-                    error -> {
-                        rootPresenter.hideProgress();
-                        view().showMessage(error.getMessage());
-                    }
+            disposable = repository.register(viewModel.body())
+                    .subscribe(
+                            result -> {
+                                rootPresenter.hideProgress();
+                                rootPresenter.showMainScreen(true);
+                            },
+                            error -> {
+                                rootPresenter.hideProgress();
+                                view().showMessage(error.getMessage());
+                            }
             );
         } else {
             view().showMessage(R.string.invalid_fields_message);

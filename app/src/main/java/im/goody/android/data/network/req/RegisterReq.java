@@ -1,9 +1,13 @@
 package im.goody.android.data.network.req;
 
-import android.graphics.Bitmap;
-
 public class RegisterReq {
-    private String name;
+    private UserReq user;
+
+    public RegisterReq(UserReq user) {
+        this.user = user;
+    }
+
+    /*private String name;
     private String email;
     private String password;
     private Bitmap avatar;
@@ -50,5 +54,5 @@ public class RegisterReq {
         return this;
     }
 
-    //endregion
+    //endregion*/
 }

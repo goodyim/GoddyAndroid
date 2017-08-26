@@ -12,6 +12,7 @@ import im.goody.android.data.network.RestService;
 import im.goody.android.data.network.req.LoginReq;
 import im.goody.android.data.network.req.NewPostReq;
 import im.goody.android.data.network.req.RegisterReq;
+import im.goody.android.data.network.res.UserRes;
 import im.goody.android.di.components.DataComponent;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -41,11 +42,11 @@ public class Repository implements IRepository{
     //region ================= User =================
 
     @Override
-    public Observable<String> register(RegisterReq data) {
-        return Observable.just("Completed")
-                .delay(2, TimeUnit.SECONDS)
-                // TODO: 23.08.2017 Добавить сохранение данных пользователя
-                //.doOnNext()
+    public Observable<UserRes> register(RegisterReq data) {
+        return restService.registerUser(data)
+                .doOnNext(userRes ->
+                        preferencesManager.saveUserToken(userRes.getToken())
+                )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

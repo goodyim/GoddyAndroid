@@ -6,12 +6,13 @@ import im.goody.android.data.dto.Deal;
 import im.goody.android.data.network.req.LoginReq;
 import im.goody.android.data.network.req.NewPostReq;
 import im.goody.android.data.network.req.RegisterReq;
+import im.goody.android.data.network.res.UserRes;
 import io.reactivex.Observable;
 
 public interface IRepository {
 
     Observable<String> login(LoginReq data);
-    Observable<String> register(RegisterReq data);
+    Observable<UserRes> register(RegisterReq data);
     boolean isSigned();
 
     boolean isFirstLaunch();
