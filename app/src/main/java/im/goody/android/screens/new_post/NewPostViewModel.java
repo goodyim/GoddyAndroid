@@ -81,6 +81,7 @@ public class NewPostViewModel extends BaseObservable {
 
     public void setImage(Bitmap image) {
         this.image = image;
+        notifyPropertyChanged(BR.image);
     }
 
     // endregion

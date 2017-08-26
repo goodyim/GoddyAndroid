@@ -50,9 +50,9 @@ public class IntroController extends BaseController<IntroView> {
 
     void close() {
         if (repository.isSigned()) {
-            rootPresenter.showMainScreen();
+            rootPresenter.showMainScreen(true);
         } else {
-            rootPresenter.showLoginScreen();
+            rootPresenter.showLoginScreen(true);
         }
     }
 

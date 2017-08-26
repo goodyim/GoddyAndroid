@@ -56,7 +56,7 @@ public class RootActivity extends AppCompatActivity
         initToolBar();
 
         if (!router.hasRootController())
-            router.setRoot(RouterTransaction.with(presenter.getStartController()));
+            showScreenAsRoot(presenter.getStartController());
     }
 
     private void initDaggerComponent() {

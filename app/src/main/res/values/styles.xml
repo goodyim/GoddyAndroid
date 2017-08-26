@@ -17,7 +17,12 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="FullExpandFromParen">
+    <style name="FullWidthLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="FullExpandFromParent">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>
@@ -26,12 +31,11 @@
         <item name="layout_constraintTop_toTopOf">parent</item>
     </style>
 
-    <style name="FullWidthFromParen">
+    <style name="FullWidthFromParent">
         <item name="android:layout_width">0dp</item>
         <item name="layout_constraintLeft_toLeftOf">parent</item>
         <item name="layout_constraintRight_toRightOf">parent</item>
     </style>
-
     <!-- activity_root -->
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColorPrimary">@color/white</item>
@@ -55,15 +59,15 @@
     </style>
 
     <!-- screen_login -->
-    <style name="LoginCardView" parent="FullWidthFromParen">
+    <style name="LoginCardView" parent="FullWidthFromParent">
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">@dimen/size_middle</item>
-        <item name="android:layout_marginRight">@dimen/size_middle</item>
+        <item name="android:layout_marginLeft">@dimen/size_big</item>
+        <item name="android:layout_marginRight">@dimen/size_big</item>
         <item name="android:background">@color/auth_cardview_background</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
     </style>
 
-    <style name="LoginControl" parent="FullWidthFromParen">
+    <style name="LoginControl" parent="FullWidthFromParent">
         <item name="android:layout_height">@dimen/edit_text_size</item>
         <item name="android:layout_marginLeft">@dimen/size_normal</item>
         <item name="android:layout_marginRight">@dimen/size_normal</item>
@@ -81,5 +85,11 @@
         <item name="android:padding">@dimen/size_normal</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
     </style>
+
+    <style name="WrapContentView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
 
 </resources>

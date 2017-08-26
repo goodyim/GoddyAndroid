@@ -3,13 +3,11 @@ package im.goody.android.screens.new_post;
 import android.Manifest.permission;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,6 +18,7 @@ import im.goody.android.R;
 import im.goody.android.core.BaseController;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
+import im.goody.android.utils.UIUtils;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -67,22 +66,6 @@ public class NewPostController extends BaseController<NewPostView> {
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
         view().setData(viewModel);
-        setHasOptionsMenu(true);
-    }
-
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.new_post_menu, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_create_post) {
-            createPost();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     void chooseLocation() {
@@ -93,6 +76,10 @@ public class NewPostController extends BaseController<NewPostView> {
         }
     }
 
+    void clearLocation() {
+        viewModel.setLocation(null);
+    }
+
     void choosePhoto() {
         if (isPermissionGranted(permission.READ_EXTERNAL_STORAGE)){
             makeGalleryRequest();
@@ -101,8 +88,23 @@ public class NewPostController extends BaseController<NewPostView> {
         }
     }
 
-    void clearLocation() {
-        viewModel.setLocation(null);
+    void clearPhoto() {
+        viewModel.setImage((Bitmap) null);
+    }
+
+    void createPost() {
+        UIUtils.hideKeyboard(getActivity());
+        rootPresenter.showProgress(R.string.create_post_progress);
+        disposable = repository.createPost(viewModel.body()).subscribe(
+                result -> {
+                    rootPresenter.hideProgress();
+                    rootPresenter.showMainScreen(true);
+                },
+                error -> {
+                    rootPresenter.hideProgress();
+                    view().showMessage(error.getMessage());
+                }
+        );
     }
 
     @Override
@@ -154,27 +156,13 @@ public class NewPostController extends BaseController<NewPostView> {
     @dagger.Subcomponent
     @DaggerScope(NewPostController.class)
     public interface Component {
-
         void inject(NewPostController controller);
+
     }
 
     // endregion
 
     // ======= region private methods =======
-
-    private void createPost() {
-        rootPresenter.showProgress(R.string.create_post_progress);
-        disposable = repository.createPost(viewModel.body()).subscribe(
-                result -> {
-                    rootPresenter.hideProgress();
-                    rootPresenter.showMainScreen();
-                },
-                error -> {
-                    rootPresenter.hideProgress();
-                    view().showMessage(error.getMessage());
-                }
-        );
-    }
 
     private void makePlacePickerRequest() {
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();

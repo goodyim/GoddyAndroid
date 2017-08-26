@@ -13,10 +13,10 @@
         style="@style/FullExpandLayout">
 
         <ScrollView
-            style="@style/FullExpandFromParen">
+            style="@style/FullExpandFromParent">
 
             <android.support.constraint.ConstraintLayout
-                style="@style/FullExpandLayout">
+                style="@style/FullWidthLayout">
 
                 <include
                     android:id="@+id/oauth_panel"

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- size -->
-    <dimen name="size_line">1dp</dimen>
+    <dimen name="size_divider">1dp</dimen>
     <dimen name="size_little">4dp</dimen>
     <dimen name="size_small">8dp</dimen>
     <dimen name="size_normal">16dp</dimen>
     <dimen name="size_medium">24dp</dimen>
-    <dimen name="size_middle">32dp</dimen>
+    <dimen name="size_big">32dp</dimen>
 
     <dimen name="progress_bar_size">40dp</dimen>
     <dimen name="oauth_button_size">50dp</dimen>

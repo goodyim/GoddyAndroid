@@ -55,9 +55,15 @@
 
     <!-- screen new post -->
     <string name="new_post_title">New post</string>
-    <string name="title_hint">Title</string>
-    <string name="description_hint">Description</string>
+    <string name="description_hint">What\'s happened?</string>
     <string name="location_permission_denied">Give us location permissions first</string>
     <string name="new_post_create">Create</string>
     <string name="create_post_progress">Creating</string>
+
+    <string name="content_add_photo">Add photo</string>
+    <string name="content_add_place">Add place</string>
+    <string name="content_send">Send</string>
+    <string name="content_clear_location">Clear location</string>
+    <string name="content_new_post_photo">Post photo</string>
+    <string name="content_clear_image">Clear image</string>
 </resources>

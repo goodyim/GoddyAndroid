@@ -14,7 +14,7 @@
         style="@style/FullExpandLayout">
 
         <ScrollView
-            style="@style/FullExpandFromParen">
+            style="@style/FullWidthLayout">
 
             <android.support.constraint.ConstraintLayout
                 style="@style/FullExpandLayout">
@@ -22,8 +22,8 @@
                 <android.support.v7.widget.CardView
                     android:id="@+id/register_form"
                     style="@style/LoginCardView"
-                    android:layout_marginEnd="@dimen/size_middle"
-                    android:layout_marginStart="@dimen/size_middle"
+                    android:layout_marginEnd="@dimen/size_big"
+                    android:layout_marginStart="@dimen/size_big"
                     android:layout_marginTop="@dimen/size_normal"
                     card_view:cardElevation="2dp"
                     card_view:cardUseCompatPadding="true">
@@ -78,18 +78,14 @@
                             android:text="@string/go"
                             android:textColor="@color/white"
                             app:backgroundTint="@color/accent"
-                            app:layout_constraintTop_toBottomOf="@+id/register_password" />
-
-                        <android.support.v7.widget.AppCompatButton
-                            android:id="@+id/register_redirect"
-                            style="@style/LoginControl"
-                            android:layout_height="@dimen/button_height_big"
-                            android:layout_marginBottom="@dimen/size_small"
-                            android:text="@string/register_redirect"
-                            android:textColor="@color/white"
-                            app:backgroundTint="@color/primary"
+                            app:layout_constraintTop_toBottomOf="@+id/register_password"
+                            android:layout_marginTop="@dimen/size_small"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/register_submit" />
+                            android:layout_marginBottom="@dimen/size_small"
+                            android:layout_marginRight="@dimen/size_normal"
+                            app:layout_constraintRight_toRightOf="parent"
+                            android:layout_marginLeft="@dimen/size_normal"
+                            app:layout_constraintLeft_toLeftOf="parent" />
 
 
                     </android.support.constraint.ConstraintLayout>

@@ -2,10 +2,11 @@ package im.goody.android.root;
 
 import android.support.annotation.StringRes;
 
+import com.bluelinelabs.conductor.Controller;
+
 import javax.inject.Inject;
 
 import im.goody.android.App;
-import im.goody.android.core.BaseController;
 import im.goody.android.data.IRepository;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.screens.intro.IntroController;
@@ -47,13 +48,13 @@ public class RootPresenter implements IRootPresenter {
     }
 
     @Override
-    public BaseController getStartController() {
+    public Class<? extends Controller> getStartController() {
         if (repository.isFirstLaunch())
-            return new IntroController();
+            return IntroController.class;
         else if (repository.isSigned())
-            return new MainController();
+            return MainController.class;
         else
-            return new LoginController();
+            return LoginController.class;
     }
 
     @Override
@@ -71,15 +72,23 @@ public class RootPresenter implements IRootPresenter {
     //region ================= IRootPresenter - Show screens methods =================
 
     @Override
-    public void showMainScreen() {
-        if (rootView != null)
-            rootView.showScreenAsRoot(MainController.class);
+    public void showMainScreen(boolean isRoot) {
+        if (rootView != null) {
+            if (isRoot)
+                rootView.showScreenAsRoot(MainController.class);
+            else
+                rootView.showScreen(MainController.class);
+        }
     }
 
     @Override
-    public void showLoginScreen() {
-        if (rootView != null)
-            rootView.showScreenAsRoot(LoginController.class);
+    public void showLoginScreen(boolean isRoot) {
+        if (rootView != null) {
+            if (isRoot)
+                rootView.showScreenAsRoot(LoginController.class);
+            else
+                rootView.showScreen(LoginController.class);
+        }
     }
 
     @Override

@@ -19,7 +19,7 @@
             android:value="AIzaSyBr73Yr3PS9ShoaLzHjZwcfyM_UhKRmo_0" />
 
         <activity android:name="im.goody.android.root.RootActivity"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

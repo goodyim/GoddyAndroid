@@ -22,7 +22,7 @@ public class LoginController extends BaseController<LoginView> {
             disposable = repository.login(loginData.body()).subscribe(
                     result -> {
                         rootPresenter.hideProgress();
-                        rootPresenter.showMainScreen();
+                        rootPresenter.showMainScreen(true);
                     },
                     error -> {
                         rootPresenter.hideProgress();

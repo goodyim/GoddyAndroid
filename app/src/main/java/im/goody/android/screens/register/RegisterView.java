@@ -20,7 +20,6 @@ public class RegisterView extends BaseView<RegisterController, ScreenRegisterBin
     protected void onAttached() {
         binding.registerImage.setOnClickListener(v -> controller.chooseAvatar());
         binding.registerSubmit.setOnClickListener(v -> controller.register());
-        binding.registerRedirect.setOnClickListener(v -> controller.goToLogin());
     }
 
     @Override
