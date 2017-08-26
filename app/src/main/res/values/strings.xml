@@ -66,4 +66,8 @@
     <string name="content_clear_location">Clear location</string>
     <string name="content_new_post_photo">Post photo</string>
     <string name="content_clear_image">Clear image</string>
+
+    <string name="dialog_item_0">Choose photo</string>
+    <string name="dialog_item_1">Take picture</string>
+    <string name="dialog_title">Choose action</string>
 </resources>

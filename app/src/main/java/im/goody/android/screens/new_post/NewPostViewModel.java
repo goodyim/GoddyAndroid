@@ -1,6 +1,6 @@
 package im.goody.android.screens.new_post;
 
-import android.content.Context;
+import android.content.ContentResolver;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.graphics.Bitmap;
@@ -18,6 +18,7 @@ import im.goody.android.data.network.req.NewPostReq;
 public class NewPostViewModel extends BaseObservable {
     private String title;
     private String description;
+    private Uri imageUri;
 
     @Bindable
     private Bitmap image;
@@ -33,14 +34,18 @@ public class NewPostViewModel extends BaseObservable {
                 .setTitle(title);
     }
 
-    void setImage(Uri imageUri) {
-        Context context = App.getAppContext();
+    void setImage(Uri imageUri, boolean isFileChanged) {
+        ContentResolver resolver = App.getAppContext().getContentResolver();
+
+        if (isFileChanged) resolver.notifyChange(imageUri, null);
+
         try {
-            image = MediaStore.Images.Media.getBitmap(context.getContentResolver(), imageUri);
+            image = MediaStore.Images.Media.getBitmap(resolver, imageUri);
         } catch (IOException e) {
             e.printStackTrace();
             image = null;
         }
+
         notifyPropertyChanged(BR.image);
     }
 
@@ -60,6 +65,10 @@ public class NewPostViewModel extends BaseObservable {
 
     public Bitmap getImage() {
         return image;
+    }
+
+    public Uri getImageUri() {
+        return imageUri;
     }
 
     // endregion
@@ -82,6 +91,10 @@ public class NewPostViewModel extends BaseObservable {
     public void setImage(Bitmap image) {
         this.image = image;
         notifyPropertyChanged(BR.image);
+    }
+
+    public void setImageUri(Uri imageUri) {
+        this.imageUri = imageUri;
     }
 
     // endregion

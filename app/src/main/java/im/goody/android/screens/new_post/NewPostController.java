@@ -3,8 +3,9 @@ package im.goody.android.screens.new_post;
 import android.Manifest.permission;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,25 +15,27 @@ import android.view.ViewGroup;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
+import java.io.File;
+
 import im.goody.android.R;
 import im.goody.android.core.BaseController;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
+import im.goody.android.ui.helpers.OptionsDialog;
 import im.goody.android.utils.UIUtils;
 
 import static android.app.Activity.RESULT_OK;
 
 public class NewPostController extends BaseController<NewPostView> {
-    private NewPostViewModel viewModel = new NewPostViewModel();
-
-    private static final int PLACE_PICKER_REQUEST = 1;
-    private static final int IMAGE_PICKER_REQUEST = 2;
-
+    private static final int IMAGE_PICK_REQUEST = 0;
+    private static final int CAMERA_REQUEST = 1;
+    private static final int PLACE_PICKER_REQUEST = 2;
     private static final int LOCATION_PERMISSION_REQUEST = 1;
     private static final int STORAGE_PERMISSION_REQUEST = 2;
-
     private static final String[] LOCATION_PERMISSIONS = {permission.ACCESS_FINE_LOCATION};
     private static final String[] STORAGE_PERMISSIONS = {permission.READ_EXTERNAL_STORAGE};
+    private NewPostViewModel viewModel = new NewPostViewModel();
+    private OptionsDialog dialog = new NewPostPhotoDialog();
 
     // ======= region Base Controller =======
 
@@ -81,15 +84,15 @@ public class NewPostController extends BaseController<NewPostView> {
     }
 
     void choosePhoto() {
-        if (isPermissionGranted(permission.READ_EXTERNAL_STORAGE)){
-            makeGalleryRequest();
+        if (isPermissionGranted(permission.READ_EXTERNAL_STORAGE)) {
+            showDialog();
         } else {
             requestPermissions(STORAGE_PERMISSIONS, STORAGE_PERMISSION_REQUEST);
         }
     }
 
     void clearPhoto() {
-        viewModel.setImage((Bitmap) null);
+        viewModel.setImage(null);
     }
 
     void createPost() {
@@ -116,12 +119,18 @@ public class NewPostController extends BaseController<NewPostView> {
                     viewModel.setLocation(place);
                 }
                 break;
-            case IMAGE_PICKER_REQUEST:
+            case IMAGE_PICK_REQUEST:
                 if (resultCode == RESULT_OK) {
                     if (data != null) {
                         Uri uri = data.getData();
-                        viewModel.setImage(uri);
+                        viewModel.setImage(uri, false);
                     }
+                }
+                break;
+            case CAMERA_REQUEST:
+                if (resultCode == RESULT_OK) {
+                    Uri uri = viewModel.getImageUri();
+                    viewModel.setImage(uri, true);
                 }
         }
     }
@@ -153,11 +162,16 @@ public class NewPostController extends BaseController<NewPostView> {
 
     // ======= region DI =======
 
-    @dagger.Subcomponent
-    @DaggerScope(NewPostController.class)
-    public interface Component {
-        void inject(NewPostController controller);
-
+    private void showDialog() {
+        disposable = dialog.show(getActivity()).subscribe(index -> {
+            switch (index) {
+                case IMAGE_PICK_REQUEST:
+                    makeGalleryRequest();
+                    break;
+                case CAMERA_REQUEST:
+                    takePhoto();
+            }
+        });
     }
 
     // endregion
@@ -170,7 +184,7 @@ public class NewPostController extends BaseController<NewPostView> {
         try {
             if (getActivity() != null)
                 startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -178,7 +192,24 @@ public class NewPostController extends BaseController<NewPostView> {
     private void makeGalleryRequest() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/**");
-        startActivityForResult(intent, IMAGE_PICKER_REQUEST);
+        startActivityForResult(intent, IMAGE_PICK_REQUEST);
+    }
+
+    private void takePhoto() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File photo = new File(Environment.getExternalStorageDirectory(),
+                "photo_" + System.currentTimeMillis() + ".jpg");
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,
+                Uri.fromFile(photo));
+        viewModel.setImageUri(Uri.fromFile(photo));
+        startActivityForResult(intent, CAMERA_REQUEST);
+    }
+
+    @dagger.Subcomponent
+    @DaggerScope(NewPostController.class)
+    public interface Component {
+
+        void inject(NewPostController controller);
     }
 
     // endregion
