@@ -7,6 +7,7 @@ public class NewPostReq {
     private String description;
     private Bitmap image;
     private String placeId;
+    private boolean subscribersOnly;
 
     // ======= region getters =======
 
@@ -47,6 +48,15 @@ public class NewPostReq {
 
     public NewPostReq setPlaceId(String placeId) {
         this.placeId = placeId;
+        return this;
+    }
+
+    public boolean isSubscribersOnly() {
+        return subscribersOnly;
+    }
+
+    public NewPostReq setSubscribersOnly(boolean subscribersOnly) {
+        this.subscribersOnly = subscribersOnly;
         return this;
     }
 

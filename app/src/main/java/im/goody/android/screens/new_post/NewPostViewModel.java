@@ -26,12 +26,15 @@ public class NewPostViewModel extends BaseObservable {
     @Bindable
     private Place location;
 
+    private boolean subscribersOnly;
+
     NewPostReq body() {
         return new NewPostReq()
                 .setPlaceId(location != null ? location.getId() : null)
                 .setImage(image)
                 .setDescription(description)
-                .setTitle(title);
+                .setTitle(title)
+                .setSubscribersOnly(subscribersOnly);
     }
 
     void setImage(Uri imageUri, boolean isFileChanged) {
@@ -67,6 +70,10 @@ public class NewPostViewModel extends BaseObservable {
         return image;
     }
 
+    public boolean isSubscribersOnly() {
+        return subscribersOnly;
+    }
+
     public Uri getImageUri() {
         return imageUri;
     }
@@ -95,6 +102,11 @@ public class NewPostViewModel extends BaseObservable {
 
     public void setImageUri(Uri imageUri) {
         this.imageUri = imageUri;
+    }
+
+    public NewPostViewModel setSubscribersOnly(boolean subscribersOnly) {
+        this.subscribersOnly = subscribersOnly;
+        return this;
     }
 
     // endregion
