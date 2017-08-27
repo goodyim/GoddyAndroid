@@ -1,16 +1,15 @@
 package im.goody.android.data.network.req;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+@JsonRootName("user")
 public class RegisterReq {
-    private UserReq user;
-
-    public RegisterReq(UserReq user) {
-        this.user = user;
-    }
-
-    /*private String name;
+    @JsonProperty("user_name")
+    private String name;
     private String email;
     private String password;
-    private Bitmap avatar;
+//    private Bitmap avatar;
 
     // ======= region getters =======
 
@@ -26,9 +25,9 @@ public class RegisterReq {
         return password;
     }
 
-    public Bitmap getAvatar() {
+    /*public Bitmap getAvatar() {
         return avatar;
-    }
+    }*/
 
     // endregion
 
@@ -49,10 +48,11 @@ public class RegisterReq {
         return this;
     }
 
-    public RegisterReq setAvatar(Bitmap avatar) {
+    /*
+   public RegisterReq setAvatar(Bitmap avatar) {
         this.avatar = avatar;
         return this;
-    }
+    }*/
 
-    //endregion*/
+    //endregion
 }

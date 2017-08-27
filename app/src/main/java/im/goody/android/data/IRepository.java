@@ -11,7 +11,7 @@ import io.reactivex.Observable;
 
 public interface IRepository {
 
-    Observable<String> login(LoginReq data);
+    Observable<UserRes> login(LoginReq data);
     Observable<UserRes> register(RegisterReq data);
     boolean isSigned();
 

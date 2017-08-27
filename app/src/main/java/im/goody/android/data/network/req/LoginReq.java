@@ -1,5 +1,8 @@
 package im.goody.android.data.network.req;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+@JsonRootName("user")
 public class LoginReq {
     private String email;
     private String password;

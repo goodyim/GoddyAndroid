@@ -6,7 +6,6 @@ import im.goody.android.data.network.res.UserRes;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface RestService {
@@ -14,7 +13,6 @@ public interface RestService {
     @POST("users")
     Observable<UserRes> registerUser(@Body RegisterReq registerReq);
 
-    @GET("users/show")
-    Observable<UserRes> loginUser(@Header("X-User-Token") String userToken,
-                                  @Body LoginReq loginReq);
+    @GET("users/show") // TODO change path to actual after server will be ready
+    Observable<UserRes> loginUser(@Body LoginReq loginReq);
 }

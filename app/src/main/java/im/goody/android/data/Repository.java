@@ -47,23 +47,14 @@ public class Repository implements IRepository{
                 .doOnNext(userRes ->
                         preferencesManager.saveUserToken(userRes.getToken())
                 )
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
-    public Observable<String> login(LoginReq data) {
-        // TODO: 23.08.2017 потом убрать проверку
-        if (data.getEmail().equals(TEST_EMAIL) && data.getPassword().equals(TEST_PASSWORD)) {
-            return Observable.just("Completed")
-                    .delay(2, TimeUnit.SECONDS)
-                    // TODO: 23.08.2017 Сделать нормальное сохранение токена пользователя
-                    .doOnNext(s -> preferencesManager.saveUserToken(s))
-                    .subscribeOn(Schedulers.io())
+    public Observable<UserRes> login(LoginReq data) {
+            return restService.loginUser(data)
+                    .doOnNext(userRes -> preferencesManager.saveUserToken(userRes.getToken()))
                     .observeOn(AndroidSchedulers.mainThread());
-        } else {
-            return Observable.error(new Throwable("Invalid cridentials"));
-        }
     }
 
     @Override

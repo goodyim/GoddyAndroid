@@ -1,6 +1,7 @@
 package im.goody.android.di.modules;
 
-import com.squareup.moshi.Moshi;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,7 +16,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.moshi.MoshiConverterFactory;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @Module
 public class NetworkModule {
@@ -50,14 +51,14 @@ public class NetworkModule {
         return new Retrofit.Builder()
                 .baseUrl(AppConfig.BASE_URL)
                 .addConverterFactory(createConvertFactory())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
                 .client(okHttp)
                 .build();
     }
 
     private Converter.Factory createConvertFactory() {
-        return MoshiConverterFactory.create(new Moshi.Builder()
-                //.add(new DateAdapter())
-                .build());
+        return JacksonConverterFactory.create(new ObjectMapper()
+                .configure(SerializationFeature.WRAP_ROOT_VALUE, true)
+        );
     }
 }
