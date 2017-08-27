@@ -11,8 +11,16 @@ import im.goody.android.R;
 public class BitmapUtils {
     public static RoundedBitmapDrawable prepareAvatar(Bitmap original, Context context) {
         int size = context.getResources().getDimensionPixelSize(R.dimen.register_avatar_size);
+        return prepareAvatar(original, context, size);
+    }
+
+    public static RoundedBitmapDrawable prepareAvatar(Bitmap original, Context context, int size) {
         Bitmap sized = ThumbnailUtils.extractThumbnail(original, size, size);
-        RoundedBitmapDrawable result = RoundedBitmapDrawableFactory.create(context.getResources(), sized);
+        return roundBitmap(sized, context);
+    }
+
+    private static RoundedBitmapDrawable roundBitmap(Bitmap bitmap, Context context) {
+        RoundedBitmapDrawable result = RoundedBitmapDrawableFactory.create(context.getResources(), bitmap);
         result.setCircular(true);
         return result;
     }

@@ -74,4 +74,7 @@ dependencies {
 
     //place picker
     compile 'com.google.android.gms:play-services-places:11.0.4'
+
+    // picasso
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }

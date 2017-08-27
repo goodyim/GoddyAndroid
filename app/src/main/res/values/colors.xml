@@ -9,7 +9,7 @@
     <color name="white">#FFFFFF</color>
 
     <!-- following material guidelines -->
-    <color name="divider">#BDBDBD</color>
+    <color name="divider">#1F000000</color>
     <color name="icon">#727272</color>
     <color name="invalid">#F44336</color>
     <color name="valid">#4CAF50</color>
@@ -20,4 +20,6 @@
     <color name="auth_facebook_background">#3F569B</color>
     <color name="auth_google_background">#DA4336</color>
     <color name="auth_vk_background">#6287AE</color>
+
+    <color name="placeholder_color">#F2F2F2</color>
 </resources>

@@ -51,7 +51,7 @@ public class RootPresenter implements IRootPresenter {
     public Class<? extends Controller> getStartController() {
         if (repository.isFirstLaunch())
             return IntroController.class;
-        else if (repository.isSigned())
+        else if (/*repository.isSigned()*/ true)
             return MainController.class;
         else
             return LoginController.class;

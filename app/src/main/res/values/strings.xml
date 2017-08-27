@@ -29,6 +29,8 @@
     <string name="news_item_share_description">Share</string>
     <string name="news_item_more_description">More actions</string>
 
+    <string name="menu_report">Report</string>
+
     <string name="join">Join</string>
 
     <!-- Login and Register -->
@@ -70,4 +72,5 @@
     <string name="dialog_item_0">Choose photo</string>
     <string name="dialog_item_1">Take picture</string>
     <string name="dialog_title">Choose action</string>
+    <string name="report_submitted">Report submitted</string>
 </resources>

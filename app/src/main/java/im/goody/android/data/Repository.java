@@ -16,7 +16,6 @@ import im.goody.android.data.network.res.UserRes;
 import im.goody.android.di.components.DataComponent;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 // TODO replace fake data with api request
 public class Repository implements IRepository{
@@ -78,13 +77,7 @@ public class Repository implements IRepository{
 
     @Override
     public Observable<List<Deal>> getNews() {
-        int count = 100;
-        return Observable.range(1, count)
-                .subscribeOn(Schedulers.io())
-                .flatMap(index -> Observable.just(Deal.getFake()))
-                .toList()
-                .toObservable()
-                .delay(2, TimeUnit.SECONDS)
+        return restService.getDeals(preferencesManager.getUserToken())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -92,6 +85,13 @@ public class Repository implements IRepository{
     public Observable<String> createPost(NewPostReq body) {
         return Observable.just("Created")
                 .delay(2, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<String> sendReport(long id) {
+        return Observable.just("Submitted")
+                .delay(1, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

@@ -21,4 +21,5 @@ public interface IRepository {
     Observable<List<Deal>> getNews();
 
     Observable<String> createPost(NewPostReq body);
+    Observable<String> sendReport(long id);
 }

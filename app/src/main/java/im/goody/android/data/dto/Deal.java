@@ -1,27 +1,39 @@
 package im.goody.android.data.dto;
 
-public class Deal {
-    private Author author;
-    private String date;
-    private String title;
-    private String description;
-    private String imageUrl;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Deal {
+    private long id;
+    private String description;
     private int likesCount;
     private int commentsCount;
+//    private Author author;
 
-    public static Deal getFake() {
-        Deal deal = new Deal();
-        deal.setAuthor(new Author().setName("User name"))
-                .setCommentsCount(0)
-                .setLikesCount(0)
-                .setDate("Date")
-                .setTitle("Fake item")
-                .setDescription("Fake item descuption");
-        return deal;
-    }
+    @JsonProperty("created_at")
+    private String date;
 
-    public static class Author {
+    @JsonProperty("name")
+    private String title;
+
+    @JsonProperty("image_file_name")
+    private String imageUrl;
+
+//    public static Deal getFake() {
+//        Deal deal = new Deal();
+//        deal.setAuthor(new Author().setName("User name"))
+//                .setCommentsCount(0)
+//                .setLikesCount(0)
+//                .setDate("Date")
+//                .setTitle("Fake item")
+//                .setDescription("Fake item descuption");
+//        return deal;
+//    }
+
+    /*public static class Author {
         private String name;
         private String avatarUrl;
 
@@ -46,12 +58,12 @@ public class Deal {
 
     public Author getAuthor() {
         return author;
-    }
+    }*/
 
-    public Deal setAuthor(Author author) {
+    /*public Deal setAuthor(Author author) {
         this.author = author;
         return this;
-    }
+    }*/
 
     public String getDate() {
         return date;
@@ -104,6 +116,15 @@ public class Deal {
 
     public Deal setCommentsCount(int commentsCount) {
         this.commentsCount = commentsCount;
+        return this;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public Deal setId(long id) {
+        this.id = id;
         return this;
     }
 }

@@ -15,9 +15,16 @@ import im.goody.android.databinding.ItemNewsBinding;
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
     private List<Deal> data;
+    private MainItemHandler handler;
 
-    public MainAdapter(List<Deal> data) {
+    interface MainItemHandler {
+        void report(long id);
+        void share(String text);
+    }
+
+    MainAdapter(List<Deal> data, MainItemHandler handler) {
         this.data = data;
+        this.handler = handler;
     }
 
     @Override
@@ -49,7 +56,22 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
         }
 
         void bind(int position) {
-            binding.setDeal(data.get(position));
+            Deal deal = data.get(position);
+            binding.setDeal(deal);
+
+            binding.newsItemShare.setOnClickListener(v -> {
+                String text = deal.getDescription();
+                handler.share(text);
+            });
+
+            binding.newItemMenu.setOnClickListener(v -> {
+                MainItemMenu.show(v).subscribe(id -> {
+                    switch (id) {
+                        case R.id.action_report:
+                            handler.report(deal.getId());
+                    }
+                });
+            });
         }
     }
 }
