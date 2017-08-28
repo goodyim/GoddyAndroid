@@ -4,4 +4,7 @@
         <item>@string/dialog_item_0</item>
         <item>@string/dialog_item_1</item>
     </string-array>
+    <integer-array name="progress_colors">
+        <item>@color/accent</item>
+    </integer-array>
 </resources>

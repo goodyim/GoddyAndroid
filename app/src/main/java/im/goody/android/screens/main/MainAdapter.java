@@ -13,15 +13,10 @@ import im.goody.android.data.dto.Deal;
 import im.goody.android.databinding.ItemNewsBinding;
 import im.goody.android.utils.AppConfig;
 
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
+class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
     private List<Deal> data;
     private MainItemHandler handler;
-
-    interface MainItemHandler {
-        void report(long id);
-        void share(String text);
-    }
 
     MainAdapter(List<Deal> data, MainItemHandler handler) {
         this.data = data;
@@ -46,11 +41,32 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
         return data.size();
     }
 
+    void addData(List<Deal> items) {
+        int size = getItemCount();
+        data.addAll(items);
+        notifyItemRangeInserted(size, items.size());
+    }
 
-    public class MainHolder extends RecyclerView.ViewHolder {
+    private String buildShareText(Deal deal) {
+        String url = AppConfig.DEALS_URL + deal.getId();
+        String tags = "#goody #гуди";
+        return deal.getDescription() + "\n\n"
+                + url + "\n\n"
+                + tags;
+    }
+
+
+    interface MainItemHandler {
+        void report(long id);
+
+        void share(String text);
+    }
+
+    class MainHolder extends RecyclerView.ViewHolder {
+
         private ItemNewsBinding binding;
 
-        public MainHolder(View itemView) {
+        MainHolder(View itemView) {
             super(itemView);
 
             binding = DataBindingUtil.bind(itemView);
@@ -74,13 +90,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                 });
             });
         }
-    }
 
-    private String buildShareText(Deal deal) {
-        String url = AppConfig.DEALS_URL + deal.getId();
-        String tags = "#goody #гуди";
-        return deal.getDescription() + "\n\n"
-                + url + "\n\n"
-                + tags;
     }
 }

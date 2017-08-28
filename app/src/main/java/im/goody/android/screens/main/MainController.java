@@ -6,24 +6,43 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
 import im.goody.android.R;
 import im.goody.android.core.BaseController;
-import im.goody.android.data.dto.Deal;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 
 public class MainController extends BaseController<MainView> implements MainAdapter.MainItemHandler {
 
-    private List<Deal> data;
+    private MainViewModel viewModel = new MainViewModel();
 
     // ======= region MainController =======
+
     void refreshData() {
-        disposable = repository.getNews().subscribe(result -> {
-            data = result;
-            view().showData(data);
-        }, error -> view().showMessage(error.getMessage()));
+        disposable = repository.getNews(viewModel.resetPageAndGet())
+                .subscribe(
+                        result -> {
+                            viewModel.setData(result);
+                            view().showData(result);
+                        },
+                        error -> {
+                            view().finishRefresh();
+                            view().showMessage(error.getMessage());
+                        }
+                );
+    }
+
+    void loadMore() {
+        disposable = repository.getNews(viewModel.incrementPageAndGet())
+                .subscribe(
+                        result -> {
+                            viewModel.addData(result);
+                            view().addData(result);
+                        },
+                        error -> {
+                            view().finishLoadMore();
+                            view().showMessage(error.getMessage());
+                        }
+                );
     }
 
     void showNewPostScreen() {
@@ -72,8 +91,8 @@ public class MainController extends BaseController<MainView> implements MainAdap
     @Override
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
-        if (data == null) refreshData();
-        else view().showData(data);
+        if (viewModel.getData() == null) refreshData();
+        else view().showData(viewModel.getData());
     }
 
     @NonNull

@@ -18,7 +18,7 @@ public interface IRepository {
     boolean isFirstLaunch();
     void firstLaunched();
 
-    Observable<List<Deal>> getNews();
+    Observable<List<Deal>> getNews(int page);
 
     Observable<String> createPost(NewPostReq body);
     Observable<String> sendReport(long id);

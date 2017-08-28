@@ -11,6 +11,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface RestService {
 
@@ -21,5 +22,5 @@ public interface RestService {
     Observable<UserRes> loginUser(@Body LoginReq loginReq);
 
     @GET("good_deals")
-    Observable<List<Deal>> getDeals(@Header("X-User-Token") String token);
+    Observable<List<Deal>> getDeals(@Header("X-User-Token") String token, @Query("page") int page);
 }

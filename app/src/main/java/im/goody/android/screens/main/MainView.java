@@ -2,11 +2,13 @@ package im.goody.android.screens.main;
 
 import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.util.AttributeSet;
+
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 
 import java.util.List;
 
@@ -16,7 +18,8 @@ import im.goody.android.databinding.ScreenMainBinding;
 
 import static im.goody.android.Constants.FAB_HIDE_THRESHOLD;
 
-public class MainView extends BaseView<MainController, ScreenMainBinding> implements SwipeRefreshLayout.OnRefreshListener {
+public class MainView extends BaseView<MainController, ScreenMainBinding> {
+    private MainAdapter adapter;
 
     public MainView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -39,12 +42,13 @@ public class MainView extends BaseView<MainController, ScreenMainBinding> implem
         binding.mainNewsList.setHasFixedSize(true);
         binding.mainNewsList.setAdapter(null);
         binding.mainNewsList.setVisibility(GONE);
-        binding.progressBar.setVisibility(VISIBLE);
 
-        binding.mainNewsContainer.setOnRefreshListener(this);
+        binding.mainNewsContainer.setMaterialRefreshListener(new DataListener());
+
         binding.mainNewFab.setOnClickListener(v -> controller.showNewPostScreen());
-
         binding.mainNewsList.addOnScrollListener(onScrollListener);
+
+        binding.mainNewsContainer.autoRefresh();
     }
 
     @Override
@@ -53,19 +57,42 @@ public class MainView extends BaseView<MainController, ScreenMainBinding> implem
     }
 
     public void showData(List<Deal> data) {
-        if (binding.mainNewsContainer.isRefreshing())
-            binding.mainNewsContainer.setRefreshing(false);
-        binding.progressBar.setVisibility(GONE);
+        adapter = new MainAdapter(data, controller);
+
+        finishRefresh();
+
         binding.mainNewsList.setVisibility(VISIBLE);
-        binding.mainNewsList.setAdapter(new MainAdapter(data, controller));
+        binding.mainNewsList.setAdapter(adapter);
     }
 
-    // region ========= OnRefreshListener =============
+    public void addData(List<Deal> items) {
+        finishLoadMore();
+        adapter.addData(items);
+    }
 
-    @Override
-    public void onRefresh() {
-        binding.mainNewsContainer.setRefreshing(true);
-        controller.refreshData();
+    public void finishRefresh() {
+        binding.mainNewsContainer.finishRefresh();
+    }
+
+    public void finishLoadMore() {
+        binding.mainNewsContainer.finishRefreshLoadMore();
+    }
+
+
+    // region ========= MaterialRefreshListener =============
+
+    private class DataListener extends MaterialRefreshListener {
+
+        @Override
+        public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+            if (controller != null)
+                controller.refreshData();
+        }
+
+        @Override
+        public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+            controller.loadMore();
+        }
     }
 
     // endregion

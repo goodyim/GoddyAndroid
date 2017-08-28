@@ -76,8 +76,8 @@ public class Repository implements IRepository{
     //region ================= News =================
 
     @Override
-    public Observable<List<Deal>> getNews() {
-        return restService.getDeals(preferencesManager.getUserToken())
+    public Observable<List<Deal>> getNews(int page) {
+        return restService.getDeals(preferencesManager.getUserToken(), page)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
