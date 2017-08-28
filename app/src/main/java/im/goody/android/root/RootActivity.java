@@ -149,6 +149,11 @@ public class RootActivity extends AppCompatActivity
     }
 
     @Override
+    public void setHomeListener(View.OnClickListener listener) {
+        drawerToggle.setToolbarNavigationClickListener(listener);
+    }
+
+    @Override
     public void setStatusBarVisible(boolean visible) {
         if (visible) {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);

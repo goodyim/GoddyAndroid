@@ -20,7 +20,7 @@
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="400dp">
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/new_post_description"
@@ -29,31 +29,52 @@
                     android:background="@android:color/transparent"
                     android:gravity="top"
                     android:hint="@string/description_hint"
-                    android:inputType="textMultiLine"
+                    android:inputType="textMultiLine|textCapSentences"
                     android:padding="@dimen/size_small"
                     android:text="@={post.description}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/new_post_photo"
+                    <requestFocus />
+                </EditText>
+
+                <android.support.design.widget.CoordinatorLayout
+                    android:id="@+id/new_post_photo_container"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_marginEnd="@dimen/size_small"
-                    android:layout_marginLeft="@dimen/size_small"
-                    android:layout_marginRight="@dimen/size_small"
-                    android:layout_marginStart="@dimen/size_small"
+                    android:layout_marginEnd="@dimen/size_big"
+                    android:layout_marginLeft="@dimen/size_big"
+                    android:layout_marginRight="@dimen/size_big"
+                    android:layout_marginStart="@dimen/size_big"
                     android:layout_marginTop="@dimen/size_normal"
-                    android:adjustViewBounds="true"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:contentDescription="@string/content_new_post_photo"
-                    android:scaleType="centerCrop"
                     app:layout_constraintDimensionRatio="h,16:9"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/new_post_description"
-                    app:photo="@{post.image}" />
+                    app:layout_constraintTop_toBottomOf="@+id/new_post_description">
+
+                    <ImageView
+                        android:id="@+id/new_post_photo"
+                        style="@style/FullExpandLayout"
+                        android:adjustViewBounds="true"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:contentDescription="@string/content_new_post_photo"
+                        android:scaleType="centerCrop"
+                        app:photo="@{post.image}" />
+
+                    <ImageView
+                        android:id="@+id/new_post_clear_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|end"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/content_clear_image"
+                        android:padding="@dimen/size_small"
+                        android:tint="@color/white"
+                        app:srcCompat="@drawable/ic_clear" />
+
+
+                </android.support.design.widget.CoordinatorLayout>
 
                 <LinearLayout
                     android:id="@+id/new_post_location_container"
@@ -69,7 +90,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/new_post_photo"
+                    app:layout_constraintTop_toBottomOf="@+id/new_post_photo_container"
                     tools:ignore="UseCompoundDrawables">
 
                     <TextView
@@ -111,18 +132,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
 
-            <CheckBox
-                android:id="@+id/new_post_privacy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/size_normal"
-                android:layout_marginRight="@dimen/size_normal"
-                android:button="@drawable/privacy_selector"
-                android:checked="@={post.subscribersOnly}"
-                app:layout_constraintBottom_toBottomOf="@+id/new_photo_send"
-                app:layout_constraintRight_toLeftOf="@+id/new_photo_send"
-                app:layout_constraintTop_toTopOf="@+id/new_photo_send" />
-
             <View
                 style="@style/FullWidthFromParent"
                 android:layout_height="1dp"
@@ -130,31 +139,6 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/new_photo_send"
-                style="@style/WrapContentView"
-                android:layout_marginEnd="@dimen/size_normal"
-                android:layout_marginRight="@dimen/size_normal"
-                android:background="?selectableItemBackgroundBorderless"
-                android:contentDescription="@string/content_send"
-                android:tint="@color/primary"
-                app:layout_constraintBottom_toBottomOf="@+id/new_post_add_place"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/new_post_add_place"
-                app:srcCompat="@drawable/ic_send" />
-
-            <ImageView
-                android:id="@+id/new_post_add_place"
-                style="@style/WrapContentView"
-                android:layout_marginLeft="@dimen/size_big"
-                android:layout_marginStart="@dimen/size_big"
-                android:background="?selectableItemBackgroundBorderless"
-                android:contentDescription="@string/content_add_place"
-                app:layout_constraintBottom_toBottomOf="@+id/new_post_add_photo"
-                app:layout_constraintLeft_toRightOf="@+id/new_post_add_photo"
-                app:layout_constraintTop_toTopOf="@+id/new_post_add_photo"
-                app:srcCompat="@drawable/ic_place" />
 
             <ImageView
                 android:id="@+id/new_post_add_photo"
@@ -168,7 +152,46 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:state_icon="@{post.image}"
                 app:srcCompat="@drawable/ic_photo" />
+
+            <ImageView
+                android:id="@+id/new_post_add_place"
+                style="@style/WrapContentView"
+                android:layout_marginLeft="@dimen/size_big"
+                android:layout_marginStart="@dimen/size_big"
+                android:background="?selectableItemBackgroundBorderless"
+                android:contentDescription="@string/content_add_place"
+                app:layout_constraintBottom_toBottomOf="@+id/new_post_add_photo"
+                app:layout_constraintLeft_toRightOf="@+id/new_post_add_photo"
+                app:layout_constraintTop_toTopOf="@+id/new_post_add_photo"
+                app:state_icon="@{post.location}"
+                app:srcCompat="@drawable/ic_place" />
+
+            <CheckBox
+                android:id="@+id/new_post_privacy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/size_normal"
+                android:layout_marginRight="@dimen/size_normal"
+                android:button="@drawable/privacy_selector"
+                android:checked="@={post.subscribersOnly}"
+                app:layout_constraintBottom_toBottomOf="@+id/new_photo_send"
+                app:layout_constraintRight_toLeftOf="@+id/new_photo_send"
+                app:layout_constraintTop_toTopOf="@+id/new_photo_send" />
+
+            <ImageView
+                android:id="@+id/new_photo_send"
+                style="@style/WrapContentView"
+                android:layout_marginEnd="@dimen/size_normal"
+                android:layout_marginRight="@dimen/size_normal"
+                android:background="?selectableItemBackgroundBorderless"
+                android:contentDescription="@string/content_send"
+                android:tint="@color/primary"
+                app:layout_constraintBottom_toBottomOf="@+id/new_post_add_place"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/new_post_add_place"
+                app:srcCompat="@drawable/ic_send" />
         </android.support.constraint.ConstraintLayout>
 
     </im.goody.android.screens.new_post.NewPostView>

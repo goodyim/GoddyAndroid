@@ -3,6 +3,7 @@ package im.goody.android.ui.helpers;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import im.goody.android.core.IBarView;
 
 public class BarBuilder {
     private IBarView view;
+    private View.OnClickListener homeListener;
 
     private boolean backArrow;
     private boolean toolbarVisible;
@@ -33,6 +35,11 @@ public class BarBuilder {
     @NonNull
     public BarBuilder setBackArrow(boolean enable) {
         this.backArrow = enable;
+        return this;
+    }
+
+    public BarBuilder setHomeListener(View.OnClickListener listener) {
+        homeListener = listener;
         return this;
     }
 
@@ -61,6 +68,8 @@ public class BarBuilder {
             if (titleRes != null)
                 view.setToolbarTitle(titleRes);
 
+
+            view.setHomeListener(homeListener);
             view.setBackArrow(backArrow);
             view.setToolBarMenuItem(items);
             view.setStatusBarVisible(statusBarVisible);

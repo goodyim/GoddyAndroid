@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 
 import im.goody.android.core.BaseView;
 import im.goody.android.databinding.ScreenNewPostBinding;
+import im.goody.android.utils.UIUtils;
 
 public class NewPostView extends BaseView<NewPostController, ScreenNewPostBinding> {
     public NewPostView(Context context, AttributeSet attrs) {
@@ -22,10 +23,9 @@ public class NewPostView extends BaseView<NewPostController, ScreenNewPostBindin
         binding.newPostPhoto.setOnClickListener(v -> controller.choosePhoto());
         binding.newPostLocationClear.setOnClickListener(v -> controller.clearLocation());
         binding.newPhotoSend.setOnClickListener(v -> controller.createPost());
-        binding.newPostPhoto.setOnLongClickListener(v -> {
-            controller.clearPhoto();
-            return true;
-        });
+        binding.newPostClearImage.setOnClickListener(v -> controller.clearPhoto());
+
+        UIUtils.showKeyboard(binding.newPostDescription);
     }
 
     @Override

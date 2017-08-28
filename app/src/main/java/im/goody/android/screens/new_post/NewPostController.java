@@ -1,6 +1,7 @@
 package im.goody.android.screens.new_post;
 
 import android.Manifest.permission;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -52,6 +53,13 @@ public class NewPostController extends BaseController<NewPostView> {
                 .setToolbarVisible(true)
                 .setBackArrow(true)
                 .setTitleRes(R.string.new_post_title)
+                .setHomeListener(v -> {
+                    Activity activity = getActivity();
+                    if (activity != null) {
+                        UIUtils.hideKeyboard(activity);
+                        activity.onBackPressed();
+                    }
+                })
                 .build();
     }
 
