@@ -11,6 +11,7 @@ import java.util.List;
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.databinding.ItemNewsBinding;
+import im.goody.android.utils.AppConfig;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
@@ -60,7 +61,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
             binding.setDeal(deal);
 
             binding.newsItemShare.setOnClickListener(v -> {
-                String text = deal.getDescription();
+                String text = buildShareText(deal);
                 handler.share(text);
             });
 
@@ -73,5 +74,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                 });
             });
         }
+    }
+
+    private String buildShareText(Deal deal) {
+        String url = AppConfig.DEALS_URL + deal.getId();
+        String tags = "#goody #гуди";
+        return deal.getDescription() + "\n\n"
+                + url + "\n\n"
+                + tags;
     }
 }
