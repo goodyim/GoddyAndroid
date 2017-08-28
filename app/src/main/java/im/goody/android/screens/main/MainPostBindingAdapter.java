@@ -7,20 +7,22 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 
 import im.goody.android.R;
+import im.goody.android.data.dto.Deal;
 import im.goody.android.utils.BitmapUtils;
+import im.goody.android.utils.NetUtils;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainPostBindingAdapter {
     @BindingAdapter("item_image")
-    public static void bindImage(ImageView view, String url) {
-        if (url == null) {
+    public static void bindImage(ImageView view, Deal deal) {
+        if (deal.getImageUrl() == null) {
             view.setVisibility(View.GONE);
             return;
         }
         view.setVisibility(View.VISIBLE);
         Picasso.with(view.getContext())
-                .load(url)
+                .load(NetUtils.buildDealImageUrl(deal))
                 .placeholder(R.color.placeholder_color)
                 .into(view);
     }

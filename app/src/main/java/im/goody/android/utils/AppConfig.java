@@ -12,6 +12,9 @@ public class AppConfig {
     //public static final String BASE_URL = "http://goody.im/api/v1/";
     public static final String BASE_URL = "http://gooddy.herokuapp.com/api/v1/";
     public static final String DEALS_URL = "http://gooddy.herokuapp.com/good_deals/";
+    static final String IMAGES_URl_PATTERN = "http://dobrodel.s3.amazonaws.com/" +
+            "good_deals/images/{0}/medium/{1}";
+
     public static final int MAX_CONNECTION_TIMEOUT = 15000;
     public static final int MAX_READ_TIMEOUT = 10000;
     public static final int MAX_WRITE_TIMEOUT = 5000;
