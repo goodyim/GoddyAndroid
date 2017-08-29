@@ -18,7 +18,7 @@ public interface RestService {
     @POST("users")
     Observable<UserRes> registerUser(@Body RegisterReq registerReq);
 
-    @GET("users/show") // TODO change path to actual after server will be ready
+    @POST("users/show") // TODO change path to actual after server will be ready
     Observable<UserRes> loginUser(@Body LoginReq loginReq);
 
     @GET("good_deals")

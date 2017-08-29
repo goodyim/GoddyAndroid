@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import im.goody.android.R;
 import im.goody.android.core.BaseController;
+import im.goody.android.data.network.error.RegisterError;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 
@@ -76,7 +77,8 @@ public class RegisterController extends BaseController<RegisterView> {
                             },
                             error -> {
                                 rootPresenter.hideProgress();
-                                view().showMessage(error.getMessage());
+                                RegisterError err = repository.getError(error, RegisterError.class);
+                                view().showMessage(err != null ? err.getErrors() : error.getMessage());
                             }
             );
         } else {

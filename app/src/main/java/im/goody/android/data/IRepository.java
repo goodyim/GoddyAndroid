@@ -17,6 +17,7 @@ public interface IRepository {
 
     boolean isFirstLaunch();
     void firstLaunched();
+    <T> T getError(Throwable t, Class<T> tClass);
 
     Observable<List<Deal>> getNews(int page);
 

@@ -1,5 +1,6 @@
 package im.goody.android.data;
 
+import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -16,9 +17,13 @@ import im.goody.android.data.network.res.UserRes;
 import im.goody.android.di.components.DataComponent;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import okhttp3.ResponseBody;
+import retrofit2.Converter;
+import retrofit2.HttpException;
+import retrofit2.Retrofit;
 
 // TODO replace fake data with api request
-public class Repository implements IRepository{
+public class Repository implements IRepository {
 
     //region ================= MockData =================
 
@@ -31,6 +36,8 @@ public class Repository implements IRepository{
     PreferencesManager preferencesManager;
     @Inject
     RestService restService;
+    @Inject
+    Retrofit retrofit;
 
     public Repository() {
         DataComponent component = App.getDataComponent();
@@ -51,9 +58,9 @@ public class Repository implements IRepository{
 
     @Override
     public Observable<UserRes> login(LoginReq data) {
-            return restService.loginUser(data)
-                    .doOnNext(userRes -> preferencesManager.saveUserToken(userRes.getToken()))
-                    .observeOn(AndroidSchedulers.mainThread());
+        return restService.loginUser(data)
+                .doOnNext(userRes -> preferencesManager.saveUserToken(userRes.getToken()))
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
@@ -69,6 +76,19 @@ public class Repository implements IRepository{
     @Override
     public void firstLaunched() {
         preferencesManager.saveFirstLaunched();
+    }
+
+    @Override
+    public <T> T getError(Throwable t, Class<T> tClass) {
+        try {
+            ResponseBody body = ((HttpException) t).response().errorBody();
+            Converter<ResponseBody, T> errorConverter =
+                    retrofit.responseBodyConverter(tClass, new Annotation[0]);
+
+            return errorConverter.convert(body);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     //endregion
@@ -96,12 +116,6 @@ public class Repository implements IRepository{
     }
 
     //endregion
-
-
-
-
-
-
 
 
 }
