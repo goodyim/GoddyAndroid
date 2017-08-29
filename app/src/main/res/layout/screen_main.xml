@@ -5,7 +5,7 @@
 
     <im.goody.android.screens.main.MainView style="@style/FullExpandLayout">
 
-        <com.cjj.MaterialRefreshLayout
+        <com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout
             android:id="@+id/main_news_container"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -13,17 +13,16 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:isLoadMore="true"
-            app:overlay="false"
-            app:progress_colors="@array/progress_colors"
-            app:progress_size_type="normal">
+            app:srl_direction="both">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/main_news_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/size_big" />
 
-        </com.cjj.MaterialRefreshLayout>
+        </com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/main_new_fab"

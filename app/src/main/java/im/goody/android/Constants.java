@@ -6,6 +6,11 @@ public class Constants {
     public static final int FAB_HIDE_THRESHOLD = 5;
     public static final int REGISTER_AVATAR_SIZE = 80;
 
+    public static int[] PROGRESS_COLORS = {
+            R.color.accent,
+            R.color.primary
+    };
+
     public static class Welcome {
         public static final int PAGES_COUNT = 3;
         public static final int[] TITLES = {

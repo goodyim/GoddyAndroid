@@ -7,18 +7,21 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.util.AttributeSet;
 
-import com.cjj.MaterialRefreshLayout;
-import com.cjj.MaterialRefreshListener;
+import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import java.util.List;
 
+import im.goody.android.Constants;
 import im.goody.android.core.BaseView;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.databinding.ScreenMainBinding;
 
 import static im.goody.android.Constants.FAB_HIDE_THRESHOLD;
 
-public class MainView extends BaseView<MainController, ScreenMainBinding> {
+public class MainView extends BaseView<MainController, ScreenMainBinding>
+        implements SwipyRefreshLayout.OnRefreshListener {
+
     private MainAdapter adapter;
 
     public MainView(Context context, AttributeSet attrs) {
@@ -43,12 +46,15 @@ public class MainView extends BaseView<MainController, ScreenMainBinding> {
         binding.mainNewsList.setAdapter(null);
         binding.mainNewsList.setVisibility(GONE);
 
-        binding.mainNewsContainer.setMaterialRefreshListener(new DataListener());
+        binding.mainNewsContainer.setOnRefreshListener(this);
+        binding.mainNewsContainer.setColorSchemeResources(Constants.PROGRESS_COLORS);
 
         binding.mainNewFab.setOnClickListener(v -> controller.showNewPostScreen());
         binding.mainNewsList.addOnScrollListener(onScrollListener);
 
-        binding.mainNewsContainer.autoRefresh();
+        binding.mainNewsContainer.post(() -> {
+            if (adapter == null) binding.mainNewsContainer.setRefreshing(true);
+        });
     }
 
     @Override
@@ -59,39 +65,31 @@ public class MainView extends BaseView<MainController, ScreenMainBinding> {
     public void showData(List<Deal> data) {
         adapter = new MainAdapter(data, controller);
 
-        finishRefresh();
+        finishLoading();
 
         binding.mainNewsList.setVisibility(VISIBLE);
         binding.mainNewsList.setAdapter(adapter);
     }
 
     public void addData(List<Deal> items) {
-        finishLoadMore();
+        finishLoading();
         adapter.addData(items);
     }
 
-    public void finishRefresh() {
-        binding.mainNewsContainer.finishRefresh();
+    public void finishLoading() {
+        binding.mainNewsContainer.setRefreshing(false);
     }
-
-    public void finishLoadMore() {
-        binding.mainNewsContainer.finishRefreshLoadMore();
-    }
-
 
     // region ========= MaterialRefreshListener =============
 
-    private class DataListener extends MaterialRefreshListener {
-
-        @Override
-        public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
-            if (controller != null)
+    @Override
+    public void onRefresh(SwipyRefreshLayoutDirection direction) {
+        switch (direction) {
+            case TOP:
                 controller.refreshData();
-        }
-
-        @Override
-        public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
-            controller.loadMore();
+                break;
+            case BOTTOM:
+                controller.loadMore();
         }
     }
 

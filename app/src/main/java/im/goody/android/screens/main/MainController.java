@@ -25,7 +25,7 @@ public class MainController extends BaseController<MainView> implements MainAdap
                             view().showData(result);
                         },
                         error -> {
-                            view().finishRefresh();
+                            view().finishLoading();
                             view().showMessage(error.getMessage());
                         }
                 );
@@ -39,7 +39,7 @@ public class MainController extends BaseController<MainView> implements MainAdap
                             view().addData(result);
                         },
                         error -> {
-                            view().finishLoadMore();
+                            view().finishLoading();
                             view().showMessage(error.getMessage());
                         }
                 );
