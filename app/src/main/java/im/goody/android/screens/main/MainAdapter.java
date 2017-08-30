@@ -75,20 +75,19 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
         void bind(int position) {
             Deal deal = data.get(position);
             binding.setDeal(deal);
+            binding.actionPanel.setDeal(deal);
 
-            binding.newsItemShare.setOnClickListener(v -> {
+            binding.actionPanel.panelItemShare.setOnClickListener(v -> {
                 String text = buildShareText(deal);
                 handler.share(text);
             });
 
-            binding.newItemMenu.setOnClickListener(v -> {
-                MainItemMenu.show(v).subscribe(id -> {
-                    switch (id) {
-                        case R.id.action_report:
-                            handler.report(deal.getId());
-                    }
-                });
-            });
+            binding.newItemMenu.setOnClickListener(v -> MainItemMenu.show(v).subscribe(id -> {
+                switch (id) {
+                    case R.id.action_report:
+                        handler.report(deal.getId());
+                }
+            }));
         }
 
     }

@@ -24,10 +24,17 @@
     <string name="close">Close</string>
 
     <!-- News item -->
-    <string name="news_item_image_description">Deal main image</string>
-    <string name="news_item_avatar_description">User avatar</string>
-    <string name="news_item_share_description">Share</string>
-    <string name="news_item_more_description">More actions</string>
+    <string name="item_image_description">Deal main image</string>
+    <string name="item_avatar_description">User avatar</string>
+    <string name="item_share_description">Share</string>
+    <string name="item_more_description">More actions</string>
+
+    <string name="event_invites">invites you</string>
+    <string name="event_participates_label">Participates:</string>
+    <string name="event_location_label">Location:</string>
+    <string name="event_date_label">When:</string>
+    <string name="event_resources_label">Resources:</string>
+    <string name="event_type_label">Type:</string>
 
     <string name="menu_report">Report</string>
 
