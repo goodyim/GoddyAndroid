@@ -4,7 +4,7 @@ public class Constants {
     public static final int MIN_PASSWORD_LENGTH = 8;
     public static final int MIN_NAME_LENGTH = 4;
     public static final int FAB_HIDE_THRESHOLD = 5;
-    public static final int REGISTER_AVATAR_SIZE = 80;
+    public static final int DEFAULT_ANIMATION_DURATION = 200;
 
     public static int[] PROGRESS_COLORS = {
             R.color.accent,

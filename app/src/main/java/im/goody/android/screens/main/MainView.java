@@ -17,12 +17,14 @@ import im.goody.android.core.BaseView;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.databinding.ScreenMainBinding;
 
+import static im.goody.android.Constants.DEFAULT_ANIMATION_DURATION;
 import static im.goody.android.Constants.FAB_HIDE_THRESHOLD;
 
 public class MainView extends BaseView<MainController, ScreenMainBinding>
         implements SwipyRefreshLayout.OnRefreshListener {
 
     private MainAdapter adapter;
+    private boolean isMenuOpened = false;
 
     public MainView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -31,10 +33,10 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
     private RecyclerView.OnScrollListener onScrollListener = new OnScrollListener() {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            FloatingActionButton fab = binding.mainNewFab;
-            if (dy > FAB_HIDE_THRESHOLD && fab.isShown())
+            FloatingActionButton fab = binding.mainMenuFab;
+            if (dy > FAB_HIDE_THRESHOLD && fab.isShown() && !isMenuOpened)
                 fab.hide();
-            else if (dy < -FAB_HIDE_THRESHOLD &&!fab.isShown())
+            else if (dy < -FAB_HIDE_THRESHOLD && !fab.isShown())
                 fab.show();
         }
     };
@@ -49,12 +51,22 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
         binding.mainNewsContainer.setOnRefreshListener(this);
         binding.mainNewsContainer.setColorSchemeResources(Constants.PROGRESS_COLORS);
 
-        binding.mainNewFab.setOnClickListener(v -> controller.showNewPostScreen());
+        binding.mainMenuFab.setOnClickListener(v -> {
+            rotateMenuFab();
+            if (isMenuOpened) {
+                binding.mainNewEvent.hide();
+                binding.mainNewPost.hide();
+            } else {
+                binding.mainNewPost.show();
+                binding.mainNewEvent.show();
+            }
+            isMenuOpened = !isMenuOpened;
+        });
+
+        binding.mainNewPost.setOnClickListener(v -> controller.showNewPostScreen());
         binding.mainNewsList.addOnScrollListener(onScrollListener);
 
-        binding.mainNewsContainer.post(() -> {
-            if (adapter == null) binding.mainNewsContainer.setRefreshing(true);
-        });
+        binding.mainNewsContainer.post(() -> binding.mainNewsContainer.setRefreshing(true));
     }
 
     @Override
@@ -77,7 +89,7 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
     }
 
     public void finishLoading() {
-        binding.mainNewsContainer.setRefreshing(false);
+        binding.mainNewsContainer.post(() -> binding.mainNewsContainer.setRefreshing(false));
     }
 
     // region ========= MaterialRefreshListener =============
@@ -94,4 +106,13 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
     }
 
     // endregion
+
+    private void rotateMenuFab() {
+        FloatingActionButton fab = binding.mainMenuFab;
+        float degrees = 45 * (isMenuOpened ? -1 : 1);
+        fab.animate()
+                .rotationBy(degrees)
+                .setDuration(DEFAULT_ANIMATION_DURATION)
+                .start();
+    }
 }
