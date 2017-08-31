@@ -11,6 +11,7 @@ import im.goody.android.data.dto.Deal;
 import im.goody.android.utils.BitmapUtils;
 import im.goody.android.utils.NetUtils;
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainPostBindingAdapter {
@@ -29,13 +30,18 @@ public class MainPostBindingAdapter {
 
     @BindingAdapter("user_avatar")
     public static void bindAvatar(ImageView view, String url) {
+
+        view.setImageResource(R.drawable.round_drawable);
+
         Observable.just(url)
                 .subscribeOn(Schedulers.io())
                 .map(s -> Picasso.with(view.getContext())
-                        .load(s)
+                        .load(url)
                         .get())
                 .map(bitmap -> BitmapUtils.prepareAvatar(bitmap, view.getContext(), view.getWidth()))
-                .subscribe(view::setImageDrawable,
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        view::setImageDrawable,
                         error -> view.setImageResource(R.drawable.round_drawable)
                 );
     }

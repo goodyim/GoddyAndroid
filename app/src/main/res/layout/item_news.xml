@@ -32,6 +32,7 @@
                 android:layout_marginTop="@dimen/size_normal"
                 android:contentDescription="@string/item_avatar_description"
                 app:layout_constraintLeft_toLeftOf="parent"
+                app:user_avatar="@{deal.author.avatarUrl}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/round_drawable" />
 
@@ -41,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/size_normal"
                 android:layout_marginStart="@dimen/size_normal"
-                android:text="User name"
+                android:text="@{deal.author.name}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 app:layout_constraintLeft_toRightOf="@+id/news_item_user_avatar"
                 app:layout_constraintTop_toTopOf="@+id/news_item_user_avatar" />

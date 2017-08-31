@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@SuppressWarnings("unused")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Deal {
@@ -11,7 +12,7 @@ public class Deal {
     private String description;
     private int likesCount;
     private int commentsCount;
-//    private Author author;
+    private Author author;
 
     @JsonProperty("created_at")
     private String date;
@@ -22,19 +23,13 @@ public class Deal {
     @JsonProperty("image_file_name")
     private String imageUrl;
 
-//    public static Deal getFake() {
-//        Deal deal = new Deal();
-//        deal.setAuthor(new Author().setName("User name"))
-//                .setCommentsCount(0)
-//                .setLikesCount(0)
-//                .setDate("Date")
-//                .setTitle("Fake item")
-//                .setDescription("Fake item descuption");
-//        return deal;
-//    }
-
-    /*public static class Author {
+    @SuppressWarnings("WeakerAccess")
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public static class Author {
+        @JsonProperty("user_name")
         private String name;
+        @JsonProperty("avatar_url")
         private String avatarUrl;
 
         public String getName() {
@@ -58,12 +53,12 @@ public class Deal {
 
     public Author getAuthor() {
         return author;
-    }*/
+    }
 
-    /*public Deal setAuthor(Author author) {
+    public Deal setAuthor(Author author) {
         this.author = author;
         return this;
-    }*/
+    }
 
     public String getDate() {
         return date;

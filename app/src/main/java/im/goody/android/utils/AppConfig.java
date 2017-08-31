@@ -11,9 +11,10 @@ public class AppConfig {
     // Retrofit config
     //public static final String BASE_URL = "http://goody.im/api/v1/";
     public static final String BASE_URL = "http://gooddy.herokuapp.com/api/v1/";
-    public static final String DEALS_URL = "http://gooddy.herokuapp.com/good_deals/";
-    static final String IMAGES_URl_PATTERN = "http://dobrodel.s3.amazonaws.com/" +
-            "good_deals/images/{0}/medium/{1}";
+    public static final String SHARE_DEALS_URL = "http://gooddy.herokuapp.com/good_deals/";
+    private static final String IMAGES_BASE_URL = "http://dobrodel.s3.amazonaws.com";
+    static final String IMAGES_URl_PATTERN = IMAGES_BASE_URL +
+            "/good_deals/images/{0}/medium/{1}";
 
     public static final int MAX_CONNECTION_TIMEOUT = 15000;
     public static final int MAX_READ_TIMEOUT = 10000;

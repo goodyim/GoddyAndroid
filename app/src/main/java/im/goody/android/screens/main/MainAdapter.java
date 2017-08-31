@@ -48,7 +48,7 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
     }
 
     private String buildShareText(Deal deal) {
-        String url = AppConfig.DEALS_URL + deal.getId();
+        String url = AppConfig.SHARE_DEALS_URL + deal.getId();
         String tags = "#goody #гуди";
         return deal.getDescription() + "\n\n"
                 + url + "\n\n"
