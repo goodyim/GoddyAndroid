@@ -12,16 +12,16 @@ import im.goody.android.BR;
 import im.goody.android.R;
 import im.goody.android.data.network.req.LoginReq;
 
-import static android.util.Patterns.EMAIL_ADDRESS;
+import static im.goody.android.Constants.MIN_NAME_LENGTH;
 import static im.goody.android.Constants.MIN_PASSWORD_LENGTH;
 
 @SuppressWarnings("unused")
 public class LoginViewModel extends BaseObservable {
-    private String email;
+    private String name;
     private String password;
 
     @Bindable
-    private Drawable emailRes;
+    private Drawable nameRes;
 
     @Bindable
     private Drawable passwordRes;
@@ -36,7 +36,7 @@ public class LoginViewModel extends BaseObservable {
         validFieldDrawable = ContextCompat.getDrawable(context, R.drawable.field_valid);
         invalidFieldDrawable = ContextCompat.getDrawable(context, R.drawable.field_invalid);
 
-        emailRes = emptyFieldDrawable;
+        nameRes = emptyFieldDrawable;
         passwordRes = emptyFieldDrawable;
     }
 
@@ -46,12 +46,12 @@ public class LoginViewModel extends BaseObservable {
 
     LoginReq body() {
         return new LoginReq()
-                .setEmail(email)
+                .setName(name)
                 .setPassword(password);
     }
 
-    public LoginViewModel setEmailRes(Drawable emailRes) {
-        this.emailRes = emailRes;
+    public LoginViewModel setNameRes(Drawable nameRes) {
+        this.nameRes = nameRes;
         return this;
     }
 
@@ -60,8 +60,8 @@ public class LoginViewModel extends BaseObservable {
         return this;
     }
 
-    public LoginViewModel setEmail(String email) {
-        this.email = email;
+    public LoginViewModel setName(String name) {
+        this.name = name;
         setEmailDrawable();
         return this;
     }
@@ -72,16 +72,16 @@ public class LoginViewModel extends BaseObservable {
         return this;
     }
 
-    public Drawable getEmailRes() {
-        return emailRes;
+    public Drawable getNameRes() {
+        return nameRes;
     }
 
     public Drawable getPasswordRes() {
         return passwordRes;
     }
 
-    public String getEmail() {
-        return email;
+    public String getName() {
+        return name;
     }
 
     public String getPassword() {
@@ -89,14 +89,14 @@ public class LoginViewModel extends BaseObservable {
     }
 
     private void setEmailDrawable() {
-        if (TextUtils.isEmpty(email))
-            emailRes = emptyFieldDrawable;
+        if (TextUtils.isEmpty(name))
+            nameRes = emptyFieldDrawable;
         else
         if (isEmailValid())
-            emailRes = validFieldDrawable;
+            nameRes = validFieldDrawable;
         else
-            emailRes = invalidFieldDrawable;
-        notifyPropertyChanged(BR.emailRes);
+            nameRes = invalidFieldDrawable;
+        notifyPropertyChanged(BR.nameRes);
     }
 
     private void setPasswordDrawable() {
@@ -111,7 +111,7 @@ public class LoginViewModel extends BaseObservable {
     }
 
     private boolean isEmailValid() {
-        return !TextUtils.isEmpty(email) && EMAIL_ADDRESS.matcher(email).matches();
+        return !TextUtils.isEmpty(name) && name.length() >= MIN_NAME_LENGTH;
     }
 
     private boolean isPasswordValid() {

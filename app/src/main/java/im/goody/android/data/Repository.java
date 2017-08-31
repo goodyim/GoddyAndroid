@@ -58,7 +58,7 @@ public class Repository implements IRepository {
 
     @Override
     public Observable<UserRes> login(LoginReq data) {
-        return restService.loginUser(data)
+        return restService.loginUser(data.getName(), data.getPassword())
                 .doOnNext(userRes -> preferencesManager.saveUserToken(userRes.getToken()))
                 .observeOn(AndroidSchedulers.mainThread());
     }

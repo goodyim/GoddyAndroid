@@ -3,7 +3,6 @@ package im.goody.android.data.network;
 import java.util.List;
 
 import im.goody.android.data.dto.Deal;
-import im.goody.android.data.network.req.LoginReq;
 import im.goody.android.data.network.req.RegisterReq;
 import im.goody.android.data.network.res.UserRes;
 import io.reactivex.Observable;
@@ -18,8 +17,9 @@ public interface RestService {
     @POST("users")
     Observable<UserRes> registerUser(@Body RegisterReq registerReq);
 
-    @POST("users/show") // TODO change path to actual after server will be ready
-    Observable<UserRes> loginUser(@Body LoginReq loginReq);
+    @GET("users/get_token")
+    Observable<UserRes> loginUser(@Query("user_name") String name,
+                                  @Query("password") String password);
 
     @GET("good_deals")
     Observable<List<Deal>> getDeals(@Header("X-User-Token") String token, @Query("page") int page);

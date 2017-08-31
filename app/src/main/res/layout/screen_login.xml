@@ -26,16 +26,16 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/sign_in_email"
+                    android:id="@+id/sign_in_name"
                     style="@style/LoginControl"
-                    android:background="@{user.emailRes}"
+                    android:background="@{user.nameRes}"
                     android:ems="10"
-                    android:hint="@string/email_hint"
-                    android:inputType="textEmailAddress"
-                    android:text="@={user.email}"
+                    android:hint="@string/name_hint"
                     android:imeOptions="actionNext"
+                    android:inputType="textPersonName"
                     android:nextFocusDown="@+id/sign_in_password"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    android:text="@={user.name}"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/sign_in_password"
@@ -46,7 +46,7 @@
                     android:inputType="textPassword"
                     android:imeOptions="actionDone"
                     android:text="@={user.password}"
-                    app:layout_constraintTop_toBottomOf="@+id/sign_in_email" />
+                    app:layout_constraintTop_toBottomOf="@+id/sign_in_name" />
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/sign_in_submit"

@@ -4,15 +4,15 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("user")
 public class LoginReq {
-    private String email;
+    private String name;
     private String password;
 
-    public String getEmail() {
-        return email;
+    public String getName() {
+        return name;
     }
 
-    public LoginReq setEmail(String email) {
-        this.email = email;
+    public LoginReq setName(String name) {
+        this.name = name;
         return this;
     }
 
