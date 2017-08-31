@@ -44,19 +44,19 @@
                 android:text="User name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 app:layout_constraintLeft_toRightOf="@+id/news_item_user_avatar"
-                app:layout_constraintTop_toTopOf="@+id/news_item_user_avatar"
-                tools:text="User name" />
+                app:layout_constraintTop_toTopOf="@+id/news_item_user_avatar" />
 
             <TextView
                 android:id="@+id/news_item_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_small"
+                android:layout_marginTop="0dp"
                 android:text="@{DateUtils.getReadableDate(deal.date)}"
                 app:layout_constraintBottom_toBottomOf="@+id/news_item_user_avatar"
                 app:layout_constraintLeft_toLeftOf="@+id/news_item_user_name"
                 app:layout_constraintTop_toBottomOf="@+id/news_item_user_name"
-                tools:text="DD MM, YYYY" />
+                tools:text="DD MM, YYYY"
+                app:layout_constraintVertical_bias="0.5" />
 
             <ImageView
                 android:id="@+id/news_item_image"

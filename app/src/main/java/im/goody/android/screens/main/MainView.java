@@ -33,7 +33,7 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
     private RecyclerView.OnScrollListener onScrollListener = new OnScrollListener() {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            FloatingActionButton fab = binding.mainMenuFab;
+            FloatingActionButton fab = binding.mainCreateFab;
             if (dy > FAB_HIDE_THRESHOLD && fab.isShown() && !isMenuOpened)
                 fab.hide();
             else if (dy < -FAB_HIDE_THRESHOLD && !fab.isShown())
@@ -46,12 +46,12 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
         binding.mainNewsList.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.mainNewsList.setHasFixedSize(true);
         binding.mainNewsList.setAdapter(null);
-        binding.mainNewsList.setVisibility(GONE);
+        binding.mainNewsContainer.setVisibility(GONE);
 
         binding.mainNewsContainer.setOnRefreshListener(this);
         binding.mainNewsContainer.setColorSchemeResources(Constants.PROGRESS_COLORS);
 
-        binding.mainMenuFab.setOnClickListener(v -> {
+        binding.mainCreateFab.setOnClickListener(v -> {
             rotateMenuFab();
             if (isMenuOpened) {
                 binding.mainNewEvent.hide();
@@ -65,8 +65,6 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
 
         binding.mainNewPost.setOnClickListener(v -> controller.showNewPostScreen());
         binding.mainNewsList.addOnScrollListener(onScrollListener);
-
-        binding.mainNewsContainer.post(() -> binding.mainNewsContainer.setRefreshing(true));
     }
 
     @Override
@@ -79,7 +77,9 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
 
         finishLoading();
 
-        binding.mainNewsList.setVisibility(VISIBLE);
+        if (binding.mainNewsContainer.getVisibility() == GONE)
+            binding.mainNewsContainer.setVisibility(VISIBLE);
+
         binding.mainNewsList.setAdapter(adapter);
     }
 
@@ -89,7 +89,11 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
     }
 
     public void finishLoading() {
-        binding.mainNewsContainer.post(() -> binding.mainNewsContainer.setRefreshing(false));
+        if (binding.mainProgress.getVisibility() == VISIBLE)
+            binding.mainProgress.setVisibility(GONE);
+
+        if (binding.mainNewsContainer.isRefreshing())
+            binding.mainNewsContainer.setRefreshing(false);
     }
 
     // region ========= MaterialRefreshListener =============
@@ -108,10 +112,10 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
     // endregion
 
     private void rotateMenuFab() {
-        FloatingActionButton fab = binding.mainMenuFab;
-        float degrees = 45 * (isMenuOpened ? -1 : 1);
+        FloatingActionButton fab = binding.mainCreateFab;
+        float degrees = 45 * (isMenuOpened ? 0 : 1);
         fab.animate()
-                .rotationBy(degrees)
+                .rotation(degrees)
                 .setDuration(DEFAULT_ANIMATION_DURATION)
                 .start();
     }
