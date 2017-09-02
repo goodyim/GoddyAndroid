@@ -1,19 +1,33 @@
 package im.goody.android.data.network.res;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class UserRes {
-    private String user_name;
-    private String email;
+    @JsonProperty("user_id")
+    private int id;
     private String token;
 
-    public String getUserName() {
-        return user_name;
-    }
+    // ======= region Getters =======
 
-    public String getEmail() {
-        return email;
+    public int getId() {
+        return id;
     }
 
     public String getToken() {
         return token;
     }
+
+    // endregion
+
+    // ======= region Setters =======
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    //endregion
 }

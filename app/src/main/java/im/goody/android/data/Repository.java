@@ -50,16 +50,20 @@ public class Repository implements IRepository {
     @Override
     public Observable<UserRes> register(RegisterReq data) {
         return restService.registerUser(data)
-                .doOnNext(userRes ->
-                        preferencesManager.saveUserToken(userRes.getToken())
-                )
+                .doOnNext(userRes -> {
+                    preferencesManager.saveUserToken(userRes.getToken());
+                    preferencesManager.saveUserId(userRes.getId());
+                })
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<UserRes> login(LoginReq data) {
         return restService.loginUser(data.getName(), data.getPassword())
-                .doOnNext(userRes -> preferencesManager.saveUserToken(userRes.getToken()))
+                .doOnNext(userRes -> {
+                    preferencesManager.saveUserToken(userRes.getToken());
+                    preferencesManager.saveUserId(userRes.getId());
+                })
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
