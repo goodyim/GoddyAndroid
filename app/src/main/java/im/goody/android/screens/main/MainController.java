@@ -6,10 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import im.goody.android.R;
 import im.goody.android.core.BaseController;
+import im.goody.android.data.dto.Deal;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
+import io.reactivex.Observable;
 
 public class MainController extends BaseController<MainView> implements MainAdapter.MainItemHandler {
 
@@ -18,7 +22,8 @@ public class MainController extends BaseController<MainView> implements MainAdap
     // ======= region MainController =======
 
     void refreshData() {
-        disposable = repository.getNews(viewModel.resetPageAndGet())
+        disposable = convertDealsToModels(
+                repository.getNews(viewModel.resetPageAndGet()))
                 .subscribe(
                         result -> {
                             viewModel.setData(result);
@@ -32,7 +37,8 @@ public class MainController extends BaseController<MainView> implements MainAdap
     }
 
     void loadMore() {
-        disposable = repository.getNews(viewModel.incrementPageAndGet())
+        disposable = convertDealsToModels(
+                repository.getNews(viewModel.incrementPageAndGet()))
                 .subscribe(
                         result -> {
                             viewModel.addData(result);
@@ -102,6 +108,13 @@ public class MainController extends BaseController<MainView> implements MainAdap
     }
 
     //endregion
+
+    private Observable<List<MainItemViewModel>> convertDealsToModels(Observable<List<Deal>> original) {
+        return original.flatMap(Observable::fromIterable)
+                .map(MainItemViewModel::new)
+                .toList()
+                .toObservable();
+    }
 
     //region ================= DI =================
 

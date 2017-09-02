@@ -15,12 +15,19 @@ import im.goody.android.utils.AppConfig;
 
 class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
-    private List<Deal> data;
+    private List<MainItemViewModel> data;
     private MainItemHandler handler;
+    private RecyclerView recyclerView;
 
-    MainAdapter(List<Deal> data, MainItemHandler handler) {
+    MainAdapter(List<MainItemViewModel> data, MainItemHandler handler) {
         this.data = data;
         this.handler = handler;
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        this.recyclerView = recyclerView;
     }
 
     @Override
@@ -41,7 +48,7 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
         return data.size();
     }
 
-    void addData(List<Deal> items) {
+    void addData(List<MainItemViewModel> items) {
         int size = getItemCount();
         data.addAll(items);
         notifyItemRangeInserted(size, items.size());
@@ -73,9 +80,15 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
         }
 
         void bind(int position) {
-            Deal deal = data.get(position);
-            binding.setDeal(deal);
-            binding.actionPanel.setDeal(deal);
+            MainItemViewModel viewModel = data.get(position);
+            Deal deal = viewModel.getDeal();
+
+            binding.setViewModel(viewModel);
+
+            binding.expandButton.setOnClickListener(v -> {
+                viewModel.setExpanded(!viewModel.isExpanded());
+                recyclerView.smoothScrollToPosition(position);
+            });
 
             binding.actionPanel.panelItemShare.setOnClickListener(v -> {
                 String text = buildShareText(deal);

@@ -3,10 +3,8 @@ package im.goody.android.screens.main;
 import java.util.ArrayList;
 import java.util.List;
 
-import im.goody.android.data.dto.Deal;
-
 class MainViewModel {
-    private List<Deal> data;
+    private List<MainItemViewModel> data;
     private int page;
 
     MainViewModel() {
@@ -14,15 +12,15 @@ class MainViewModel {
     }
 
 
-    public List<Deal> getData() {
+    public List<MainItemViewModel> getData() {
         return data == null ? null : new ArrayList<>(data);
     }
 
-    void setData(List<Deal> data) {
+    void setData(List<MainItemViewModel> data) {
         this.data = new ArrayList<>(data);
     }
 
-    void addData(List<Deal> additionalData) {
+    void addData(List<MainItemViewModel> additionalData) {
         data.addAll(additionalData);
     }
 

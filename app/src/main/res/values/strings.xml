@@ -80,4 +80,6 @@
     <string name="dialog_item_1">Take picture</string>
     <string name="dialog_title">Choose action</string>
     <string name="report_submitted">Report submitted</string>
+    <string name="collapse">Collapse</string>
+    <string name="expand">Expand</string>
 </resources>

@@ -14,7 +14,6 @@ import java.util.List;
 
 import im.goody.android.Constants;
 import im.goody.android.core.BaseView;
-import im.goody.android.data.dto.Deal;
 import im.goody.android.databinding.ScreenMainBinding;
 
 import static im.goody.android.Constants.DEFAULT_ANIMATION_DURATION;
@@ -72,7 +71,7 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
 
     }
 
-    public void showData(List<Deal> data) {
+    public void showData(List<MainItemViewModel> data) {
         adapter = new MainAdapter(data, controller);
 
         finishLoading();
@@ -83,7 +82,7 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
         binding.mainNewsList.setAdapter(adapter);
     }
 
-    public void addData(List<Deal> items) {
+    public void addData(List<MainItemViewModel> items) {
         finishLoading();
         adapter.addData(items);
     }
