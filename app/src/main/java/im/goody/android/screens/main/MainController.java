@@ -59,6 +59,10 @@ public class MainController extends BaseController<MainView> implements MainAdap
 
     // ======= region MainItemHandler =======
 
+    void savePosition(int position) {
+        viewModel.setPosition(position);
+    }
+
     @Override
     public void report(long id) {
         repository.sendReport(id).subscribe(
@@ -98,7 +102,16 @@ public class MainController extends BaseController<MainView> implements MainAdap
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
         if (viewModel.getData() == null) refreshData();
-        else view().showData(viewModel.getData());
+        else {
+            view().showData(viewModel.getData());
+            view().scrollToPosition(viewModel.getPosition());
+        }
+    }
+
+    @Override
+    protected void onDetach(@NonNull View view) {
+        viewModel.setPosition(view().getCurrentPosition());
+        super.onDetach(view);
     }
 
     @NonNull

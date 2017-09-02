@@ -95,6 +95,10 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
             binding.mainNewsContainer.setRefreshing(false);
     }
 
+    public void scrollToPosition(int position) {
+        binding.mainNewsList.scrollToPosition(position);
+    }
+
     // region ========= MaterialRefreshListener =============
 
     @Override
@@ -117,5 +121,10 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
                 .rotation(degrees)
                 .setDuration(DEFAULT_ANIMATION_DURATION)
                 .start();
+    }
+
+    public int getCurrentPosition() {
+        return ((LinearLayoutManager) binding.mainNewsList.getLayoutManager())
+                .findFirstVisibleItemPosition();
     }
 }

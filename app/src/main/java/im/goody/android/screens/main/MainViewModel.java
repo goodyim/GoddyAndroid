@@ -6,9 +6,11 @@ import java.util.List;
 class MainViewModel {
     private List<MainItemViewModel> data;
     private int page;
+    private int position;
 
     MainViewModel() {
         page = 1;
+        position = 0;
     }
 
 
@@ -32,5 +34,13 @@ class MainViewModel {
     int resetPageAndGet() {
         page = 1;
         return page;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 }
