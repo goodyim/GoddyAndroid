@@ -106,16 +106,17 @@ public class NewPostController extends BaseController<NewPostView> {
     void createPost() {
         UIUtils.hideKeyboard(getActivity());
         rootPresenter.showProgress(R.string.create_post_progress);
-        disposable = repository.createPost(viewModel.body()).subscribe(
-                result -> {
-                    rootPresenter.hideProgress();
-                    rootPresenter.showMainScreen(true);
-                },
-                error -> {
-                    rootPresenter.hideProgress();
-                    view().showMessage(error.getMessage());
-                }
-        );
+        disposable = repository.createPost(viewModel.body(), viewModel.getImageUri())
+                .subscribe(
+                        result -> {
+                            rootPresenter.hideProgress();
+                            rootPresenter.showMainScreen(true);
+                        },
+                        error -> {
+                            rootPresenter.hideProgress();
+                            view().showMessage(error.getMessage());
+                        }
+                );
     }
 
     @Override
@@ -131,6 +132,8 @@ public class NewPostController extends BaseController<NewPostView> {
                 if (resultCode == RESULT_OK) {
                     if (data != null) {
                         Uri uri = data.getData();
+
+                        viewModel.setImageUri(uri);
                         viewModel.setImage(uri, false);
                     }
                 }

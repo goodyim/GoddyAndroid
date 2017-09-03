@@ -50,15 +50,9 @@ public class NetworkModule {
     private Retrofit createRetrofit(OkHttpClient okHttp) {
         return new Retrofit.Builder()
                 .baseUrl(AppConfig.BASE_URL)
-                .addConverterFactory(createConvertFactory())
+                .addConverterFactory(JacksonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
                 .client(okHttp)
                 .build();
-    }
-
-    private Converter.Factory createConvertFactory() {
-        return JacksonConverterFactory.create(new ObjectMapper()
-                .configure(SerializationFeature.WRAP_ROOT_VALUE, true)
-        );
     }
 }

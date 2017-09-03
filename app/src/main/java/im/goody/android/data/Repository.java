@@ -1,5 +1,10 @@
 package im.goody.android.data;
 
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
+
+import java.io.File;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -17,6 +22,10 @@ import im.goody.android.data.network.res.UserRes;
 import im.goody.android.di.components.DataComponent;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
 import retrofit2.HttpException;
@@ -106,9 +115,11 @@ public class Repository implements IRepository {
     }
 
     @Override
-    public Observable<String> createPost(NewPostReq body) {
-        return Observable.just("Created")
-                .delay(2, TimeUnit.SECONDS)
+    public Observable<RequestBody> createPost(NewPostReq body, Uri uri) {
+        return Observable.just(uri)
+                .subscribeOn(Schedulers.io())
+                .map(this::getPartFromUri)
+                .flatMap(part -> restService.uploadDeal(preferencesManager.getUserToken(), body, part))
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -122,4 +133,25 @@ public class Repository implements IRepository {
     //endregion
 
 
+    private MultipartBody.Part getPartFromUri(Uri uri) {
+        if (uri == null) return null;
+
+        String path;
+        Cursor cursor = App.getAppContext().
+                getContentResolver().query(uri, null, null, null, null);
+        if (cursor == null) {
+            path = uri.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            path = cursor.getString(idx);
+            cursor.close();
+        }
+
+        File file = new File(path);
+
+        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+
+        return MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
+    }
 }

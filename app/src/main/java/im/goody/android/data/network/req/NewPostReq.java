@@ -1,48 +1,40 @@
 package im.goody.android.data.network.req;
 
-import android.graphics.Bitmap;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
+@JsonRootName("good_deal")
 public class NewPostReq {
-    private String title;
     private String description;
-    private Bitmap image;
     private String placeId;
+
+    @JsonProperty("category_id")
+    private int category = 0;
+
+    @JsonProperty("private")
     private boolean subscribersOnly;
 
     // ======= region getters =======
-
-    public String getTitle() {
-        return title;
-    }
 
     public String getDescription() {
         return description;
     }
 
-    public Bitmap getImage() {
-        return image;
-    }
 
     public String getPlaceId() {
         return placeId;
+    }
+
+    public int getCategory() {
+        return category;
     }
 
     // endregion
 
     // ======= region setters =======
 
-    public NewPostReq setTitle(String title) {
-        this.title = title;
-        return this;
-    }
-
     public NewPostReq setDescription(String description) {
         this.description = description;
-        return this;
-    }
-
-    public NewPostReq setImage(Bitmap image) {
-        this.image = image;
         return this;
     }
 
@@ -58,6 +50,10 @@ public class NewPostReq {
     public NewPostReq setSubscribersOnly(boolean subscribersOnly) {
         this.subscribersOnly = subscribersOnly;
         return this;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
     }
 
     //endregion

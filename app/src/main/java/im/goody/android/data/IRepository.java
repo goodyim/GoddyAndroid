@@ -1,5 +1,7 @@
 package im.goody.android.data;
 
+import android.net.Uri;
+
 import java.util.List;
 
 import im.goody.android.data.dto.Deal;
@@ -8,6 +10,7 @@ import im.goody.android.data.network.req.NewPostReq;
 import im.goody.android.data.network.req.RegisterReq;
 import im.goody.android.data.network.res.UserRes;
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 
 public interface IRepository {
 
@@ -21,6 +24,6 @@ public interface IRepository {
 
     Observable<List<Deal>> getNews(int page);
 
-    Observable<String> createPost(NewPostReq body);
+    Observable<RequestBody> createPost(NewPostReq body, Uri imageUri);
     Observable<String> sendReport(long id);
 }

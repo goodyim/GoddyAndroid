@@ -16,7 +16,6 @@ import im.goody.android.BR;
 import im.goody.android.data.network.req.NewPostReq;
 
 public class NewPostViewModel extends BaseObservable {
-    private String title;
     private String description;
     private Uri imageUri;
 
@@ -31,16 +30,14 @@ public class NewPostViewModel extends BaseObservable {
     NewPostReq body() {
         return new NewPostReq()
                 .setPlaceId(location != null ? location.getId() : null)
-                .setImage(image)
                 .setDescription(description)
-                .setTitle(title)
                 .setSubscribersOnly(subscribersOnly);
     }
 
-    void setImage(Uri imageUri, boolean isFileChanged) {
+    void setImage(Uri imageUri, boolean isNewFile) {
         ContentResolver resolver = App.getAppContext().getContentResolver();
 
-        if (isFileChanged) resolver.notifyChange(imageUri, null);
+        if (isNewFile) resolver.notifyChange(imageUri, null);
 
         try {
             image = MediaStore.Images.Media.getBitmap(resolver, imageUri);
@@ -56,10 +53,6 @@ public class NewPostViewModel extends BaseObservable {
 
     public Place getLocation() {
         return location;
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     public String getDescription() {
@@ -85,10 +78,6 @@ public class NewPostViewModel extends BaseObservable {
     public void setLocation(Place location) {
         this.location = location;
         notifyPropertyChanged(BR.location);
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public void setDescription(String description) {
