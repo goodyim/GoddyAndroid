@@ -20,9 +20,9 @@ public interface RestService {
     @Multipart
     @POST("users")
     Observable<UserRes> registerUser(
-            @Part("user[email]") String email,
-            @Part("user[user_name]") String name,
-            @Part("user[password]") String password,
+            @Part("user[email]") RequestBody email,
+            @Part("user[user_name]") RequestBody name,
+            @Part("user[password]") RequestBody password,
             @Part MultipartBody.Part file
     );
 

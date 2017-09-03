@@ -58,9 +58,13 @@ public class Repository implements IRepository {
 
     @Override
     public Observable<UserRes> register(RegisterReq data, Uri avatarUri) {
-        return restService.registerUser(data.getEmail(),
-                                        data.getName(),
-                                        data.getPassword(),
+        RequestBody emailRequest = RequestBody.create(MultipartBody.FORM, data.getEmail());
+        RequestBody nameRequest = RequestBody.create(MultipartBody.FORM, data.getName());
+        RequestBody passwordRequest = RequestBody.create(MultipartBody.FORM, data.getPassword());
+
+        return restService.registerUser(emailRequest,
+                                        nameRequest,
+                                        passwordRequest,
                                         getPartFromUri(avatarUri, "user[avatar]"))
                 .doOnNext(userRes -> {
                     preferencesManager.saveUserToken(userRes.getToken());
