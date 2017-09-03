@@ -31,16 +31,20 @@ class MainViewModel {
         return page;
     }
 
+    void decrementPage() {
+        page--;
+    }
+
     int resetPageAndGet() {
         page = 1;
         return page;
     }
 
-    public int getPosition() {
+    int getPosition() {
         return position;
     }
 
-    public void setPosition(int position) {
+    void setPosition(int position) {
         this.position = position;
     }
 }

@@ -82,4 +82,6 @@
     <string name="report_submitted">Report submitted</string>
     <string name="collapse">Collapse</string>
     <string name="expand">Expand</string>
+    <string name="unknown_error">Unknown_error</string>
+    <string name="retry">Retry</string>
 </resources>

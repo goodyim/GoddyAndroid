@@ -18,7 +18,7 @@ public class LoginController extends BaseController<LoginView> {
 
     void login() {
         if (loginData.isValid()) {
-            rootPresenter.showProgress(R.string.register_progress_title);
+            rootPresenter.showProgress(R.string.login_progress_title);
             disposable = repository.login(loginData.body()).subscribe(
                     result -> {
                         rootPresenter.hideProgress();

@@ -2,6 +2,7 @@ package im.goody.android.screens.main;
 
 import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnScrollListener;
@@ -13,6 +14,7 @@ import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirec
 import java.util.List;
 
 import im.goody.android.Constants;
+import im.goody.android.R;
 import im.goody.android.core.BaseView;
 import im.goody.android.databinding.ScreenMainBinding;
 
@@ -99,6 +101,11 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
         binding.mainNewsList.scrollToPosition(position);
     }
 
+    public int getCurrentPosition() {
+        return ((LinearLayoutManager) binding.mainNewsList.getLayoutManager())
+                .findFirstVisibleItemPosition();
+    }
+
     // region ========= MaterialRefreshListener =============
 
     @Override
@@ -121,10 +128,5 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
                 .rotation(degrees)
                 .setDuration(DEFAULT_ANIMATION_DURATION)
                 .start();
-    }
-
-    public int getCurrentPosition() {
-        return ((LinearLayoutManager) binding.mainNewsList.getLayoutManager())
-                .findFirstVisibleItemPosition();
     }
 }

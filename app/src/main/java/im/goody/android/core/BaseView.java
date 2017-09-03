@@ -10,6 +10,8 @@ import android.util.AttributeSet;
 
 import com.bluelinelabs.conductor.Controller;
 
+import im.goody.android.R;
+
 public abstract class BaseView<C extends Controller, B extends ViewDataBinding> extends ConstraintLayout {
 
     protected C controller;
@@ -55,11 +57,23 @@ public abstract class BaseView<C extends Controller, B extends ViewDataBinding> 
 
     protected abstract void onDetached();
 
+    public void showErrorWithRetry(String message, OnClickListener listener) {
+        if (message == null) message = getResources().getString(R.string.unknown_error);
+
+        Snackbar snackbar = getSnackBarWithMessage(message);
+        snackbar.setAction(R.string.retry, listener);
+        snackbar.show();
+    }
+
     public void showMessage(@StringRes int stringRes) {
-        Snackbar.make(this, stringRes, Snackbar.LENGTH_LONG).show();
+       getSnackBarWithMessage(getResources().getString(stringRes)).show();
     }
 
     public void showMessage(String text) {
-        Snackbar.make(this, text, Snackbar.LENGTH_LONG).show();
+        getSnackBarWithMessage(text).show();
+    }
+
+    protected Snackbar getSnackBarWithMessage(String message) {
+        return Snackbar.make(this, message, Snackbar.LENGTH_LONG);
     }
 }
