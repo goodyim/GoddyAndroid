@@ -60,10 +60,6 @@ public class MainController extends BaseController<MainView> implements MainAdap
 
     // ======= region MainItemHandler =======
 
-    void savePosition(int position) {
-        viewModel.setPosition(position);
-    }
-
     @Override
     public void report(long id) {
         repository.sendReport(id).subscribe(

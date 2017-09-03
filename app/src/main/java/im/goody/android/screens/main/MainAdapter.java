@@ -85,11 +85,6 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
             binding.setViewModel(viewModel);
 
-            binding.expandButton.setOnClickListener(v -> {
-                viewModel.setExpanded(!viewModel.isExpanded());
-                recyclerView.smoothScrollToPosition(position);
-            });
-
             binding.actionPanel.panelItemShare.setOnClickListener(v -> {
                 String text = buildShareText(deal);
                 handler.share(text);

@@ -1,12 +1,20 @@
 package im.goody.android.screens.main;
 
 import android.databinding.BindingAdapter;
+import android.support.v4.content.ContextCompat;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import im.goody.android.App;
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.utils.BitmapUtils;
@@ -48,27 +56,44 @@ public class MainPostBindingAdapter {
                         error -> view.setImageResource(R.drawable.round_drawable)
                 );
     }
+
     @BindingAdapter({"description", "expandState"})
-    public static void bindDescription(TextView view, String text, boolean isExpanded) {
-        String result;
-        if (isExpanded || text.length() <= COLLAPSED_CHAHACTERS_COUNT) {
-            result = text;
+    public static void bindDescription(TextView view, MainItemViewModel model, boolean isExpanded) {
+        String original = model.getDeal().getDescription();
+        Spannable result;
+        if (isExpanded || original.length() <= COLLAPSED_CHAHACTERS_COUNT) {
+            result = new SpannableString(original);
         } else {
-            result = text.substring(0, COLLAPSED_CHAHACTERS_COUNT).trim() + "...";
+            String part = original.substring(0, COLLAPSED_CHAHACTERS_COUNT).trim();
+            result = addMoreLink(part, model);
         }
+
+        view.setMovementMethod(LinkMovementMethod.getInstance());
         view.setText(result);
     }
 
-    @BindingAdapter({"descriptionLength", "expandState"})
-    public static void bindExpandState(TextView textView, String text, boolean isExpanded) {
-        if (text.length() <= COLLAPSED_CHAHACTERS_COUNT) {
-            textView.setVisibility(View.GONE);
-            return;
-        } else {
-            textView.setVisibility(View.VISIBLE);
-        }
+    private static Spannable addMoreLink(String text, MainItemViewModel model) {
+        int color = ContextCompat.getColor(App.getAppContext(), R.color.secondary_text);
+        String more = App.getAppContext().getString(R.string.expand);
 
-        int labelRes = isExpanded ? R.string.collapse : R.string.expand;
-        textView.setText(labelRes);
+        SpannableString string = new SpannableString(text + " ..." + more);
+
+        ClickableSpan click = new ClickableSpan() {
+            @Override
+            public void onClick(View view) {
+                model.setExpanded(true);
+            }
+
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                ds.setUnderlineText(false);
+            }
+        };
+
+        string.setSpan(new ForegroundColorSpan(color), text.length(),
+                string.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        string.setSpan(click, text.length(), string.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        return string;
     }
 }
