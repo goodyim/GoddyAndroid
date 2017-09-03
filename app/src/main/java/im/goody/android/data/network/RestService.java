@@ -9,6 +9,7 @@ import im.goody.android.data.network.res.UserRes;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -31,7 +32,9 @@ public interface RestService {
 
     @Multipart
     @POST("good_deals")
-    Observable<RequestBody> uploadDeal(@Header("X-User-Token") String token,
-                                       @Part("good_deal") NewPostReq body,
-                                       @Part MultipartBody.Part file);
+    Observable<ResponseBody> uploadDeal(@Header("X-User-Token") String token,
+                                        @Part("good_deal[description]") RequestBody description,
+                                        @Part("good_deal[category_id]") int category,
+                                        @Part("good_deal[private]") boolean isPrivate,
+                                        @Part MultipartBody.Part file);
 }

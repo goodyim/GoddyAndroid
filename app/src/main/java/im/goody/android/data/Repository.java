@@ -115,11 +115,17 @@ public class Repository implements IRepository {
     }
 
     @Override
-    public Observable<RequestBody> createPost(NewPostReq body, Uri uri) {
+    public Observable<ResponseBody> createPost(NewPostReq body, Uri uri) {
         return Observable.just(uri)
                 .subscribeOn(Schedulers.io())
                 .map(this::getPartFromUri)
-                .flatMap(part -> restService.uploadDeal(preferencesManager.getUserToken(), body, part))
+                .flatMap(part -> restService.uploadDeal(
+                        preferencesManager.getUserToken(),
+                        RequestBody.create(MultipartBody.FORM, body.getDescription()),
+                        body.getCategory(),
+                        body.isSubscribersOnly(),
+                        part
+                ))
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
