@@ -58,14 +58,11 @@ public class Repository implements IRepository {
 
     @Override
     public Observable<UserRes> register(RegisterReq data, Uri avatarUri) {
-        RequestBody emailRequest = RequestBody.create(MultipartBody.FORM, data.getEmail());
-        RequestBody nameRequest = RequestBody.create(MultipartBody.FORM, data.getName());
-        RequestBody passwordRequest = RequestBody.create(MultipartBody.FORM, data.getPassword());
-
-        return restService.registerUser(emailRequest,
-                                        nameRequest,
-                                        passwordRequest,
-                                        getPartFromUri(avatarUri, "user[avatar]"))
+        return restService.registerUser(
+                        RequestBody.create(MultipartBody.FORM, data.getEmail()),
+                        RequestBody.create(MultipartBody.FORM, data.getName()),
+                        RequestBody.create(MultipartBody.FORM, data.getPassword()),
+                        getPartFromUri(avatarUri, "user[avatar]"))
                 .doOnNext(userRes -> {
                     preferencesManager.saveUserToken(userRes.getToken());
                     preferencesManager.saveUserId(userRes.getId());
@@ -123,7 +120,15 @@ public class Repository implements IRepository {
 
     @Override
     public Observable<ResponseBody> createPost(NewPostReq body, Uri uri) {
-        return Observable.just(uri)
+        return restService.uploadDeal(preferencesManager.getUserToken(),
+                    RequestBody.create(MultipartBody.FORM, body.getDescription()),
+                    body.getCategory(),
+                    body.isSubscribersOnly(),
+                    getPartFromUri(uri, "upload"))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+
+/*        return Observable.just(uri)
                 .subscribeOn(Schedulers.io())
                 .map(uri1 -> getPartFromUri(uri1, "upload"))
                 .flatMap(part -> restService.uploadDeal(
@@ -133,7 +138,7 @@ public class Repository implements IRepository {
                         body.isSubscribersOnly(),
                         part
                 ))
-                .observeOn(AndroidSchedulers.mainThread());
+                .observeOn(AndroidSchedulers.mainThread());*/
     }
 
     @Override
