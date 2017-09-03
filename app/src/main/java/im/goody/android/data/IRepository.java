@@ -10,13 +10,12 @@ import im.goody.android.data.network.req.NewPostReq;
 import im.goody.android.data.network.req.RegisterReq;
 import im.goody.android.data.network.res.UserRes;
 import io.reactivex.Observable;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
 public interface IRepository {
 
     Observable<UserRes> login(LoginReq data);
-    Observable<UserRes> register(RegisterReq data);
+    Observable<UserRes> register(RegisterReq data, Uri avatarUri);
     boolean isSigned();
 
     boolean isFirstLaunch();

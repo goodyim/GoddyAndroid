@@ -40,6 +40,8 @@ public class RegisterViewModel extends BaseObservable{
     private Drawable passwordRes;
 
     @Bindable
+    private Uri avatarUri;
+    @Bindable
     private RoundedBitmapDrawable avatar;
 
     private Drawable emptyFieldDrawable;
@@ -58,8 +60,7 @@ public class RegisterViewModel extends BaseObservable{
     }
 
     boolean isValid() {
-        return isEmailValid() && isPasswordValid()
-                && isNameValid()/* && avatar != null*/;
+        return isEmailValid() && isPasswordValid() && isNameValid();
     }
 
     RegisterReq body() {
@@ -67,7 +68,6 @@ public class RegisterViewModel extends BaseObservable{
                 .setEmail(email)
                 .setPassword(password)
                 .setName(name);
-//                .setAvatar(avatar.getBitmap())
     }
 
     // ======= region getters =======
@@ -98,6 +98,10 @@ public class RegisterViewModel extends BaseObservable{
 
     public RoundedBitmapDrawable getAvatar() {
         return avatar;
+    }
+
+    Uri getAvatarUri() {
+        return avatarUri;
     }
 
     //endregion
@@ -177,6 +181,7 @@ public class RegisterViewModel extends BaseObservable{
     }
 
     void setAvatar(Uri imageUri) {
+        this.avatarUri = imageUri;
         Context context = App.getAppContext();
         try {
             Bitmap original = MediaStore.Images.Media.getBitmap(context.getContentResolver(), imageUri);

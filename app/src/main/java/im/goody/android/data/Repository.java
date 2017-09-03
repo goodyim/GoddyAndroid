@@ -57,8 +57,11 @@ public class Repository implements IRepository {
     //region ================= User =================
 
     @Override
-    public Observable<UserRes> register(RegisterReq data) {
-        return restService.registerUser(data)
+    public Observable<UserRes> register(RegisterReq data, Uri avatarUri) {
+        return restService.registerUser(data.getEmail(),
+                                        data.getName(),
+                                        data.getPassword(),
+                                        getPartFromUri(avatarUri, "user[avatar]"))
                 .doOnNext(userRes -> {
                     preferencesManager.saveUserToken(userRes.getToken());
                     preferencesManager.saveUserId(userRes.getId());
@@ -118,7 +121,7 @@ public class Repository implements IRepository {
     public Observable<ResponseBody> createPost(NewPostReq body, Uri uri) {
         return Observable.just(uri)
                 .subscribeOn(Schedulers.io())
-                .map(this::getPartFromUri)
+                .map(uri1 -> getPartFromUri(uri1, "upload"))
                 .flatMap(part -> restService.uploadDeal(
                         preferencesManager.getUserToken(),
                         RequestBody.create(MultipartBody.FORM, body.getDescription()),
@@ -139,7 +142,7 @@ public class Repository implements IRepository {
     //endregion
 
 
-    private MultipartBody.Part getPartFromUri(Uri uri) {
+    private MultipartBody.Part getPartFromUri(Uri uri, String partName) {
         if (uri == null) return null;
 
         String path;
@@ -158,6 +161,6 @@ public class Repository implements IRepository {
 
         RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
 
-        return MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
+        return MultipartBody.Part.createFormData(partName, file.getName(), reqFile);
     }
 }

@@ -69,7 +69,7 @@ public class RegisterController extends BaseController<RegisterView> {
     void register() {
         if (viewModel.isValid()) {
             rootPresenter.showProgress(R.string.register_progress_title);
-            disposable = repository.register(viewModel.body())
+            disposable = repository.register(viewModel.body(), viewModel.getAvatarUri())
                     .subscribe(
                             result -> {
                                 rootPresenter.hideProgress();
