@@ -22,6 +22,7 @@ import im.goody.android.R;
 import im.goody.android.core.BaseController;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
+import im.goody.android.ui.helpers.ChooseImageOptionsDialog;
 import im.goody.android.ui.helpers.OptionsDialog;
 import im.goody.android.utils.UIUtils;
 
@@ -36,7 +37,7 @@ public class NewPostController extends BaseController<NewPostView> {
     private static final String[] LOCATION_PERMISSIONS = {permission.ACCESS_FINE_LOCATION};
     private static final String[] STORAGE_PERMISSIONS = {permission.READ_EXTERNAL_STORAGE};
     private NewPostViewModel viewModel = new NewPostViewModel();
-    private OptionsDialog dialog = new NewPostPhotoDialog();
+    private OptionsDialog dialog = new ChooseImageOptionsDialog();
 
     // ======= region Base Controller =======
 
@@ -173,6 +174,17 @@ public class NewPostController extends BaseController<NewPostView> {
 
     // ======= region DI =======
 
+    @dagger.Subcomponent
+    @DaggerScope(NewPostController.class)
+    public interface Component {
+
+        void inject(NewPostController controller);
+    }
+
+    // endregion
+
+    // ======= region private methods =======
+
     private void showDialog() {
         disposable = dialog.show(getActivity()).subscribe(index -> {
             switch (index) {
@@ -184,10 +196,6 @@ public class NewPostController extends BaseController<NewPostView> {
             }
         });
     }
-
-    // endregion
-
-    // ======= region private methods =======
 
     private void makePlacePickerRequest() {
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
@@ -214,13 +222,6 @@ public class NewPostController extends BaseController<NewPostView> {
                 Uri.fromFile(photo));
         viewModel.setImageUri(Uri.fromFile(photo));
         startActivityForResult(intent, CAMERA_REQUEST);
-    }
-
-    @dagger.Subcomponent
-    @DaggerScope(NewPostController.class)
-    public interface Component {
-
-        void inject(NewPostController controller);
     }
 
     // endregion

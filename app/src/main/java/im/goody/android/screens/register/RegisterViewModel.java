@@ -1,5 +1,6 @@
 package im.goody.android.screens.register;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -30,6 +31,8 @@ public class RegisterViewModel extends BaseObservable{
     private String email;
     private String password;
 
+    private Uri avatarUri;
+
     @Bindable
     private Drawable nameRes;
 
@@ -40,14 +43,11 @@ public class RegisterViewModel extends BaseObservable{
     private Drawable passwordRes;
 
     @Bindable
-    private Uri avatarUri;
-    @Bindable
     private RoundedBitmapDrawable avatar;
-
     private Drawable emptyFieldDrawable;
+
     private Drawable validFieldDrawable;
     private Drawable invalidFieldDrawable;
-
     RegisterViewModel() {
         Context context = App.getAppContext();
         emptyFieldDrawable = ContextCompat.getDrawable(context, R.drawable.field_background);
@@ -141,6 +141,48 @@ public class RegisterViewModel extends BaseObservable{
         return this;
     }
 
+    public void setAvatarUri(Uri avatarUri) {
+        this.avatarUri = avatarUri;
+    }
+
+    public RegisterViewModel setAvatar(RoundedBitmapDrawable avatar) {
+        this.avatar = avatar;
+        notifyPropertyChanged(BR.avatar);
+        return this;
+    }
+
+    void setAvatar(Uri imageUri, boolean isNewFile) {
+        ContentResolver resolver = App.getAppContext().getContentResolver();
+
+        if (isNewFile) resolver.notifyChange(imageUri, null);
+
+        try {
+            Bitmap original = MediaStore.Images.Media.getBitmap(resolver, imageUri);
+            avatar = BitmapUtils.prepareAvatar(original, App.getAppContext());
+        } catch (IOException e) {
+            e.printStackTrace();
+            avatar = null;
+        }
+
+        notifyPropertyChanged(BR.avatar);
+    }
+
+    // endregion
+
+    // ======= region private methods =======
+
+    private boolean isNameValid() {
+        return !TextUtils.isEmpty(name) && name.length() >= MIN_NAME_LENGTH;
+    }
+
+    private boolean isEmailValid() {
+        return !TextUtils.isEmpty(email) && EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    private boolean isPasswordValid() {
+        return !TextUtils.isEmpty(password) && password.length() >= MIN_PASSWORD_LENGTH;
+    }
+
     private void setEmailDrawable() {
         if (TextUtils.isEmpty(email))
             emailRes = emptyFieldDrawable;
@@ -174,36 +216,5 @@ public class RegisterViewModel extends BaseObservable{
         notifyPropertyChanged(BR.nameRes);
     }
 
-    public RegisterViewModel setAvatar(RoundedBitmapDrawable avatar) {
-        this.avatar = avatar;
-        notifyPropertyChanged(BR.avatar);
-        return this;
-    }
-
-    void setAvatar(Uri imageUri) {
-        this.avatarUri = imageUri;
-        Context context = App.getAppContext();
-        try {
-            Bitmap original = MediaStore.Images.Media.getBitmap(context.getContentResolver(), imageUri);
-            avatar = BitmapUtils.prepareAvatar(original, context);
-        } catch (IOException e) {
-            e.printStackTrace();
-            avatar = null;
-        }
-        notifyPropertyChanged(BR.avatar);
-    }
-
     // endregion
-
-    private boolean isNameValid() {
-        return !TextUtils.isEmpty(name) && name.length() >= MIN_NAME_LENGTH;
-    }
-
-    private boolean isEmailValid() {
-        return !TextUtils.isEmpty(email) && EMAIL_ADDRESS.matcher(email).matches();
-    }
-
-    private boolean isPasswordValid() {
-        return !TextUtils.isEmpty(password) && password.length() >= MIN_PASSWORD_LENGTH;
-    }
 }

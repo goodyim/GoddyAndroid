@@ -67,7 +67,7 @@ public class NewPostViewModel extends BaseObservable {
         return subscribersOnly;
     }
 
-    public Uri getImageUri() {
+    Uri getImageUri() {
         return imageUri;
     }
 
@@ -89,7 +89,7 @@ public class NewPostViewModel extends BaseObservable {
         notifyPropertyChanged(BR.image);
     }
 
-    public void setImageUri(Uri imageUri) {
+    void setImageUri(Uri imageUri) {
         this.imageUri = imageUri;
     }
 
