@@ -15,6 +15,7 @@ import im.goody.android.App;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.local.PreferencesManager;
 import im.goody.android.data.network.RestService;
+import im.goody.android.data.network.core.RestCallTransformer;
 import im.goody.android.data.network.req.LoginReq;
 import im.goody.android.data.network.req.NewPostReq;
 import im.goody.android.data.network.req.RegisterReq;
@@ -22,7 +23,6 @@ import im.goody.android.data.network.res.UserRes;
 import im.goody.android.di.components.DataComponent;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -59,10 +59,8 @@ public class Repository implements IRepository {
     @Override
     public Observable<UserRes> register(RegisterReq data, Uri avatarUri) {
         return restService.registerUser(
-                        RequestBody.create(MultipartBody.FORM, data.getEmail()),
-                        RequestBody.create(MultipartBody.FORM, data.getName()),
-                        RequestBody.create(MultipartBody.FORM, data.getPassword()),
-                        getPartFromUri(avatarUri, "user[avatar]"))
+                RestCallTransformer.objectToPartMap(data, "user"),
+                getPartFromUri(avatarUri, "user[avatar]"))
                 .doOnNext(userRes -> {
                     preferencesManager.saveUserToken(userRes.getToken());
                     preferencesManager.saveUserId(userRes.getId());
@@ -121,24 +119,9 @@ public class Repository implements IRepository {
     @Override
     public Observable<ResponseBody> createPost(NewPostReq body, Uri uri) {
         return restService.uploadDeal(preferencesManager.getUserToken(),
-                    RequestBody.create(MultipartBody.FORM, body.getDescription()),
-                    body.getCategory(),
-                    body.isSubscribersOnly(),
-                    getPartFromUri(uri, "upload"))
-                .subscribeOn(Schedulers.io())
+                RestCallTransformer.objectToPartMap(body, "good_deal"),
+                getPartFromUri(uri, "upload"))
                 .observeOn(AndroidSchedulers.mainThread());
-
-/*        return Observable.just(uri)
-                .subscribeOn(Schedulers.io())
-                .map(uri1 -> getPartFromUri(uri1, "upload"))
-                .flatMap(part -> restService.uploadDeal(
-                        preferencesManager.getUserToken(),
-                        RequestBody.create(MultipartBody.FORM, body.getDescription()),
-                        body.getCategory(),
-                        body.isSubscribersOnly(),
-                        part
-                ))
-                .observeOn(AndroidSchedulers.mainThread());*/
     }
 
     @Override

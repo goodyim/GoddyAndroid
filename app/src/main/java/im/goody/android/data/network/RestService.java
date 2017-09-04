@@ -1,6 +1,7 @@
 package im.goody.android.data.network;
 
 import java.util.List;
+import java.util.Map;
 
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.network.res.UserRes;
@@ -13,6 +14,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 public interface RestService {
@@ -20,9 +22,7 @@ public interface RestService {
     @Multipart
     @POST("users")
     Observable<UserRes> registerUser(
-            @Part("user[email]") RequestBody email,
-            @Part("user[user_name]") RequestBody name,
-            @Part("user[password]") RequestBody password,
+            @PartMap Map<String, RequestBody> params,
             @Part MultipartBody.Part file
     );
 
@@ -36,8 +36,6 @@ public interface RestService {
     @Multipart
     @POST("good_deals")
     Observable<ResponseBody> uploadDeal(@Header("X-User-Token") String token,
-                                        @Part("good_deal[description]") RequestBody description,
-                                        @Part("good_deal[category_id]") int category,
-                                        @Part("good_deal[private]") boolean isPrivate,
+                                        @PartMap Map<String, RequestBody> params,
                                         @Part MultipartBody.Part file);
 }
