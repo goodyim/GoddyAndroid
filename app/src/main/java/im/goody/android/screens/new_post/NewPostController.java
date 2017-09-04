@@ -22,6 +22,7 @@ import im.goody.android.R;
 import im.goody.android.core.BaseController;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
+import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.ui.helpers.ChooseImageOptionsDialog;
 import im.goody.android.ui.helpers.OptionsDialog;
 import im.goody.android.utils.UIUtils;
@@ -52,7 +53,7 @@ public class NewPostController extends BaseController<NewPostView> {
     protected void initActionBar() {
         rootPresenter.newBarBuilder()
                 .setToolbarVisible(true)
-                .setBackArrow(true)
+                .setHomeState(BarBuilder.HOME_ARROW)
                 .setTitleRes(R.string.new_post_title)
                 .setHomeListener(v -> {
                     Activity activity = getActivity();

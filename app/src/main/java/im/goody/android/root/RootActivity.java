@@ -27,6 +27,7 @@ import im.goody.android.App;
 import im.goody.android.R;
 import im.goody.android.databinding.ActivityRootBinding;
 import im.goody.android.di.components.RootComponent;
+import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.ui.helpers.MenuItemHolder;
 
 @SuppressWarnings("deprecation")
@@ -129,21 +130,32 @@ public class RootActivity extends AppCompatActivity
     }
 
     @Override
-    public void setBackArrow(boolean enabled) {
+    public void setHomeState(int state) {
         if (drawerToggle != null && actionBar != null) {
-            if (enabled) {
-                drawerToggle.setDrawerIndicatorEnabled(false);
-                actionBar.setDisplayHomeAsUpEnabled(true);
-                if (drawerToggle.getToolbarNavigationClickListener() == null) {
-                    drawerToggle.setToolbarNavigationClickListener(v -> onBackPressed());
-                }
-            } else {
-                actionBar.setDisplayHomeAsUpEnabled(false);
-                drawerToggle.setDrawerIndicatorEnabled(true);
-                drawerToggle.setToolbarNavigationClickListener(null);
+            switch (state) {
+                case BarBuilder.HOME_ARROW:
+                    drawerToggle.setDrawerIndicatorEnabled(false);
+                    actionBar.setDisplayHomeAsUpEnabled(true);
+                    if (drawerToggle.getToolbarNavigationClickListener() == null) {
+                        drawerToggle.setToolbarNavigationClickListener(v -> onBackPressed());
+                    }
+                    break;
+                case BarBuilder.HOME_HAMBURGER:
+                    actionBar.setDisplayHomeAsUpEnabled(false);
+                    drawerToggle.setDrawerIndicatorEnabled(true);
+                    drawerToggle.setToolbarNavigationClickListener(null);
+                    break;
+                    case BarBuilder.HOME_GONE:
+                        actionBar.setDisplayHomeAsUpEnabled(false);
+                        drawerToggle.setDrawerIndicatorEnabled(false);
+                        drawerToggle.setToolbarNavigationClickListener(null);
             }
+
             binding.drawerLayout.setDrawerLockMode(
-                    enabled ? DrawerLayout.LOCK_MODE_LOCKED_CLOSED : DrawerLayout.LOCK_MODE_UNLOCKED);
+                    state == BarBuilder.HOME_HAMBURGER
+                            ? DrawerLayout.LOCK_MODE_UNLOCKED
+                            : DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
             drawerToggle.syncState();
         }
     }

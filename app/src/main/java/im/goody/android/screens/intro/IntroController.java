@@ -9,6 +9,7 @@ import im.goody.android.R;
 import im.goody.android.core.BaseController;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
+import im.goody.android.ui.helpers.BarBuilder;
 
 public class IntroController extends BaseController<IntroView> {
     private IntroPageAdapter adapter;
@@ -37,7 +38,7 @@ public class IntroController extends BaseController<IntroView> {
     protected void initActionBar() {
         rootPresenter.newBarBuilder()
                 .setToolbarVisible(false)
-                .setBackArrow(true)
+                .setHomeState(BarBuilder.HOME_GONE)
                 .setStatusBarVisible(false)
                 .build();
     }

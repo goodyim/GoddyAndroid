@@ -19,8 +19,10 @@ import im.goody.android.core.BaseController;
 import im.goody.android.data.network.error.RegisterError;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
+import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.ui.helpers.ChooseImageOptionsDialog;
 import im.goody.android.ui.helpers.OptionsDialog;
+import im.goody.android.utils.UIUtils;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -45,7 +47,7 @@ public class RegisterController extends BaseController<RegisterView> {
     @Override
     protected void initActionBar() {
         rootPresenter.newBarBuilder()
-                .setBackArrow(true)
+                .setHomeState(BarBuilder.HOME_ARROW)
                 .setToolbarVisible(true)
                 .setTitleRes(R.string.register_title)
                 .build();
@@ -77,6 +79,7 @@ public class RegisterController extends BaseController<RegisterView> {
 
     void register() {
         if (viewModel.isValid()) {
+            UIUtils.hideKeyboard(getActivity());
             rootPresenter.showProgress(R.string.register_progress_title);
             disposable = repository.register(viewModel.body(), viewModel.getAvatarUri())
                     .subscribe(

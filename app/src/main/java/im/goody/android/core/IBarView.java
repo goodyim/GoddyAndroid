@@ -9,7 +9,7 @@ import im.goody.android.ui.helpers.MenuItemHolder;
 public interface IBarView {
     void setToolbarTitle(Integer titleRes);
     void setToolBarVisible(boolean visible);
-    void setBackArrow(boolean enabled);
+    void setHomeState(int state);
     void setHomeListener(View.OnClickListener listener);
     void setStatusBarVisible(boolean visible);
     void setToolBarMenuItem(List<MenuItemHolder> items);

@@ -13,6 +13,7 @@ import im.goody.android.core.BaseController;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
+import im.goody.android.ui.helpers.BarBuilder;
 import io.reactivex.Observable;
 
 public class MainController extends BaseController<MainView> implements MainAdapter.MainItemHandler {
@@ -91,7 +92,7 @@ public class MainController extends BaseController<MainView> implements MainAdap
         rootPresenter.newBarBuilder()
                 .setToolbarVisible(true)
                 .setTitleRes(R.string.main_title)
-                .setBackArrow(false)
+                .setHomeState(BarBuilder.HOME_HAMBURGER)
                 .build();
     }
 

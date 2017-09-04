@@ -9,6 +9,8 @@ import im.goody.android.R;
 import im.goody.android.core.BaseController;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
+import im.goody.android.ui.helpers.BarBuilder;
+import im.goody.android.utils.UIUtils;
 
 public class LoginController extends BaseController<LoginView> {
 
@@ -18,6 +20,7 @@ public class LoginController extends BaseController<LoginView> {
 
     void login() {
         if (loginData.isValid()) {
+            UIUtils.hideKeyboard(getActivity());
             rootPresenter.showProgress(R.string.login_progress_title);
             disposable = repository.login(loginData.body()).subscribe(
                     result -> {
@@ -52,7 +55,7 @@ public class LoginController extends BaseController<LoginView> {
     protected void initActionBar() {
         rootPresenter.newBarBuilder()
                 .setToolbarVisible(true)
-                .setBackArrow(true)
+                .setHomeState(BarBuilder.HOME_GONE)
                 .setTitleRes(R.string.login_title)
                 .build();
     }

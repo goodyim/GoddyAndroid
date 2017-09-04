@@ -14,9 +14,13 @@ public class BarBuilder {
     private IBarView view;
     private View.OnClickListener homeListener;
 
-    private boolean backArrow;
+    private int homeState = HOME_HAMBURGER;
     private boolean toolbarVisible;
     private boolean statusBarVisible = true;
+
+    public static final int HOME_GONE = 0;
+    public static final int HOME_HAMBURGER = 1;
+    public static final int HOME_ARROW = 2;
 
     @Nullable
     private Integer titleRes;
@@ -33,8 +37,8 @@ public class BarBuilder {
     }
 
     @NonNull
-    public BarBuilder setBackArrow(boolean enable) {
-        this.backArrow = enable;
+    public BarBuilder setHomeState(int enable) {
+        this.homeState = enable;
         return this;
     }
 
@@ -70,7 +74,7 @@ public class BarBuilder {
 
 
             view.setHomeListener(homeListener);
-            view.setBackArrow(backArrow);
+            view.setHomeState(homeState);
             view.setToolBarMenuItem(items);
             view.setStatusBarVisible(statusBarVisible);
         }
