@@ -31,7 +31,7 @@
                 android:layout_marginLeft="@dimen/size_normal"
                 android:layout_marginStart="@dimen/size_normal"
                 android:layout_marginTop="@dimen/size_normal"
-                android:contentDescription="@string/item_avatar_description"
+                android:contentDescription="@string/content_avatar"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/round_drawable"

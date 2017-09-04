@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Goody</string>
 
+
     <!-- activity_root -->
     <string name="open_drawer">open_drawer</string>
     <string name="close_drawer">close_drawer</string>
@@ -25,7 +26,6 @@
 
     <!-- News item -->
     <string name="item_image_description">Deal main image</string>
-    <string name="item_avatar_description">User avatar</string>
     <string name="item_share_description">Share</string>
     <string name="item_more_description">More actions</string>
 
@@ -75,10 +75,12 @@
     <string name="content_clear_location">Clear location</string>
     <string name="content_new_post_photo">Post photo</string>
     <string name="content_clear_image">Clear image</string>
+    <string name="content_avatar">User avatar</string>
 
     <string name="dialog_item_0">Choose photo</string>
     <string name="dialog_item_1">Take picture</string>
     <string name="dialog_title">Choose action</string>
+
     <string name="report_submitted">Report submitted</string>
     <string name="collapse">Collapse</string>
     <string name="expand">more</string>

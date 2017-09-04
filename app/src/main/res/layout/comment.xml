@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/FullWidthLayout"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/comment_avatar"
+        android:layout_width="@dimen/avatar_size"
+        android:layout_height="@dimen/avatar_size"
+        android:layout_marginLeft="@dimen/size_normal"
+        android:layout_marginStart="@dimen/size_normal"
+        android:layout_marginTop="@dimen/size_normal"
+        android:contentDescription="@string/content_avatar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/round_drawable" />
+
+    <TextView
+        android:id="@+id/comment_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_normal"
+        android:layout_marginStart="@dimen/size_normal"
+        android:layout_marginTop="4dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintLeft_toRightOf="@+id/comment_avatar"
+        app:layout_constraintTop_toTopOf="@+id/comment_avatar"
+        tools:text="User name" />
+
+    <TextView
+        android:id="@+id/comment_body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/size_normal"
+        android:layout_marginEnd="@dimen/size_big"
+        android:layout_marginRight="@dimen/size_big"
+        android:layout_marginTop="@dimen/size_little"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/comment_name"
+        app:layout_constraintRight_toLeftOf="@+id/comment_date"
+        app:layout_constraintTop_toBottomOf="@+id/comment_name"
+        tools:text="Lorem ipsum dolor sit amet" />
+
+    <TextView
+        android:id="@+id/comment_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/size_normal"
+        android:layout_marginRight="@dimen/size_normal"
+        app:layout_constraintBottom_toBottomOf="@+id/comment_name"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/comment_name"
+        tools:text="1d" />
+
+</android.support.constraint.ConstraintLayout>
