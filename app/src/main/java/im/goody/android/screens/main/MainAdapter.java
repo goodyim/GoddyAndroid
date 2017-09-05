@@ -17,17 +17,10 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
     private List<MainItemViewModel> data;
     private MainItemHandler handler;
-    private RecyclerView recyclerView;
 
     MainAdapter(List<MainItemViewModel> data, MainItemHandler handler) {
         this.data = data;
         this.handler = handler;
-    }
-
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        this.recyclerView = recyclerView;
     }
 
     @Override
@@ -65,7 +58,7 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
     interface MainItemHandler {
         void report(long id);
-
+        void showDetail(long id);
         void share(String text);
     }
 
@@ -84,6 +77,12 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
             Deal deal = viewModel.getDeal();
 
             binding.setViewModel(viewModel);
+
+            binding.newsItemContainer
+                    .setOnClickListener(v -> handler.showDetail(deal.getId()));
+
+            binding.actionPanel.panelItemComments
+                    .setOnClickListener(v -> handler.showDetail(deal.getId()));
 
             binding.actionPanel.panelItemShare.setOnClickListener(v -> {
                 String text = buildShareText(deal);

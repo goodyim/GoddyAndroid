@@ -26,14 +26,12 @@ public abstract class BaseController<V extends BaseView> extends Controller {
     protected Disposable disposable;
 
     protected BaseController() {
-        RootComponent rootComponent = App.getRootComponent();
-        if (rootComponent != null) {
-            initDaggerComponent(rootComponent);
-        }
+        initDagger();
     }
 
-    protected BaseController(Bundle args) {
+    public BaseController(Bundle args) {
         super(args);
+        initDagger();
     }
 
     protected abstract void initDaggerComponent(RootComponent parentComponent);
@@ -68,4 +66,15 @@ public abstract class BaseController<V extends BaseView> extends Controller {
     }
 
     //endregion
+
+    // ======= region private methods =======
+
+    private void initDagger() {
+        RootComponent rootComponent = App.getRootComponent();
+        if (rootComponent != null) {
+            initDaggerComponent(rootComponent);
+        }
+    }
+
+    // endregion
 }

@@ -4,15 +4,19 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 @SuppressWarnings("unused")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Deal {
     private long id;
     private String description;
+
+    @JsonProperty("likes_count")
     private int likesCount;
+    @JsonProperty("comments_count")
     private int commentsCount;
-    private Author author;
 
     @JsonProperty("created_at")
     private String date;
@@ -23,36 +27,50 @@ public class Deal {
     @JsonProperty("image_file_name")
     private String imageUrl;
 
-    @SuppressWarnings("WeakerAccess")
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public static class Author {
-        @JsonProperty("user_name")
-        private String name;
-        @JsonProperty("avatar_url")
-        private String avatarUrl;
+    private Author author;
 
-        public String getName() {
-            return name;
-        }
+    private List<Comment> comments;
 
-        public Author setName(String name) {
-            this.name = name;
-            return this;
-        }
+    // ======= region getters =======
 
-        public String getAvatarUrl() {
-            return avatarUrl;
-        }
-
-        public Author setAvatarUrl(String avatarUrl) {
-            this.avatarUrl = avatarUrl;
-            return this;
-        }
+    public long getId() {
+        return id;
     }
 
     public Author getAuthor() {
         return author;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public int getCommentsCount() {
+        return commentsCount;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    // endregion
+
+    // ======= region setters =======
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Deal setAuthor(Author author) {
@@ -60,17 +78,9 @@ public class Deal {
         return this;
     }
 
-    public String getDate() {
-        return date;
-    }
-
     public Deal setDate(String date) {
         this.date = date;
         return this;
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     public Deal setTitle(String title) {
@@ -78,17 +88,9 @@ public class Deal {
         return this;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public Deal setDescription(String description) {
         this.description = description;
         return this;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
     }
 
     public Deal setImageUrl(String imageUrl) {
@@ -105,21 +107,14 @@ public class Deal {
         return this;
     }
 
-    public int getCommentsCount() {
-        return commentsCount;
-    }
-
     public Deal setCommentsCount(int commentsCount) {
         this.commentsCount = commentsCount;
         return this;
     }
 
-    public long getId() {
-        return id;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
-    public Deal setId(long id) {
-        this.id = id;
-        return this;
-    }
+    // endregion
 }

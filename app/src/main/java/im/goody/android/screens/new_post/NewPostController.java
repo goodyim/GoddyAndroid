@@ -23,8 +23,8 @@ import im.goody.android.core.BaseController;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.ui.helpers.BarBuilder;
-import im.goody.android.ui.helpers.ChooseImageOptionsDialog;
-import im.goody.android.ui.helpers.OptionsDialog;
+import im.goody.android.ui.dialogs.ChooseImageOptionsDialog;
+import im.goody.android.ui.dialogs.OptionsDialog;
 import im.goody.android.utils.UIUtils;
 
 import static android.app.Activity.RESULT_OK;

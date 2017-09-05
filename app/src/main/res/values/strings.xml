@@ -86,4 +86,5 @@
     <string name="expand">more</string>
     <string name="unknown_error">Unknown_error</string>
     <string name="retry">Retry</string>
+    <string name="detail_title">Post</string>
 </resources>

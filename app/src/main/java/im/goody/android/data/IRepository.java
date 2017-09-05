@@ -23,6 +23,7 @@ public interface IRepository {
     <T> T getError(Throwable t, Class<T> tClass);
 
     Observable<List<Deal>> getNews(int page);
+    Observable<Deal> getDeal(long id);
 
     Observable<ResponseBody> createPost(NewPostReq body, Uri imageUri);
     Observable<String> sendReport(long id);

@@ -15,6 +15,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RestService {
@@ -38,4 +39,6 @@ public interface RestService {
     Observable<ResponseBody> uploadDeal(@Header("X-User-Token") String token,
                                         @PartMap Map<String, RequestBody> params,
                                         @Part MultipartBody.Part file);
+    @GET("good_deals/{id}")
+    Observable<Deal> getDeal(@Path("id") long id);
 }

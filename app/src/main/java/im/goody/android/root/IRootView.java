@@ -9,6 +9,8 @@ import im.goody.android.core.IBarView;
 interface IRootView extends IBarView {
     void showScreen(Class<? extends Controller> controllerClass);
     void showScreenAsRoot(Class<? extends Controller> controllerClass);
+    void showDetailScreen(long id);
+
     void showProgress(@StringRes int titleRes);
     void hideProgress();
 }

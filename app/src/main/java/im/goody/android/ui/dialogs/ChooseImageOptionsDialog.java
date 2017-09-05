@@ -1,4 +1,4 @@
-package im.goody.android.ui.helpers;
+package im.goody.android.ui.dialogs;
 
 import im.goody.android.R;
 

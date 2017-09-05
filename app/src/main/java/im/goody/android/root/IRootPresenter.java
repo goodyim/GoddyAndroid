@@ -19,6 +19,7 @@ public interface IRootPresenter {
     void showLoginScreen(boolean isRoot);
     void showRegisterScreen();
     void showNewPostScreen();
+    void showDetailScreen(long id);
 
     //first start
     void launched();

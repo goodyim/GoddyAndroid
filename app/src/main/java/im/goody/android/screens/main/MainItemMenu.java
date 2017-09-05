@@ -10,7 +10,7 @@ public class MainItemMenu {
     public static Observable<Integer> show(View anchor) {
         return Observable.create(source -> {
             PopupMenu popup = new PopupMenu(anchor.getContext(), anchor);
-            popup.inflate(R.menu.main_item_popup);
+            popup.inflate(R.menu.deal_menu);
             popup.setOnMenuItemClickListener(item -> {
                 source.onNext(item.getItemId());
                 return true;

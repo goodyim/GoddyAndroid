@@ -117,6 +117,12 @@ public class Repository implements IRepository {
     }
 
     @Override
+    public Observable<Deal> getDeal(long id) {
+        return restService.getDeal(id)
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
     public Observable<ResponseBody> createPost(NewPostReq body, Uri uri) {
         return restService.uploadDeal(preferencesManager.getUserToken(),
                 RestCallTransformer.objectToPartMap(body, "good_deal"),

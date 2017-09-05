@@ -103,6 +103,13 @@ public class RootPresenter implements IRootPresenter {
             rootView.showScreen(NewPostController.class);
     }
 
+    @Override
+    public void showDetailScreen(long id) {
+        if (rootView != null) {
+            rootView.showDetailScreen(id);
+        }
+    }
+
     //endregion
 
     @Override

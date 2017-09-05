@@ -27,6 +27,7 @@ import im.goody.android.App;
 import im.goody.android.R;
 import im.goody.android.databinding.ActivityRootBinding;
 import im.goody.android.di.components.RootComponent;
+import im.goody.android.screens.detail_post.DetailPostController;
 import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.ui.helpers.MenuItemHolder;
 
@@ -186,6 +187,7 @@ public class RootActivity extends AppCompatActivity
     @Override
     public void showScreen(Class<? extends Controller> controllerClass) {
         String tag = controllerClass.getName();
+
         Controller controller = router.getControllerWithTag(tag);
         if (controller == null) {
             controller = instantiateController(controllerClass);
@@ -198,6 +200,18 @@ public class RootActivity extends AppCompatActivity
         String tag = controllerClass.getName();
         Controller controller = instantiateController(controllerClass);
         router.setRoot(RouterTransaction.with(controller).tag(tag));
+    }
+
+    @Override
+    public void showDetailScreen(long id) {
+        String tag = DetailPostController.class.getName() + id;
+
+        Controller controller = router.getControllerWithTag(tag);
+
+        if (controller == null)
+            controller = new DetailPostController(id);
+
+        router.pushController(RouterTransaction.with(controller).tag(tag));
     }
 
     @Override

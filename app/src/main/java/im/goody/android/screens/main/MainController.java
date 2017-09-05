@@ -70,6 +70,11 @@ public class MainController extends BaseController<MainView> implements MainAdap
     }
 
     @Override
+    public void showDetail(long id) {
+        rootPresenter.showDetailScreen(id);
+    }
+
+    @Override
     public void share(String text) {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");

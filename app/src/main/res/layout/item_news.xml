@@ -17,6 +17,8 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/news_item_container"
+        android:background="?android:attr/selectableItemBackground"
         app:cardUseCompatPadding="true">
 
         <android.support.constraint.ConstraintLayout
@@ -35,7 +37,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/round_drawable"
-                app:user_avatar="@{viewModel.deal.author.avatarUrl}" />
+                app:author_avatar="@{viewModel.deal.author.avatarUrl}" />
 
             <TextView
                 android:id="@+id/news_item_user_name"
@@ -46,7 +48,8 @@
                 android:text="@{viewModel.deal.author.name}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 app:layout_constraintLeft_toRightOf="@+id/news_item_user_avatar"
-                app:layout_constraintTop_toTopOf="@+id/news_item_user_avatar" />
+                app:layout_constraintTop_toTopOf="@+id/news_item_user_avatar"
+                tools:text="User name" />
 
             <TextView
                 android:id="@+id/news_item_date"
@@ -69,7 +72,7 @@
                 android:contentDescription="@string/item_image_description"
                 android:scaleType="centerCrop"
                 android:visibility="gone"
-                app:item_image="@{viewModel.deal}"
+                app:post_image="@{viewModel.deal}"
                 app:layout_constraintDimensionRatio="16:9"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

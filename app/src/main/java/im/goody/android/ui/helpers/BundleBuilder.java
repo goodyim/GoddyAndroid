@@ -33,6 +33,11 @@ public class BundleBuilder {
         return this;
     }
 
+    public BundleBuilder putLong(String key, long value) {
+        bundle.putLong(key, value);
+        return this;
+    }
+
     public BundleBuilder putParcelable(String key, Parcelable value) {
         bundle.putParcelable(key, value);
         return this;

@@ -1,4 +1,4 @@
-package im.goody.android.ui.helpers;
+package im.goody.android.ui.dialogs;
 
 import android.app.AlertDialog;
 import android.content.Context;
