@@ -5,8 +5,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.AttributeSet;
 
 import im.goody.android.core.BaseView;
-import im.goody.android.data.dto.Deal;
 import im.goody.android.databinding.ScreenDetailBinding;
+import im.goody.android.utils.UIUtils;
 
 public class DetailPostView extends BaseView<DetailPostController, ScreenDetailBinding> {
     private DetailPostAdapter adapter;
@@ -21,12 +21,21 @@ public class DetailPostView extends BaseView<DetailPostController, ScreenDetailB
         binding.detailPostList.setHasFixedSize(true);
         binding.detailPostList.setAdapter(null);
 
+        binding.detailCommentSend.setOnClickListener(v -> {
+            UIUtils.hideKeyboard(getFocusedChild());
+            controller.sendComment();
+        });
+
         startLoading();
     }
 
     @Override
     protected void onDetached() {
 
+    }
+
+    public void setData(DetailPostViewModel data) {
+        binding.setData(data);
     }
 
     public void scrollToPosition(int position) {
@@ -38,12 +47,20 @@ public class DetailPostView extends BaseView<DetailPostController, ScreenDetailB
                 .findFirstVisibleItemPosition();
     }
 
-    public void showData(Deal data) {
-        adapter = new DetailPostAdapter(data);
+    public void showData(DetailPostViewModel data) {
+        adapter = new DetailPostAdapter(data.getDeal());
 
         finishLoading();
 
         binding.detailPostList.setAdapter(adapter);
+
+        scrollToPosition(data.getPosition());
+    }
+
+    public void appendCreatedComment() {
+        if (adapter != null) {
+            adapter.notifyCommentAdded();
+        }
     }
 
     public void finishLoading() {
@@ -54,5 +71,13 @@ public class DetailPostView extends BaseView<DetailPostController, ScreenDetailB
     public void startLoading() {
         binding.detailPostProgress.setVisibility(VISIBLE);
         binding.detailPostList.setVisibility(GONE);
+    }
+
+    public void hideCommentProgress() {
+        binding.commentProgress.setVisibility(GONE);
+    }
+
+    public void showCommentProgress() {
+        binding.commentProgress.setVisibility(VISIBLE);
     }
 }

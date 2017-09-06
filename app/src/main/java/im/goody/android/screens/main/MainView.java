@@ -45,7 +45,7 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
         binding.mainNewsList.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.mainNewsList.setHasFixedSize(true);
         binding.mainNewsList.setAdapter(null);
-        binding.mainNewsContainer.setVisibility(GONE);
+        binding.mainNewsList.setVisibility(GONE);
 
         binding.mainNewsContainer.setOnRefreshListener(this);
         binding.mainNewsContainer.setColorSchemeResources(Constants.PROGRESS_COLORS);
@@ -76,8 +76,8 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
 
         finishLoading();
 
-        if (binding.mainNewsContainer.getVisibility() == GONE)
-            binding.mainNewsContainer.setVisibility(VISIBLE);
+        if (binding.mainNewsList.getVisibility() == GONE)
+            binding.mainNewsList.setVisibility(VISIBLE);
 
         binding.mainNewsList.setAdapter(adapter);
     }
@@ -93,6 +93,10 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
 
         if (binding.mainNewsContainer.isRefreshing())
             binding.mainNewsContainer.setRefreshing(false);
+    }
+
+    public void startLoading() {
+        binding.mainNewsContainer.setRefreshing(true);
     }
 
     public void scrollToPosition(int position) {

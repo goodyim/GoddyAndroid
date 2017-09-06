@@ -32,7 +32,10 @@ public class MainController extends BaseController<MainView> implements MainAdap
                         },
                         error -> {
                             view().finishLoading();
-                            view().showErrorWithRetry(error.getMessage(), v -> refreshData());
+                            view().showErrorWithRetry(error.getMessage(), v -> {
+                                view().startLoading();
+                                refreshData();
+                            });
                         }
                 );
     }
@@ -48,7 +51,7 @@ public class MainController extends BaseController<MainView> implements MainAdap
                         error -> {
                             viewModel.decrementPage();
                             view().finishLoading();
-                            view().showErrorWithRetry(error.getMessage(), v -> loadMore());
+                            view().showErrorWithRetry(getErrorMessage(error), v -> loadMore());
                         }
                 );
     }

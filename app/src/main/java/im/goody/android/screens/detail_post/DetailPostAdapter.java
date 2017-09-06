@@ -42,6 +42,10 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
         return deal == null ? 0 : deal.getCommentsCount() + 1;
     }
 
+    void notifyCommentAdded() {
+        notifyItemInserted(deal.getComments().size() - 1);
+    }
+
     class DetailPostHolder extends RecyclerView.ViewHolder {
         private ViewDataBinding binding;
 

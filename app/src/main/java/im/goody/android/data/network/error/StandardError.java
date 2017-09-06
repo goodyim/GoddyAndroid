@@ -1,7 +1,7 @@
 package im.goody.android.data.network.error;
 
 @SuppressWarnings("unused")
-public class RegisterError {
+public class StandardError {
     private String errors;
 
     public String getErrors() {

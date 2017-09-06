@@ -12,11 +12,13 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import im.goody.android.App;
+import im.goody.android.data.dto.Comment;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.local.PreferencesManager;
 import im.goody.android.data.network.RestService;
 import im.goody.android.data.network.core.RestCallTransformer;
 import im.goody.android.data.network.req.LoginReq;
+import im.goody.android.data.network.req.NewCommentReq;
 import im.goody.android.data.network.req.NewPostReq;
 import im.goody.android.data.network.req.RegisterReq;
 import im.goody.android.data.network.res.UserRes;
@@ -33,14 +35,6 @@ import retrofit2.Retrofit;
 
 // TODO replace fake data with api request
 public class Repository implements IRepository {
-
-    //region ================= MockData =================
-
-    private static final String TEST_EMAIL = "test@test.com";
-    private static final String TEST_PASSWORD = "1234567";
-
-    //endregion
-
     @Inject
     PreferencesManager preferencesManager;
     @Inject
@@ -93,19 +87,6 @@ public class Repository implements IRepository {
         preferencesManager.saveFirstLaunched();
     }
 
-    @Override
-    public <T> T getError(Throwable t, Class<T> tClass) {
-        try {
-            ResponseBody body = ((HttpException) t).response().errorBody();
-            Converter<ResponseBody, T> errorConverter =
-                    retrofit.responseBodyConverter(tClass, new Annotation[0]);
-
-            return errorConverter.convert(body);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
     //endregion
 
     //region ================= News =================
@@ -138,6 +119,31 @@ public class Repository implements IRepository {
     }
 
     //endregion
+
+    // ======= region Comments =======
+
+    @Override
+    public Observable<Comment> sendComment(long dealId, NewCommentReq body) {
+        return restService.sendComment(preferencesManager.getUserToken(), dealId, body)
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    // endregion
+
+
+    @Override
+    public <T> T getError(Throwable t, Class<T> tClass) {
+        try {
+            ResponseBody body = ((HttpException) t).response().errorBody();
+            Converter<ResponseBody, T> errorConverter =
+                    retrofit.responseBodyConverter(tClass, new Annotation[0]);
+
+            return errorConverter.convert(body);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
 
     private MultipartBody.Part getPartFromUri(Uri uri, String partName) {

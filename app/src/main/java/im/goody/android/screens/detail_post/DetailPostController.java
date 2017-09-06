@@ -59,7 +59,6 @@ public class DetailPostController extends BaseController<DetailPostView> {
 
     // ======= region DetailPostController =======
 
-
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.deal_menu, menu);
@@ -81,11 +80,11 @@ public class DetailPostController extends BaseController<DetailPostView> {
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
         setHasOptionsMenu(true);
+        view().setData(viewModel);
         viewModel.setId(getArgs().getLong(ID_KEY));
 
         if (viewModel.getDeal() != null) {
-            view().showData(viewModel.getDeal());
-            view().scrollToPosition(viewModel.getPosition());
+            view().showData(viewModel);
         } else {
             loadData();
         }
@@ -97,25 +96,28 @@ public class DetailPostController extends BaseController<DetailPostView> {
         super.onDetach(view);
     }
 
-    // endregion
-
-    // ======= region DI =======
-
-    @dagger.Subcomponent
-    @DaggerScope(DetailPostController.class)
-    public interface Component {
-        void inject(DetailPostController controller);
+    void sendComment() {
+        view().showCommentProgress();
+        disposable = repository.sendComment(viewModel.getId(), viewModel.getCommentObject())
+                .subscribe(comment -> {
+                    viewModel.addComment(comment);
+                    view().hideCommentProgress();
+                    view().appendCreatedComment();
+                }, error -> {
+                    view().hideCommentProgress();
+                    showError(error);
+                });
     }
 
     // endregion
 
-    // ======= region private methods =======
+    // ======= region DI =======
 
     private void loadData() {
         disposable = repository.getDeal(viewModel.getId())
                 .subscribe(deal -> {
                     viewModel.setDeal(deal);
-                    view().showData(deal);
+                    view().showData(viewModel);
                 }, error -> {
                     view().finishLoading();
                     view().showErrorWithRetry(error.getMessage(), v -> {
@@ -125,11 +127,21 @@ public class DetailPostController extends BaseController<DetailPostView> {
                 });
     }
 
+    // endregion
+
+    // ======= region private methods =======
+
     private void report() {
-        repository.sendReport(viewModel.getId()).subscribe(
+        disposable = repository.sendReport(viewModel.getId()).subscribe(
                 s -> view().showMessage(getActivity().getString(R.string.report_submitted)),
                 error -> view().showMessage(error.getMessage())
         );
+    }
+
+    @dagger.Subcomponent
+    @DaggerScope(DetailPostController.class)
+    public interface Component {
+        void inject(DetailPostController controller);
     }
 
     // endregion

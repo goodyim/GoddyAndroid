@@ -12,6 +12,7 @@ import javax.inject.Inject;
 
 import im.goody.android.App;
 import im.goody.android.data.IRepository;
+import im.goody.android.data.network.error.StandardError;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.root.IRootPresenter;
 import io.reactivex.disposables.Disposable;
@@ -57,6 +58,15 @@ public abstract class BaseController<V extends BaseView> extends Controller {
     @SuppressWarnings("unchecked")
     protected V view() {
         return (V) getView();
+    }
+
+    protected void showError(Throwable error) {
+        view().showMessage(getErrorMessage(error));
+    }
+
+    protected String getErrorMessage(Throwable error) {
+        StandardError errorObject = repository.getError(error, StandardError.class);
+        return errorObject != null ? errorObject.getErrors() : error.getMessage();
     }
 
     //======= region Permissions =======

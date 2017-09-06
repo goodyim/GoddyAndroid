@@ -20,7 +20,6 @@ public class LoginController extends BaseController<LoginView> {
 
     void login() {
         if (loginData.isValid()) {
-            UIUtils.hideKeyboard(getActivity());
             rootPresenter.showProgress(R.string.login_progress_title);
             disposable = repository.login(loginData.body()).subscribe(
                     result -> {

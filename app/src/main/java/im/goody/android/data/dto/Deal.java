@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -30,6 +31,10 @@ public class Deal {
     private Author author;
 
     private List<Comment> comments;
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
 
     // ======= region getters =======
 
@@ -62,7 +67,7 @@ public class Deal {
     }
 
     public List<Comment> getComments() {
-        return comments;
+        return new ArrayList<>(comments);
     }
 
     // endregion

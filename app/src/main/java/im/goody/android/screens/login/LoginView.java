@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 
 import im.goody.android.core.BaseView;
 import im.goody.android.databinding.ScreenLoginBinding;
+import im.goody.android.utils.UIUtils;
 
 public class LoginView extends BaseView<LoginController, ScreenLoginBinding> {
     public LoginView(Context context, AttributeSet attrs) {
@@ -17,7 +18,10 @@ public class LoginView extends BaseView<LoginController, ScreenLoginBinding> {
 
     @Override
     protected void onAttached() {
-        binding.signInSubmit.setOnClickListener(v -> controller.login());
+        binding.signInSubmit.setOnClickListener(v -> {
+            UIUtils.hideKeyboard(getFocusedChild());
+            controller.login();
+        });
         binding.signInRedirect.setOnClickListener(v -> controller.goToRegister());
     }
 

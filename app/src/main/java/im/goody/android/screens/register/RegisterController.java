@@ -16,12 +16,11 @@ import java.io.File;
 
 import im.goody.android.R;
 import im.goody.android.core.BaseController;
-import im.goody.android.data.network.error.RegisterError;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
-import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.ui.dialogs.ChooseImageOptionsDialog;
 import im.goody.android.ui.dialogs.OptionsDialog;
+import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.utils.UIUtils;
 
 import static android.app.Activity.RESULT_OK;
@@ -79,7 +78,6 @@ public class RegisterController extends BaseController<RegisterView> {
 
     void register() {
         if (viewModel.isValid()) {
-            UIUtils.hideKeyboard(getActivity());
             rootPresenter.showProgress(R.string.register_progress_title);
             disposable = repository.register(viewModel.body(), viewModel.getAvatarUri())
                     .subscribe(
@@ -89,8 +87,7 @@ public class RegisterController extends BaseController<RegisterView> {
                             },
                             error -> {
                                 rootPresenter.hideProgress();
-                                RegisterError err = repository.getError(error, RegisterError.class);
-                                view().showMessage(err != null ? err.getErrors() : error.getMessage());
+                                showError(error);
                             }
             );
         } else {

@@ -106,7 +106,6 @@ public class NewPostController extends BaseController<NewPostView> {
     }
 
     void createPost() {
-        UIUtils.hideKeyboard(getActivity());
         rootPresenter.showProgress(R.string.create_post_progress);
         disposable = repository.createPost(viewModel.body(), viewModel.getImageUri())
                 .subscribe(
@@ -116,7 +115,7 @@ public class NewPostController extends BaseController<NewPostView> {
                         },
                         error -> {
                             rootPresenter.hideProgress();
-                            view().showMessage(error.getMessage());
+                            showError(error);
                         }
                 );
     }

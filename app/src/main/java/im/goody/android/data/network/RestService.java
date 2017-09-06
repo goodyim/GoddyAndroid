@@ -3,12 +3,15 @@ package im.goody.android.data.network;
 import java.util.List;
 import java.util.Map;
 
+import im.goody.android.data.dto.Comment;
 import im.goody.android.data.dto.Deal;
+import im.goody.android.data.network.req.NewCommentReq;
 import im.goody.android.data.network.res.UserRes;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -39,6 +42,12 @@ public interface RestService {
     Observable<ResponseBody> uploadDeal(@Header("X-User-Token") String token,
                                         @PartMap Map<String, RequestBody> params,
                                         @Part MultipartBody.Part file);
+
     @GET("good_deals/{id}")
     Observable<Deal> getDeal(@Path("id") long id);
+
+    @POST("comments")
+    Observable<Comment> sendComment(@Header("X-User-Token") String token,
+                                    @Query("good_deal_id") long id,
+                                    @Body NewCommentReq comment);
 }

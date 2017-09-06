@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 
 import im.goody.android.core.BaseView;
 import im.goody.android.databinding.ScreenRegisterBinding;
+import im.goody.android.utils.UIUtils;
 
 public class RegisterView extends BaseView<RegisterController, ScreenRegisterBinding> {
 
@@ -18,8 +19,15 @@ public class RegisterView extends BaseView<RegisterController, ScreenRegisterBin
 
     @Override
     protected void onAttached() {
-        binding.registerImage.setOnClickListener(v -> controller.chooseAvatar());
-        binding.registerSubmit.setOnClickListener(v -> controller.register());
+        binding.registerImage.setOnClickListener(v -> {
+            UIUtils.hideKeyboard(getFocusedChild());
+            controller.chooseAvatar();
+        });
+
+        binding.registerSubmit.setOnClickListener(v -> {
+            UIUtils.hideKeyboard(getFocusedChild());
+            controller.register();
+        });
     }
 
     @Override

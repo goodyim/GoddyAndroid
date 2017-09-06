@@ -22,19 +22,19 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public class NetworkModule {
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient () {
+    OkHttpClient provideOkHttpClient() {
         return createClient();
     }
 
     @Provides
     @Singleton
-    Retrofit provideRetrofit (OkHttpClient okHttp) {
+    Retrofit provideRetrofit(OkHttpClient okHttp) {
         return createRetrofit(okHttp);
     }
 
     @Provides
     @Singleton
-    RestService provideRestService (Retrofit retrofit) {
+    RestService provideRestService(Retrofit retrofit) {
         return retrofit.create(RestService.class);
     }
 
@@ -50,9 +50,14 @@ public class NetworkModule {
     private Retrofit createRetrofit(OkHttpClient okHttp) {
         return new Retrofit.Builder()
                 .baseUrl(AppConfig.BASE_URL)
-                .addConverterFactory(JacksonConverterFactory.create())
+                .addConverterFactory(createConverterFactory())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
                 .client(okHttp)
                 .build();
+    }
+
+    private Converter.Factory createConverterFactory() {
+        return JacksonConverterFactory.create(new ObjectMapper()
+                .configure(SerializationFeature.WRAP_ROOT_VALUE, true));
     }
 }
