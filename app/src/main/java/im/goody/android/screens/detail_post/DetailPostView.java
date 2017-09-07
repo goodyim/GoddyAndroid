@@ -63,7 +63,7 @@ public class DetailPostView extends BaseView<DetailPostController, ScreenDetailB
     }
 
     public void showData(DetailPostViewModel data) {
-        adapter = new DetailPostAdapter(data.getDeal());
+        adapter = new DetailPostAdapter(data.getDeal(), controller);
 
         finishLoading();
 

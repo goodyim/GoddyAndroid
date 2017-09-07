@@ -1,6 +1,5 @@
 package im.goody.android.screens.main;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,10 +78,7 @@ public class MainController extends BaseController<MainView> implements MainAdap
 
     @Override
     public void share(String text) {
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, text);
-        startActivity(shareIntent);
+        super.share(text);
     }
 
     // end

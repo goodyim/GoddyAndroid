@@ -9,12 +9,15 @@ import android.view.ViewGroup;
 import im.goody.android.BR;
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
+import im.goody.android.databinding.ItemDetailPostBinding;
 
 class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPostHolder> {
     private Deal deal;
+    private DetailPostHandler handler;
 
-    public DetailPostAdapter(Deal deal) {
+    DetailPostAdapter(Deal deal, DetailPostHandler handler) {
         this.deal = deal;
+        this.handler = handler;
     }
 
     @Override
@@ -46,6 +49,10 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
         notifyItemInserted(deal.getComments().size());
     }
 
+    interface DetailPostHandler {
+        void share(Deal deal);
+    }
+
     class DetailPostHolder extends RecyclerView.ViewHolder {
         private ViewDataBinding binding;
 
@@ -56,7 +63,18 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
 
         public void bind(Object object) {
             binding.setVariable(BR.data, object);
+
+            if (object instanceof Deal) {
+                bindPost((Deal) object);
+            }
+
             binding.executePendingBindings();
+        }
+
+        private void bindPost(Deal deal) {
+            ItemDetailPostBinding postBinding = (ItemDetailPostBinding) binding;
+
+            postBinding.actionPanel.panelItemShare.setOnClickListener(v -> handler.share(deal));
         }
     }
 }

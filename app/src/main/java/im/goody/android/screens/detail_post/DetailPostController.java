@@ -11,12 +11,15 @@ import android.view.ViewGroup;
 
 import im.goody.android.R;
 import im.goody.android.core.BaseController;
+import im.goody.android.data.dto.Deal;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.ui.helpers.BundleBuilder;
+import im.goody.android.utils.TextUtils;
 
-public class DetailPostController extends BaseController<DetailPostView> {
+public class DetailPostController extends BaseController<DetailPostView>
+        implements DetailPostAdapter.DetailPostHandler {
     private static final String ID_KEY = "DetailPostController.id";
 
     private DetailPostViewModel viewModel = new DetailPostViewModel();
@@ -121,6 +124,16 @@ public class DetailPostController extends BaseController<DetailPostView> {
                         loadData();
                     });
                 });
+    }
+
+    // endregion
+
+    // ======= region DetailPostHandler =======
+
+    @Override
+    public void share(Deal deal) {
+        String text = TextUtils.buildShareText(viewModel.getDeal());
+        super.share(text);
     }
 
     // endregion

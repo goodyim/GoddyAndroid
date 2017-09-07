@@ -1,5 +1,6 @@
 package im.goody.android.core;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -55,6 +56,8 @@ public abstract class BaseController<V extends BaseView> extends Controller {
         super.onDetach(view);
     }
 
+    // ======= region common methods =======
+
     @SuppressWarnings("unchecked")
     protected V view() {
         return (V) getView();
@@ -68,6 +71,15 @@ public abstract class BaseController<V extends BaseView> extends Controller {
         StandardError errorObject = repository.getError(error, StandardError.class);
         return errorObject != null ? errorObject.getErrors() : error.getMessage();
     }
+
+    protected void share(String text) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, text);
+        startActivity(shareIntent);
+    }
+
+    // endregion
 
     //======= region Permissions =======
 
