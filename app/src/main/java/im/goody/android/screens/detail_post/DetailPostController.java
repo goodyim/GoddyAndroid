@@ -101,8 +101,8 @@ public class DetailPostController extends BaseController<DetailPostView> {
         disposable = repository.sendComment(viewModel.getId(), viewModel.getCommentObject())
                 .subscribe(comment -> {
                     viewModel.addComment(comment);
-                    view().hideCommentProgress();
-                    view().appendCreatedComment();
+                    viewModel.commentBody.set(null);
+                    view().commentCreated();
                 }, error -> {
                     view().hideCommentProgress();
                     showError(error);

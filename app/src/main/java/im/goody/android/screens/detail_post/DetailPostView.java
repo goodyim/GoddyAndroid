@@ -57,9 +57,11 @@ public class DetailPostView extends BaseView<DetailPostController, ScreenDetailB
         scrollToPosition(data.getPosition());
     }
 
-    public void appendCreatedComment() {
+    public void commentCreated() {
+        hideCommentProgress();
         if (adapter != null) {
             adapter.notifyCommentAdded();
+            binding.detailPostList.scrollToPosition(adapter.getItemCount() - 1);
         }
     }
 

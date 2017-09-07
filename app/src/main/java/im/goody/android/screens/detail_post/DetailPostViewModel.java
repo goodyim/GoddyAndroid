@@ -1,5 +1,7 @@
 package im.goody.android.screens.detail_post;
 
+import android.databinding.ObservableField;
+
 import im.goody.android.data.dto.Comment;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.network.req.NewCommentReq;
@@ -8,7 +10,7 @@ public class DetailPostViewModel {
     private Deal deal;
     private int position;
     private long id;
-    private String commentBody;
+    public final ObservableField<String> commentBody = new ObservableField<>("");
 
     DetailPostViewModel() {
         position = 0;
@@ -16,12 +18,8 @@ public class DetailPostViewModel {
 
     // ======= region getters =======
 
-    public String getCommentBody() {
-        return commentBody;
-    }
-
     NewCommentReq getCommentObject() {
-        return new NewCommentReq().setContent(commentBody);
+        return new NewCommentReq().setContent(commentBody.get());
     }
 
     public Deal getDeal() {
@@ -39,10 +37,6 @@ public class DetailPostViewModel {
     // endregion
 
     // ======= region setters =======
-
-    public void setCommentBody(String commentBody) {
-        this.commentBody = commentBody;
-    }
 
     public void setDeal(Deal deal) {
         this.deal = deal;

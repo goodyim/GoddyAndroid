@@ -39,11 +39,11 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
 
     @Override
     public int getItemCount() {
-        return deal == null ? 0 : deal.getCommentsCount() + 1;
+        return deal == null ? 0 : deal.getComments().size() + 1;
     }
 
     void notifyCommentAdded() {
-        notifyItemInserted(deal.getComments().size() - 1);
+        notifyItemInserted(deal.getComments().size());
     }
 
     class DetailPostHolder extends RecyclerView.ViewHolder {
