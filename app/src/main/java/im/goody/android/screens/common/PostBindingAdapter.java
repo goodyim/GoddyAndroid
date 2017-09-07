@@ -18,6 +18,8 @@ import io.reactivex.schedulers.Schedulers;
 public class PostBindingAdapter {
     @BindingAdapter("post_image")
     public static void bindImage(ImageView view, Deal deal) {
+        Picasso.with(view.getContext()).cancelRequest(view);
+
         if (deal.getImageUrl() == null) {
             view.setVisibility(View.GONE);
             return;
@@ -31,6 +33,7 @@ public class PostBindingAdapter {
 
     @BindingAdapter("author_avatar")
     public static void bindAvatar(ImageView view, String url) {
+        Picasso.with(view.getContext()).cancelRequest(view);
 
         view.setImageResource(R.drawable.round_drawable);
 
@@ -43,7 +46,7 @@ public class PostBindingAdapter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         view::setImageDrawable,
-                        error -> view.setImageResource(R.drawable.round_drawable)
+                        Throwable::printStackTrace
                 );
     }
 }

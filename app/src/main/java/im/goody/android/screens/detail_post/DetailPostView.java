@@ -1,14 +1,17 @@
 package im.goody.android.screens.detail_post;
 
 import android.content.Context;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.AttributeSet;
 
+import im.goody.android.Constants;
 import im.goody.android.core.BaseView;
 import im.goody.android.databinding.ScreenDetailBinding;
 import im.goody.android.utils.UIUtils;
 
-public class DetailPostView extends BaseView<DetailPostController, ScreenDetailBinding> {
+public class DetailPostView extends BaseView<DetailPostController, ScreenDetailBinding>
+        implements SwipeRefreshLayout.OnRefreshListener {
     private DetailPostAdapter adapter;
 
     public DetailPostView(Context context, AttributeSet attrs) {
@@ -26,6 +29,9 @@ public class DetailPostView extends BaseView<DetailPostController, ScreenDetailB
             controller.sendComment();
         });
 
+        binding.detailPostRefresh.setOnRefreshListener(this);
+        binding.detailPostRefresh.setColorSchemeResources(Constants.PROGRESS_COLORS);
+
         startLoading();
     }
 
@@ -33,6 +39,15 @@ public class DetailPostView extends BaseView<DetailPostController, ScreenDetailB
     protected void onDetached() {
 
     }
+
+    // ======= region OnRefreshListener =======
+
+    @Override
+    public void onRefresh() {
+        controller.loadData();
+    }
+
+    // endregion
 
     public void setData(DetailPostViewModel data) {
         binding.setData(data);
@@ -66,13 +81,14 @@ public class DetailPostView extends BaseView<DetailPostController, ScreenDetailB
     }
 
     public void finishLoading() {
-        binding.detailPostProgress.setVisibility(GONE);
-        binding.detailPostList.setVisibility(VISIBLE);
+        binding.detailPostRefresh.setRefreshing(false);
+
+        if (binding.detailPostList.getVisibility() != VISIBLE)
+            binding.detailPostList.setVisibility(VISIBLE);
     }
 
     public void startLoading() {
-        binding.detailPostProgress.setVisibility(VISIBLE);
-        binding.detailPostList.setVisibility(GONE);
+        binding.detailPostRefresh.setRefreshing(true);
     }
 
     public void hideCommentProgress() {

@@ -109,11 +109,7 @@ public class DetailPostController extends BaseController<DetailPostView> {
                 });
     }
 
-    // endregion
-
-    // ======= region DI =======
-
-    private void loadData() {
+    void loadData() {
         disposable = repository.getDeal(viewModel.getId())
                 .subscribe(deal -> {
                     viewModel.setDeal(deal);
@@ -129,6 +125,16 @@ public class DetailPostController extends BaseController<DetailPostView> {
 
     // endregion
 
+    // ======= region DI =======
+
+    @dagger.Subcomponent
+    @DaggerScope(DetailPostController.class)
+    public interface Component {
+        void inject(DetailPostController controller);
+    }
+
+    // endregion
+
     // ======= region private methods =======
 
     private void report() {
@@ -136,12 +142,6 @@ public class DetailPostController extends BaseController<DetailPostView> {
                 s -> view().showMessage(getActivity().getString(R.string.report_submitted)),
                 error -> view().showMessage(error.getMessage())
         );
-    }
-
-    @dagger.Subcomponent
-    @DaggerScope(DetailPostController.class)
-    public interface Component {
-        void inject(DetailPostController controller);
     }
 
     // endregion
