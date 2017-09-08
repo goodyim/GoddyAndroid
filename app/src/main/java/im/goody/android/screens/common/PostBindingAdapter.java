@@ -8,11 +8,7 @@ import com.squareup.picasso.Picasso;
 
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
-import im.goody.android.utils.BitmapUtils;
 import im.goody.android.utils.NetUtils;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 @SuppressWarnings("unused")
 public class PostBindingAdapter {
@@ -28,6 +24,7 @@ public class PostBindingAdapter {
         Picasso.with(view.getContext())
                 .load(NetUtils.buildDealImageUrl(deal))
                 .placeholder(R.color.placeholder_color)
+                .fit()
                 .into(view);
     }
 
@@ -37,16 +34,10 @@ public class PostBindingAdapter {
 
         view.setImageResource(R.drawable.round_drawable);
 
-        Observable.just(url)
-                .subscribeOn(Schedulers.io())
-                .map(s -> Picasso.with(view.getContext())
-                        .load(url)
-                        .get())
-                .map(bitmap -> BitmapUtils.prepareAvatar(bitmap, view.getContext(), view.getWidth()))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        view::setImageDrawable,
-                        Throwable::printStackTrace
-                );
+        Picasso.with(view.getContext())
+                .load(url)
+                .placeholder(R.drawable.round_drawable)
+                .fit()
+                .into(view);
     }
 }

@@ -43,7 +43,7 @@ public class RegisterViewModel extends BaseObservable{
     private Drawable passwordRes;
 
     @Bindable
-    private RoundedBitmapDrawable avatar;
+    private Bitmap avatar;
     private Drawable emptyFieldDrawable;
 
     private Drawable validFieldDrawable;
@@ -96,7 +96,7 @@ public class RegisterViewModel extends BaseObservable{
         return nameRes;
     }
 
-    public RoundedBitmapDrawable getAvatar() {
+    public Bitmap getAvatar() {
         return avatar;
     }
 
@@ -145,7 +145,7 @@ public class RegisterViewModel extends BaseObservable{
         this.avatarUri = avatarUri;
     }
 
-    public RegisterViewModel setAvatar(RoundedBitmapDrawable avatar) {
+    public RegisterViewModel setAvatar(Bitmap avatar) {
         this.avatar = avatar;
         notifyPropertyChanged(BR.avatar);
         return this;
@@ -157,8 +157,7 @@ public class RegisterViewModel extends BaseObservable{
         if (isNewFile) resolver.notifyChange(imageUri, null);
 
         try {
-            Bitmap original = MediaStore.Images.Media.getBitmap(resolver, imageUri);
-            avatar = BitmapUtils.prepareAvatar(original, App.getAppContext());
+            avatar = MediaStore.Images.Media.getBitmap(resolver, imageUri);
         } catch (IOException e) {
             e.printStackTrace();
             avatar = null;

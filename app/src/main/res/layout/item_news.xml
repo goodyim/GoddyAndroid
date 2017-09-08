@@ -26,7 +26,7 @@
             android:background="?android:attr/selectableItemBackground">
 
 
-            <ImageView
+            <im.goody.android.ui.views.CircleImageView
                 android:id="@+id/news_item_user_avatar"
                 android:layout_width="@dimen/avatar_size"
                 android:layout_height="@dimen/avatar_size"

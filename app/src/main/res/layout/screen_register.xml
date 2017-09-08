@@ -31,7 +31,7 @@
                     <android.support.constraint.ConstraintLayout
                         style="@style/FullExpandLayout">
 
-                        <ImageView
+                        <im.goody.android.ui.views.CircleImageView
                             android:id="@+id/register_image"
                             style="@style/RegisterAvatar"
                             android:contentDescription="@string/register_avatar_description"

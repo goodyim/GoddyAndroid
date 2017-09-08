@@ -14,7 +14,7 @@
 
     <android.support.constraint.ConstraintLayout style="@style/FullWidthLayout">
 
-        <ImageView
+        <im.goody.android.ui.views.CircleImageView
             android:id="@+id/comment_avatar"
             android:layout_width="@dimen/avatar_size"
             android:layout_height="@dimen/avatar_size"

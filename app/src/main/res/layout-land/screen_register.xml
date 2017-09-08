@@ -49,7 +49,7 @@
                     <android.support.constraint.ConstraintLayout
                         style="@style/FullExpandLayout">
 
-                        <ImageView
+                        <im.goody.android.ui.views.CircleImageView
                             android:id="@+id/register_image"
                             android:layout_width="@dimen/register_avatar_size"
                             android:layout_height="@dimen/register_avatar_size"
