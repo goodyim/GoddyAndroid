@@ -6,6 +6,7 @@ import im.goody.android.di.DaggerScope;
 import im.goody.android.di.modules.RootModule;
 import im.goody.android.root.RootActivity;
 import im.goody.android.root.RootPresenter;
+import im.goody.android.screens.about.AboutController;
 import im.goody.android.screens.detail_post.DetailPostController;
 import im.goody.android.screens.intro.IntroController;
 import im.goody.android.screens.login.LoginController;
@@ -25,4 +26,5 @@ public interface RootComponent {
     IntroController.Component plusIntro();
     NewPostController.Component plusNewPost();
     DetailPostController.Component plusDetailPost();
+    AboutController.Component plusAbout();
 }

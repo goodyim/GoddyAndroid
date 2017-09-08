@@ -88,4 +88,6 @@
     <string name="retry">Retry</string>
     <string name="detail_title">Post</string>
     <string name="hint_comment">Comment</string>
+
+    <string name="about_text">This is Goody</string>
 </resources>

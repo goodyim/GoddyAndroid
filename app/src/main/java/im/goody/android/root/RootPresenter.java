@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import im.goody.android.App;
 import im.goody.android.data.IRepository;
 import im.goody.android.di.components.RootComponent;
+import im.goody.android.screens.about.AboutController;
 import im.goody.android.screens.intro.IntroController;
 import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.main.MainController;
@@ -108,6 +109,12 @@ public class RootPresenter implements IRootPresenter {
         if (rootView != null) {
             rootView.showDetailScreen(id);
         }
+    }
+
+    @Override
+    public void showAboutScreen() {
+        if (rootView != null)
+            rootView.showScreen(AboutController.class);
     }
 
     //endregion

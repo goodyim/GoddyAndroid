@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <im.goody.android.screens.about.AboutView
+        style="@style/FullExpandLayout"
+        android:background="@drawable/goody_space">
+
+        <ImageView
+            android:id="@+id/about_back_btn"
+            android:layout_width="@dimen/size_back_btn"
+            android:layout_height="@dimen/size_back_btn"
+            android:padding="@dimen/size_normal"
+            android:tint="@color/white"
+            app:srcCompat="@drawable/ic_chevron_left"
+            tools:ignore="ContentDescription"/>
+
+        <View
+            android:id="@+id/center"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/size_divider"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            style="@style/FullWidthFromParent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_medium"
+            android:gravity="center_horizontal"
+            android:text="@string/about_text"
+            app:layout_constraintTop_toBottomOf="@+id/center"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </im.goody.android.screens.about.AboutView>
+</layout>
