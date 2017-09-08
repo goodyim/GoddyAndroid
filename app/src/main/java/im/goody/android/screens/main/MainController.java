@@ -22,8 +22,7 @@ public class MainController extends BaseController<MainView> implements MainAdap
 
     // ======= region MainController =======
 
-    private void refreshData() {
-        view().startLoading();
+    void refreshData() {
         disposable = convertDealsToModels(
                 repository.getNews(viewModel.resetPageAndGet()))
                 .subscribe(

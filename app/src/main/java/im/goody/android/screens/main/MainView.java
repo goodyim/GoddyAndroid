@@ -7,6 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.util.AttributeSet;
 
+import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+
 import java.util.List;
 
 import im.goody.android.Constants;
@@ -16,7 +19,8 @@ import im.goody.android.databinding.ScreenMainBinding;
 import static im.goody.android.Constants.DEFAULT_ANIMATION_DURATION;
 import static im.goody.android.Constants.FAB_HIDE_THRESHOLD;
 
-public class MainView extends BaseView<MainController, ScreenMainBinding> {
+public class MainView extends BaseView<MainController, ScreenMainBinding>
+        implements SwipyRefreshLayout.OnRefreshListener {
 
     private MainAdapter adapter;
     private boolean isMenuOpened = false;
@@ -53,6 +57,9 @@ public class MainView extends BaseView<MainController, ScreenMainBinding> {
         binding.mainNewsList.setHasFixedSize(true);
         binding.mainNewsList.setAdapter(null);
         binding.mainNewsList.setVisibility(GONE);
+
+        binding.mainNewsContainer.setOnRefreshListener(this);
+        binding.mainNewsContainer.setColorSchemeResources(Constants.PROGRESS_COLORS);
 
         binding.mainCreateFab.setOnClickListener(v -> {
             rotateMenuFab();
@@ -102,11 +109,13 @@ public class MainView extends BaseView<MainController, ScreenMainBinding> {
     public void finishLoading() {
         if (binding.mainProgress.getVisibility() == VISIBLE)
             binding.mainProgress.setVisibility(GONE);
+
+        if (binding.mainNewsContainer.isRefreshing())
+            binding.mainNewsContainer.setRefreshing(false);
     }
 
-    void startLoading() {
-        if (binding.mainProgress.getVisibility() == GONE)
-            binding.mainProgress.setVisibility(VISIBLE);
+    public void startLoading() {
+        binding.mainNewsContainer.setRefreshing(true);
     }
 
     public void scrollToPosition(int position) {
@@ -117,6 +126,21 @@ public class MainView extends BaseView<MainController, ScreenMainBinding> {
         return ((LinearLayoutManager) binding.mainNewsList.getLayoutManager())
                 .findFirstVisibleItemPosition();
     }
+
+    // region ========= MaterialRefreshListener =============
+
+    @Override
+    public void onRefresh(SwipyRefreshLayoutDirection direction) {
+        switch (direction) {
+            case TOP:
+                controller.refreshData();
+                break;
+            case BOTTOM:
+                controller.loadMore();
+        }
+    }
+
+    // endregion
 
     private void rotateMenuFab() {
         FloatingActionButton fab = binding.mainCreateFab;
