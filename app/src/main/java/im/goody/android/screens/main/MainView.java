@@ -32,13 +32,6 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
     private RecyclerView.OnScrollListener onScrollListener = new OnScrollListener() {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            FloatingActionButton fab = binding.mainCreateFab;
-            if (dy > FAB_HIDE_THRESHOLD && fab.isShown() && !isMenuOpened)
-                fab.hide();
-            else if (dy < -FAB_HIDE_THRESHOLD && !fab.isShown())
-                fab.show();
-
             LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
             int position = linearLayoutManager.findLastVisibleItemPosition();
             int itemCount = recyclerView.getAdapter().getItemCount();
@@ -74,7 +67,18 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
         });
 
         binding.mainNewPost.setOnClickListener(v -> controller.showNewPostScreen());
+
         binding.mainNewsList.addOnScrollListener(onScrollListener);
+        binding.mainNewsList.addOnScrollListener(new OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                FloatingActionButton fab = binding.mainCreateFab;
+                if (dy > FAB_HIDE_THRESHOLD && fab.isShown() && !isMenuOpened)
+                    fab.hide();
+                else if (dy < -FAB_HIDE_THRESHOLD && !fab.isShown())
+                    fab.show();
+            }
+        });
     }
 
     void addScrollListener() {

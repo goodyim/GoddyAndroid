@@ -27,8 +27,10 @@ public class MainController extends BaseController<MainView> implements MainAdap
                 repository.getNews(viewModel.resetPageAndGet()))
                 .subscribe(
                         result -> {
+                            findItems = true;
                             viewModel.setData(result);
                             view().showData(result);
+                            view().addScrollListener();
                         },
                         error -> {
                             view().finishLoading();

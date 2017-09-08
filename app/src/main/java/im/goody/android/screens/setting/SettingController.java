@@ -28,7 +28,6 @@ public class SettingController extends BaseController<SettingView> {
                 .setToolbarVisible(true)
                 .setTitleRes(R.string.setting_title)
                 .setHomeState(BarBuilder.HOME_ARROW)
-                .setStatusBarVisible(false)
                 .build();
     }
 
