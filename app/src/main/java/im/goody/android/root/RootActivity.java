@@ -85,6 +85,9 @@ public class RootActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_main_screen:
+                presenter.showMainScreen(true);
+                break;
             case R.id.action_about:
                 presenter.showAboutScreen();
                 break;
