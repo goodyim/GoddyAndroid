@@ -1,15 +1,17 @@
 package im.goody.android.screens.main;
 
 import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
 
+import im.goody.android.BR;
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
+import im.goody.android.databinding.ItemEventBinding;
 import im.goody.android.databinding.ItemNewsBinding;
 import im.goody.android.utils.TextUtils;
 
@@ -17,6 +19,9 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
     private List<MainItemViewModel> data;
     private MainItemHandler handler;
+
+    private static final int TYPE_POST = R.layout.item_news;
+    private static final int TYPE_EVENT = R.layout.item_event;
 
     MainAdapter(List<MainItemViewModel> data, MainItemHandler handler) {
         this.data = data;
@@ -26,19 +31,25 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
     @Override
     public MainHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_news, parent, false);
-        return new MainHolder(view);
+        ViewDataBinding binding = DataBindingUtil.inflate(inflater, viewType,
+                parent, false);
+        return new MainHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(MainHolder holder, int position) {
-        holder.bind(position);
+        holder.bind(data.get(position));
     }
 
     @Override
     public int getItemCount() {
         if (data == null) return 0;
         return data.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return data.get(position).getDeal().getEvent() == null ? TYPE_POST : TYPE_EVENT;
     }
 
     void addData(List<MainItemViewModel> items) {
@@ -49,38 +60,49 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
     interface MainItemHandler {
         void report(long id);
+
         void showDetail(long id);
+
         void share(String text);
     }
 
     class MainHolder extends RecyclerView.ViewHolder {
 
-        private ItemNewsBinding binding;
+        private ViewDataBinding binding;
 
-        MainHolder(View itemView) {
-            super(itemView);
-
-            binding = DataBindingUtil.bind(itemView);
+        MainHolder(ViewDataBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
 
-        void bind(int position) {
-            MainItemViewModel viewModel = data.get(position);
+        void bind(MainItemViewModel model) {
+            binding.setVariable(BR.viewModel, model);
+
+            if (getItemViewType() == TYPE_POST) {
+                bindPost(model);
+            } else {
+                bindEvent(model);
+            }
+
+            binding.executePendingBindings();
+        }
+
+        private void bindEvent(MainItemViewModel viewModel) {
             Deal deal = viewModel.getDeal();
+            ItemEventBinding postBinding = (ItemEventBinding) binding;
 
-            binding.setViewModel(viewModel);
-
-            binding.newsItemContainer
+            postBinding.itemEventContainer
                     .setOnClickListener(v -> handler.showDetail(deal.getId()));
 
-            binding.actionPanel.panelItemComments
+            postBinding.actionPanel.panelItemComments
                     .setOnClickListener(v -> handler.showDetail(deal.getId()));
 
-            binding.actionPanel.panelItemShare.setOnClickListener(v -> {
+            postBinding.actionPanel.panelItemShare.setOnClickListener(v -> {
                 String text = TextUtils.buildShareText(deal);
                 handler.share(text);
             });
 
-            binding.newItemMenu.setOnClickListener(v -> MainItemMenu.show(v).subscribe(id -> {
+            postBinding.itemEventMenu.setOnClickListener(v -> MainItemMenu.show(v).subscribe(id -> {
                 switch (id) {
                     case R.id.action_report:
                         handler.report(deal.getId());
@@ -88,5 +110,28 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
             }));
         }
 
+
+        private void bindPost(MainItemViewModel viewModel) {
+            Deal deal = viewModel.getDeal();
+            ItemNewsBinding postBinding = (ItemNewsBinding) binding;
+
+            postBinding.newsItemContainer
+                    .setOnClickListener(v -> handler.showDetail(deal.getId()));
+
+            postBinding.actionPanel.panelItemComments
+                    .setOnClickListener(v -> handler.showDetail(deal.getId()));
+
+            postBinding.actionPanel.panelItemShare.setOnClickListener(v -> {
+                String text = TextUtils.buildShareText(deal);
+                handler.share(text);
+            });
+
+            postBinding.newItemMenu.setOnClickListener(v -> MainItemMenu.show(v).subscribe(id -> {
+                switch (id) {
+                    case R.id.action_report:
+                        handler.report(deal.getId());
+                }
+            }));
+        }
     }
 }

@@ -16,12 +16,12 @@ public class Deal {
 
     @JsonProperty("likes_count")
     private int likesCount;
+
     @JsonProperty("comments_count")
     private int commentsCount;
 
     @JsonProperty("created_at")
     private String date;
-
     @JsonProperty("name")
     private String title;
 
@@ -30,13 +30,23 @@ public class Deal {
 
     private Author author;
 
-    private List<Comment> comments;
+    private Location location;
 
+    private Event event;
+    private List<Comment> comments;
     public void addComment(Comment comment) {
         comments.add(comment);
     }
 
     // ======= region getters =======
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
 
     public long getId() {
         return id;
@@ -73,6 +83,14 @@ public class Deal {
     // endregion
 
     // ======= region setters =======
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 
     public void setId(long id) {
         this.id = id;
@@ -122,4 +140,27 @@ public class Deal {
     }
 
     // endregion
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public static class Event {
+        private String resources;
+        private String date;
+
+        public String getResources() {
+            return resources;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setResources(String resources) {
+            this.resources = resources;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+    }
 }

@@ -95,4 +95,5 @@
     <!-- screen_setting -->
     <string name="setting_title">Settings</string>
     <string name="setting_some">Some setting</string>
+    <string name="event_default_title">Atention!</string>
 </resources>
