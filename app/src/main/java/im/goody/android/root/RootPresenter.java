@@ -15,6 +15,7 @@ import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.main.MainController;
 import im.goody.android.screens.new_post.NewPostController;
 import im.goody.android.screens.register.RegisterController;
+import im.goody.android.screens.setting.SettingController;
 import im.goody.android.ui.helpers.BarBuilder;
 
 public class RootPresenter implements IRootPresenter {
@@ -115,6 +116,12 @@ public class RootPresenter implements IRootPresenter {
     public void showAboutScreen() {
         if (rootView != null)
             rootView.showScreen(AboutController.class);
+    }
+
+    @Override
+    public void showSettingScreen() {
+        if (rootView != null)
+            rootView.showScreen(SettingController.class);
     }
 
     //endregion

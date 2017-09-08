@@ -89,5 +89,10 @@
     <string name="detail_title">Post</string>
     <string name="hint_comment">Comment</string>
 
+    <!-- screen_about -->
     <string name="about_text">This is Goody</string>
+
+    <!-- screen_setting -->
+    <string name="setting_title">Settings</string>
+    <string name="setting_some">Some setting</string>
 </resources>

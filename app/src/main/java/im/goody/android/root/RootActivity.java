@@ -88,6 +88,9 @@ public class RootActivity extends AppCompatActivity
             case R.id.action_main_screen:
                 presenter.showMainScreen(true);
                 break;
+            case R.id.action_settings:
+                presenter.showSettingScreen();
+                break;
             case R.id.action_about:
                 presenter.showAboutScreen();
                 break;
