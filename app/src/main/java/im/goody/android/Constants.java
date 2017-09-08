@@ -5,7 +5,9 @@ public class Constants {
     public static final int MIN_NAME_LENGTH = 4;
     public static final int FAB_HIDE_THRESHOLD = 5;
     public static final int DEFAULT_ANIMATION_DURATION = 200;
-    public static final int COLLAPSED_CHAHACTERS_COUNT = 200;
+    public static final int COLLAPSED_CHARACTERS_COUNT = 200;
+
+    public static final int PAGE_ITEM_COUNT = 15;
 
     public static int[] PROGRESS_COLORS = {
             R.color.accent,

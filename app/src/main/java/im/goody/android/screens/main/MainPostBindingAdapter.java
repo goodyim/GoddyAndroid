@@ -14,17 +14,17 @@ import android.widget.TextView;
 import im.goody.android.App;
 import im.goody.android.R;
 
-import static im.goody.android.Constants.COLLAPSED_CHAHACTERS_COUNT;
+import static im.goody.android.Constants.COLLAPSED_CHARACTERS_COUNT;
 
 public class MainPostBindingAdapter {
     @BindingAdapter({"description", "expandState"})
     public static void bindDescription(TextView view, MainItemViewModel model, boolean isExpanded) {
         String original = model.getDeal().getDescription();
         Spannable result;
-        if (isExpanded || original.length() <= COLLAPSED_CHAHACTERS_COUNT) {
+        if (isExpanded || original.length() <= COLLAPSED_CHARACTERS_COUNT) {
             result = new SpannableString(original);
         } else {
-            String part = original.substring(0, COLLAPSED_CHAHACTERS_COUNT).trim();
+            String part = original.substring(0, COLLAPSED_CHARACTERS_COUNT).trim();
             result = addMoreLink(part, model);
         }
 

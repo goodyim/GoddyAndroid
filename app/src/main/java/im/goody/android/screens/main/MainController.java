@@ -18,10 +18,12 @@ import io.reactivex.Observable;
 public class MainController extends BaseController<MainView> implements MainAdapter.MainItemHandler {
 
     private MainViewModel viewModel = new MainViewModel();
+    private boolean findItems = true;
 
     // ======= region MainController =======
 
-    void refreshData() {
+    private void refreshData() {
+        view().startLoading();
         disposable = convertDealsToModels(
                 repository.getNews(viewModel.resetPageAndGet()))
                 .subscribe(
@@ -40,18 +42,27 @@ public class MainController extends BaseController<MainView> implements MainAdap
     }
 
     void loadMore() {
+        if (!findItems) {
+            view().finishLoading();
+            return;
+        }
+
+        findItems = false;
         disposable = convertDealsToModels(
                 repository.getNews(viewModel.incrementPageAndGet()))
                 .subscribe(
                         result -> {
                             viewModel.addData(result);
                             view().addData(result);
+                            if (result.size() > 0)
+                                findItems = true;
                         },
                         error -> {
                             viewModel.decrementPage();
                             view().finishLoading();
                             view().showErrorWithRetry(getErrorMessage(error), v -> loadMore());
-                        }
+                        },
+                        () -> view().addScrollListener()
                 );
     }
 
@@ -66,7 +77,7 @@ public class MainController extends BaseController<MainView> implements MainAdap
     @Override
     public void report(long id) {
         repository.sendReport(id).subscribe(
-                s -> view().showMessage(getActivity().getString(R.string.report_submitted)),
+                s -> view().showMessage(view().getContext().getString(R.string.report_submitted)),
                 error -> view().showMessage(error.getMessage())
         );
     }
