@@ -3,6 +3,8 @@ package im.goody.android;
 import android.app.Application;
 import android.content.Context;
 
+import com.squareup.picasso.Picasso;
+
 import dagger.Provides;
 import im.goody.android.di.components.DataComponent;
 import im.goody.android.di.components.RootComponent;
@@ -19,6 +21,8 @@ public class App extends Application {
         super.onCreate();
         appContext = getApplicationContext();
         initDaggerComponents();
+
+        Picasso.with(this).setLoggingEnabled(true);
     }
 
     public static Context getAppContext() {

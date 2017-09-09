@@ -9,12 +9,16 @@ public class AppConfig {
     static final boolean LOG_ENABLED = DEBUG;
 
     // Retrofit config
-    //public static final String BASE_URL = "http://goody.im/api/v1/";
-    public static final String BASE_URL = "http://gooddy.herokuapp.com/api/v1/";
-    public static final String SHARE_DEALS_URL = "http://gooddy.herokuapp.com/good_deals/";
+    private static final String HOST = "http://www.goody.im/";
+
+    public static final String BASE_URL = HOST+ "api/v1/";
+    public static final String SHARE_DEALS_URL = HOST + "good_deals/";
+
     private static final String IMAGES_BASE_URL = "http://dobrodel.s3.amazonaws.com";
     static final String IMAGES_URl_PATTERN = IMAGES_BASE_URL +
             "/good_deals/images/{0}/medium/{1}";
+
+    public static String ENDCODING = "UTF-8";
 
     public static final int MAX_CONNECTION_TIMEOUT = 15000;
     public static final int MAX_READ_TIMEOUT = 10000;
