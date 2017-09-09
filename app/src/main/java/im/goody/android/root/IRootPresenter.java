@@ -22,6 +22,7 @@ public interface IRootPresenter {
     void showDetailScreen(long id);
     void showAboutScreen();
     void showSettingScreen();
+    void showNewEventScreen();
 
     //first start
     void launched();

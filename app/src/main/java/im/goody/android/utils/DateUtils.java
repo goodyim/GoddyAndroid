@@ -21,6 +21,11 @@ public class DateUtils {
         }
     }
 
+    public static String dateToString(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat(INPUT_PATTERN, Locale.getDefault());
+        return format.format(date);
+    }
+
     private static String format(String time) throws ParseException {
         SimpleDateFormat inputFormat = new SimpleDateFormat(INPUT_PATTERN, Locale.getDefault());
 

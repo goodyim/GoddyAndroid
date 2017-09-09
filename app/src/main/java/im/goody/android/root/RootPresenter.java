@@ -13,6 +13,7 @@ import im.goody.android.screens.about.AboutController;
 import im.goody.android.screens.intro.IntroController;
 import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.main.MainController;
+import im.goody.android.screens.new_event.NewEventController;
 import im.goody.android.screens.new_post.NewPostController;
 import im.goody.android.screens.register.RegisterController;
 import im.goody.android.screens.setting.SettingController;
@@ -122,6 +123,12 @@ public class RootPresenter implements IRootPresenter {
     public void showSettingScreen() {
         if (rootView != null)
             rootView.showScreen(SettingController.class);
+    }
+
+    @Override
+    public void showNewEventScreen() {
+        if (rootView != null)
+            rootView.showScreen(NewEventController.class);
     }
 
     //endregion

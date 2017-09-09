@@ -71,6 +71,10 @@ public class MainController extends BaseController<MainView> implements MainAdap
         rootPresenter.showNewPostScreen();
     }
 
+    void showNewEventScreen() {
+        rootPresenter.showNewEventScreen();
+    }
+
     // endregion
 
     // ======= region MainItemHandler =======

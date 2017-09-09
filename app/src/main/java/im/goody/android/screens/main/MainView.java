@@ -67,6 +67,7 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
         });
 
         binding.mainNewPost.setOnClickListener(v -> controller.showNewPostScreen());
+        binding.mainNewEvent.setOnClickListener(v -> controller.showNewEventScreen());
 
         binding.mainNewsList.addOnScrollListener(onScrollListener);
         binding.mainNewsList.addOnScrollListener(new OnScrollListener() {

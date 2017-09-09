@@ -95,5 +95,8 @@
     <!-- screen_setting -->
     <string name="setting_title">Settings</string>
     <string name="setting_some">Some setting</string>
-    <string name="event_default_title">Atention!</string>
+    <string name="event_default_title">Attention!</string>
+    <string name="choose_date">Choose date…</string>
+    <string name="choose_time">Select time…</string>
+    <string name="new_event_title">New Event</string>
 </resources>
