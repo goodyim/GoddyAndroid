@@ -14,7 +14,7 @@
             android:layout_height="@dimen/size_back_btn"
             android:padding="@dimen/size_normal"
             android:tint="@color/white"
-            app:srcCompat="@drawable/ic_chevron_left"
+            app:srcCompat="@drawable/ic_arrow_left"
             tools:ignore="ContentDescription"/>
 
         <View

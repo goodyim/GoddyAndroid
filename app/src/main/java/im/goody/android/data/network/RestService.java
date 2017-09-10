@@ -43,6 +43,12 @@ public interface RestService {
                                         @PartMap Map<String, RequestBody> params,
                                         @Part MultipartBody.Part file);
 
+    @Multipart
+    @POST ("good_deals/new_event") // TODO change to actual path
+    Observable<ResponseBody> uploadEvent(@Header("X-User-Token") String token,
+                                         @PartMap Map<String, RequestBody> params,
+                                         @Part MultipartBody.Part file);
+
     @GET("good_deals/{id}")
     Observable<Deal> getDeal(@Path("id") long id);
 

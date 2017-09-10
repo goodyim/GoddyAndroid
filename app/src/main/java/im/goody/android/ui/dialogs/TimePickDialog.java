@@ -25,7 +25,7 @@ public class TimePickDialog {
 
     public Observable<Calendar> show(@Nullable Calendar start) {
         return Observable.create(source -> {
-            Calendar result = start != null ? start : Calendar.getInstance();
+            Calendar result = start != null ? (Calendar) start.clone() : Calendar.getInstance();
 
             int hour = result.get(Calendar.HOUR_OF_DAY);
             int minutes = result.get(Calendar.MINUTE);

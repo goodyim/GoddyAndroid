@@ -99,4 +99,9 @@
     <string name="choose_date">Choose date…</string>
     <string name="choose_time">Select time…</string>
     <string name="new_event_title">New Event</string>
+    <string name="title_hint">Title</string>
+    <string name="event_description_hint">Description</string>
+    <string name="resources_hint">Resources</string>
+    <string name="choose_location">Choose location...</string>
+    <string name="choose_photo">Choose photo...</string>
 </resources>

@@ -2,70 +2,45 @@ package im.goody.android.screens.new_post;
 
 import android.content.ContentResolver;
 import android.databinding.BaseObservable;
-import android.databinding.Bindable;
+import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 
 import com.google.android.gms.location.places.Place;
 
-import java.io.IOException;
-
 import im.goody.android.App;
-import im.goody.android.BR;
 import im.goody.android.data.network.req.NewPostReq;
 
 public class NewPostViewModel extends BaseObservable {
-    private String description;
     private Uri imageUri;
 
-    @Bindable
-    private Bitmap image;
+    public final ObservableField<Bitmap> image = new ObservableField<>();
+    public final ObservableField<Place> location = new ObservableField<>();
 
-    @Bindable
-    private Place location;
-
-    private boolean subscribersOnly;
+    public final ObservableBoolean subscribersOnly = new ObservableBoolean(false);
+    public final ObservableField<String> description = new ObservableField<>();
 
     NewPostReq body() {
         return new NewPostReq()
-                .setPlaceId(location != null ? location.getId() : null)
-                .setDescription(description)
-                .setSubscribersOnly(subscribersOnly);
+                .setPlaceId(location.get() != null ? location.get().getId() : null)
+                .setDescription(description.get())
+                .setSubscribersOnly(subscribersOnly.get());
     }
 
-    void setImage(Uri imageUri, boolean isNewFile) {
+    void setImageFromUri(Uri imageUri) {
         ContentResolver resolver = App.getAppContext().getContentResolver();
 
-        if (isNewFile) resolver.notifyChange(imageUri, null);
-
         try {
-            image = MediaStore.Images.Media.getBitmap(resolver, imageUri);
-        } catch (IOException e) {
-            e.printStackTrace();
-            image = null;
+            Bitmap bmp = MediaStore.Images.Media.getBitmap(resolver, imageUri);
+            image.set(bmp);
+        } catch (Exception e) {
+            image.set(null);
         }
-
-        notifyPropertyChanged(BR.image);
     }
 
     // ======= region getters =======
-
-    public Place getLocation() {
-        return location;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Bitmap getImage() {
-        return image;
-    }
-
-    public boolean isSubscribersOnly() {
-        return subscribersOnly;
-    }
 
     Uri getImageUri() {
         return imageUri;
@@ -75,27 +50,8 @@ public class NewPostViewModel extends BaseObservable {
 
     // ======= region setters =======
 
-    public void setLocation(Place location) {
-        this.location = location;
-        notifyPropertyChanged(BR.location);
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setImage(Bitmap image) {
-        this.image = image;
-        notifyPropertyChanged(BR.image);
-    }
-
     void setImageUri(Uri imageUri) {
         this.imageUri = imageUri;
-    }
-
-    public NewPostViewModel setSubscribersOnly(boolean subscribersOnly) {
-        this.subscribersOnly = subscribersOnly;
-        return this;
     }
 
     // endregion

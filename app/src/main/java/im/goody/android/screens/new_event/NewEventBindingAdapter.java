@@ -1,7 +1,12 @@
 package im.goody.android.screens.new_event;
 
 import android.databinding.BindingAdapter;
+import android.graphics.Bitmap;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.gms.location.places.Place;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -9,7 +14,6 @@ import java.util.Locale;
 import im.goody.android.R;
 
 public class NewEventBindingAdapter {
-
     @BindingAdapter("event_date")
     public static void bindDate(TextView view, Calendar calendar) {
         String date;
@@ -21,27 +25,46 @@ public class NewEventBindingAdapter {
             int month = calendar.get(Calendar.MONTH);
             int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-            String dateFormat = "%d.%d.%d";
-            date = String.format(Locale.getDefault(), dateFormat, year, month, day);
+            int hours = calendar.get(Calendar.HOUR_OF_DAY);
+            int minutes = calendar.get(Calendar.MINUTE);
+
+            String dateFormat = "%02d.%02d.%d %02d:%02d";
+            date = String.format(Locale.getDefault(), dateFormat,
+                    day, month, year, hours, minutes);
         }
 
         view.setText(date);
     }
 
-    @BindingAdapter("event_time")
-    public static void bindTime(TextView view, Calendar calendar) {
-        String time;
+    @BindingAdapter("event_location")
+    public static void bindLocation(TextView view, Place place) {
+        String address;
 
-        if (calendar == null) {
-            time = view.getContext().getString(R.string.choose_time);
+        if (place == null) {
+            address = view.getContext().getString(R.string.choose_location);
         } else {
-            int hours = calendar.get(Calendar.YEAR);
-            int minutes = calendar.get(Calendar.MONTH);
-
-            String timeFormat = "%d:%d";
-            time = String.format(Locale.getDefault(), timeFormat, hours, minutes);
+            address = place.getAddress().toString();
         }
 
-        view.setText(time);
+        view.setText(address);
+    }
+
+    @BindingAdapter("event_photo")
+    public static void bindPhotoSelector(TextView view, Bitmap bmp) {
+        int visibility;
+
+        visibility = bmp == null ? View.VISIBLE : View.GONE;
+
+        view.setVisibility(visibility);
+    }
+
+    @BindingAdapter("event_photo")
+    public static void bindPhotoSelector(ImageView view, Bitmap bmp) {
+        int visibility;
+
+        visibility = bmp == null ? View.GONE : View.VISIBLE;
+
+        ((View)view.getParent()).setVisibility(visibility);
+        view.setImageBitmap(bmp);
     }
 }

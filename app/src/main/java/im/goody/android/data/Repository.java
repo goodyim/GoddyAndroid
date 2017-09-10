@@ -19,6 +19,7 @@ import im.goody.android.data.network.RestService;
 import im.goody.android.data.network.core.RestCallTransformer;
 import im.goody.android.data.network.req.LoginReq;
 import im.goody.android.data.network.req.NewCommentReq;
+import im.goody.android.data.network.req.NewEventReq;
 import im.goody.android.data.network.req.NewPostReq;
 import im.goody.android.data.network.req.RegisterReq;
 import im.goody.android.data.network.res.UserRes;
@@ -108,6 +109,14 @@ public class Repository implements IRepository {
         return restService.uploadDeal(preferencesManager.getUserToken(),
                 RestCallTransformer.objectToPartMap(body, "good_deal"),
                 getPartFromUri(uri, "upload"))
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<ResponseBody> createEvent(NewEventReq body, Uri imageUri) {
+        return restService.uploadEvent(preferencesManager.getUserToken(),
+                RestCallTransformer.objectToPartMap(body, "event"),
+                getPartFromUri(imageUri, "upload"))
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

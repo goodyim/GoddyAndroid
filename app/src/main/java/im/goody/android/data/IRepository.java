@@ -8,6 +8,7 @@ import im.goody.android.data.dto.Comment;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.network.req.LoginReq;
 import im.goody.android.data.network.req.NewCommentReq;
+import im.goody.android.data.network.req.NewEventReq;
 import im.goody.android.data.network.req.NewPostReq;
 import im.goody.android.data.network.req.RegisterReq;
 import im.goody.android.data.network.res.UserRes;
@@ -29,5 +30,6 @@ public interface IRepository {
     Observable<Comment> sendComment(long dealId, NewCommentReq body);
 
     Observable<ResponseBody> createPost(NewPostReq body, Uri imageUri);
+    Observable<ResponseBody> createEvent(NewEventReq body, Uri imageUri);
     Observable<String> sendReport(long id);
 }

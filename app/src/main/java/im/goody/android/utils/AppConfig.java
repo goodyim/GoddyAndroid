@@ -3,7 +3,7 @@ package im.goody.android.utils;
 import im.goody.android.BuildConfig;
 
 public class AppConfig {
-    private static final boolean DEBUG = BuildConfig.DEBUG;
+    public static final boolean DEBUG = BuildConfig.DEBUG;
 
     // ---------- LOG ----------
     static final boolean LOG_ENABLED = DEBUG;

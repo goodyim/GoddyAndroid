@@ -21,5 +21,5 @@
     <color name="auth_google_background">#DA4336</color>
     <color name="auth_vk_background">#6287AE</color>
 
-    <color name="placeholder_color">#F2F2F2</color>
+    <color name="placeholder_color">#f2f2f2</color>
 </resources>
