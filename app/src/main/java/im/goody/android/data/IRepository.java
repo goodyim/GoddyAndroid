@@ -4,13 +4,13 @@ import android.net.Uri;
 
 import java.util.List;
 
-import im.goody.android.data.dto.Comment;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.network.req.LoginReq;
 import im.goody.android.data.network.req.NewCommentReq;
 import im.goody.android.data.network.req.NewEventReq;
 import im.goody.android.data.network.req.NewPostReq;
 import im.goody.android.data.network.req.RegisterReq;
+import im.goody.android.data.network.res.CommentRes;
 import im.goody.android.data.network.res.UserRes;
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -27,7 +27,7 @@ public interface IRepository {
 
     Observable<List<Deal>> getNews(int page);
     Observable<Deal> getDeal(long id);
-    Observable<Comment> sendComment(long dealId, NewCommentReq body);
+    Observable<CommentRes> sendComment(long dealId, NewCommentReq body);
 
     Observable<ResponseBody> createPost(NewPostReq body, Uri imageUri);
     Observable<ResponseBody> createEvent(NewEventReq body, Uri imageUri);

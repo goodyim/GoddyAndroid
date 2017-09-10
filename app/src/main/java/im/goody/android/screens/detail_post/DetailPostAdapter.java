@@ -46,6 +46,7 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
     }
 
     void notifyCommentAdded() {
+        notifyItemChanged(0);
         notifyItemInserted(deal.getComments().size());
     }
 

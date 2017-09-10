@@ -12,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import im.goody.android.App;
-import im.goody.android.data.dto.Comment;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.local.PreferencesManager;
 import im.goody.android.data.network.RestService;
@@ -22,6 +21,7 @@ import im.goody.android.data.network.req.NewCommentReq;
 import im.goody.android.data.network.req.NewEventReq;
 import im.goody.android.data.network.req.NewPostReq;
 import im.goody.android.data.network.req.RegisterReq;
+import im.goody.android.data.network.res.CommentRes;
 import im.goody.android.data.network.res.UserRes;
 import im.goody.android.di.components.DataComponent;
 import io.reactivex.Observable;
@@ -132,7 +132,7 @@ public class Repository implements IRepository {
     // ======= region Comments =======
 
     @Override
-    public Observable<Comment> sendComment(long dealId, NewCommentReq body) {
+    public Observable<CommentRes> sendComment(long dealId, NewCommentReq body) {
         return restService.sendComment(preferencesManager.getUserToken(), dealId, body)
                 .observeOn(AndroidSchedulers.mainThread());
     }

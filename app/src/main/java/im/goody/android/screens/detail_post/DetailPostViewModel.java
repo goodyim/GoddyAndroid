@@ -2,9 +2,9 @@ package im.goody.android.screens.detail_post;
 
 import android.databinding.ObservableField;
 
-import im.goody.android.data.dto.Comment;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.network.req.NewCommentReq;
+import im.goody.android.data.network.res.CommentRes;
 
 public class DetailPostViewModel {
     private Deal deal;
@@ -50,8 +50,9 @@ public class DetailPostViewModel {
         this.id = id;
     }
 
-    void addComment(Comment comment) {
-        deal.addComment(comment);
+    void addComment(CommentRes comment) {
+        deal.addComment(comment.getComment());
+        deal.setCommentsCount(comment.getCommentsCount());
     }
 
     // endregion

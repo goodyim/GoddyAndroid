@@ -3,9 +3,9 @@ package im.goody.android.data.network;
 import java.util.List;
 import java.util.Map;
 
-import im.goody.android.data.dto.Comment;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.network.req.NewCommentReq;
+import im.goody.android.data.network.res.CommentRes;
 import im.goody.android.data.network.res.UserRes;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -53,7 +53,7 @@ public interface RestService {
     Observable<Deal> getDeal(@Path("id") long id);
 
     @POST("comments")
-    Observable<Comment> sendComment(@Header("X-User-Token") String token,
-                                    @Query("good_deal_id") long id,
-                                    @Body NewCommentReq comment);
+    Observable<CommentRes> sendComment(@Header("X-User-Token") String token,
+                                       @Query("good_deal_id") long id,
+                                       @Body NewCommentReq comment);
 }
