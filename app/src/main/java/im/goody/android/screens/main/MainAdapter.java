@@ -11,6 +11,7 @@ import java.util.List;
 import im.goody.android.BR;
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
+import im.goody.android.data.dto.Location;
 import im.goody.android.databinding.ItemEventBinding;
 import im.goody.android.databinding.ItemNewsBinding;
 import im.goody.android.utils.TextUtils;
@@ -64,6 +65,8 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
         void showDetail(long id);
 
         void share(String text);
+
+        void openMap(Location location);
     }
 
     class MainHolder extends RecyclerView.ViewHolder {
@@ -108,6 +111,9 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                         handler.report(deal.getId());
                 }
             }));
+
+            postBinding.itemEventLocation
+                    .setOnClickListener(v -> handler.openMap(deal.getLocation()));
         }
 
 
@@ -132,6 +138,9 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                         handler.report(deal.getId());
                 }
             }));
+
+            postBinding.newsItemLocation
+                    .setOnClickListener(v -> handler.openMap(deal.getLocation()));
         }
     }
 }

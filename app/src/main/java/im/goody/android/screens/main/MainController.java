@@ -10,6 +10,7 @@ import java.util.List;
 import im.goody.android.R;
 import im.goody.android.core.BaseController;
 import im.goody.android.data.dto.Deal;
+import im.goody.android.data.dto.Location;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.ui.helpers.BarBuilder;
@@ -95,6 +96,12 @@ public class MainController extends BaseController<MainView> implements MainAdap
     @Override
     public void share(String text) {
         super.share(text);
+    }
+
+    @Override
+    public void openMap(Location location) {
+        if (location != null)
+            openMap(location.getAddress());
     }
 
     // end

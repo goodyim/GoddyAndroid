@@ -27,7 +27,6 @@
     <!-- News item -->
     <string name="item_image_description">Deal main image</string>
     <string name="item_share_description">Share</string>
-    <string name="item_more_description">More actions</string>
 
     <string name="event_invites">invites you</string>
     <string name="event_participates_label">Participates:</string>
@@ -76,6 +75,7 @@
     <string name="content_new_post_photo">Post photo</string>
     <string name="content_clear_image">Clear image</string>
     <string name="content_avatar">User avatar</string>
+    <string name="content_more">More actions</string>
 
     <string name="dialog_item_0">Choose photo</string>
     <string name="dialog_item_1">Take picture</string>

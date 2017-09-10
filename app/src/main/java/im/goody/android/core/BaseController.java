@@ -2,12 +2,15 @@ package im.goody.android.core;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.bluelinelabs.conductor.Controller;
+
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -17,6 +20,8 @@ import im.goody.android.data.network.error.StandardError;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.root.IRootPresenter;
 import io.reactivex.disposables.Disposable;
+
+import static im.goody.android.Constants.Pattern.OPEN_MAP;
 
 public abstract class BaseController<V extends BaseView> extends Controller {
 
@@ -77,6 +82,12 @@ public abstract class BaseController<V extends BaseView> extends Controller {
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_TEXT, text);
         startActivity(shareIntent);
+    }
+
+    protected void openMap(String address) {
+        String uri = String.format(Locale.ENGLISH, OPEN_MAP, address);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        startActivity(intent);
     }
 
     // endregion

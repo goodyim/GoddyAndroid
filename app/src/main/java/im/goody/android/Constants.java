@@ -41,4 +41,8 @@ public class Constants {
                 R.drawable.ic_heart
         };
     }
+
+    public static class Pattern {
+        public static final String OPEN_MAP = "geo:0,0?q=%s";
+    }
 }

@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import im.goody.android.App;
 import im.goody.android.R;
-import im.goody.android.data.dto.Location;
 
 import static im.goody.android.Constants.COLLAPSED_CHARACTERS_COUNT;
 
@@ -33,18 +32,8 @@ public class MainPostBindingAdapter {
         view.setText(result);
     }
 
-    @BindingAdapter("address")
-    public static void bindLocation(TextView view, Location location) {
-        if (location != null && location.getAddress() != null) {
-            view.setText(location.getAddress());
-            view.setVisibility(View.VISIBLE);
-        } else {
-            view.setVisibility(View.GONE);
-        }
-    }
-
     @BindingAdapter("title")
-    public static void bindLocation(TextView view, String title) {
+    public static void bindTitle(TextView view, String title) {
         String result;
         if (title == null) {
             result = view.getContext().getString(R.string.event_default_title);
