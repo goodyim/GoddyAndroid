@@ -46,9 +46,7 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
 
     @Override
     protected void onAttached() {
-        binding.mainNewsList.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.mainNewsList.setHasFixedSize(true);
-        binding.mainNewsList.setAdapter(null);
+        setupRecyclerView();
         binding.mainNewsList.setVisibility(GONE);
 
         binding.mainNewsContainer.setOnRefreshListener(this);
@@ -80,6 +78,12 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
                     fab.show();
             }
         });
+    }
+
+    private void setupRecyclerView() {
+        binding.mainNewsList.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.mainNewsList.setHasFixedSize(true);
+        binding.mainNewsList.setAdapter(null);
     }
 
     void addScrollListener() {

@@ -28,7 +28,6 @@ public class PostBindingAdapter {
                 .load(NetUtils.buildDealImageUrl(deal))
                 .placeholder(R.color.placeholder_color)
                 .fit()
-                .centerCrop()
                 .into(view);
     }
 
