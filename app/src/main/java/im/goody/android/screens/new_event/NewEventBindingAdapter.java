@@ -13,6 +13,8 @@ import java.util.Locale;
 
 import im.goody.android.R;
 
+import static im.goody.android.Constants.DATE_FORMAT;
+
 public class NewEventBindingAdapter {
     @BindingAdapter("event_date")
     public static void bindDate(TextView view, Calendar calendar) {
@@ -28,8 +30,7 @@ public class NewEventBindingAdapter {
             int hours = calendar.get(Calendar.HOUR_OF_DAY);
             int minutes = calendar.get(Calendar.MINUTE);
 
-            String dateFormat = "%02d.%02d.%d %02d:%02d";
-            date = String.format(Locale.getDefault(), dateFormat,
+            date = String.format(Locale.getDefault(), DATE_FORMAT,
                     day, month, year, hours, minutes);
         }
 

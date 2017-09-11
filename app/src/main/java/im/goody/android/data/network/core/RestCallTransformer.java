@@ -21,6 +21,7 @@ public class RestCallTransformer {
             Map<String, RequestBody> result = new HashMap<>();
             Class objClass = object.getClass();
             String format = rootElement + "[%s]";
+            String nameSpaceFormat = rootElement + "[%s][%s]";
 
             if (AppConfig.DEBUG) {
                 Log.d(TAG, rootElement);
@@ -33,13 +34,22 @@ public class RestCallTransformer {
                 if (field.isAnnotationPresent(JsonProperty.class))
                     name = field.getAnnotation(JsonProperty.class).value();
 
+                String key;
+
+                if (field.isAnnotationPresent(NameSpace.class)) {
+                    String nameSpace = field.getAnnotation(NameSpace.class).value();
+                    key = String.format(nameSpaceFormat, nameSpace, name);
+                } else {
+                    key = String.format(format, name);
+                }
+
                 String value = String.valueOf(field.get(object));
 
                 result.put(
-                        String.format(format, name),
+                        key,
                         RequestBody.create(MultipartBody.FORM, value));
                 if (AppConfig.DEBUG) {
-                    Log.d(TAG,  "---" + name + ": " + value);
+                    Log.d(TAG, key + ": " + value);
                 }
             }
 

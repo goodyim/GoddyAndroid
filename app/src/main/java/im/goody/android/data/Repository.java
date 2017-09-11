@@ -114,8 +114,8 @@ public class Repository implements IRepository {
 
     @Override
     public Observable<ResponseBody> createEvent(NewEventReq body, Uri imageUri) {
-        return restService.uploadEvent(preferencesManager.getUserToken(),
-                RestCallTransformer.objectToPartMap(body, "event"),
+        return restService.uploadDeal(preferencesManager.getUserToken(),
+                RestCallTransformer.objectToPartMap(body, "good_deal"),
                 getPartFromUri(imageUri, "upload"))
                 .observeOn(AndroidSchedulers.mainThread());
     }

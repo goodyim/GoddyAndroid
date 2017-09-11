@@ -28,7 +28,8 @@ public class NewEventViewModel {
 
     NewEventReq body() {
         return new NewEventReq()
-                .setPlaceId(location.get() == null ? null : location.get().getId())
+                .setLatitude(location.get() == null ? null : location.get().getLatLng().latitude)
+                .setLongitude(location.get() == null ? null : location.get().getLatLng().longitude)
                 .setDate(getStringDate())
                 .setTitle(title.get())
                 .setResources(resources.get())

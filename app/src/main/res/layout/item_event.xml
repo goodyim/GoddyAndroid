@@ -149,10 +149,12 @@
                 android:gravity="center_vertical"
                 android:visibility="visible"
                 app:address="@{viewModel.deal.location}"
-                app:layout_constraintLeft_toLeftOf="@+id/item_event_resources"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/item_event_resources"
-                tools:text="Location" />
+                tools:text="Location"
+                android:layout_marginLeft="@dimen/size_normal"
+                android:layout_marginStart="@dimen/size_normal"
+                app:layout_constraintLeft_toLeftOf="parent" />
 
             <TextView
                 android:id="@+id/item_event_date"
@@ -165,11 +167,13 @@
                 android:drawablePadding="@dimen/size_little"
                 android:drawableStart="@drawable/ic_time"
                 android:gravity="center_vertical"
-                android:text="@{DateUtils.getReadableDate(viewModel.deal.event.date)}"
-                app:layout_constraintLeft_toLeftOf="@+id/item_event_location"
+                app:event_date="@{viewModel.deal.event.date}"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/item_event_location"
-                tools:text="DD MM YYY HH:mm" />
+                tools:text="DD MM YYY HH:mm"
+                android:layout_marginLeft="@dimen/size_normal"
+                android:layout_marginStart="@dimen/size_normal"
+                app:layout_constraintLeft_toLeftOf="parent" />
 
             <TextView
                 android:id="@+id/item_event_participates"

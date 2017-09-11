@@ -10,6 +10,7 @@ import com.squareup.picasso.Picasso;
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Location;
+import im.goody.android.utils.DateUtils;
 import im.goody.android.utils.NetUtils;
 
 @SuppressWarnings("unused")
@@ -42,6 +43,16 @@ public class PostBindingAdapter {
                 .placeholder(R.drawable.round_drawable)
                 .fit()
                 .into(view);
+    }
+
+    @BindingAdapter("event_date")
+    public static void bindDate(TextView view, String date) {
+        if (date != null) {
+            view.setText(DateUtils.getAbsoluteDate(date));
+            view.setVisibility(View.VISIBLE);
+        } else {
+            view.setVisibility(View.GONE);
+        }
     }
 
     @BindingAdapter("address")

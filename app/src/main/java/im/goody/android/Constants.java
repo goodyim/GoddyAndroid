@@ -8,6 +8,8 @@ public class Constants {
     public static final int COLLAPSED_CHARACTERS_COUNT = 200;
     public static final int REGISTER_AVATAR_SIZE = 80; //dp
 
+    public static final String DATE_FORMAT = "%02d.%02d.%d %02d:%02d";
+
     public static final int PAGE_ITEM_COUNT = 15;
 
     public static int[] PROGRESS_COLORS = {
