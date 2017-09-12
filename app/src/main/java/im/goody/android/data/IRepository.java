@@ -32,4 +32,6 @@ public interface IRepository {
     Observable<ResponseBody> createPost(NewPostReq body, Uri imageUri);
     Observable<ResponseBody> createEvent(NewEventReq body, Uri imageUri);
     Observable<String> sendReport(long id);
+
+    Observable<Deal> likeDeal(long id);
 }

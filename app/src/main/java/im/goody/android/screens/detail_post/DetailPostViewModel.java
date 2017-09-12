@@ -5,12 +5,13 @@ import android.databinding.ObservableField;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.network.req.NewCommentReq;
 import im.goody.android.data.network.res.CommentRes;
+import im.goody.android.screens.common.ActionPanelViewModel;
 
 public class DetailPostViewModel {
-    private Deal deal;
     private int position;
     private long id;
     public final ObservableField<String> commentBody = new ObservableField<>("");
+    private DetailPostBodyViewModel bodyViewModel;
 
     DetailPostViewModel() {
         position = 0;
@@ -22,8 +23,8 @@ public class DetailPostViewModel {
         return new NewCommentReq().setContent(commentBody.get());
     }
 
-    public Deal getDeal() {
-        return deal;
+    public DetailPostBodyViewModel getBody() {
+        return bodyViewModel;
     }
 
     int getPosition() {
@@ -38,8 +39,8 @@ public class DetailPostViewModel {
 
     // ======= region setters =======
 
-    public void setDeal(Deal deal) {
-        this.deal = deal;
+    public void setBody(Deal deal) {
+        bodyViewModel = new DetailPostBodyViewModel(deal);
     }
 
     void setPosition(int position) {
@@ -51,8 +52,10 @@ public class DetailPostViewModel {
     }
 
     void addComment(CommentRes comment) {
-        deal.addComment(comment.getComment());
-        deal.setCommentsCount(comment.getCommentsCount());
+        bodyViewModel.getDeal().addComment(comment.getComment());
+        bodyViewModel.getDeal().setCommentsCount(comment.getCommentsCount());
+
+        bodyViewModel.panelViewModel.commentsCount.set(comment.getCommentsCount());
     }
 
     // endregion

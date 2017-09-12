@@ -23,6 +23,7 @@ public interface RootComponent {
     void inject(RootPresenter presenter);
 
     MainController.Component plusMain();
+
     LoginController.Component plusLogin();
     RegisterController.Component plusRegister();
     IntroController.Component plusIntro();

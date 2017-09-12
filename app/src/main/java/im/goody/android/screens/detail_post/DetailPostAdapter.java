@@ -10,13 +10,14 @@ import im.goody.android.BR;
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.databinding.ItemDetailPostBinding;
+import io.reactivex.Observable;
 
 class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPostHolder> {
-    private Deal deal;
+    private DetailPostBodyViewModel viewModel;
     private DetailPostHandler handler;
 
-    DetailPostAdapter(Deal deal, DetailPostHandler handler) {
-        this.deal = deal;
+    DetailPostAdapter(DetailPostBodyViewModel viewModel, DetailPostHandler handler) {
+        this.viewModel = viewModel;
         this.handler = handler;
     }
 
@@ -36,22 +37,25 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
 
     @Override
     public void onBindViewHolder(DetailPostHolder holder, int position) {
-        Object target = position == 0 ? deal : deal.getComments().get(position - 1);
+        Object target = position == 0
+                ? viewModel
+                : viewModel.getDeal().getComments().get(position - 1);
         holder.bind(target);
     }
 
     @Override
     public int getItemCount() {
-        return deal == null ? 0 : deal.getComments().size() + 1;
+        return viewModel == null ? 0 : viewModel.getDeal().getComments().size() + 1;
     }
 
     void notifyCommentAdded() {
-        notifyItemChanged(0);
-        notifyItemInserted(deal.getComments().size());
+        notifyItemInserted(viewModel.getDeal().getComments().size());
     }
 
     interface DetailPostHandler {
         void share(Deal deal);
+
+        Observable<Deal> like();
     }
 
     class DetailPostHolder extends RecyclerView.ViewHolder {
@@ -65,17 +69,23 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
         public void bind(Object object) {
             binding.setVariable(BR.data, object);
 
-            if (object instanceof Deal) {
-                bindPost((Deal) object);
+            if (object instanceof DetailPostBodyViewModel) {
+                bindPost((DetailPostBodyViewModel) object);
             }
 
             binding.executePendingBindings();
         }
 
-        private void bindPost(Deal deal) {
+        private void bindPost(DetailPostBodyViewModel body) {
             ItemDetailPostBinding postBinding = (ItemDetailPostBinding) binding;
 
-            postBinding.actionPanel.panelItemShare.setOnClickListener(v -> handler.share(deal));
+            postBinding.actionPanel.panelItemShare.setOnClickListener(v -> handler.share(body.getDeal()));
+
+            postBinding.actionPanel.panelLikeContainer.setOnClickListener(v ->
+                    handler.like().subscribe(response -> {
+                        viewModel.panelViewModel.isLiked.set(response.isLiked());
+                        viewModel.panelViewModel.likedCount.set(response.getLikesCount());
+                    }, Throwable::printStackTrace));
         }
     }
 }

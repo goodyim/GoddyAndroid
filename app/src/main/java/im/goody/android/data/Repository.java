@@ -127,6 +127,12 @@ public class Repository implements IRepository {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    @Override
+    public Observable<Deal> likeDeal(long id) {
+        return restService.like(preferencesManager.getUserToken(), id)
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     //endregion
 
     // ======= region Comments =======

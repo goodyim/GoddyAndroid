@@ -1,7 +1,9 @@
 package im.goody.android.screens.common;
 
 import android.databinding.BindingAdapter;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +14,7 @@ import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Location;
 import im.goody.android.utils.DateUtils;
 import im.goody.android.utils.NetUtils;
+import im.goody.android.utils.TextUtils;
 
 @SuppressWarnings("unused")
 public class PostBindingAdapter {
@@ -62,5 +65,19 @@ public class PostBindingAdapter {
         } else {
             view.setVisibility(View.GONE);
         }
+    }
+
+    @BindingAdapter({"likes", "liked"})
+    public static void bindLikes(ViewGroup view, int likes, boolean liked) {
+        ImageView imageView = (ImageView) view.getChildAt(0);
+        TextView textView = (TextView) view.getChildAt(1);
+
+        textView.setText(TextUtils.formatCount(likes));
+
+        int colorRes = liked ? R.color.accent : R.color.icon;
+        int color = ContextCompat.getColor(view.getContext(), colorRes);
+
+        textView.setTextColor(color);
+        imageView.setColorFilter(color);
     }
 }

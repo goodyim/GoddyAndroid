@@ -35,7 +35,8 @@ public interface RestService {
                                   @Query("password") String password);
 
     @GET("good_deals")
-    Observable<List<Deal>> getDeals(@Header("X-User-Token") String token, @Query("page") int page);
+    Observable<List<Deal>> getDeals(@Header("X-User-Token") String token,
+                                    @Query("page") int page);
 
     @Multipart
     @POST("good_deals")
@@ -50,4 +51,7 @@ public interface RestService {
     Observable<CommentRes> sendComment(@Header("X-User-Token") String token,
                                        @Query("good_deal_id") long id,
                                        @Body NewCommentReq comment);
+    @POST("good_deals/{id}/like")
+    Observable<Deal> like(@Header("X-User-Token") String token,
+                          @Path("id") long id);
 }

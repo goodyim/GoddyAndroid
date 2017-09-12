@@ -15,6 +15,7 @@ import im.goody.android.data.dto.Location;
 import im.goody.android.databinding.ItemEventBinding;
 import im.goody.android.databinding.ItemNewsBinding;
 import im.goody.android.utils.TextUtils;
+import io.reactivex.Observable;
 
 class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
@@ -67,6 +68,8 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
         void share(String text);
 
         void openMap(Location location);
+
+        Observable<Deal> like(int id);
     }
 
     class MainHolder extends RecyclerView.ViewHolder {
@@ -114,6 +117,12 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
             postBinding.itemEventLocation
                     .setOnClickListener(v -> handler.openMap(deal.getLocation()));
+
+            postBinding.actionPanel.panelLikeContainer.setOnClickListener(v ->
+                    handler.like(getAdapterPosition()).subscribe(response -> {
+                        viewModel.panelViewModel.isLiked.set(response.isLiked());
+                        viewModel.panelViewModel.likedCount.set(response.getLikesCount());
+                    }, Throwable::printStackTrace));
         }
 
 
@@ -141,6 +150,12 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
             postBinding.newsItemLocation
                     .setOnClickListener(v -> handler.openMap(deal.getLocation()));
+
+            postBinding.actionPanel.panelLikeContainer.setOnClickListener(v ->
+                    handler.like(getAdapterPosition()).subscribe(response -> {
+                        viewModel.panelViewModel.isLiked.set(response.isLiked());
+                        viewModel.panelViewModel.likedCount.set(response.getLikesCount());
+                    }));
         }
     }
 }

@@ -17,6 +17,7 @@ import im.goody.android.di.components.RootComponent;
 import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.ui.helpers.BundleBuilder;
 import im.goody.android.utils.TextUtils;
+import io.reactivex.Observable;
 
 public class DetailPostController extends BaseController<DetailPostView>
         implements DetailPostAdapter.DetailPostHandler {
@@ -86,7 +87,7 @@ public class DetailPostController extends BaseController<DetailPostView>
         view().setData(viewModel);
         viewModel.setId(getArgs().getLong(ID_KEY));
 
-        if (viewModel.getDeal() != null) {
+        if (viewModel.getBody() != null) {
             view().showData(viewModel);
         } else {
             loadData();
@@ -115,7 +116,7 @@ public class DetailPostController extends BaseController<DetailPostView>
     void loadData() {
         disposable = repository.getDeal(viewModel.getId())
                 .subscribe(deal -> {
-                    viewModel.setDeal(deal);
+                    viewModel.setBody(deal);
                     view().showData(viewModel);
                 }, error -> {
                     view().finishLoading();
@@ -132,8 +133,17 @@ public class DetailPostController extends BaseController<DetailPostView>
 
     @Override
     public void share(Deal deal) {
-        String text = TextUtils.buildShareText(viewModel.getDeal());
+        String text = TextUtils.buildShareText(viewModel.getBody().getDeal());
         super.share(text);
+    }
+
+    @Override
+    public Observable<Deal> like() {
+        Deal deal = viewModel.getBody().getDeal();
+
+        return repository.likeDeal(deal.getId())
+                .doOnError(error ->
+                        view().showMessage(getErrorMessage(error)));
     }
 
     // endregion

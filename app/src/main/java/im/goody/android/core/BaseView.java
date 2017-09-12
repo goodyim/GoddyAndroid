@@ -3,13 +3,16 @@ package im.goody.android.core;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.icu.util.TimeUnit;
 import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.util.AttributeSet;
+import android.util.TimeUtils;
 
 import com.bluelinelabs.conductor.Controller;
 
+import im.goody.android.Constants;
 import im.goody.android.R;
 
 public abstract class BaseView<C extends Controller, B extends ViewDataBinding> extends ConstraintLayout {
@@ -74,6 +77,6 @@ public abstract class BaseView<C extends Controller, B extends ViewDataBinding> 
     }
 
     protected Snackbar getSnackBarWithMessage(String message) {
-        return Snackbar.make(this, message, Snackbar.LENGTH_LONG);
+        return Snackbar.make(this, message, Snackbar.LENGTH_SHORT).setDuration(Constants.SECOND);
     }
 }

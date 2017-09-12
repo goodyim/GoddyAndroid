@@ -104,6 +104,15 @@ public class MainController extends BaseController<MainView> implements MainAdap
             openMap(location.getAddress());
     }
 
+    @Override
+    public Observable<Deal> like(int position) {
+        Deal deal = viewModel.getData().get(position).getDeal();
+
+        return repository.likeDeal(deal.getId())
+                .doOnError(error ->
+                        view().showMessage(getErrorMessage(error)));
+    }
+
     // end
 
     //region ================= BaseController =================

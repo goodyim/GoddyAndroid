@@ -35,7 +35,7 @@ public class NewPostBindingAdapter {
     }
 
     @BindingAdapter("state_icon")
-    public static void bindPlaceIcon(ImageView view, Object object) {
+    public static void bindStateIcon(ImageView view, Object object) {
         int filter = object == null ? R.color.icon : R.color.accent;
         int color = ContextCompat.getColor(view.getContext(), filter);
         view.setColorFilter(color);

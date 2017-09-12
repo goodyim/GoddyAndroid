@@ -14,6 +14,7 @@ import java.util.List;
 
 import im.goody.android.Constants;
 import im.goody.android.core.BaseView;
+import im.goody.android.data.dto.Deal;
 import im.goody.android.databinding.ScreenMainBinding;
 
 import static im.goody.android.Constants.DEFAULT_ANIMATION_DURATION;

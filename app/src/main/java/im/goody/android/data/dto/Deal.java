@@ -16,15 +16,16 @@ public class Deal {
 
     @JsonProperty("likes_count")
     private int likesCount;
+    private boolean liked;
 
     @JsonProperty("comments_count")
     private int commentsCount;
 
     @JsonProperty("created_at")
     private String date;
+
     @JsonProperty("name")
     private String title;
-
     @JsonProperty("image_file_name")
     private String imageUrl;
 
@@ -33,12 +34,16 @@ public class Deal {
     private Location location;
 
     private Event event;
+
     private List<Comment> comments;
     public void addComment(Comment comment) {
         comments.add(comment);
     }
-
     // ======= region getters =======
+
+    public boolean isLiked() {
+        return liked;
+    }
 
     public Event getEvent() {
         return event;
@@ -83,6 +88,10 @@ public class Deal {
     // endregion
 
     // ======= region setters =======
+
+    public void setLiked(boolean liked) {
+        this.liked = liked;
+    }
 
     public void setEvent(Event event) {
         this.event = event;
