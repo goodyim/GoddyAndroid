@@ -14,11 +14,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bluelinelabs.conductor.Conductor;
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -26,9 +29,11 @@ import javax.inject.Inject;
 
 import im.goody.android.App;
 import im.goody.android.R;
+import im.goody.android.data.network.res.UserRes;
 import im.goody.android.databinding.ActivityRootBinding;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.screens.detail_post.DetailPostController;
+import im.goody.android.screens.main.MainController;
 import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.ui.helpers.MenuItemHolder;
 
@@ -58,8 +63,12 @@ public class RootActivity extends AppCompatActivity
 
         initToolBar();
 
-        if (!router.hasRootController())
-            showScreenAsRoot(presenter.getStartController());
+        if (!router.hasRootController()) {
+            Class<? extends Controller> controller = presenter.getStartController();
+            showScreenAsRoot(controller);
+            if (controller == MainController.class)
+                binding.navView.setCheckedItem(R.id.action_main_screen);
+        }
     }
 
     private void initDaggerComponent() {
@@ -78,6 +87,7 @@ public class RootActivity extends AppCompatActivity
                 R.string.open_drawer,
                 R.string.close_drawer);
         binding.drawerLayout.addDrawerListener(drawerToggle);
+        binding.drawerLayout.setFitsSystemWindows(true);
         binding.navView.setNavigationItemSelectedListener(this);
         drawerToggle.syncState();
     }
@@ -91,12 +101,13 @@ public class RootActivity extends AppCompatActivity
             case R.id.action_settings:
                 presenter.showSettingScreen();
                 break;
-            case R.id.action_about:
+           /* TODO uncomment after screen will have been realized
+           case R.id.action_about:
                 presenter.showAboutScreen();
-                break;
+                break;*/
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START);
-        return false;
+        return true;
     }
 
     @Override
@@ -225,6 +236,21 @@ public class RootActivity extends AppCompatActivity
             controller = new DetailPostController(id);
 
         router.pushController(RouterTransaction.with(controller).tag(tag));
+    }
+
+    @Override
+    public void showDrawerHeader(UserRes userRes) {
+        View headerView = binding.navView.getHeaderView(0);
+        TextView nameView = headerView.findViewById(R.id.drawer_name);
+        ImageView imageView = headerView.findViewById(R.id.drawer_avatar);
+
+        nameView.setText(userRes.getUser().getName());
+
+        Picasso.with(this)
+                .load(userRes.getUser().getAvatarUrl())
+                .placeholder(R.drawable.round_drawable)
+                .fit()
+                .into(imageView);
     }
 
     @Override

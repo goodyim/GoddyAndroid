@@ -3,31 +3,70 @@ package im.goody.android.data.network.res;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UserRes {
-    @JsonProperty("user_id")
-    private int id;
-    private String token;
+    private User user;
 
-    // ======= region Getters =======
-
-    public int getId() {
-        return id;
+    public User getUser() {
+        return user;
     }
 
-    public String getToken() {
-        return token;
+    public UserRes setUser(User user) {
+        this.user = user;
+        return this;
     }
 
-    // endregion
+    public static class User {
+        private int id;
+        private String token;
 
-    // ======= region Setters =======
+        @JsonProperty("user_name")
+        private String name;
 
-    public void setId(int id) {
-        this.id = id;
+        @JsonProperty("avatar_url")
+        private String avatarUrl;
+
+        // ======= region Getters =======
+
+
+        public String getName() {
+            return name;
+        }
+
+        public String getAvatarUrl() {
+            return avatarUrl;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public String getToken() {
+            return token;
+        }
+
+        // endregion
+
+        // ======= region Setters =======
+
+        public User setId(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public User setToken(String token) {
+            this.token = token;
+            return this;
+        }
+
+        public User setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public User setAvatarUrl(String avatarUrl) {
+            this.avatarUrl = avatarUrl;
+            return this;
+        }
+
     }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
     //endregion
 }

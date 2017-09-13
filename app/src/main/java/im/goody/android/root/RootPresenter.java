@@ -35,6 +35,10 @@ public class RootPresenter implements IRootPresenter {
 
     void takeView(IRootView rootView) {
         this.rootView = rootView;
+
+        if (repository.isSigned()) {
+            rootView.showDrawerHeader(repository.getUserData());
+        }
     }
 
     void dropView() {
@@ -77,8 +81,10 @@ public class RootPresenter implements IRootPresenter {
     @Override
     public void showMainScreen(boolean isRoot) {
         if (rootView != null) {
-            if (isRoot)
+            if (isRoot) {
                 rootView.showScreenAsRoot(MainController.class);
+                rootView.showDrawerHeader(repository.getUserData());
+            }
             else
                 rootView.showScreen(MainController.class);
         }

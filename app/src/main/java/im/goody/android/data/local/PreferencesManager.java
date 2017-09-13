@@ -4,11 +4,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import im.goody.android.data.network.res.UserRes;
+
 public class PreferencesManager {
     private final SharedPreferences sharedPreferences;
 
     private static final String USER_ID_KEY = "USER_ID";
+    private static final String USER_NAME_KEY = "USER_NAME";
     private static final String USER_TOKEN_KEY = "USER_TOKEN";
+    private static final String USER_IMAGE_URL_KEY = "USER_IMAGE_URL";
+
     private static final String FIRST_LAUNCH_KEY = "Goody.firstLaunch";
 
     public PreferencesManager(Context context) {
@@ -39,16 +44,25 @@ public class PreferencesManager {
 
     //region ================= User =================
 
-    public void saveUserId(int userId) {
-        setIntValue(USER_ID_KEY, userId);
+    public void saveUser(UserRes userRes) {
+        UserRes.User user = userRes.getUser();
+
+        setStringValue(USER_NAME_KEY, user.getName());
+        setStringValue(USER_IMAGE_URL_KEY, user.getAvatarUrl());
+        setIntValue(USER_ID_KEY, user.getId());
+        setStringValue(USER_TOKEN_KEY, user.getToken());
+    }
+
+    public String getUserAvatarUrl() {
+        return sharedPreferences.getString(USER_IMAGE_URL_KEY, "");
+    }
+
+    public String getUserName() {
+        return sharedPreferences.getString(USER_NAME_KEY, "");
     }
 
     public int getUserId() {
         return sharedPreferences.getInt(USER_ID_KEY, 0);
-    }
-
-    public void saveUserToken(String userToken) {
-        setStringValue(USER_TOKEN_KEY, userToken);
     }
 
     public String getUserToken() {

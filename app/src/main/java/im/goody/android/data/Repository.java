@@ -56,20 +56,14 @@ public class Repository implements IRepository {
         return restService.registerUser(
                 RestCallTransformer.objectToPartMap(data, "user"),
                 getPartFromUri(avatarUri, "user[avatar]"))
-                .doOnNext(userRes -> {
-                    preferencesManager.saveUserToken(userRes.getToken());
-                    preferencesManager.saveUserId(userRes.getId());
-                })
+                .doOnNext(preferencesManager::saveUser)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<UserRes> login(LoginReq data) {
         return restService.loginUser(data.getName(), data.getPassword())
-                .doOnNext(userRes -> {
-                    preferencesManager.saveUserToken(userRes.getToken());
-                    preferencesManager.saveUserId(userRes.getId());
-                })
+                .doOnNext(preferencesManager::saveUser)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -131,6 +125,15 @@ public class Repository implements IRepository {
     public Observable<Deal> likeDeal(long id) {
         return restService.like(preferencesManager.getUserToken(), id)
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public UserRes getUserData() {
+        return new UserRes()
+                .setUser(new UserRes.User()
+                        .setAvatarUrl(preferencesManager.getUserAvatarUrl())
+                        .setName(preferencesManager.getUserName())
+                );
     }
 
     //endregion

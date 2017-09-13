@@ -34,4 +34,6 @@ public interface IRepository {
     Observable<String> sendReport(long id);
 
     Observable<Deal> likeDeal(long id);
+
+    UserRes getUserData();
 }

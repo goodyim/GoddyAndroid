@@ -27,7 +27,7 @@ public class SettingController extends BaseController<SettingView> {
         rootPresenter.newBarBuilder()
                 .setToolbarVisible(true)
                 .setTitleRes(R.string.setting_title)
-                .setHomeState(BarBuilder.HOME_ARROW)
+                .setHomeState(BarBuilder.HOME_HAMBURGER)
                 .build();
     }
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group
+        android:id="@+id/nav_min_group"
         android:checkableBehavior="single">
 
         <item android:id="@+id/action_main_screen"
@@ -11,12 +12,14 @@
             android:icon="@drawable/ic_settings"
             android:title="@string/action_settings"/>
 
-        <item android:id="@+id/action_support"
-            android:icon="@drawable/ic_chat"
-            android:title="@string/action_support"/>
+        <!-- TODO uncomment after screens will have been realized -->
 
-        <item android:id="@+id/action_about"
-            android:icon="@drawable/ic_info_outline"
-            android:title="@string/action_about"/>
+        <!--<item android:id="@+id/action_support"-->
+            <!--android:icon="@drawable/ic_chat"-->
+            <!--android:title="@string/action_support"/>-->
+
+        <!--<item android:id="@+id/action_about"-->
+            <!--android:icon="@drawable/ic_info_outline"-->
+            <!--android:title="@string/action_about"/>-->
     </group>
 </menu>
