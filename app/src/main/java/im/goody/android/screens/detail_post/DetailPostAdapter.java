@@ -10,6 +10,7 @@ import im.goody.android.BR;
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Location;
+import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.databinding.ItemDetailEventBinding;
 import im.goody.android.databinding.ItemDetailPostBinding;
 import io.reactivex.Observable;
@@ -65,6 +66,8 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
 
         void openMap(Location location);
 
+        Observable<ParticipateRes> changeParticipateState();
+
         Observable<Deal> like();
     }
 
@@ -106,9 +109,11 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
         }
 
         private void bindEvent (DetailPostBodyViewModel body) {
+            Deal deal = body.getDeal();
+
             ItemDetailEventBinding eventBinding = (ItemDetailEventBinding) binding;
 
-            eventBinding.actionPanel.panelItemShare.setOnClickListener(v -> handler.share(body.getDeal()));
+            eventBinding.actionPanel.panelItemShare.setOnClickListener(v -> handler.share(deal));
 
             eventBinding.actionPanel.panelLikeContainer.setOnClickListener(v ->
                     handler.like().subscribe(response -> {
@@ -117,7 +122,14 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
                     }, Throwable::printStackTrace));
 
             eventBinding.detailEventLocation
-                    .setOnClickListener(v -> handler.openMap(body.getDeal().getLocation()));
+                    .setOnClickListener(v -> handler.openMap(deal.getLocation()));
+
+            eventBinding.detailEventJoin.setOnClickListener(v ->
+                    handler.changeParticipateState()
+                            .subscribe(
+                                    response ->
+                                            viewModel.participates.set(response.isParticipates()),
+                                    Throwable::printStackTrace));
         }
     }
 }

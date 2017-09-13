@@ -13,6 +13,7 @@ import im.goody.android.R;
 import im.goody.android.core.BaseController;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Location;
+import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.ui.helpers.BarBuilder;
@@ -142,6 +143,13 @@ public class DetailPostController extends BaseController<DetailPostView>
     public void openMap(Location location) {
         if (location != null)
             openMap(location.getAddress());
+    }
+
+    @Override
+    public Observable<ParticipateRes> changeParticipateState() {
+        return repository.changeParticipateState(viewModel.getId())
+                .doOnError(error ->
+                        view().showMessage(getErrorMessage(error)));
     }
 
     @Override

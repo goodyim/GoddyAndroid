@@ -12,6 +12,7 @@ import im.goody.android.BR;
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Location;
+import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.databinding.ItemEventBinding;
 import im.goody.android.databinding.ItemNewsBinding;
 import im.goody.android.utils.TextUtils;
@@ -19,11 +20,10 @@ import io.reactivex.Observable;
 
 class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
-    private List<MainItemViewModel> data;
-    private MainItemHandler handler;
-
     private static final int TYPE_POST = R.layout.item_news;
     private static final int TYPE_EVENT = R.layout.item_event;
+    private List<MainItemViewModel> data;
+    private MainItemHandler handler;
 
     MainAdapter(List<MainItemViewModel> data, MainItemHandler handler) {
         this.data = data;
@@ -69,7 +69,9 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
         void openMap(Location location);
 
-        Observable<Deal> like(int id);
+        Observable<Deal> like(long id);
+
+        Observable<ParticipateRes> changeParticipateState(long id);
     }
 
     class MainHolder extends RecyclerView.ViewHolder {
@@ -95,34 +97,41 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
         private void bindEvent(MainItemViewModel viewModel) {
             Deal deal = viewModel.getDeal();
-            ItemEventBinding postBinding = (ItemEventBinding) binding;
+            ItemEventBinding eventBinding = (ItemEventBinding) binding;
 
-            postBinding.itemEventContainer
+            eventBinding.itemEventContainer
                     .setOnClickListener(v -> handler.showDetail(deal.getId()));
 
-            postBinding.actionPanel.panelItemComments
+            eventBinding.actionPanel.panelItemComments
                     .setOnClickListener(v -> handler.showDetail(deal.getId()));
 
-            postBinding.actionPanel.panelItemShare.setOnClickListener(v -> {
+            eventBinding.actionPanel.panelItemShare.setOnClickListener(v -> {
                 String text = TextUtils.buildShareText(deal);
                 handler.share(text);
             });
 
-            postBinding.itemEventMenu.setOnClickListener(v -> MainItemMenu.show(v).subscribe(id -> {
+            eventBinding.itemEventMenu.setOnClickListener(v -> MainItemMenu.show(v).subscribe(id -> {
                 switch (id) {
                     case R.id.action_report:
                         handler.report(deal.getId());
                 }
             }));
 
-            postBinding.itemEventLocation
+            eventBinding.itemEventLocation
                     .setOnClickListener(v -> handler.openMap(deal.getLocation()));
 
-            postBinding.actionPanel.panelLikeContainer.setOnClickListener(v ->
-                    handler.like(getAdapterPosition()).subscribe(response -> {
+            eventBinding.actionPanel.panelLikeContainer.setOnClickListener(v ->
+                    handler.like(deal.getId()).subscribe(response -> {
                         viewModel.panelViewModel.isLiked.set(response.isLiked());
                         viewModel.panelViewModel.likedCount.set(response.getLikesCount());
                     }, Throwable::printStackTrace));
+
+            eventBinding.itemEventJoin.setOnClickListener(v ->
+                    handler.changeParticipateState(deal.getId())
+                            .subscribe(
+                                    response ->
+                                            viewModel.participates.set(response.isParticipates()),
+                                    Throwable::printStackTrace));
         }
 
 
@@ -152,10 +161,10 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                     .setOnClickListener(v -> handler.openMap(deal.getLocation()));
 
             postBinding.actionPanel.panelLikeContainer.setOnClickListener(v ->
-                    handler.like(getAdapterPosition()).subscribe(response -> {
+                    handler.like(deal.getId()).subscribe(response -> {
                         viewModel.panelViewModel.isLiked.set(response.isLiked());
                         viewModel.panelViewModel.likedCount.set(response.getLikesCount());
-                    }));
+                    }, Throwable::printStackTrace));
         }
     }
 }

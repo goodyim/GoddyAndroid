@@ -38,6 +38,7 @@
     <string name="menu_report">Report</string>
 
     <string name="join">Join</string>
+    <string name="leave">Leave</string>
 
     <!-- Login and Register -->
     <string name="register_avatar_description">Choose avatar</string>

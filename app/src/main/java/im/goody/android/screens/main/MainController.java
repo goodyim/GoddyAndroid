@@ -11,6 +11,7 @@ import im.goody.android.R;
 import im.goody.android.core.BaseController;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Location;
+import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.ui.helpers.BarBuilder;
@@ -105,10 +106,15 @@ public class MainController extends BaseController<MainView> implements MainAdap
     }
 
     @Override
-    public Observable<Deal> like(int position) {
-        Deal deal = viewModel.getData().get(position).getDeal();
+    public Observable<Deal> like(long id) {
+        return repository.likeDeal(id)
+                .doOnError(error ->
+                        view().showMessage(getErrorMessage(error)));
+    }
 
-        return repository.likeDeal(deal.getId())
+    @Override
+    public Observable<ParticipateRes> changeParticipateState(long id) {
+        return repository.changeParticipateState(id)
                 .doOnError(error ->
                         view().showMessage(getErrorMessage(error)));
     }
