@@ -3,7 +3,7 @@
 
 
     <!-- activity_root -->
-    <string name="open_drawer">open_drawer</string>
+    <string name="open_drawer" translatable="false">open_drawer</string>
     <string name="close_drawer">close_drawer</string>
 
     <string name="action_settings">Settings</string>
@@ -95,7 +95,9 @@
 
     <!-- screen_setting -->
     <string name="setting_title">Settings</string>
-    <string name="setting_some">Some setting</string>
+
+    <!-- TODO remove / rename-->
+    <string name="setting_some">Images caching</string>
     <string name="event_default_title">Attention!</string>
     <string name="choose_date">Choose date…</string>
     <string name="choose_time">Select time…</string>
@@ -103,6 +105,6 @@
     <string name="title_hint">Title</string>
     <string name="event_description_hint">Description</string>
     <string name="resources_hint">Resources</string>
-    <string name="choose_location">Choose location...</string>
-    <string name="choose_photo">Choose photo...</string>
+    <string name="choose_location">Choose location…</string>
+    <string name="choose_photo">Choose photo…</string>
 </resources>

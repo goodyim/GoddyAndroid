@@ -80,6 +80,7 @@
             android:layout_marginLeft="@dimen/size_small"
             android:layout_marginRight="@dimen/size_small"
             android:layout_marginTop="@dimen/size_small"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="@+id/sign_in_form"
             app:layout_constraintRight_toRightOf="@+id/sign_in_form"
             app:layout_constraintTop_toBottomOf="@+id/sign_in_form" />
