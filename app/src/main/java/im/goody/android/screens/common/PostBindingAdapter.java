@@ -80,4 +80,16 @@ public class PostBindingAdapter {
         textView.setTextColor(color);
         imageView.setColorFilter(color);
     }
+
+
+    @BindingAdapter("title")
+    public static void bindTitle(TextView view, String title) {
+        String result;
+        if (android.text.TextUtils.isEmpty(title) || "null".equals(title)) {
+            result = view.getContext().getString(R.string.event_default_title);
+        } else {
+            result = title;
+        }
+        view.setText(result);
+    }
 }

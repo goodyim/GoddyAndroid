@@ -32,17 +32,6 @@ public class MainPostBindingAdapter {
         view.setText(result);
     }
 
-    @BindingAdapter("title")
-    public static void bindTitle(TextView view, String title) {
-        String result;
-        if (title == null) {
-            result = view.getContext().getString(R.string.event_default_title);
-        } else {
-            result = title;
-        }
-        view.setText(result);
-    }
-
     private static Spannable addMoreLink(String text, MainItemViewModel model) {
         int color = ContextCompat.getColor(App.getAppContext(), R.color.secondary_text);
         String more = App.getAppContext().getString(R.string.expand);

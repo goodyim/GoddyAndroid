@@ -87,16 +87,37 @@
             app:layout_constraintTop_toBottomOf="@+id/news_item_image"
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis egestas dui, nec commodo sem. Sed in velit metus. Nulla varius vehicula tortor, ut dapibus purus hendrerit vitae. Praesent iaculis." />
 
+        <TextView
+            android:id="@+id/news_item_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/size_small"
+            android:layout_marginLeft="@dimen/size_small"
+            android:layout_marginRight="@dimen/size_small"
+            android:layout_marginStart="@dimen/size_small"
+            android:layout_marginTop="@dimen/size_small"
+            android:background="?android:attr/selectableItemBackground"
+            android:drawableLeft="@drawable/ic_place"
+            android:drawablePadding="@dimen/size_little"
+            android:drawableStart="@drawable/ic_place"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            app:address="@{data.deal.location}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/news_item_description"
+            app:layout_goneMarginTop="0dp"
+            tools:text="Location" />
+
         <include
             android:id="@+id/action_panel"
             layout="@layout/item_action_panel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_small"
-            bind:viewModel="@{data.panelViewModel}"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/news_item_description"
-             />
+            app:layout_constraintTop_toBottomOf="@+id/news_item_location"
+            bind:viewModel="@{data.panelViewModel}" />
 
         <View
             style="@style/FullWidthFromParent"

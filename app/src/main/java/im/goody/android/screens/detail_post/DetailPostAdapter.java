@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import im.goody.android.BR;
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
+import im.goody.android.data.dto.Location;
+import im.goody.android.databinding.ItemDetailEventBinding;
 import im.goody.android.databinding.ItemDetailPostBinding;
 import io.reactivex.Observable;
 
@@ -32,7 +34,13 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
 
     @Override
     public int getItemViewType(int position) {
-        return position == 0 ? R.layout.item_detail_post : R.layout.comment;
+       if (position == 0) {
+           return viewModel.getDeal().getEvent() == null
+                   ? R.layout.item_detail_post
+                   : R.layout.item_detail_event;
+       } else {
+           return R.layout.comment;
+       }
     }
 
     @Override
@@ -55,6 +63,8 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
     interface DetailPostHandler {
         void share(Deal deal);
 
+        void openMap(Location location);
+
         Observable<Deal> like();
     }
 
@@ -69,8 +79,12 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
         public void bind(Object object) {
             binding.setVariable(BR.data, object);
 
-            if (object instanceof DetailPostBodyViewModel) {
-                bindPost((DetailPostBodyViewModel) object);
+            switch (getItemViewType()) {
+                case R.layout.item_detail_event:
+                    bindEvent((DetailPostBodyViewModel) object);
+                    break;
+                case R.layout.item_detail_post:
+                    bindPost((DetailPostBodyViewModel) object);
             }
 
             binding.executePendingBindings();
@@ -81,11 +95,29 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
 
             postBinding.actionPanel.panelItemShare.setOnClickListener(v -> handler.share(body.getDeal()));
 
+            postBinding.newsItemLocation
+                    .setOnClickListener(v -> handler.openMap(body.getDeal().getLocation()));
+
             postBinding.actionPanel.panelLikeContainer.setOnClickListener(v ->
                     handler.like().subscribe(response -> {
                         viewModel.panelViewModel.isLiked.set(response.isLiked());
                         viewModel.panelViewModel.likedCount.set(response.getLikesCount());
                     }, Throwable::printStackTrace));
+        }
+
+        private void bindEvent (DetailPostBodyViewModel body) {
+            ItemDetailEventBinding eventBinding = (ItemDetailEventBinding) binding;
+
+            eventBinding.actionPanel.panelItemShare.setOnClickListener(v -> handler.share(body.getDeal()));
+
+            eventBinding.actionPanel.panelLikeContainer.setOnClickListener(v ->
+                    handler.like().subscribe(response -> {
+                        viewModel.panelViewModel.isLiked.set(response.isLiked());
+                        viewModel.panelViewModel.likedCount.set(response.getLikesCount());
+                    }, Throwable::printStackTrace));
+
+            eventBinding.detailEventLocation
+                    .setOnClickListener(v -> handler.openMap(body.getDeal().getLocation()));
         }
     }
 }
