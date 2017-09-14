@@ -12,19 +12,6 @@ import im.goody.android.di.components.RootComponent;
 import im.goody.android.ui.helpers.BarBuilder;
 
 public class IntroController extends BaseController<IntroView> {
-    private IntroPageAdapter adapter;
-
-    public IntroController() {
-        super();
-        adapter = new IntroPageAdapter(this);
-    }
-
-    @Override
-    protected void onAttach(@NonNull View view) {
-        super.onAttach(view);
-        view().setAdapter(adapter);
-    }
-
     //region ================= BaseController =================
 
     @Override

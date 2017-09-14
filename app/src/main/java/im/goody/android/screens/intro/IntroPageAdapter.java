@@ -1,50 +1,43 @@
 package im.goody.android.screens.intro;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
+import android.databinding.DataBindingUtil;
+import android.support.v4.view.PagerAdapter;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import com.bluelinelabs.conductor.Controller;
-import com.bluelinelabs.conductor.Router;
-import com.bluelinelabs.conductor.RouterTransaction;
-import com.bluelinelabs.conductor.support.RouterPagerAdapter;
+import im.goody.android.R;
+import im.goody.android.databinding.ItemIntroBinding;
 
-import im.goody.android.App;
-import im.goody.android.screens.intro.page.Page;
-import im.goody.android.screens.intro.page.PageController;
+class IntroPageAdapter extends PagerAdapter {
 
-import static im.goody.android.Constants.Welcome.COLORS;
-import static im.goody.android.Constants.Welcome.DESCRIPTIONS;
-import static im.goody.android.Constants.Welcome.ICONS;
-import static im.goody.android.Constants.Welcome.PAGES_COUNT;
-import static im.goody.android.Constants.Welcome.TITLES;
-
-class IntroPageAdapter extends RouterPagerAdapter {
-
-    private Context appContext;
-
-    IntroPageAdapter(@NonNull Controller host) {
-        super(host);
-
-        appContext = App.getAppContext();
-    }
-
-    @Override
-    public void configureRouter(@NonNull Router router, int position) {
-        if (!router.hasRootController()) {
-            Page page = new Page.Builder()
-                    .setColor(ContextCompat.getColor(appContext, COLORS[position]))
-                    .setDescription(appContext.getResources().getString(DESCRIPTIONS[position]))
-                    .setTitle(appContext.getResources().getString(TITLES[position]))
-                    .setIcon(ICONS[position])
-                    .build();
-            Controller controller = new PageController(page);
-            router.setRoot(RouterTransaction.with(controller));
-        }
-    }
+    private int[] pages = {R.drawable.intro_1, R.drawable.intro_2, R.drawable.intro_3,
+            R.drawable.intro_4};
 
     @Override
     public int getCount() {
-        return PAGES_COUNT;
+        return pages.length;
+    }
+
+    @Override
+    public boolean isViewFromObject(View view, Object object) {
+        return view.equals(object);
+    }
+
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        LayoutInflater inflater = LayoutInflater.from(container.getContext());
+        View view = inflater.inflate(R.layout.item_intro, container, false);
+        ItemIntroBinding binding = DataBindingUtil.bind(view);
+        IntroPage page = new IntroPage();
+        page.setImage(pages[position]);
+        binding.setPage(page);
+        container.addView(view);
+        return view;
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        container.removeView((View) object);
     }
 }
