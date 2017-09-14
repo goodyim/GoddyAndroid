@@ -107,4 +107,8 @@
     <string name="resources_hint">Resources</string>
     <string name="choose_location">Choose location…</string>
     <string name="choose_photo">Choose photo…</string>
+    <string name="open_event">Reopen</string>
+    <string name="close_event">Close</string>
+    <string name="event_opened">Event was successfully reopened</string>
+    <string name="event_closed">Event was successfully closed</string>
 </resources>

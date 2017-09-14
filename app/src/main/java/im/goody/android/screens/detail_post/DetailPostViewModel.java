@@ -5,7 +5,6 @@ import android.databinding.ObservableField;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.network.req.NewCommentReq;
 import im.goody.android.data.network.res.CommentRes;
-import im.goody.android.screens.common.ActionPanelViewModel;
 
 public class DetailPostViewModel {
     private int position;
@@ -56,6 +55,15 @@ public class DetailPostViewModel {
         bodyViewModel.getDeal().setCommentsCount(comment.getCommentsCount());
 
         bodyViewModel.panelViewModel.commentsCount.set(comment.getCommentsCount());
+    }
+
+    void updateEventState(boolean active) {
+        bodyViewModel.getDeal().getEvent().setActive(active);
+        bodyViewModel.active.set(active);
+    }
+
+    Deal getDeal() {
+        return bodyViewModel.getDeal();
     }
 
     // endregion

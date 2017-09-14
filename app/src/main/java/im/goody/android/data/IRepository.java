@@ -11,6 +11,7 @@ import im.goody.android.data.network.req.NewEventReq;
 import im.goody.android.data.network.req.NewPostReq;
 import im.goody.android.data.network.req.RegisterReq;
 import im.goody.android.data.network.res.CommentRes;
+import im.goody.android.data.network.res.EventStateRes;
 import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.data.network.res.UserRes;
 import io.reactivex.Observable;
@@ -36,6 +37,7 @@ public interface IRepository {
 
     Observable<Deal> likeDeal(long id);
     Observable<ParticipateRes> changeParticipateState(long id);
+    Observable<EventStateRes> changeEventState(long id);
 
     UserRes getUserData();
 }

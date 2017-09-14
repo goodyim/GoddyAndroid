@@ -6,6 +6,7 @@ import java.util.Map;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.network.req.NewCommentReq;
 import im.goody.android.data.network.res.CommentRes;
+import im.goody.android.data.network.res.EventStateRes;
 import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.data.network.res.UserRes;
 import io.reactivex.Observable;
@@ -60,4 +61,8 @@ public interface RestService {
     @POST("good_deals/{id}/participate")
     Observable<ParticipateRes> participate(@Header("X-User-Token") String token,
                                            @Path("id") long id);
+
+    @POST("good_deals/{id}/close")
+    Observable<EventStateRes> changeEventState(@Header("X-User-Token") String token,
+                                               @Path("id") long id);
 }

@@ -22,6 +22,7 @@ import im.goody.android.data.network.req.NewEventReq;
 import im.goody.android.data.network.req.NewPostReq;
 import im.goody.android.data.network.req.RegisterReq;
 import im.goody.android.data.network.res.CommentRes;
+import im.goody.android.data.network.res.EventStateRes;
 import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.data.network.res.UserRes;
 import im.goody.android.di.components.DataComponent;
@@ -35,7 +36,6 @@ import retrofit2.Converter;
 import retrofit2.HttpException;
 import retrofit2.Retrofit;
 
-// TODO replace fake data with api request
 public class Repository implements IRepository {
     @Inject
     PreferencesManager preferencesManager;
@@ -131,6 +131,12 @@ public class Repository implements IRepository {
     @Override
     public Observable<ParticipateRes> changeParticipateState(long id) {
         return restService.participate(preferencesManager.getUserToken(), id)
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<EventStateRes> changeEventState(long id) {
+        return restService.changeEventState(preferencesManager.getUserToken(), id)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

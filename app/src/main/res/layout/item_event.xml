@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="android.view.View"/>
+
         <variable
             name="viewModel"
             type="im.goody.android.screens.main.MainItemViewModel" />
@@ -24,7 +26,7 @@
                 android:id="@+id/item_event_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/event_header"
+                android:background="@{viewModel.deal.event.active ? @drawable/event_header_active : @drawable/event_header_closed}"
                 android:padding="@dimen/size_normal"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textColor="@color/white"
@@ -212,6 +214,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="@{viewModel.deal.event.active ? View.VISIBLE : View.INVISIBLE}"
                 android:text="@{viewModel.participates ? @string/leave : @string/join}"
                 app:layout_constraintBottom_toBottomOf="@+id/action_panel"
                 app:layout_constraintRight_toRightOf="parent"

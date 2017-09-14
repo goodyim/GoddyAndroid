@@ -26,6 +26,7 @@ public class DetailPostController extends BaseController<DetailPostView>
     private static final String ID_KEY = "DetailPostController.id";
 
     private DetailPostViewModel viewModel = new DetailPostViewModel();
+    private MenuItem eventStateItem;
 
     public DetailPostController(long id) {
         super(new BundleBuilder(new Bundle())
@@ -68,6 +69,15 @@ public class DetailPostController extends BaseController<DetailPostView>
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.deal_menu, menu);
+
+        eventStateItem = menu.add(Menu.NONE, 1, 0, "");
+
+        eventStateItem.setOnMenuItemClickListener(item -> {
+            changeEventState();
+            return true;
+        });
+
+        eventStateItem.setVisible(false);
     }
 
     @Override
@@ -120,6 +130,7 @@ public class DetailPostController extends BaseController<DetailPostView>
                 .subscribe(deal -> {
                     viewModel.setBody(deal);
                     view().showData(viewModel);
+                    updateMenu();
                 }, error -> {
                     view().finishLoading();
                     view().showErrorWithRetry(error.getMessage(), v -> {
@@ -128,6 +139,8 @@ public class DetailPostController extends BaseController<DetailPostView>
                     });
                 });
     }
+
+
 
     // endregion
 
@@ -165,21 +178,56 @@ public class DetailPostController extends BaseController<DetailPostView>
 
     // ======= region DI =======
 
-    @dagger.Subcomponent
-    @DaggerScope(DetailPostController.class)
-    public interface Component {
-        void inject(DetailPostController controller);
-    }
-
-    // endregion
-
-    // ======= region private methods =======
-
     private void report() {
         disposable = repository.sendReport(viewModel.getId()).subscribe(
                 s -> view().showMessage(getActivity().getString(R.string.report_submitted)),
                 error -> view().showMessage(error.getMessage())
         );
+    }
+    // endregion
+
+    // ======= region private methods =======
+
+    private void updateMenu() {
+        Deal deal = viewModel.getDeal();
+
+        if (deal.getEvent() != null && deal.isOwner()) {
+            eventStateItem.setTitle(getCloseOpenItemTitle());
+            eventStateItem.setVisible(true);
+        }
+    }
+
+    @SuppressWarnings("CodeBlock2Expr")
+    private void changeEventState() {
+        disposable = repository.changeEventState(viewModel.getId())
+                .subscribe(
+                        eventStateRes -> {
+                            viewModel.updateEventState(eventStateRes.isActive());
+                            eventStateItem.setTitle(getCloseOpenItemTitle());
+
+                            int msgRes = eventStateRes.isActive()
+                                    ? R.string.event_opened
+                                    : R.string.event_closed;
+
+                            view().showMessage(msgRes);
+                        }, this::showError);
+    }
+
+    @NonNull
+    private String getCloseOpenItemTitle() {
+        Deal.Event event = viewModel.getDeal().getEvent();
+
+        int titleRes = event.isActive()
+                ? R.string.close_event
+                : R.string.open_event;
+        return getActivity().getString(titleRes);
+    }
+
+    @dagger.Subcomponent
+    @DaggerScope(DetailPostController.class)
+    public interface Component {
+
+        void inject(DetailPostController controller);
     }
 
     // endregion

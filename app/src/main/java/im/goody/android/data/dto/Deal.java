@@ -37,15 +37,18 @@ public class Deal {
 
     private Event event;
 
+    @JsonProperty("is_author")
+    private boolean isOwner;
+
     private List<Comment> comments;
 
     public void addComment(Comment comment) {
         comments.add(comment);
     }
+
     public boolean isLiked() {
         return liked;
     }
-
     public Event getEvent() {
         return event;
     }
@@ -55,6 +58,10 @@ public class Deal {
     }
 
     // ======= region getters =======
+
+    public boolean isOwner() {
+        return isOwner;
+    }
 
     public boolean isParticipates() {
         return participates;
@@ -95,6 +102,11 @@ public class Deal {
     // endregion
 
     // ======= region setters =======
+
+    public Deal isOwner(boolean isOwner) {
+        this.isOwner = isOwner;
+        return this;
+    }
 
     public Deal setParticipates(boolean participates) {
         this.participates = participates;
@@ -167,6 +179,11 @@ public class Deal {
     public static class Event {
         private String resources;
         private String date;
+        private boolean active;
+
+        public boolean isActive() {
+            return active;
+        }
 
         public String getResources() {
             return resources;
@@ -174,6 +191,10 @@ public class Deal {
 
         public String getDate() {
             return date;
+        }
+
+        public void setActive(boolean active) {
+            this.active = active;
         }
 
         public void setResources(String resources) {

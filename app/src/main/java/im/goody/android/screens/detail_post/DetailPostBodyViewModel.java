@@ -10,12 +10,16 @@ public class DetailPostBodyViewModel {
     public ActionPanelViewModel panelViewModel;
 
     public final ObservableBoolean participates;
+    public ObservableBoolean active;
 
     public DetailPostBodyViewModel(Deal deal) {
         this.deal = deal;
 
         panelViewModel = new ActionPanelViewModel(deal);
         participates = new ObservableBoolean(deal.isParticipates());
+
+        if (deal.getEvent() != null)
+            active = new ObservableBoolean(deal.getEvent().isActive());
     }
 
     public Deal getDeal() {
