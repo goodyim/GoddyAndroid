@@ -143,4 +143,10 @@ public class RootPresenter implements IRootPresenter {
     public void launched() {
         if (repository.isFirstLaunch()) repository.firstLaunched();
     }
+
+    @Override
+    public void logout() {
+        repository.logout();
+        showLoginScreen(true);
+    }
 }

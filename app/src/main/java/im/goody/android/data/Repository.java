@@ -149,6 +149,11 @@ public class Repository implements IRepository {
                 );
     }
 
+    @Override
+    public void logout() {
+        preferencesManager.clearUserData();
+    }
+
     //endregion
 
     // ======= region Comments =======

@@ -26,4 +26,6 @@ public interface IRootPresenter {
 
     //first start
     void launched();
+
+    void logout();
 }

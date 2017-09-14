@@ -101,6 +101,9 @@ public class RootActivity extends AppCompatActivity
             case R.id.action_settings:
                 presenter.showSettingScreen();
                 break;
+            case R.id.action_logout:
+                presenter.logout();
+                break;
            /* TODO uncomment after screen will have been realized
            case R.id.action_about:
                 presenter.showAboutScreen();

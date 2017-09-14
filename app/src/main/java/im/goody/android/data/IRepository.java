@@ -40,4 +40,6 @@ public interface IRepository {
     Observable<EventStateRes> changeEventState(long id);
 
     UserRes getUserData();
+
+    void logout();
 }

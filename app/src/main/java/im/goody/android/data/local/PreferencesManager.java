@@ -40,6 +40,12 @@ public class PreferencesManager {
         editor.apply();
     }
 
+    private void removeValue(String key) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(key);
+        editor.apply();
+    }
+
     //endregion
 
     //region ================= User =================
@@ -84,6 +90,13 @@ public class PreferencesManager {
 
     public boolean isFirstStart() {
         return !sharedPreferences.contains(FIRST_LAUNCH_KEY);
+    }
+
+    public void clearUserData() {
+        removeValue(USER_NAME_KEY);
+        removeValue(USER_IMAGE_URL_KEY);
+        removeValue(USER_ID_KEY);
+        removeValue(USER_TOKEN_KEY);
     }
 
     //endregion

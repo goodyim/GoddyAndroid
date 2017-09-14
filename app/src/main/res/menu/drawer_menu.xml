@@ -12,6 +12,10 @@
             android:icon="@drawable/ic_settings"
             android:title="@string/action_settings"/>
 
+        <item android:id="@+id/action_logout"
+            android:title="@string/logout"
+            android:icon="@drawable/ic_logout" />
+
         <!-- TODO uncomment after screens will have been realized -->
 
         <!--<item android:id="@+id/action_support"-->
