@@ -119,7 +119,6 @@ public class RootActivity extends AppCompatActivity
     @Override
     protected void onStop() {
         ((RootPresenter) presenter).dropView();
-        binding.navView.setNavigationItemSelectedListener(null);
         super.onStop();
     }
 

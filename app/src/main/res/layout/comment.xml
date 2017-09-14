@@ -20,6 +20,7 @@
             android:layout_height="@dimen/avatar_size"
             android:layout_marginLeft="@dimen/size_normal"
             android:layout_marginStart="@dimen/size_normal"
+            android:adjustViewBounds="true"
             android:contentDescription="@string/content_avatar"
             app:author_avatar="@{data.author.avatarUrl}"
             app:layout_constraintLeft_toLeftOf="parent"

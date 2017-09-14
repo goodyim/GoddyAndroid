@@ -95,7 +95,7 @@ public class Repository implements IRepository {
 
     @Override
     public Observable<Deal> getDeal(long id) {
-        return restService.getDeal(id)
+        return restService.getDeal(preferencesManager.getUserToken(), id)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

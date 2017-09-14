@@ -46,7 +46,8 @@ public interface RestService {
                                         @Part MultipartBody.Part file);
 
     @GET("good_deals/{id}")
-    Observable<Deal> getDeal(@Path("id") long id);
+    Observable<Deal> getDeal(@Header("X-User-Token") String token,
+                             @Path("id") long id);
 
     @POST("comments")
     Observable<CommentRes> sendComment(@Header("X-User-Token") String token,
