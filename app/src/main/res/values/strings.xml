@@ -4,7 +4,7 @@
 
     <!-- activity_root -->
     <string name="open_drawer" translatable="false">open_drawer</string>
-    <string name="close_drawer">close_drawer</string>
+    <string name="close_drawer" translatable="false">close_drawer</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_support">Support</string>
@@ -12,15 +12,6 @@
 
     <!-- screen_main -->
     <string name="main_title">News</string>
-
-    <!-- screen_intro -->
-    <string name="welcome_title_1">Title 1</string>
-    <string name="welcome_title_2">Title 2</string>
-    <string name="welcome_title_3">Title 3</string>
-
-    <string name="welcome_description_1">Description 1</string>
-    <string name="welcome_description_2">Description 2</string>
-    <string name="welcome_description_3">Description 3</string>
 
     <string name="close">Close</string>
 
@@ -30,10 +21,6 @@
 
     <string name="event_invites">invites you</string>
     <string name="event_participates_label">Participates:</string>
-    <string name="event_location_label">Location:</string>
-    <string name="event_date_label">When:</string>
-    <string name="event_resources_label">Resources:</string>
-    <string name="event_type_label">Type:</string>
 
     <string name="menu_report">Report</string>
 
@@ -51,9 +38,8 @@
     <string name="invalid_fields_message">Please make all fields valid</string>
     <string name="register_progress_title">Signing up</string>
     <string name="login_progress_title">Logging in</string>
-    <string name="register_title">Register</string>
+    <string name="register_title">Registration</string>
     <string name="read_permission_denied">Please give us permissions first</string>
-    <string name="register_redirect">Have an account? Log in</string>
 
     <string name="facebook" translatable="false">Facebook</string>
     <string name="google" translatable="false">Google</string>
@@ -83,9 +69,8 @@
     <string name="dialog_title">Choose action</string>
 
     <string name="report_submitted">Report submitted</string>
-    <string name="collapse">Collapse</string>
     <string name="expand">more</string>
-    <string name="unknown_error">Unknown_error</string>
+    <string name="unknown_error">Unknown error</string>
     <string name="retry">Retry</string>
     <string name="detail_title">Post</string>
     <string name="hint_comment">Comment</string>

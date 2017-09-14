@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Goody</string>
+
+    <string name="content_more">Больше действий</string>
+    <string name="content_new_post_photo">Фото записи</string>
+    <string name="content_send">Отправить</string>
+    <string name="content_add_photo">Добавить фото</string>
+    <string name="content_add_place">Добавить место</string>
+    <string name="content_avatar">Аватар пользователя</string>
+    <string name="content_clear_image">Сбросить изображение</string>
+    <string name="content_clear_location">Сбросить место</string>
+
+    <string name="create_post_progress">Создание в процессе</string>
+    <string name="description_hint">Что нового?</string
+    >
+    <string name="detail_title">Пост</string>
+    <string name="dialog_item_0">Выбрать фото</string>
+    <string name="dialog_item_1">Сделать снимок</string>
+    <string name="dialog_title">Выберите действие</string>
+
+    <string name="event_closed">Событие было успешно зыкрыто</string>
+
+    <string name="about_text">Это Гуди</string>
+
+    <string name="action_about">О нас</string>
+    <string name="action_settings">Настройки</string>
+    <string name="action_support">Поддержка</string>
+
+    <string name="choose_date">Выберите дату…</string>
+    <string name="choose_location">Выберите место…</string>
+    <string name="choose_photo">Выберите фото…</string>
+    <string name="choose_time">Выберите время…</string>
+
+    <string name="close">Закрыть</string>
+    <string name="close_event">Зыкрыть</string>
+
+
+    <string name="event_default_title">Внимание!</string>
+    <string name="event_description_hint">Описание</string>
+    <string name="event_invites">приглашает вас</string>
+    <string name="event_opened">Событие было успешно открыто</string>
+    <string name="event_participates_label">Участвуют:</string>
+
+    <string name="expand">показать всё</string>
+
+    <string name="go">Поехали</string>
+
+    <string name="hint_comment">Комментарий</string>
+
+    <string name="invalid_fields_message">Пожалуйста, заполните все поля корректно</string>
+
+    <string name="item_image_description">Главное изображение дела</string>
+    <string name="item_share_description">Поделиться</string>
+
+    <string name="join">Вступить</string>
+    <string name="leave">Покинуть</string>
+
+    <string name="location_permission_denied">Необходимо предоставить приложению доступ к вашему местоположению</string>
+    <string name="read_permission_denied">Необходимо предоставить приложению доступ к памяти телефона</string>
+
+    <string name="login_progress_title">Ищем вас</string>
+    <string name="login_redirect">Еще нет аккаунта? Зарегестрируйтесь</string>
+    <string name="login_title">Вход</string>
+
+    <string name="logout">Выйти</string>
+
+    <string name="main_title">Новости</string>
+
+    <string name="menu_report">Сообщить о нарушении</string>
+
+    <string name="name_hint">Имя</string>
+
+    <string name="new_event_title">Новое событие</string>
+    <string name="new_post_create">Создать</string>
+    <string name="new_post_title">Новая запись</string>
+
+    <string name="oauth_facebook_description">Авторизация через Facebook</string>
+    <string name="oauth_google_description">Авторизация через Google</string>
+    <string name="oauth_vk_description">Авторизация через VK</string>
+
+    <string name="open_event">Открыть</string>
+
+    <string name="password_hint">Пароль</string>
+    <string name="register_avatar_description">Выбрать аватар</string>
+    <string name="register_progress_title">Регистрируем вас</string>
+    <string name="register_title">Регистрация</string>
+    <string name="report_submitted">Отчёт отправлен</string>
+    <string name="resources_hint">Необходимые ресурсы</string>
+    <string name="retry">Повторить</string>
+    <string name="setting_some">Кэширование изображений</string>
+    <string name="setting_title">Настройки</string>
+    <string name="title_hint">Заголовок</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
+</resources>

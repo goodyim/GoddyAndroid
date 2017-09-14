@@ -105,18 +105,6 @@
                             app:backgroundTint="@color/accent"
                             app:layout_constraintTop_toBottomOf="@+id/register_password" />
 
-                        <android.support.v7.widget.AppCompatButton
-                            android:id="@+id/register_redirect"
-                            style="@style/LoginControl"
-                            android:layout_height="@dimen/button_height_big"
-                            android:layout_marginBottom="@dimen/size_small"
-                            android:text="@string/register_redirect"
-                            android:textColor="@color/white"
-                            app:backgroundTint="@color/primary"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/register_submit" />
-
-
                     </android.support.constraint.ConstraintLayout>
                 </android.support.v7.widget.CardView>
 
