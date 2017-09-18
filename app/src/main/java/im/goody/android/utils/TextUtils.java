@@ -12,7 +12,14 @@ public class TextUtils {
     public static String buildShareText(Deal deal) {
         String url = AppConfig.SHARE_DEALS_URL + deal.getId();
         String tags = "#goody #гуди";
-        return deal.getTitle() + "\n"
+        String title = deal.getTitle();
+
+        if (android.text.TextUtils.isEmpty(title) || "null".equals(title))
+            title = "";
+        else
+            title += "\n";
+
+        return title
                 + deal.getDescription() + "\n\n"
                 + url + "\n\n"
                 + tags;
