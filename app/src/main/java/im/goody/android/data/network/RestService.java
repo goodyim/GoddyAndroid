@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import im.goody.android.data.dto.Deal;
+import im.goody.android.data.dto.User;
 import im.goody.android.data.network.req.NewCommentReq;
 import im.goody.android.data.network.res.CommentRes;
 import im.goody.android.data.network.res.EventStateRes;
@@ -65,4 +66,8 @@ public interface RestService {
     @POST("good_deals/{id}/close")
     Observable<EventStateRes> changeEventState(@Header("X-User-Token") String token,
                                                @Path("id") long id);
+
+    @GET("users/{id}")
+    Observable<User> getUserProfile(@Header("X-User-Token") String token,
+                                    @Path("id") long id);
 }

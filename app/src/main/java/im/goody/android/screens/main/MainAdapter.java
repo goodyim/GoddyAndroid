@@ -69,6 +69,8 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
         void openMap(Location location);
 
+        void openProfile(long id);
+
         Observable<Deal> like(long id);
 
         Observable<ParticipateRes> changeParticipateState(long id);
@@ -132,6 +134,9 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                                     response ->
                                             viewModel.participates.set(response.isParticipates()),
                                     Throwable::printStackTrace));
+
+            eventBinding.itemEventAvatar.setOnClickListener(v ->
+                    handler.openProfile(deal.getAuthor().getId()));
         }
 
 
@@ -165,6 +170,9 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                         viewModel.panelViewModel.isLiked.set(response.isLiked());
                         viewModel.panelViewModel.likedCount.set(response.getLikesCount());
                     }, Throwable::printStackTrace));
+
+            postBinding.newsItemUserAvatar.setOnClickListener(v ->
+                    handler.openProfile(deal.getAuthor().getId()));
         }
     }
 }

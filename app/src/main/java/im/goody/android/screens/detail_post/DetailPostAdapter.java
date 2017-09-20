@@ -66,6 +66,8 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
 
         void openMap(Location location);
 
+        void openProfile(long id);
+
         Observable<ParticipateRes> changeParticipateState();
 
         Observable<Deal> like();
@@ -95,17 +97,21 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
 
         private void bindPost(DetailPostBodyViewModel body) {
             ItemDetailPostBinding postBinding = (ItemDetailPostBinding) binding;
+            Deal deal = body.getDeal();
 
-            postBinding.actionPanel.panelItemShare.setOnClickListener(v -> handler.share(body.getDeal()));
+            postBinding.actionPanel.panelItemShare.setOnClickListener(v -> handler.share(deal));
 
             postBinding.newsItemLocation
-                    .setOnClickListener(v -> handler.openMap(body.getDeal().getLocation()));
+                    .setOnClickListener(v -> handler.openMap(deal.getLocation()));
 
             postBinding.actionPanel.panelLikeContainer.setOnClickListener(v ->
                     handler.like().subscribe(response -> {
                         viewModel.panelViewModel.isLiked.set(response.isLiked());
                         viewModel.panelViewModel.likedCount.set(response.getLikesCount());
                     }, Throwable::printStackTrace));
+
+            postBinding.newsItemUserAvatar.setOnClickListener(v ->
+                    handler.openProfile(deal.getAuthor().getId()));
         }
 
         private void bindEvent (DetailPostBodyViewModel body) {
@@ -130,6 +136,9 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
                                     response ->
                                             viewModel.participates.set(response.isParticipates()),
                                     Throwable::printStackTrace));
+
+            eventBinding.detailEventAvatar.setOnClickListener(v ->
+                    handler.openProfile(deal.getAuthor().getId()));
         }
     }
 }

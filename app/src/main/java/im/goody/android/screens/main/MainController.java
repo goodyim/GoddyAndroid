@@ -106,6 +106,11 @@ public class MainController extends BaseController<MainView> implements MainAdap
     }
 
     @Override
+    public void openProfile(long id) {
+        rootPresenter.showProfile(id);
+    }
+
+    @Override
     public Observable<Deal> like(long id) {
         return repository.likeDeal(id)
                 .doOnError(error ->

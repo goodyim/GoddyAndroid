@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Author {
-    private String id;
+    private int id;
 
     @JsonProperty("user_name")
     private String name;
@@ -25,7 +25,7 @@ public class Author {
         return avatarUrl;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -43,7 +43,7 @@ public class Author {
         return this;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -159,6 +159,11 @@ public class DetailPostController extends BaseController<DetailPostView>
     }
 
     @Override
+    public void openProfile(long id) {
+        rootPresenter.showProfile(id);
+    }
+
+    @Override
     public Observable<ParticipateRes> changeParticipateState() {
         return repository.changeParticipateState(viewModel.getId())
                 .doOnError(error ->

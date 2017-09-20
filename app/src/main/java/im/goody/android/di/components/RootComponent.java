@@ -13,6 +13,7 @@ import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.main.MainController;
 import im.goody.android.screens.new_event.NewEventController;
 import im.goody.android.screens.new_post.NewPostController;
+import im.goody.android.screens.profile.ProfileController;
 import im.goody.android.screens.register.RegisterController;
 import im.goody.android.screens.setting.SettingController;
 
@@ -33,4 +34,6 @@ public interface RootComponent {
 
     AboutController.Component plusAbout();
     SettingController.Component plusSetting();
+
+    ProfileController.Component plusProfile();
 }

@@ -97,4 +97,11 @@
     <string name="event_opened">Event was successfully reopened</string>
     <string name="event_closed">Event was successfully closed</string>
     <string name="logout">Log out</string>
+    <string name="follow">Follow</string>
+    <string name="profile">Profile</string>
+    <string name="user_posts">User posts</string>
+    <string name="profile_followers">Followers</string>
+    <string name="profile_posts_count">Posts</string>
+    <string name="profile_event_count">Events</string>
+    <string name="unfollow">Unfollow</string>
 </resources>

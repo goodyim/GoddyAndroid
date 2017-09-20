@@ -13,6 +13,7 @@ import javax.inject.Inject;
 
 import im.goody.android.App;
 import im.goody.android.data.dto.Deal;
+import im.goody.android.data.dto.User;
 import im.goody.android.data.local.PreferencesManager;
 import im.goody.android.data.network.RestService;
 import im.goody.android.data.network.core.RestCallTransformer;
@@ -123,6 +124,12 @@ public class Repository implements IRepository {
     }
 
     @Override
+    public Observable<User> getUserProfile(long id) {
+        return restService.getUserProfile(preferencesManager.getUserToken(), id)
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
     public Observable<Deal> likeDeal(long id) {
         return restService.like(preferencesManager.getUserToken(), id)
                 .observeOn(AndroidSchedulers.mainThread());
@@ -144,6 +151,7 @@ public class Repository implements IRepository {
     public UserRes getUserData() {
         return new UserRes()
                 .setUser(new UserRes.User()
+                        .setId(preferencesManager.getUserId())
                         .setAvatarUrl(preferencesManager.getUserAvatarUrl())
                         .setName(preferencesManager.getUserName())
                 );

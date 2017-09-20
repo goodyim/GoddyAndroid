@@ -34,6 +34,7 @@ import im.goody.android.databinding.ActivityRootBinding;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.screens.detail_post.DetailPostController;
 import im.goody.android.screens.main.MainController;
+import im.goody.android.screens.profile.ProfileController;
 import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.ui.helpers.MenuItemHolder;
 
@@ -241,6 +242,18 @@ public class RootActivity extends AppCompatActivity
     }
 
     @Override
+    public void showProfile(long id) {
+        String tag = DetailPostController.class.getName() + id;
+
+        Controller controller = router.getControllerWithTag(tag);
+
+        if (controller == null)
+            controller = new ProfileController(id);
+
+        router.pushController(RouterTransaction.with(controller).tag(tag));
+    }
+
+    @Override
     public void showDrawerHeader(UserRes userRes) {
         View headerView = binding.navView.getHeaderView(0);
         TextView nameView = headerView.findViewById(R.id.drawer_name);
@@ -253,6 +266,8 @@ public class RootActivity extends AppCompatActivity
                 .placeholder(R.drawable.round_drawable)
                 .fit()
                 .into(imageView);
+
+        imageView.setOnClickListener(v -> presenter.showMyProfile());
     }
 
     @Override

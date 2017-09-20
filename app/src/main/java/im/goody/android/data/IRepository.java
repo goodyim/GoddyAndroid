@@ -5,6 +5,7 @@ import android.net.Uri;
 import java.util.List;
 
 import im.goody.android.data.dto.Deal;
+import im.goody.android.data.dto.User;
 import im.goody.android.data.network.req.LoginReq;
 import im.goody.android.data.network.req.NewCommentReq;
 import im.goody.android.data.network.req.NewEventReq;
@@ -34,6 +35,8 @@ public interface IRepository {
     Observable<ResponseBody> createPost(NewPostReq body, Uri imageUri);
     Observable<ResponseBody> createEvent(NewEventReq body, Uri imageUri);
     Observable<String> sendReport(long id);
+
+    Observable<User> getUserProfile(long id);
 
     Observable<Deal> likeDeal(long id);
     Observable<ParticipateRes> changeParticipateState(long id);
