@@ -18,7 +18,7 @@ import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.ui.helpers.BundleBuilder;
 
 public class ProfileController extends BaseController<ProfileView> {
-    public static final String ID_KEY = "ProfileController.id";
+    private static final String ID_KEY = "ProfileController.id";
 
     @Inject
     PreferencesManager manager;
@@ -34,6 +34,8 @@ public class ProfileController extends BaseController<ProfileView> {
     public ProfileController(Bundle args) {
         super(args);
     }
+
+    // ======= region BaseController =======
 
     @Override
     protected void initDaggerComponent(RootComponent parentComponent) {
@@ -52,6 +54,16 @@ public class ProfileController extends BaseController<ProfileView> {
                 .build();
     }
 
+    @NonNull
+    @Override
+    protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
+        return inflater.inflate(R.layout.screen_profile, container, false);
+    }
+
+    // end
+
+    // ======= region ProfileController =======
+
     @Override
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
@@ -63,7 +75,7 @@ public class ProfileController extends BaseController<ProfileView> {
         else view().setData(viewModel);
     }
 
-    public void loadData() {
+    void loadData() {
         repository.getUserProfile(getId()).subscribe(user -> {
             viewModel = new ProfileViewModel(user);
             view().setData(viewModel);
@@ -76,11 +88,30 @@ public class ProfileController extends BaseController<ProfileView> {
         });
     }
 
-    @NonNull
-    @Override
-    protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        return inflater.inflate(R.layout.screen_profile, container, false);
+    void follow() {
+        repository.changeFollowState(getId())
+                .subscribe(
+                        result ->
+                                viewModel.updateFollowState(result),
+                        error ->
+                                view().showErrorWithRetry(
+                                        getErrorMessage(error),
+                                        v -> follow()
+                                )
+                );
     }
+
+    // end
+
+    // ======= region private methods =======
+
+    private long getId() {
+        return getArgs().getLong(ID_KEY);
+    }
+
+    // end
+
+    // ======= region DI =======
 
     @Subcomponent
     @DaggerScope(ProfileController.class)
@@ -88,7 +119,5 @@ public class ProfileController extends BaseController<ProfileView> {
         void inject(ProfileController controller);
     }
 
-    private long getId() {
-        return getArgs().getLong(ID_KEY);
-    }
+    // end
 }

@@ -18,8 +18,10 @@ implements SwipeRefreshLayout.OnRefreshListener {
     @Override
     protected void onAttached() {
         binding.profileRefresh.setRefreshing(true);
-        binding.profileRefresh.setColorSchemeColors(Constants.PROGRESS_COLORS);
+        binding.profileRefresh.setColorSchemeResources(Constants.PROGRESS_COLORS);
         binding.profileRefresh.setOnRefreshListener(this);
+
+        binding.profileFollow.setOnClickListener(v -> controller.follow());
     }
 
     @Override

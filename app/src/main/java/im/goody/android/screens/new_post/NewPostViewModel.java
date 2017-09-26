@@ -23,8 +23,10 @@ public class NewPostViewModel extends BaseObservable {
     public final ObservableField<String> description = new ObservableField<>();
 
     NewPostReq body() {
+        Place place = location.get();
         return new NewPostReq()
-                .setPlaceId(location.get() != null ? location.get().getId() : null)
+                .setLatitude(place != null ? place.getLatLng().latitude : null)
+                .setLongitude(place != null ? place.getLatLng().longitude : null)
                 .setDescription(description.get())
                 .setSubscribersOnly(subscribersOnly.get());
     }

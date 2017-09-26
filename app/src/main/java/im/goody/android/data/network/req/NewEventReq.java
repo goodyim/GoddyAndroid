@@ -11,9 +11,9 @@ public class NewEventReq {
     @JsonProperty("category_id")
     private int category = 0; // required param but not used
 
-    @NameSpace("event") private Double latitude;
     @NameSpace("event") private String date;
     @NameSpace("event") private String resources;
+    @NameSpace("event") private Double latitude;
     @NameSpace("event") private Double longitude;
 
     // ======= region getters =======

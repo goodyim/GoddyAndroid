@@ -3,10 +3,11 @@ package im.goody.android.data.network.req;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import im.goody.android.data.network.core.NameSpace;
+
 @JsonRootName("good_deal")
 public class NewPostReq {
     private String description;
-    private String placeId;
 
     @JsonProperty("category_id")
     private int category = 0;
@@ -14,15 +15,21 @@ public class NewPostReq {
     @JsonProperty("private")
     private boolean subscribersOnly;
 
+    @NameSpace("event") private Double latitude;
+    @NameSpace("event") private Double longitude;
+
     // ======= region getters =======
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
 
     public String getDescription() {
         return description;
-    }
-
-
-    public String getPlaceId() {
-        return placeId;
     }
 
     public int getCategory() {
@@ -33,13 +40,18 @@ public class NewPostReq {
 
     // ======= region setters =======
 
-    public NewPostReq setDescription(String description) {
-        this.description = description;
+    public NewPostReq setLatitude(Double latitude) {
+        this.latitude = latitude;
         return this;
     }
 
-    public NewPostReq setPlaceId(String placeId) {
-        this.placeId = placeId;
+    public NewPostReq setLongitude(Double longitude) {
+        this.longitude = longitude;
+        return this;
+    }
+
+    public NewPostReq setDescription(String description) {
+        this.description = description;
         return this;
     }
 

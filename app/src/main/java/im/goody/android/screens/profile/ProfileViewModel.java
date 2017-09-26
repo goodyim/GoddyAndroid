@@ -1,25 +1,27 @@
 package im.goody.android.screens.profile;
 
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableInt;
 
 import im.goody.android.data.dto.User;
+import im.goody.android.data.network.res.FollowRes;
 
 public class ProfileViewModel {
     private String name;
     private String avatarUrl;
-    private int followers;
     private int deals;
     private int events;
 
     public final ObservableBoolean isFollowing = new ObservableBoolean();
+    public final ObservableInt followers = new ObservableInt();
 
-    public ProfileViewModel(User user) {
+    ProfileViewModel(User user) {
         name = user.getName();
         avatarUrl = user.getAvatarUrl();
-        followers = user.getFollowers();
         deals = user.getDealsCount();
         events = user.getEventsCount();
 
+        followers.set(user.getFollowers());
         isFollowing.set(user.isFollowing());
     }
 
@@ -31,10 +33,6 @@ public class ProfileViewModel {
 
     public String getAvatarUrl() {
         return avatarUrl;
-    }
-
-    public int getFollowers() {
-        return followers;
     }
 
     public int getDeals() {
@@ -61,16 +59,17 @@ public class ProfileViewModel {
         this.avatarUrl = avatarUrl;
     }
 
-    public void setFollowers(int followers) {
-        this.followers = followers;
-    }
-
     public void setDeals(int deals) {
         this.deals = deals;
     }
 
     public void setEvents(int events) {
         this.events = events;
+    }
+
+    void updateFollowState(FollowRes result) {
+        followers.set(result.getFollowersCount());
+        isFollowing.set(result.isSubscribed());
     }
 
     // endregion

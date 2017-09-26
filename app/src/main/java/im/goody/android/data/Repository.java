@@ -24,6 +24,7 @@ import im.goody.android.data.network.req.NewPostReq;
 import im.goody.android.data.network.req.RegisterReq;
 import im.goody.android.data.network.res.CommentRes;
 import im.goody.android.data.network.res.EventStateRes;
+import im.goody.android.data.network.res.FollowRes;
 import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.data.network.res.UserRes;
 import im.goody.android.di.components.DataComponent;
@@ -126,6 +127,12 @@ public class Repository implements IRepository {
     @Override
     public Observable<User> getUserProfile(long id) {
         return restService.getUserProfile(preferencesManager.getUserToken(), id)
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<FollowRes> changeFollowState(long id) {
+        return restService.changeFollowState(preferencesManager.getUserToken(), id)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

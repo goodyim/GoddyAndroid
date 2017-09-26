@@ -14,7 +14,6 @@ import java.util.List;
 
 import im.goody.android.Constants;
 import im.goody.android.core.BaseView;
-import im.goody.android.data.dto.Deal;
 import im.goody.android.databinding.ScreenMainBinding;
 
 import static im.goody.android.Constants.DEFAULT_ANIMATION_DURATION;
@@ -48,7 +47,7 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
     @Override
     protected void onAttached() {
         setupRecyclerView();
-        binding.mainNewsList.setVisibility(GONE);
+//        binding.mainNewsList.setVisibility(GONE);
 
         binding.mainNewsContainer.setOnRefreshListener(this);
         binding.mainNewsContainer.setColorSchemeResources(Constants.PROGRESS_COLORS);
@@ -105,8 +104,8 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
 
         finishLoading();
 
-        if (binding.mainNewsList.getVisibility() == GONE)
-            binding.mainNewsList.setVisibility(VISIBLE);
+//        if (binding.mainNewsList.getVisibility() == GONE)
+//            binding.mainNewsList.setVisibility(VISIBLE);
 
         binding.mainNewsList.setAdapter(adapter);
     }
