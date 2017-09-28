@@ -6,7 +6,7 @@
 
         <item android:id="@+id/action_main_screen"
             android:icon="@drawable/ic_rss"
-            android:title="@string/main_title"/>
+            android:title="@string/news_title"/>
 
         <item android:id="@+id/action_my_posts"
             android:icon="@drawable/ic_person"

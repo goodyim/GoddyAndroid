@@ -24,7 +24,7 @@ public class NewEventBindingAdapter {
             date = view.getContext().getString(R.string.choose_date);
         } else {
             int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
+            int month = calendar.get(Calendar.MONTH) + 1;
             int day = calendar.get(Calendar.DAY_OF_MONTH);
 
             int hours = calendar.get(Calendar.HOUR_OF_DAY);

@@ -162,9 +162,17 @@ public class MainController extends BaseController<MainView> implements MainAdap
     protected void initActionBar() {
         rootPresenter.newBarBuilder()
                 .setToolbarVisible(true)
-                .setTitleRes(R.string.main_title)
+                .setTitleRes(getTitleRes())
                 .setHomeState(isShowArrow() ? BarBuilder.HOME_ARROW : BarBuilder.HOME_HAMBURGER)
                 .build();
+    }
+
+    private Integer getTitleRes() {
+        long id = getId();
+
+        if (id == ID_NONE) return R.string.news_title;
+        if (isIdMine()) return R.string.my_posts;
+        return R.string.user_posts;
     }
 
     @Override
