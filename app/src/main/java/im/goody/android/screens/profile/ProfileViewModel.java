@@ -11,21 +11,27 @@ public class ProfileViewModel {
     private String avatarUrl;
     private int deals;
     private int events;
+    private String registrationDate;
 
     public final ObservableBoolean isFollowing = new ObservableBoolean();
-    public final ObservableInt followers = new ObservableInt();
 
+    public final ObservableInt followers = new ObservableInt();
     ProfileViewModel(User user) {
         name = user.getName();
         avatarUrl = user.getAvatarUrl();
         deals = user.getDealsCount();
         events = user.getEventsCount();
+        registrationDate = user.getRegistrationDate();
 
         followers.set(user.getFollowers());
         isFollowing.set(user.isFollowing());
     }
 
     // ======= region getters =======
+
+    public String getRegistrationDate() {
+        return registrationDate;
+    }
 
     public String getName() {
         return name;
@@ -50,6 +56,10 @@ public class ProfileViewModel {
     // endregion
 
     // ======= region setters =======
+
+    public void setRegistrationDate(String registrationDate) {
+        this.registrationDate = registrationDate;
+    }
 
     public void setName(String name) {
         this.name = name;

@@ -9,6 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class User {
     private long id;
 
+    @JsonProperty("created_at")
+    private String registrationDate;
+
     @JsonProperty("user_name")
     private String name;
 
@@ -64,6 +67,10 @@ public class User {
         return eventsCount;
     }
 
+    public String getRegistrationDate() {
+        return registrationDate;
+    }
+
     // endregion
 
     // ======= region setters =======
@@ -98,6 +105,10 @@ public class User {
 
     public void setEventsCount(int eventsCount) {
         this.eventsCount = eventsCount;
+    }
+
+    public void setRegistrationDate(String registrationDate) {
+        this.registrationDate = registrationDate;
     }
 
     // endregion
