@@ -10,11 +10,13 @@ import im.goody.android.App;
 import im.goody.android.data.IRepository;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.screens.about.AboutController;
+import im.goody.android.screens.detail_post.DetailPostController;
 import im.goody.android.screens.intro.IntroController;
 import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.main.MainController;
 import im.goody.android.screens.new_event.NewEventController;
 import im.goody.android.screens.new_post.NewPostController;
+import im.goody.android.screens.profile.ProfileController;
 import im.goody.android.screens.register.RegisterController;
 import im.goody.android.screens.setting.SettingController;
 import im.goody.android.ui.helpers.BarBuilder;
@@ -79,24 +81,17 @@ public class RootPresenter implements IRootPresenter {
     //region ================= IRootPresenter - Show screens methods =================
 
     @Override
-    public void showMainScreen(boolean isRoot) {
+    public void showMainScreen() {
         if (rootView != null) {
-            if (isRoot) {
-                rootView.showScreenAsRoot(MainController.class);
-                rootView.showDrawerHeader(repository.getUserData());
-            }
-            else
-                rootView.showScreen(MainController.class);
+            rootView.showScreenAsRoot(MainController.class);
+            rootView.showDrawerHeader(repository.getUserData());
         }
     }
 
     @Override
-    public void showLoginScreen(boolean isRoot) {
+    public void showLoginScreen() {
         if (rootView != null) {
-            if (isRoot)
-                rootView.showScreenAsRoot(LoginController.class);
-            else
-                rootView.showScreen(LoginController.class);
+            rootView.showScreenAsRoot(LoginController.class);
         }
     }
 
@@ -115,7 +110,7 @@ public class RootPresenter implements IRootPresenter {
     @Override
     public void showDetailScreen(long id) {
         if (rootView != null) {
-            rootView.showDetailScreen(id);
+            rootView.showScreen(DetailPostController.class, id);
         }
     }
 
@@ -145,7 +140,7 @@ public class RootPresenter implements IRootPresenter {
     @Override
     public void showProfile(long id) {
         if (rootView != null)
-            rootView.showProfile(id);
+            rootView.showScreen(ProfileController.class, id);
     }
 
     //endregion
@@ -158,6 +153,6 @@ public class RootPresenter implements IRootPresenter {
     @Override
     public void logout() {
         repository.logout();
-        showLoginScreen(true);
+        showLoginScreen();
     }
 }

@@ -25,7 +25,7 @@ public class ProfileController extends BaseController<ProfileView> {
 
     private ProfileViewModel viewModel;
 
-    public ProfileController(long id) {
+    public ProfileController(Long id) {
         super(new BundleBuilder(new Bundle())
                 .putLong(ID_KEY, id)
                 .build());

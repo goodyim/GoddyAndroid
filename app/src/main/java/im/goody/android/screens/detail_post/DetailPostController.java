@@ -28,7 +28,7 @@ public class DetailPostController extends BaseController<DetailPostView>
     private DetailPostViewModel viewModel = new DetailPostViewModel();
     private MenuItem eventStateItem;
 
-    public DetailPostController(long id) {
+    public DetailPostController(Long id) {
         super(new BundleBuilder(new Bundle())
                 .putLong(ID_KEY, id)
                 .build());

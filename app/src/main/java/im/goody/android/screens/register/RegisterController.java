@@ -83,7 +83,7 @@ public class RegisterController extends BaseController<RegisterView> {
                     .subscribe(
                             result -> {
                                 rootPresenter.hideProgress();
-                                rootPresenter.showMainScreen(true);
+                                rootPresenter.showMainScreen();
                             },
                             error -> {
                                 rootPresenter.hideProgress();

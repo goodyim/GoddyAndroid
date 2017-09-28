@@ -140,7 +140,7 @@ public class NewEventController extends NewController<NewEventView> {
                 .subscribe(
                         result -> {
                             rootPresenter.hideProgress();
-                            rootPresenter.showMainScreen(true);
+                            rootPresenter.showMainScreen();
                         },
                         error -> {
                             rootPresenter.hideProgress();

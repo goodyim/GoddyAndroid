@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -33,9 +32,7 @@ import im.goody.android.R;
 import im.goody.android.data.network.res.UserRes;
 import im.goody.android.databinding.ActivityRootBinding;
 import im.goody.android.di.components.RootComponent;
-import im.goody.android.screens.detail_post.DetailPostController;
 import im.goody.android.screens.main.MainController;
-import im.goody.android.screens.profile.ProfileController;
 import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.ui.helpers.MenuItemHolder;
 
@@ -98,7 +95,7 @@ public class RootActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_main_screen:
-                presenter.showMainScreen(true);
+                presenter.showMainScreen();
                 break;
             case R.id.action_settings:
                 presenter.showSettingScreen();
@@ -213,45 +210,24 @@ public class RootActivity extends AppCompatActivity
     //region ================= IRootView =================
 
     @Override
-    public void showScreen(Class<? extends Controller> controllerClass) {
+    public void showScreen(Class<? extends Controller> controllerClass, Object... args) {
         String tag = controllerClass.getName();
+        if (args != null && args.length > 0) tag += args[0];
 
         Controller controller = router.getControllerWithTag(tag);
         if (controller == null) {
-            controller = instantiateController(controllerClass);
+            controller = instantiateController(controllerClass, args);
         }
         router.pushController(RouterTransaction.with(controller).tag(tag));
     }
 
     @Override
-    public void showScreenAsRoot(Class<? extends Controller> controllerClass) {
+    public void showScreenAsRoot(Class<? extends Controller> controllerClass, Object... args) {
         String tag = controllerClass.getName();
-        Controller controller = instantiateController(controllerClass);
+        if (args != null && args.length > 0) tag += args[0];
+
+        Controller controller = instantiateController(controllerClass, args);
         router.setRoot(RouterTransaction.with(controller).tag(tag));
-    }
-
-    @Override
-    public void showDetailScreen(long id) {
-        String tag = DetailPostController.class.getName() + id;
-
-        Controller controller = router.getControllerWithTag(tag);
-
-        if (controller == null)
-            controller = new DetailPostController(id);
-
-        router.pushController(RouterTransaction.with(controller).tag(tag));
-    }
-
-    @Override
-    public void showProfile(long id) {
-        String tag = DetailPostController.class.getName() + id;
-
-        Controller controller = router.getControllerWithTag(tag);
-
-        if (controller == null)
-            controller = new ProfileController(id);
-
-        router.pushController(RouterTransaction.with(controller).tag(tag));
     }
 
     @Override
@@ -291,9 +267,19 @@ public class RootActivity extends AppCompatActivity
 
     //endregion
 
-    private <C extends Controller> C instantiateController(Class<C> controllerClass) {
+    private <C extends Controller> C instantiateController(Class<C> controllerClass, Object... args) {
         try {
-            return controllerClass.newInstance();
+            if (args != null && args.length > 0) {
+                Class[] classArgs = new Class[args.length];
+
+                for (int i = 0; i < args.length; i++) {
+                    classArgs[i] = args[i].getClass();
+                }
+
+                return controllerClass.getDeclaredConstructor(classArgs).newInstance(args);
+            } else {
+                return controllerClass.newInstance();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return null;
