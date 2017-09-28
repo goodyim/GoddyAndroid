@@ -24,4 +24,6 @@ public class Constants {
     public static class Pattern {
         public static final String OPEN_MAP = "geo:0,0?q=%s";
     }
+
+    public static final long ID_NONE = -1;
 }

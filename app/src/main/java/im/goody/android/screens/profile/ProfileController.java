@@ -26,7 +26,7 @@ public class ProfileController extends BaseController<ProfileView> {
     private ProfileViewModel viewModel;
 
     public ProfileController(Long id) {
-        super(new BundleBuilder(new Bundle())
+        super(new BundleBuilder()
                 .putLong(ID_KEY, id)
                 .build());
     }
@@ -107,6 +107,10 @@ public class ProfileController extends BaseController<ProfileView> {
 
     private long getId() {
         return getArgs().getLong(ID_KEY);
+    }
+
+    void showPosts() {
+        rootPresenter.showUserPosts(getId());
     }
 
     // end

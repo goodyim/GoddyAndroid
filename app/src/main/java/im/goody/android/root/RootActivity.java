@@ -95,7 +95,10 @@ public class RootActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_main_screen:
-                presenter.showMainScreen();
+                presenter.showNews();
+                break;
+            case R.id.action_my_posts:
+                presenter.showMyPosts();
                 break;
             case R.id.action_settings:
                 presenter.showSettingScreen();
@@ -212,7 +215,7 @@ public class RootActivity extends AppCompatActivity
     @Override
     public void showScreen(Class<? extends Controller> controllerClass, Object... args) {
         String tag = controllerClass.getName();
-        if (args != null && args.length > 0) tag += args[0];
+        for (Object obj : args) tag += obj;
 
         Controller controller = router.getControllerWithTag(tag);
         if (controller == null) {

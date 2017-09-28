@@ -21,7 +21,6 @@ import im.goody.android.di.components.RootComponent;
 import im.goody.android.ui.dialogs.ChooseImageOptionsDialog;
 import im.goody.android.ui.dialogs.OptionsDialog;
 import im.goody.android.ui.helpers.BarBuilder;
-import im.goody.android.utils.UIUtils;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -83,7 +82,7 @@ public class RegisterController extends BaseController<RegisterView> {
                     .subscribe(
                             result -> {
                                 rootPresenter.hideProgress();
-                                rootPresenter.showMainScreen();
+                                rootPresenter.showNews();
                             },
                             error -> {
                                 rootPresenter.hideProgress();

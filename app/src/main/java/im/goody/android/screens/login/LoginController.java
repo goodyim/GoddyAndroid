@@ -10,7 +10,6 @@ import im.goody.android.core.BaseController;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.ui.helpers.BarBuilder;
-import im.goody.android.utils.UIUtils;
 
 public class LoginController extends BaseController<LoginView> {
 
@@ -24,7 +23,7 @@ public class LoginController extends BaseController<LoginView> {
             disposable = repository.login(loginData.body()).subscribe(
                     result -> {
                         rootPresenter.hideProgress();
-                        rootPresenter.showMainScreen();
+                        rootPresenter.showNews();
                     },
                     error -> {
                         rootPresenter.hideProgress();

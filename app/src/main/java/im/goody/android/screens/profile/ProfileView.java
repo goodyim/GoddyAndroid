@@ -22,6 +22,7 @@ implements SwipeRefreshLayout.OnRefreshListener {
         binding.profileRefresh.setOnRefreshListener(this);
 
         binding.profileFollow.setOnClickListener(v -> controller.follow());
+        binding.profileShowPosts.setOnClickListener(v -> controller.showPosts());
     }
 
     @Override

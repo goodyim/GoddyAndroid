@@ -29,7 +29,7 @@ public interface IRepository {
     void firstLaunched();
     <T> T getError(Throwable t, Class<T> tClass);
 
-    Observable<List<Deal>> getNews(int page);
+    Observable<List<Deal>> getPosts(long userId, int page);
     Observable<Deal> getDeal(long id);
     Observable<CommentRes> sendComment(long dealId, NewCommentReq body);
 

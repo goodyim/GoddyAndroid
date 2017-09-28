@@ -70,7 +70,7 @@ public class NewPostController extends NewController<NewPostView> {
                 .subscribe(
                         result -> {
                             rootPresenter.hideProgress();
-                            rootPresenter.showMainScreen();
+                            rootPresenter.showNews();
                         },
                         error -> {
                             rootPresenter.hideProgress();

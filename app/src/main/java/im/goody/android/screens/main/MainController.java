@@ -1,5 +1,6 @@
 package im.goody.android.screens.main;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,18 +16,41 @@ import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.ui.helpers.BarBuilder;
+import im.goody.android.ui.helpers.BundleBuilder;
 import io.reactivex.Observable;
+
+import static im.goody.android.Constants.ID_NONE;
 
 public class MainController extends BaseController<MainView> implements MainAdapter.MainItemHandler {
 
     private MainViewModel viewModel = new MainViewModel();
     private boolean findItems = true;
+    private static final String USER_ID_KEY = "MainController.id";
+
+    private static final String SHOW_ARROW_KEY = "MainController.showArrow";
+
+    private static final boolean SHOW_ARROW_NONE = false;
+
+    public MainController(Long id, Boolean showArrow) {
+        super(new BundleBuilder()
+                .putLong(USER_ID_KEY, id)
+                .putBoolean(SHOW_ARROW_KEY, showArrow)
+                .build());
+    }
+
+    public MainController() {
+        super(new Bundle());
+    }
+
+    public MainController(Bundle bundle) {
+        super(bundle);
+    }
 
     // ======= region MainController =======
 
     void refreshData() {
         disposable = convertDealsToModels(
-                repository.getNews(viewModel.resetPageAndGet()))
+                repository.getPosts(getId(), viewModel.resetPageAndGet()))
                 .subscribe(
                         result -> {
                             findItems = true;
@@ -52,7 +76,7 @@ public class MainController extends BaseController<MainView> implements MainAdap
 
         findItems = false;
         disposable = convertDealsToModels(
-                repository.getNews(viewModel.incrementPageAndGet()))
+                repository.getPosts(getId(), viewModel.incrementPageAndGet()))
                 .subscribe(
                         result -> {
                             viewModel.addData(result);
@@ -139,7 +163,7 @@ public class MainController extends BaseController<MainView> implements MainAdap
         rootPresenter.newBarBuilder()
                 .setToolbarVisible(true)
                 .setTitleRes(R.string.main_title)
-                .setHomeState(BarBuilder.HOME_HAMBURGER)
+                .setHomeState(isShowArrow() ? BarBuilder.HOME_ARROW : BarBuilder.HOME_HAMBURGER)
                 .build();
     }
 
@@ -151,6 +175,7 @@ public class MainController extends BaseController<MainView> implements MainAdap
             view().showData(viewModel.getData());
             view().scrollToPosition(viewModel.getPosition());
         }
+        if (getId() != ID_NONE && !isIdMine()) view().hideNewButton();
     }
 
     @Override
@@ -167,6 +192,19 @@ public class MainController extends BaseController<MainView> implements MainAdap
 
     //endregion
 
+    //region ================= DI =================
+
+    @dagger.Subcomponent
+    @DaggerScope(MainController.class)
+    public interface Component {
+
+        void inject(MainController controller);
+    }
+    //endregion
+
+
+    // ======= region private methods =======
+
     private Observable<List<MainItemViewModel>> convertDealsToModels(Observable<List<Deal>> original) {
         return original.flatMap(Observable::fromIterable)
                 .map(MainItemViewModel::new)
@@ -174,12 +212,17 @@ public class MainController extends BaseController<MainView> implements MainAdap
                 .toObservable();
     }
 
-    //region ================= DI =================
+    @SuppressWarnings("ConstantConditions")
+    private long getId() {
+        return getArgs().getLong(USER_ID_KEY, ID_NONE);
+    }
 
-    @dagger.Subcomponent
-    @DaggerScope(MainController.class)
-    public interface Component {
-        void inject(MainController controller);
+    private boolean isShowArrow() {
+        return getArgs().getBoolean(SHOW_ARROW_KEY, SHOW_ARROW_NONE);
+    }
+
+    private boolean isIdMine() {
+        return getId() == repository.getUserData().getUser().getId();
     }
 
     //endregion

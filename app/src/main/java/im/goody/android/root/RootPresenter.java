@@ -81,9 +81,28 @@ public class RootPresenter implements IRootPresenter {
     //region ================= IRootPresenter - Show screens methods =================
 
     @Override
-    public void showMainScreen() {
+    public void showNews() {
         if (rootView != null) {
             rootView.showScreenAsRoot(MainController.class);
+            rootView.showDrawerHeader(repository.getUserData());
+        }
+    }
+
+    @Override
+    public void showUserPosts(Long userId) {
+        if (rootView != null) {
+            rootView.showScreen(MainController.class, userId, true);
+            rootView.showDrawerHeader(repository.getUserData());
+        }
+    }
+
+
+    @Override
+    public void showMyPosts() {
+        if (rootView != null) {
+            long id = repository.getUserData().getUser().getId();
+
+            rootView.showScreen(MainController.class, id, false);
             rootView.showDrawerHeader(repository.getUserData());
         }
     }

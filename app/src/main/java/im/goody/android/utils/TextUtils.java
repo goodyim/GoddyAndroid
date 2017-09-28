@@ -40,4 +40,8 @@ public class TextUtils {
 
         return result;
     }
+
+    public static boolean isEmpty(String s) {
+        return android.text.TextUtils.isEmpty(s) || "null".equals(s);
+    }
 }

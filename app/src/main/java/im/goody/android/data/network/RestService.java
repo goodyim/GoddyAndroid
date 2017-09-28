@@ -40,6 +40,7 @@ public interface RestService {
 
     @GET("good_deals")
     Observable<List<Deal>> getDeals(@Header("X-User-Token") String token,
+                                    @Query("user_id") Long userId,
                                     @Query("page") int page);
 
     @Multipart

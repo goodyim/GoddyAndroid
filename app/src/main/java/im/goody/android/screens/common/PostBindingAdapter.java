@@ -59,7 +59,7 @@ public class PostBindingAdapter {
 
     @BindingAdapter("address")
     public static void bindLocation(TextView view, Location location) {
-        if (location != null && location.getAddress() != null) {
+        if (location != null && !TextUtils.isEmpty(location.getAddress())) {
             view.setText(location.getAddress());
             view.setVisibility(View.VISIBLE);
         } else {
@@ -85,7 +85,7 @@ public class PostBindingAdapter {
     @BindingAdapter("title")
     public static void bindTitle(TextView view, String title) {
         String result;
-        if (android.text.TextUtils.isEmpty(title) || "null".equals(title)) {
+        if (TextUtils.isEmpty(title)) {
             result = view.getContext().getString(R.string.event_default_title);
         } else {
             result = title;

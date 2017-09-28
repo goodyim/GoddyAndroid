@@ -29,7 +29,7 @@ public class DetailPostController extends BaseController<DetailPostView>
     private MenuItem eventStateItem;
 
     public DetailPostController(Long id) {
-        super(new BundleBuilder(new Bundle())
+        super(new BundleBuilder()
                 .putLong(ID_KEY, id)
                 .build());
     }

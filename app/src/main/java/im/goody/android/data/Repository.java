@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import im.goody.android.App;
+import im.goody.android.Constants;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.User;
 import im.goody.android.data.local.PreferencesManager;
@@ -90,8 +91,10 @@ public class Repository implements IRepository {
     //region ================= News =================
 
     @Override
-    public Observable<List<Deal>> getNews(int page) {
-        return restService.getDeals(preferencesManager.getUserToken(), page)
+    public Observable<List<Deal>> getPosts(long id, int page) {
+        Long resultId = id == Constants.ID_NONE ? null : id;
+
+        return restService.getDeals(preferencesManager.getUserToken(), resultId, page)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

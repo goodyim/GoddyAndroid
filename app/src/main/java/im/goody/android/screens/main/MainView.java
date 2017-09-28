@@ -29,7 +29,9 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
         super(context, attrs);
     }
 
-    private RecyclerView.OnScrollListener onScrollListener = new OnScrollListener() {
+    // ======= region listeners =======
+
+    private RecyclerView.OnScrollListener loadMoreListener = new OnScrollListener() {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
@@ -44,10 +46,22 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
         }
     };
 
+    private RecyclerView.OnScrollListener hideShowFabListener = new OnScrollListener() {
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            FloatingActionButton fab = binding.mainCreateFab;
+            if (dy > FAB_HIDE_THRESHOLD && fab.isShown() && !isMenuOpened)
+                fab.hide();
+            else if (dy < -FAB_HIDE_THRESHOLD && !fab.isShown())
+                fab.show();
+        }
+    };
+
+    //endregion
+
     @Override
     protected void onAttached() {
         setupRecyclerView();
-//        binding.mainNewsList.setVisibility(GONE);
 
         binding.mainNewsContainer.setOnRefreshListener(this);
         binding.mainNewsContainer.setColorSchemeResources(Constants.PROGRESS_COLORS);
@@ -67,27 +81,8 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
         binding.mainNewPost.setOnClickListener(v -> controller.showNewPostScreen());
         binding.mainNewEvent.setOnClickListener(v -> controller.showNewEventScreen());
 
-        binding.mainNewsList.addOnScrollListener(onScrollListener);
-        binding.mainNewsList.addOnScrollListener(new OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                FloatingActionButton fab = binding.mainCreateFab;
-                if (dy > FAB_HIDE_THRESHOLD && fab.isShown() && !isMenuOpened)
-                    fab.hide();
-                else if (dy < -FAB_HIDE_THRESHOLD && !fab.isShown())
-                    fab.show();
-            }
-        });
-    }
-
-    private void setupRecyclerView() {
-        binding.mainNewsList.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.mainNewsList.setHasFixedSize(true);
-        binding.mainNewsList.setAdapter(null);
-    }
-
-    void addScrollListener() {
-        binding.mainNewsList.addOnScrollListener(onScrollListener);
+        binding.mainNewsList.addOnScrollListener(loadMoreListener);
+        binding.mainNewsList.addOnScrollListener(hideShowFabListener);
     }
 
     @Override
@@ -95,11 +90,15 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
         removeScrollListener();
     }
 
-    void removeScrollListener() {
-        binding.mainNewsList.removeOnScrollListener(onScrollListener);
+    void addScrollListener() {
+        binding.mainNewsList.addOnScrollListener(loadMoreListener);
     }
 
-    public void showData(List<MainItemViewModel> data) {
+    void removeScrollListener() {
+        binding.mainNewsList.removeOnScrollListener(loadMoreListener);
+    }
+
+    void showData(List<MainItemViewModel> data) {
         adapter = new MainAdapter(data, controller);
 
         finishLoading();
@@ -110,12 +109,12 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
         binding.mainNewsList.setAdapter(adapter);
     }
 
-    public void addData(List<MainItemViewModel> items) {
+    void addData(List<MainItemViewModel> items) {
         finishLoading();
         adapter.addData(items);
     }
 
-    public void finishLoading() {
+    void finishLoading() {
         if (binding.mainProgress.getVisibility() == VISIBLE)
             binding.mainProgress.setVisibility(GONE);
 
@@ -123,15 +122,20 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
             binding.mainNewsContainer.setRefreshing(false);
     }
 
-    public void startLoading() {
+    void startLoading() {
         binding.mainNewsContainer.setRefreshing(true);
     }
 
-    public void scrollToPosition(int position) {
+    void scrollToPosition(int position) {
         binding.mainNewsList.scrollToPosition(position);
     }
 
-    public int getCurrentPosition() {
+    void hideNewButton() {
+        binding.mainCreateFab.setVisibility(GONE);
+        binding.mainNewsList.removeOnScrollListener(hideShowFabListener);
+    }
+
+    int getCurrentPosition() {
         return ((LinearLayoutManager) binding.mainNewsList.getLayoutManager())
                 .findFirstVisibleItemPosition();
     }
@@ -151,6 +155,14 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
 
     // endregion
 
+    // ======= region private methods =======
+
+    private void setupRecyclerView() {
+        binding.mainNewsList.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.mainNewsList.setHasFixedSize(true);
+        binding.mainNewsList.setAdapter(null);
+    }
+
     private void rotateMenuFab() {
         FloatingActionButton fab = binding.mainCreateFab;
         float degrees = 45 * (isMenuOpened ? 0 : 1);
@@ -159,4 +171,6 @@ public class MainView extends BaseView<MainController, ScreenMainBinding>
                 .setDuration(DEFAULT_ANIMATION_DURATION)
                 .start();
     }
+
+    //endregion
 }

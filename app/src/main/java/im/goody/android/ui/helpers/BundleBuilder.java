@@ -12,6 +12,10 @@ public class BundleBuilder {
         this.bundle = bundle;
     }
 
+    public BundleBuilder() {
+        bundle = new Bundle();
+    }
+
     public BundleBuilder putBoolean(String key, boolean value) {
         bundle.putBoolean(key, value);
         return this;
