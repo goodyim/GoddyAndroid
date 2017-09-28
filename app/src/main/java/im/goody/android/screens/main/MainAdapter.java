@@ -14,13 +14,13 @@ import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Location;
 import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.databinding.ItemEventBinding;
-import im.goody.android.databinding.ItemNewsBinding;
+import im.goody.android.databinding.ItemPostBinding;
 import im.goody.android.utils.TextUtils;
 import io.reactivex.Observable;
 
 class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
-    private static final int TYPE_POST = R.layout.item_news;
+    private static final int TYPE_POST = R.layout.item_post;
     private static final int TYPE_EVENT = R.layout.item_event;
     private List<MainItemViewModel> data;
     private MainItemHandler handler;
@@ -142,7 +142,7 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
         private void bindPost(MainItemViewModel viewModel) {
             Deal deal = viewModel.getDeal();
-            ItemNewsBinding postBinding = (ItemNewsBinding) binding;
+            ItemPostBinding postBinding = (ItemPostBinding) binding;
 
             postBinding.newsItemContainer
                     .setOnClickListener(v -> handler.showDetail(deal.getId()));

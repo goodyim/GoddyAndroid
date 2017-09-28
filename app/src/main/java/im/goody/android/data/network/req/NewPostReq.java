@@ -15,8 +15,9 @@ public class NewPostReq {
     @JsonProperty("private")
     private boolean subscribersOnly;
 
-    @NameSpace("event") private Double latitude;
-    @NameSpace("event") private Double longitude;
+    private Double latitude;
+    private Double longitude;
+    private String address;
 
     // ======= region getters =======
 
@@ -66,6 +67,15 @@ public class NewPostReq {
 
     public void setCategory(int category) {
         this.category = category;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public NewPostReq setAddress(String address) {
+        this.address = address;
+        return this;
     }
 
     //endregion

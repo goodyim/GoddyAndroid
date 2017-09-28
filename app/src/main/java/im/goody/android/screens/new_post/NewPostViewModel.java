@@ -27,6 +27,7 @@ public class NewPostViewModel extends BaseObservable {
         return new NewPostReq()
                 .setLatitude(place != null ? place.getLatLng().latitude : null)
                 .setLongitude(place != null ? place.getLatLng().longitude : null)
+                .setAddress(place != null ? place.getAddress().toString() : null)
                 .setDescription(description.get())
                 .setSubscribersOnly(subscribersOnly.get());
     }
