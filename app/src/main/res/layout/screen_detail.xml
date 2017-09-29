@@ -76,7 +76,7 @@
                     android:tint="@color/primary"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:srcCompat="@drawable/ic_send" />
+                    android:src="@drawable/ic_send" />
 
                 <ProgressBar
                     android:id="@+id/comment_progress"

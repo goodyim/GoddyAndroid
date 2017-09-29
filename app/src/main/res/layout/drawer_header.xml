@@ -35,6 +35,6 @@
             app:layout_constraintBottom_toTopOf="@+id/drawer_name"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/round_drawable" />
+            android:src="@drawable/round_drawable" />
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

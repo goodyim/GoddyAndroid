@@ -44,7 +44,7 @@
             app:fabSize="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:srcCompat="@drawable/ic_add" />
+            android:src="@drawable/ic_add" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/main_new_post"
@@ -57,7 +57,7 @@
             app:layout_constraintBottom_toTopOf="@+id/main_create_fab"
             app:layout_constraintLeft_toLeftOf="@+id/main_create_fab"
             app:layout_constraintRight_toRightOf="@+id/main_create_fab"
-            app:srcCompat="@drawable/ic_create" />
+            android:src="@drawable/ic_create" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/main_new_event"
@@ -70,7 +70,7 @@
             app:layout_constraintBottom_toTopOf="@+id/main_new_post"
             app:layout_constraintLeft_toLeftOf="@+id/main_new_post"
             app:layout_constraintRight_toRightOf="@+id/main_new_post"
-            app:srcCompat="@drawable/ic_event" />
+            android:src="@drawable/ic_event" />
     </im.goody.android.screens.main.MainView>
 
 </layout>

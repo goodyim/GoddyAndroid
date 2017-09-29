@@ -64,7 +64,7 @@
                             app:layout_constraintRight_toRightOf="@+id/register_email"
                             app:layout_constraintTop_toTopOf="parent"
                             app:selected="@{data.avatar}"
-                            app:srcCompat="@drawable/ic_add_accent" />
+                            android:src="@drawable/ic_add_accent" />
 
                         <EditText
                             android:id="@+id/register_email"

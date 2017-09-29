@@ -49,7 +49,7 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:profile_avatar="@{user.avatarUrl}"
-                                app:srcCompat="@drawable/round_drawable" />
+                                android:src="@drawable/round_drawable" />
 
                             <TextView
                                 android:id="@+id/profile_name"
@@ -124,7 +124,7 @@
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_comment" />
+                                android:src="@drawable/ic_comment" />
 
                             <TextView
                                 android:layout_width="0dp"
@@ -162,7 +162,7 @@
                                 android:layout_marginTop="@dimen/size_normal"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_person" />
+                                android:src="@drawable/ic_person" />
 
                             <TextView
                                 android:id="@+id/followers_label"
@@ -210,7 +210,7 @@
                                 android:layout_marginTop="16dp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/view3"
-                                app:srcCompat="@drawable/ic_comment" />
+                                android:src="@drawable/ic_comment" />
 
                             <TextView
                                 android:id="@+id/posts_count_label"
@@ -261,7 +261,7 @@
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/view2"
-                                app:srcCompat="@drawable/ic_event" />
+                                android:src="@drawable/ic_event" />
 
                             <TextView
                                 android:id="@+id/profile_event_count_label"

@@ -22,7 +22,6 @@ import io.reactivex.Observable;
 import static im.goody.android.Constants.ID_NONE;
 
 public class MainController extends BaseController<MainView> implements MainAdapter.MainItemHandler {
-
     private MainViewModel viewModel = new MainViewModel();
     private boolean findItems = true;
     private static final String USER_ID_KEY = "MainController.id";

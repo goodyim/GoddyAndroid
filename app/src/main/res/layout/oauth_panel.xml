@@ -27,7 +27,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_facebook_box" />
+            android:src="@drawable/ic_facebook_box" />
 
         <ImageView
             android:contentDescription="@string/oauth_google_description"
@@ -40,7 +40,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/oauth_facebook"
             app:layout_constraintLeft_toRightOf="@+id/oauth_facebook"
             app:layout_constraintTop_toTopOf="@+id/oauth_facebook"
-            app:srcCompat="@drawable/ic_google_plus_box" />
+            android:src="@drawable/ic_google_plus_box" />
 
         <ImageView
             android:contentDescription="@string/oauth_vk_description"
@@ -54,7 +54,7 @@
             app:layout_constraintLeft_toRightOf="@+id/oauth_google"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/oauth_google"
-            app:srcCompat="@drawable/ic_vk_box" />
+            android:src="@drawable/ic_vk_box" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

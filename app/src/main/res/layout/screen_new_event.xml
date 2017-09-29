@@ -75,7 +75,7 @@
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_goneMarginTop="0dp"
-                        app:srcCompat="@color/placeholder_color" />
+                        android:src="@color/placeholder_color" />
 
                     <ImageView
                         android:id="@+id/new_event_clear_image"
@@ -91,7 +91,7 @@
                         android:tint="@color/white"
                         app:layout_constraintRight_toRightOf="@id/new_event_photo"
                         app:layout_constraintTop_toTopOf="@id/new_event_photo"
-                        app:srcCompat="@drawable/ic_clear" />
+                        android:src="@drawable/ic_clear" />
 
 
                 </android.support.constraint.ConstraintLayout>
