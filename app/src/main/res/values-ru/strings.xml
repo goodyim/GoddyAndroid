@@ -32,7 +32,9 @@
     <string name="choose_photo">Выберите фото…</string>
     <string name="choose_time">Выберите время…</string>
 
-    <string name="close">Закрыть</string>
+    <string name="intro_close">Закрыть</string>
+    <string name="intro_start">На старт</string>
+
     <string name="close_event">Зыкрыть</string>
 
 

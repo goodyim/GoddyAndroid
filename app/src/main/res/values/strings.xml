@@ -13,7 +13,9 @@
     <!-- screen_main -->
     <string name="news_title">News</string>
 
-    <string name="close">Close</string>
+    <!-- screen_intro -->
+    <string name="intro_close">Close</string>
+    <string name="intro_start">Start</string>
 
     <!-- News item -->
     <string name="item_image_description">Deal main image</string>
