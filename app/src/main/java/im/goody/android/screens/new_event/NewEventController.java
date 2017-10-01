@@ -4,12 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.google.android.gms.location.places.Place;
 
@@ -114,10 +112,9 @@ public class NewEventController extends NewController<NewEventView> {
                 .build();
     }
 
-    @NonNull
     @Override
-    protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        return inflater.inflate(R.layout.screen_new_event, container, false);
+    protected int getLayoutResId() {
+        return R.layout.screen_new_event;
     }
 
     //endregion

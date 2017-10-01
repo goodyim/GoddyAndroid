@@ -1,9 +1,7 @@
 package im.goody.android.screens.login;
 
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import im.goody.android.R;
 import im.goody.android.core.BaseController;
@@ -64,10 +62,9 @@ public class LoginController extends BaseController<LoginView> {
         view().setAuthData(loginData);
     }
 
-    @NonNull
     @Override
-    protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        return inflater.inflate(R.layout.screen_login, container, false);
+    protected int getLayoutResId() {
+        return R.layout.screen_login;
     }
 
     //endregion

@@ -1,10 +1,5 @@
 package im.goody.android.screens.about;
 
-import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import im.goody.android.R;
 import im.goody.android.core.BaseController;
 import im.goody.android.di.DaggerScope;
@@ -26,10 +21,9 @@ public class AboutController extends BaseController<AboutView> {
                 .build();
     }
 
-    @NonNull
     @Override
-    protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        return inflater.inflate(R.layout.screen_about, container, false);
+    protected int getLayoutResId() {
+        return R.layout.screen_about;
     }
 
     void onBackPressed() {

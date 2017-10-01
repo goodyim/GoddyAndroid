@@ -2,12 +2,10 @@ package im.goody.android.screens.detail_post;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
 import im.goody.android.R;
 import im.goody.android.core.BaseController;
@@ -56,10 +54,9 @@ public class DetailPostController extends BaseController<DetailPostView>
                 .build();
     }
 
-    @NonNull
     @Override
-    protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        return inflater.inflate(R.layout.screen_detail, container, false);
+    protected int getLayoutResId() {
+        return R.layout.screen_detail;
     }
 
     // endregion

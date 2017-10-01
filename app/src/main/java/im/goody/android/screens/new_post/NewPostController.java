@@ -3,9 +3,7 @@ package im.goody.android.screens.new_post;
 import android.app.Activity;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.google.android.gms.location.places.Place;
 
@@ -44,10 +42,9 @@ public class NewPostController extends NewController<NewPostView> {
                 .build();
     }
 
-    @NonNull
     @Override
-    protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        return inflater.inflate(R.layout.screen_new_post, container, false);
+    protected int getLayoutResId() {
+        return R.layout.screen_new_post;
     }
 
     // endregion

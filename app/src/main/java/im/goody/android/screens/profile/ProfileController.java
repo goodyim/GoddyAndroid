@@ -2,9 +2,7 @@ package im.goody.android.screens.profile;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import javax.inject.Inject;
 
@@ -54,10 +52,9 @@ public class ProfileController extends BaseController<ProfileView> {
                 .build();
     }
 
-    @NonNull
     @Override
-    protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        return inflater.inflate(R.layout.screen_profile, container, false);
+    protected int getLayoutResId() {
+        return R.layout.screen_profile;
     }
 
     // end
