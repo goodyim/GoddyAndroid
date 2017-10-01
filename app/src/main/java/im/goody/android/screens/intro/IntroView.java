@@ -1,12 +1,12 @@
 package im.goody.android.screens.intro;
 
 import android.content.Context;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 
 import im.goody.android.R;
 import im.goody.android.core.BaseView;
 import im.goody.android.databinding.ScreenIntroBinding;
-import im.goody.android.ui.helpers.SimpleOnPageChangedListener;
 
 public class IntroView extends BaseView<IntroController, ScreenIntroBinding> {
 
@@ -37,8 +37,8 @@ public class IntroView extends BaseView<IntroController, ScreenIntroBinding> {
         binding.introPager.removeOnPageChangeListener(pageChangeListener);
     }
 
-    private final SimpleOnPageChangedListener pageChangeListener =
-            new SimpleOnPageChangedListener() {
+    private final ViewPager.SimpleOnPageChangeListener pageChangeListener =
+            new ViewPager.SimpleOnPageChangeListener() {
                 @Override
                 public void onPageSelected(int position) {
                     if (position == adapter.getCount() - 1)
