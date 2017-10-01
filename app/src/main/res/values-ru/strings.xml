@@ -2,6 +2,12 @@
 <resources>
     <string name="app_name">Goody</string>
 
+    <!-- activity_root -->
+    <string name="action_about">О нас</string>
+    <string name="action_settings">Настройки</string>
+    <string name="action_support">Поддержка</string>
+
+
     <string name="content_more">Больше действий</string>
     <string name="content_new_post_photo">Фото записи</string>
     <string name="content_send">Отправить</string>
@@ -23,9 +29,7 @@
 
     <string name="about_text">Это Гуди</string>
 
-    <string name="action_about">О нас</string>
-    <string name="action_settings">Настройки</string>
-    <string name="action_support">Поддержка</string>
+
 
     <string name="choose_date">Выберите дату…</string>
     <string name="choose_location">Выберите место…</string>
