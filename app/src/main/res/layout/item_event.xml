@@ -65,7 +65,7 @@
                     android:layout_gravity="center_vertical"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textColor="@color/accent"
-                    app:author_name="@{viewModel.deal.author.name}"
+                    android:text="@{viewModel.deal.author.name}"
                     tools:text="User name" />
 
                 <TextView
