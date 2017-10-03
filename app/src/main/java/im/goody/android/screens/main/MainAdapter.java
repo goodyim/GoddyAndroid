@@ -112,7 +112,7 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                 handler.share(text);
             });
 
-            eventBinding.itemEventMenu.setOnClickListener(v -> MainItemMenu.show(v).subscribe(id -> {
+            eventBinding.itemEventTitle.setOnClickListener(v -> MainItemMenu.show(v).subscribe(id -> {
                 switch (id) {
                     case R.id.action_report:
                         handler.report(deal.getId());
