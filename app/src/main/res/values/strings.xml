@@ -107,4 +107,6 @@
     <string name="unfollow">Unfollow</string>
     <string name="my_posts">My posts</string>
     <string name="registration_date_format">With us since %s</string>
+    <string name="photo_title">Photo</string>
+    <string name="photo">Photo</string>
 </resources>

@@ -8,7 +8,7 @@ import im.goody.android.BR;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.screens.common.ActionPanelViewModel;
 
-public class MainItemViewModel extends BaseObservable{
+public class MainItemViewModel extends BaseObservable {
     private final Deal deal;
 
     public final ActionPanelViewModel panelViewModel;

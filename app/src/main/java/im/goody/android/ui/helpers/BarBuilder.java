@@ -17,19 +17,19 @@ public class BarBuilder {
     private int homeState = HOME_HAMBURGER;
 
     private boolean toolbarVisible;
+
     private boolean statusBarVisible = true;
     public static final int HOME_GONE = 0;
-
     public static final int HOME_HAMBURGER = 1;
+
     public static final int HOME_ARROW = 2;
     @Nullable
     private Integer titleRes;
-
     private List<MenuItemHolder> items = new ArrayList<>();
+
     public BarBuilder(IBarView view) {
         this.view = view;
     }
-
     public BarBuilder setView(IBarView view) {
         this.view = view;
         return this;

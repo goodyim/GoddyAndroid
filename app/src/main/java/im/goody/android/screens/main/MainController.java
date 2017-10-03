@@ -145,6 +145,11 @@ public class MainController extends BaseController<MainView> implements MainAdap
                         view().showMessage(getErrorMessage(error)));
     }
 
+    @Override
+    public void openPhoto(String imageUrl) {
+        rootPresenter.showPhotoScreen(imageUrl);
+    }
+
     // end
 
     //region ================= BaseController =================

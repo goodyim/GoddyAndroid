@@ -2,8 +2,6 @@ package im.goody.android.utils;
 
 import android.net.Uri;
 
-import java.net.URL;
-import java.net.URLEncoder;
 import java.text.MessageFormat;
 
 import im.goody.android.data.dto.Deal;

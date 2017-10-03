@@ -176,6 +176,11 @@ public class DetailPostController extends BaseController<DetailPostView>
                         view().showMessage(getErrorMessage(error)));
     }
 
+    @Override
+    public void openPhoto(String url) {
+        rootPresenter.showPhotoScreen(url);
+    }
+
     // endregion
 
     // ======= region DI =======

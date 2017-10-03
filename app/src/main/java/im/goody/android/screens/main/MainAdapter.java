@@ -15,6 +15,7 @@ import im.goody.android.data.dto.Location;
 import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.databinding.ItemEventBinding;
 import im.goody.android.databinding.ItemPostBinding;
+import im.goody.android.utils.NetUtils;
 import im.goody.android.utils.TextUtils;
 import io.reactivex.Observable;
 
@@ -74,6 +75,8 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
         Observable<Deal> like(long id);
 
         Observable<ParticipateRes> changeParticipateState(long id);
+
+        void openPhoto(String imageUrl);
     }
 
     class MainHolder extends RecyclerView.ViewHolder {
@@ -137,6 +140,9 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
             eventBinding.itemEventAvatar.setOnClickListener(v ->
                     handler.openProfile(deal.getAuthor().getId()));
+
+            eventBinding.itemEventImage.setOnClickListener(v ->
+                    handler.openPhoto(NetUtils.buildDealImageUrl(deal)));
         }
 
 
@@ -173,6 +179,9 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
             postBinding.newsItemUserAvatar.setOnClickListener(v ->
                     handler.openProfile(deal.getAuthor().getId()));
+
+            postBinding.newsItemImage.setOnClickListener(v ->
+                    handler.openPhoto(NetUtils.buildDealImageUrl(deal)));
         }
     }
 }

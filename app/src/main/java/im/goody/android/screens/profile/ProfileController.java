@@ -110,6 +110,10 @@ public class ProfileController extends BaseController<ProfileView> {
         rootPresenter.showUserPosts(getId());
     }
 
+    void showAvatar() {
+        rootPresenter.showPhotoScreen(viewModel.getAvatarUrl());
+    }
+
     // end
 
     // ======= region DI =======

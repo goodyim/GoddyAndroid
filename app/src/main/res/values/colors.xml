@@ -24,4 +24,5 @@
     <color name="auth_vk_background">#6287AE</color>
 
     <color name="placeholder_color">#f2f2f2</color>
+    <color name="photo_toolbar_color">#33000000</color>
 </resources>

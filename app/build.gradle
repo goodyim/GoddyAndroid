@@ -81,4 +81,7 @@ dependencies {
     // refresh & load more
     compile 'com.github.omadahealth:swipy:1.2.3@aar'
 
+    // scalable imageView
+    compile 'com.github.chrisbanes:PhotoView:2.0.0'
+
 }

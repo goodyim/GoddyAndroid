@@ -16,6 +16,7 @@ import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.main.MainController;
 import im.goody.android.screens.new_event.NewEventController;
 import im.goody.android.screens.new_post.NewPostController;
+import im.goody.android.screens.photo.PhotoController;
 import im.goody.android.screens.profile.ProfileController;
 import im.goody.android.screens.register.RegisterController;
 import im.goody.android.screens.setting.SettingController;
@@ -160,6 +161,12 @@ public class RootPresenter implements IRootPresenter {
     public void showProfile(long id) {
         if (rootView != null)
             rootView.showScreen(ProfileController.class, id);
+    }
+
+    @Override
+    public void showPhotoScreen(String imageUrl) {
+        if(rootView != null)
+            rootView.showScreen(PhotoController.class, imageUrl);
     }
 
     //endregion

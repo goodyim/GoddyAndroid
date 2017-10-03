@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="url"
+            type="String" />
+    </data>
+
+    <im.goody.android.screens.photo.PhotoView
+        style="@style/FullExpandLayout"
+        android:background="@android:color/black">
+
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/photo_view"
+            style="@style/FullExpandFromParent"
+            android:scaleType="centerInside"
+            app:photo="@{url}"
+            />
+
+        <ImageView
+            android:id="@+id/photo_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back"
+            android:tint="@color/white"
+            android:background="?selectableItemBackgroundBorderless"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingTop="@dimen/size_normal"
+            android:paddingBottom="@dimen/size_normal"
+            android:paddingLeft="@dimen/size_normal"
+            android:paddingRight="@dimen/size_normal"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:id="@+id/photo_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="32dp"
+            android:text="@string/photo"
+            android:layout_marginTop="0dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
+            app:layout_constraintBottom_toBottomOf="@+id/photo_back"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toRightOf="@+id/photo_back"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/photo_back" />
+
+    </im.goody.android.screens.photo.PhotoView>
+</layout>

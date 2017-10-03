@@ -174,10 +174,10 @@ public class RootActivity extends AppCompatActivity
                     drawerToggle.setDrawerIndicatorEnabled(true);
                     drawerToggle.setToolbarNavigationClickListener(null);
                     break;
-                    case BarBuilder.HOME_GONE:
-                        actionBar.setDisplayHomeAsUpEnabled(false);
-                        drawerToggle.setDrawerIndicatorEnabled(false);
-                        drawerToggle.setToolbarNavigationClickListener(null);
+                case BarBuilder.HOME_GONE:
+                    actionBar.setDisplayHomeAsUpEnabled(false);
+                    drawerToggle.setDrawerIndicatorEnabled(false);
+                    drawerToggle.setToolbarNavigationClickListener(null);
             }
 
             binding.drawerLayout.setDrawerLockMode(

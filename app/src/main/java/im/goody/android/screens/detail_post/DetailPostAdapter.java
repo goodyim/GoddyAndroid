@@ -8,11 +8,14 @@ import android.view.ViewGroup;
 
 import im.goody.android.BR;
 import im.goody.android.R;
+import im.goody.android.data.dto.Comment;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Location;
 import im.goody.android.data.network.res.ParticipateRes;
+import im.goody.android.databinding.CommentBinding;
 import im.goody.android.databinding.ItemDetailEventBinding;
 import im.goody.android.databinding.ItemDetailPostBinding;
+import im.goody.android.utils.NetUtils;
 import io.reactivex.Observable;
 
 class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPostHolder> {
@@ -35,13 +38,13 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
 
     @Override
     public int getItemViewType(int position) {
-       if (position == 0) {
-           return viewModel.getDeal().getEvent() == null
-                   ? R.layout.item_detail_post
-                   : R.layout.item_detail_event;
-       } else {
-           return R.layout.comment;
-       }
+        if (position == 0) {
+            return viewModel.getDeal().getEvent() == null
+                    ? R.layout.item_detail_post
+                    : R.layout.item_detail_event;
+        } else {
+            return R.layout.comment;
+        }
     }
 
     @Override
@@ -71,6 +74,8 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
         Observable<ParticipateRes> changeParticipateState();
 
         Observable<Deal> like();
+
+        void openPhoto(String s);
     }
 
     class DetailPostHolder extends RecyclerView.ViewHolder {
@@ -90,9 +95,20 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
                     break;
                 case R.layout.item_detail_post:
                     bindPost((DetailPostBodyViewModel) object);
+                    break;
+                case R.layout.comment:
+                    bindComment((Comment) object);
             }
 
             binding.executePendingBindings();
+        }
+
+        private void bindComment(Comment comment) {
+            CommentBinding commentBinding = (CommentBinding) binding;
+
+            commentBinding.commentAvatar.setOnClickListener(v ->
+                    handler.openProfile(comment.getAuthor().getId())
+            );
         }
 
         private void bindPost(DetailPostBodyViewModel body) {
@@ -112,9 +128,12 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
 
             postBinding.newsItemUserAvatar.setOnClickListener(v ->
                     handler.openProfile(deal.getAuthor().getId()));
+
+            postBinding.newsItemImage.setOnClickListener(v ->
+                    handler.openPhoto(NetUtils.buildDealImageUrl(deal)));
         }
 
-        private void bindEvent (DetailPostBodyViewModel body) {
+        private void bindEvent(DetailPostBodyViewModel body) {
             Deal deal = body.getDeal();
 
             ItemDetailEventBinding eventBinding = (ItemDetailEventBinding) binding;
@@ -139,6 +158,9 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
 
             eventBinding.detailEventAvatar.setOnClickListener(v ->
                     handler.openProfile(deal.getAuthor().getId()));
+
+            eventBinding.detailEventImage.setOnClickListener(v ->
+                    handler.openPhoto(NetUtils.buildDealImageUrl(deal)));
         }
     }
 }
