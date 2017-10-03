@@ -14,28 +14,29 @@
     </data>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/item_event_container"
         style="@style/FullWidthLayout"
         app:cardUseCompatPadding="true">
 
-        <CheckedTextView
-            android:id="@+id/item_event_title"
+        <LinearLayout
+            android:id="@+id/item_event_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/event_header_selector"
-            android:padding="@dimen/size_normal"
-            android:drawableRight="@drawable/ic_more_white"
-            android:drawableEnd="@drawable/ic_more_white"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@color/white"
-            android:checked="@{viewModel.deal.event.active}"
-            app:title="@{viewModel.deal.title}"
-            tools:text="Title goes here"/>
-
-        <LinearLayout
-            style="@style/FullWidthLayout"
             android:orientation="vertical"
-            android:layout_marginTop="?actionBarSize">
+            android:background="?android:attr/selectableItemBackground">
+
+            <CheckedTextView
+                android:id="@+id/item_event_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/event_header_selector"
+                android:padding="@dimen/size_normal"
+                android:drawableRight="@drawable/ic_more_white"
+                android:drawableEnd="@drawable/ic_more_white"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/white"
+                android:checked="@{viewModel.deal.event.active}"
+                app:title="@{viewModel.deal.title}"
+                tools:text="Title goes here"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,9 +63,9 @@
                     android:layout_marginLeft="@dimen/size_normal"
                     android:layout_marginStart="@dimen/size_normal"
                     android:layout_gravity="center_vertical"
-                    android:text="@{viewModel.deal.author.name}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textColor="@color/accent"
+                    app:author_name="@{viewModel.deal.author.name}"
                     tools:text="User name" />
 
                 <TextView
@@ -82,7 +83,6 @@
                 android:id="@+id/item_event_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_normal"
                 android:layout_marginLeft="@dimen/size_normal"
                 android:layout_marginRight="@dimen/size_normal"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -151,6 +151,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_small"
+                android:layout_marginLeft="@dimen/size_normal"
+                android:layout_marginRight="@dimen/size_normal"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:visibility="visible"
                 tools:text="Name 1, Name 2 and more N" />
@@ -174,11 +176,18 @@
                     android:layout_height="wrap_content"
                     bind:viewModel="@{viewModel.panelViewModel}" />
 
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
                 <Button
                     android:id="@+id/item_event_join"
                     style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/size_normal"
+                    android:layout_marginEnd="@dimen/size_normal"
                     android:visibility="@{viewModel.deal.event.active ? View.VISIBLE : View.INVISIBLE}"
                     android:text="@{viewModel.participates ? @string/leave : @string/join}"/>
 

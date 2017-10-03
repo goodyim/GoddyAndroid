@@ -16,7 +16,7 @@ import im.goody.android.R;
 
 import static im.goody.android.Constants.COLLAPSED_CHARACTERS_COUNT;
 
-public class MainPostBindingAdapter {
+public class MainBindingAdapter {
     @BindingAdapter({"description", "expandState"})
     public static void bindDescription(TextView view, MainItemViewModel model, boolean isExpanded) {
         String original = model.getDeal().getDescription();
