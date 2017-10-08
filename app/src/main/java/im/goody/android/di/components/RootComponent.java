@@ -11,6 +11,7 @@ import im.goody.android.screens.detail_post.DetailPostController;
 import im.goody.android.screens.intro.IntroController;
 import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.main.MainController;
+import im.goody.android.screens.near_events.NearEventsController;
 import im.goody.android.screens.new_event.NewEventController;
 import im.goody.android.screens.new_post.NewPostController;
 import im.goody.android.screens.photo.PhotoController;
@@ -38,4 +39,6 @@ public interface RootComponent {
     SettingController.Component plusSetting();
 
     ProfileController.Component plusProfile();
+
+    NearEventsController.Component plusNearEvents();
 }

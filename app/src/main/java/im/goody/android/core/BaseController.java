@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bluelinelabs.conductor.Controller;
+import com.bluelinelabs.conductor.RestoreViewOnCreateController;
 
 import java.util.Locale;
 
@@ -26,7 +26,7 @@ import io.reactivex.disposables.Disposable;
 
 import static im.goody.android.Constants.Pattern.OPEN_MAP;
 
-public abstract class BaseController<V extends BaseView> extends Controller {
+public abstract class BaseController<V extends BaseView> extends RestoreViewOnCreateController {
 
     @Inject
     protected IRepository repository;
@@ -59,7 +59,7 @@ public abstract class BaseController<V extends BaseView> extends Controller {
 
     @NonNull
     @Override
-    protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
+    protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container, Bundle savedState) {
         return inflater.inflate(getLayoutResId(), container, false);
     }
 

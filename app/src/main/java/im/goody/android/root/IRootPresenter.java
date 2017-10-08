@@ -35,4 +35,6 @@ public interface IRootPresenter {
     void showProfile(long id);
 
     void showPhotoScreen(String imageUrl);
+
+    void showNearEventsScreen();
 }

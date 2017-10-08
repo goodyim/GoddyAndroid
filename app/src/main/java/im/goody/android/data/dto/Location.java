@@ -1,9 +1,18 @@
 package im.goody.android.data.dto;
 
+import com.google.android.gms.maps.model.LatLng;
+
 public class Location {
     private String latitude;
     private String longitude;
     private String address;
+
+    public LatLng toLatLng() {
+        Double lat = Double.parseDouble(latitude);
+        Double lon = Double.parseDouble(longitude);
+
+        return new LatLng(lat, lon);
+    }
 
     // ======= region getters =======
 

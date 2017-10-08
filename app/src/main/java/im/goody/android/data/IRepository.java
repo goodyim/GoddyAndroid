@@ -46,4 +46,6 @@ public interface IRepository {
     UserRes getUserData();
 
     void logout();
+
+    Observable<List<Deal>> getEvents();
 }

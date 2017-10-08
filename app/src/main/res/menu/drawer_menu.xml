@@ -4,30 +4,39 @@
         android:id="@+id/nav_min_group"
         android:checkableBehavior="single">
 
-        <item android:id="@+id/action_main_screen"
+        <item
+            android:id="@+id/action_main_screen"
             android:icon="@drawable/ic_rss"
-            android:title="@string/news_title"/>
+            android:title="@string/news_title" />
 
-        <item android:id="@+id/action_my_posts"
+        <item
+            android:id="@+id/action_near_events"
+            android:icon="@drawable/ic_event"
+            android:title="@string/near_events" />
+
+        <item
+            android:id="@+id/action_my_posts"
             android:icon="@drawable/ic_person"
             android:title="@string/my_posts" />
 
-        <item android:id="@+id/action_settings"
+        <item
+            android:id="@+id/action_settings"
             android:icon="@drawable/ic_settings"
-            android:title="@string/action_settings"/>
+            android:title="@string/action_settings" />
 
-        <item android:id="@+id/action_logout"
-            android:title="@string/logout"
-            android:icon="@drawable/ic_logout" />
+        <item
+            android:id="@+id/action_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/logout" />
 
         <!-- TODO uncomment after screens will have been realized -->
 
         <!--<item android:id="@+id/action_support"-->
-            <!--android:icon="@drawable/ic_chat"-->
-            <!--android:title="@string/action_support"/>-->
+        <!--android:icon="@drawable/ic_chat"-->
+        <!--android:title="@string/action_support"/>-->
 
         <!--<item android:id="@+id/action_about"-->
-            <!--android:icon="@drawable/ic_info_outline"-->
-            <!--android:title="@string/action_about"/>-->
+        <!--android:icon="@drawable/ic_info_outline"-->
+        <!--android:title="@string/action_about"/>-->
     </group>
 </menu>
