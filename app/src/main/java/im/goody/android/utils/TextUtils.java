@@ -44,4 +44,15 @@ public class TextUtils {
     public static boolean isEmpty(String s) {
         return android.text.TextUtils.isEmpty(s) || "null".equals(s);
     }
+
+    public static String getMarkerTitle(Deal deal) {
+        String title;
+
+        if (TextUtils.isEmpty(deal.getTitle()))
+            title = deal.getDescription().substring(0, Constants.TITLE_CHARACTERS_COUNT) + "...";
+        else
+            title = deal.getTitle();
+
+        return title;
+    }
 }

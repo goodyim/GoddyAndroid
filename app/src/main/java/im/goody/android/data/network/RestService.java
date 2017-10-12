@@ -76,4 +76,8 @@ public interface RestService {
     @POST("users/{id}/follow")
     Observable<FollowRes> changeFollowState(@Header("X-User-Token") String token,
                                             @Path("id") long id);
+
+
+    @GET("events")
+    Observable<List<Deal>> getActiveEvents(@Header("X-User-Token") String token);
 }

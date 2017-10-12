@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
@@ -23,10 +23,11 @@ import im.goody.android.data.dto.Location;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.utils.DateUtils;
+import im.goody.android.utils.TextUtils;
 import io.reactivex.Observable;
 
 @SuppressWarnings("MissingPermission")
-public class NearEventsController extends BaseController<NearEventsView> implements OnMapReadyCallback {
+public class NearEventsController extends BaseController<NearEventsView> implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
     private static final int LOCATION_PERMISSION_REQUEST = 1;
     private static final String[] LOCATION_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
 
@@ -104,7 +105,7 @@ public class NearEventsController extends BaseController<NearEventsView> impleme
         switch (requestCode) {
             case LOCATION_PERMISSION_REQUEST:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if(googleMap != null) googleMap.setMyLocationEnabled(true);
+                    if (googleMap != null) googleMap.setMyLocationEnabled(true);
                 }
                 break;
         }
@@ -122,24 +123,18 @@ public class NearEventsController extends BaseController<NearEventsView> impleme
         } else {
             requestPermissions(LOCATION_PERMISSIONS, LOCATION_PERMISSION_REQUEST);
         }
+
         showMarkers();
+
         view().map().onResume();
+
+        googleMap.setOnInfoWindowClickListener(this);
     }
 
     // end
 
 
     // ======= region DI =======
-
-    @Subcomponent
-    @DaggerScope(NearEventsController.class)
-    public interface Component {
-        void inject(NearEventsController controller);
-    }
-
-    // end
-
-    // ======= region private methods =======
 
     private void showMarkers() {
         Observable<Deal> observable;
@@ -150,15 +145,35 @@ public class NearEventsController extends BaseController<NearEventsView> impleme
                     .doOnNext(events -> this.events = events)
                     .flatMap(Observable::fromIterable);
         }
-        observable.map(deal -> {
-            Location location = deal.getLocation();
-            return new MarkerOptions()
-                    .position(location.toLatLng())
-                    .title(deal.getTitle())
-                    .snippet(DateUtils.getAbsoluteDate(deal.getEvent().getDate()))
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-        })
-                .forEach(googleMap::addMarker);
+        observable
+                .filter(deal -> !TextUtils.isEmpty(deal.getLocation().getLatitude()))
+                .forEach(deal -> {
+                    Location location = deal.getLocation();
+                    MarkerOptions options = new MarkerOptions()
+                            .position(location.toLatLng())
+                            .title(TextUtils.getMarkerTitle(deal))
+                            .snippet(DateUtils.getAbsoluteDate(deal.getEvent().getDate()));
+
+                    googleMap.addMarker(options).setTag(deal.getId());
+                });
+
+        observable.doOnError(this::showError);
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        long id = (long) marker.getTag();
+        rootPresenter.showLoginScreen();
+    }
+
+    // end
+
+    // ======= region private methods =======
+
+    @Subcomponent
+    @DaggerScope(NearEventsController.class)
+    public interface Component {
+        void inject(NearEventsController controller);
     }
 
     // end

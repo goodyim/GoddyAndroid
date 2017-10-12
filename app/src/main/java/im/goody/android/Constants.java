@@ -7,6 +7,8 @@ public class Constants {
     public static final int DEFAULT_ANIMATION_DURATION = 200;
     public static final int COLLAPSED_CHARACTERS_COUNT = 200;
 
+    public static final int TITLE_CHARACTERS_COUNT = 27;
+
     public static final String DATE_FORMAT = "%02d.%02d.%d %02d:%02d";
 
     public static final int ONE_MILLION = 1_000_000;

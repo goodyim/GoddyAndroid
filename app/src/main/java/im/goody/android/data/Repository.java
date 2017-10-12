@@ -6,7 +6,6 @@ import android.provider.MediaStore;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -15,7 +14,6 @@ import javax.inject.Inject;
 import im.goody.android.App;
 import im.goody.android.Constants;
 import im.goody.android.data.dto.Deal;
-import im.goody.android.data.dto.Location;
 import im.goody.android.data.dto.User;
 import im.goody.android.data.local.PreferencesManager;
 import im.goody.android.data.network.RestService;
@@ -174,28 +172,10 @@ public class Repository implements IRepository {
         preferencesManager.clearUserData();
     }
 
-    // TODO replace with server request
     @Override
     public Observable<List<Deal>> getEvents() {
-        ArrayList<Deal> list = new ArrayList<>();
-
-        for (int i = 0; i < 10; i++) {
-            Location location = new Location();
-            location.setLatitude(String.valueOf(Math.random() * 70));
-            location.setLongitude(String.valueOf(Math.random() * 70));
-
-            Deal.Event event = new Deal.Event();
-            event.setDate("2017-10-02T19:06:48.445+03:00");
-
-            Deal deal = new Deal();
-            deal.setLocation(location);
-            deal.setEvent(event);
-            deal.setTitle("Title" + (i + 1));
-
-            list.add(deal);
-        }
-
-        return Observable.just(list);
+        return restService.getActiveEvents(preferencesManager.getUserToken())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     //endregion

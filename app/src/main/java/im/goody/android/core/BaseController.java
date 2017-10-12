@@ -80,7 +80,8 @@ public abstract class BaseController<V extends BaseView> extends RestoreViewOnCr
     }
 
     protected void showError(Throwable error) {
-        view().showMessage(getErrorMessage(error));
+        if (view() != null)
+            view().showMessage(getErrorMessage(error));
     }
 
     protected String getErrorMessage(Throwable error) {
