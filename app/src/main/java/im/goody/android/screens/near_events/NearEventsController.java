@@ -4,11 +4,13 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -60,7 +62,8 @@ public class NearEventsController extends BaseController<NearEventsView> impleme
     @Override
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container, Bundle savedState) {
         NearEventsView view = (NearEventsView) super.onCreateView(inflater, container, savedState);
-        view.map().onCreate(savedState);
+        view.map().onCreate(null);
+        view.map().onResume();
         view.map().getMapAsync(this);
         return view;
     }
@@ -117,7 +120,9 @@ public class NearEventsController extends BaseController<NearEventsView> impleme
 
     @Override
     public void onMapReady(GoogleMap map) {
+        MapsInitializer.initialize(view().getContext());
         googleMap = map;
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         if (isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
             googleMap.setMyLocationEnabled(true);
         } else {
@@ -126,7 +131,7 @@ public class NearEventsController extends BaseController<NearEventsView> impleme
 
         showMarkers();
 
-        view().map().onResume();
+        //view().map().onResume();
 
         googleMap.setOnInfoWindowClickListener(this);
     }
@@ -162,8 +167,34 @@ public class NearEventsController extends BaseController<NearEventsView> impleme
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        long id = (long) marker.getTag();
-        rootPresenter.showLoginScreen();
+        marker.hideInfoWindow();
+        if (getActivity() != null)
+            getActivity().runOnUiThread(() -> {
+
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(view().getContext());
+                AlertDialog confirmDialog = dialogBuilder
+                        .setMessage(view().getResources().getString(R.string.near_confirm))
+                        .setCancelable(true)
+                        .setPositiveButton(R.string.near_confirm_yes, (dialog, which) -> {
+                            long id = (long) marker.getTag();
+                            dialog.dismiss();
+                            rootPresenter.showDetailScreen(id);
+                        })
+                        .setNegativeButton(R.string.near_confirm_no, (dialog, which) -> dialog.dismiss())
+                        .create();
+
+                confirmDialog.setCanceledOnTouchOutside(true);
+                confirmDialog.show();
+
+            });
+
+        /*new ChooseImageOptionsDialog()
+                .show(view().getContext())
+                .subscribe(
+                        integer -> {
+                            rootPresenter.showLoginScreen();
+                        }
+                );*/
     }
 
     // end

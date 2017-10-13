@@ -110,4 +110,8 @@
     <string name="photo_title">Photo</string>
     <string name="photo">Photo</string>
     <string name="near_events">Near events</string>
+
+    <string name="near_confirm">Go to post?</string>
+    <string name="near_confirm_yes">Yes</string>
+    <string name="near_confirm_no">No</string>
 </resources>
