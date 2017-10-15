@@ -104,7 +104,7 @@ public class RootPresenter implements IRootPresenter {
         if (rootView != null) {
             long id = repository.getUserData().getUser().getId();
 
-            rootView.showScreen(MainController.class, id, false);
+            rootView.showScreenAsRoot(MainController.class, id, false);
             rootView.showDrawerHeader(repository.getUserData());
         }
     }
@@ -138,13 +138,13 @@ public class RootPresenter implements IRootPresenter {
     @Override
     public void showAboutScreen() {
         if (rootView != null)
-            rootView.showScreen(AboutController.class);
+            rootView.showScreenAsRoot(AboutController.class);
     }
 
     @Override
     public void showSettingScreen() {
         if (rootView != null)
-            rootView.showScreen(SettingController.class);
+            rootView.showScreenAsRoot(SettingController.class);
     }
 
     @Override
@@ -173,7 +173,7 @@ public class RootPresenter implements IRootPresenter {
     @Override
     public void showNearEventsScreen() {
         if(rootView!= null)
-            rootView.showScreen(NearEventsController.class);
+            rootView.showScreenAsRoot(NearEventsController.class);
     }
 
     //endregion

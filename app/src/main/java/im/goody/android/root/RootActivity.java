@@ -48,6 +48,7 @@ public class RootActivity extends AppCompatActivity
     private ActivityRootBinding binding;
     private Router router;
     private ProgressDialog progressDialog;
+    private int currentMenuItemId = 0;
 
     //region ================= Life cycle =================
 
@@ -93,6 +94,11 @@ public class RootActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        if (currentMenuItemId == item.getItemId()) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
+        }
+
         switch (item.getItemId()) {
             case R.id.action_main_screen:
                 presenter.showNews();
@@ -114,7 +120,11 @@ public class RootActivity extends AppCompatActivity
                 presenter.showAboutScreen();
                 break;*/
         }
+
         binding.drawerLayout.closeDrawer(GravityCompat.START);
+
+        currentMenuItemId = item.getItemId();
+
         return true;
     }
 
