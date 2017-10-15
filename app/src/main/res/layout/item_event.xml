@@ -68,15 +68,6 @@
                     android:text="@{viewModel.deal.author.name}"
                     tools:text="User name" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/size_little"
-                    android:layout_marginStart="@dimen/size_little"
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/event_invites"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
-
             </LinearLayout>
 
             <TextView

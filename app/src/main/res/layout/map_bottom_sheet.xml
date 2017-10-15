@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="event"
+            type="im.goody.android.data.dto.Deal" />
+
+        <import type="im.goody.android.utils.TextUtils" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:behavior_hideable="true"
+        app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+        tools:showIn="@layout/screen_near_events">
+
+        <View
+            android:id="@+id/divider"
+            style="@style/FullWidthFromParent"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/size_small"
+            android:layout_marginEnd="@dimen/size_normal"
+            android:layout_marginLeft="@dimen/size_normal"
+            android:layout_marginRight="@dimen/size_small"
+            android:layout_marginStart="@dimen/size_normal"
+            android:layout_marginTop="@dimen/size_small"
+            android:text="@{TextUtils.getMarkerTitle(event)}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            app:layout_constraintBottom_toBottomOf="@+id/map_bottom_detail"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/map_bottom_detail"
+            app:layout_constraintTop_toTopOf="@+id/map_bottom_detail"
+            tools:text="Title" />
+
+        <TextView
+            android:id="@+id/item_event_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_normal"
+            android:drawableLeft="@drawable/ic_time"
+            android:drawablePadding="@dimen/size_little"
+            android:drawableStart="@drawable/ic_time"
+            android:gravity="center_vertical"
+            app:event_date="@{event.event.date}"
+            app:layout_constraintLeft_toLeftOf="@+id/textView"
+            app:layout_constraintRight_toRightOf="@+id/map_bottom_detail"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:text="DD MM YYY HH:mm" />
+
+        <TextView
+            android:id="@+id/item_event_resources"
+            style="@style/FullWidthFromParent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/size_normal"
+            android:layout_marginTop="@dimen/size_small"
+            android:drawableLeft="@drawable/ic_info_outline"
+            android:drawablePadding="@dimen/size_little"
+            android:drawableStart="@drawable/ic_info_outline"
+            android:gravity="center_vertical"
+            android:text="@{event.event.resources}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/item_event_date"
+            app:layout_constraintRight_toRightOf="@+id/item_event_date"
+            app:layout_constraintTop_toBottomOf="@+id/item_event_date"
+            tools:text="Resourses name + count" />
+
+        <Button
+            android:id="@+id/map_bottom_detail"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/size_normal"
+            android:layout_marginRight="@dimen/size_normal"
+            android:layout_marginTop="@dimen/size_small"
+            android:text="@string/detail"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

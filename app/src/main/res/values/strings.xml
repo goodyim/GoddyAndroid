@@ -114,4 +114,6 @@
     <string name="near_confirm">Go to post?</string>
     <string name="near_confirm_yes">Yes</string>
     <string name="near_confirm_no">No</string>
+    <string name="detail">Detail</string>
+    <string name="refresh">Refresh</string>
 </resources>

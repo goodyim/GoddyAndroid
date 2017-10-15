@@ -4,14 +4,18 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -24,12 +28,16 @@ import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Location;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
-import im.goody.android.utils.DateUtils;
 import im.goody.android.utils.TextUtils;
 import io.reactivex.Observable;
 
+import static com.google.android.gms.maps.GoogleMap.OnMapClickListener;
+import static com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+
 @SuppressWarnings("MissingPermission")
-public class NearEventsController extends BaseController<NearEventsView> implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
+public class NearEventsController extends BaseController<NearEventsView>
+        implements OnMapReadyCallback, OnMarkerClickListener, OnMapClickListener {
+
     private static final int LOCATION_PERMISSION_REQUEST = 1;
     private static final String[] LOCATION_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
 
@@ -62,9 +70,10 @@ public class NearEventsController extends BaseController<NearEventsView> impleme
     @Override
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container, Bundle savedState) {
         NearEventsView view = (NearEventsView) super.onCreateView(inflater, container, savedState);
-        view.map().onCreate(null);
-        view.map().onResume();
+        view.map().onCreate(savedState);
         view.map().getMapAsync(this);
+
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -116,30 +125,80 @@ public class NearEventsController extends BaseController<NearEventsView> impleme
 
     // end
 
-    // ======= region OnMapReadyCallback =======
+    // ======= region Menu =======
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.near_events_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_refresh) {
+            view().hideInfoPanel();
+            refreshMarkers();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    // end
+
+    // ======= region Callbacks =======
 
     @Override
     public void onMapReady(GoogleMap map) {
         MapsInitializer.initialize(view().getContext());
         googleMap = map;
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
+
         if (isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
             googleMap.setMyLocationEnabled(true);
         } else {
             requestPermissions(LOCATION_PERMISSIONS, LOCATION_PERMISSION_REQUEST);
         }
 
+        view().map().onResume();
+
         showMarkers();
 
-        //view().map().onResume();
+        googleMap.setOnMapClickListener(this);
+        googleMap.setOnMarkerClickListener(this);
+    }
 
-        googleMap.setOnInfoWindowClickListener(this);
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        view().showInfoPanel((Deal) marker.getTag());
+
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 14));
+
+        return true;
+    }
+
+    @Override
+    public void onMapClick(LatLng latLng) {
+        view().hideInfoPanel();
+    }
+
+    void detailClicked(Deal event) {
+        if (event != null)
+            rootPresenter.showDetailScreen(event.getId());
     }
 
     // end
 
+    // ======= region private methods =======
 
-    // ======= region DI =======
+    private void refreshMarkers() {
+        googleMap.clear();
+
+        repository.getEvents().subscribe(events -> {
+            this.events = events;
+            showMarkers();
+        }, this::showError);
+    }
 
     private void showMarkers() {
         Observable<Deal> observable;
@@ -155,51 +214,17 @@ public class NearEventsController extends BaseController<NearEventsView> impleme
                 .forEach(deal -> {
                     Location location = deal.getLocation();
                     MarkerOptions options = new MarkerOptions()
-                            .position(location.toLatLng())
-                            .title(TextUtils.getMarkerTitle(deal))
-                            .snippet(DateUtils.getAbsoluteDate(deal.getEvent().getDate()));
+                            .position(location.toLatLng());
 
-                    googleMap.addMarker(options).setTag(deal.getId());
+                    googleMap.addMarker(options).setTag(deal);
                 });
 
         observable.doOnError(this::showError);
     }
 
-    @Override
-    public void onInfoWindowClick(Marker marker) {
-        marker.hideInfoWindow();
-        if (getActivity() != null)
-            getActivity().runOnUiThread(() -> {
-
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(view().getContext());
-                AlertDialog confirmDialog = dialogBuilder
-                        .setMessage(view().getResources().getString(R.string.near_confirm))
-                        .setCancelable(true)
-                        .setPositiveButton(R.string.near_confirm_yes, (dialog, which) -> {
-                            long id = (long) marker.getTag();
-                            dialog.dismiss();
-                            rootPresenter.showDetailScreen(id);
-                        })
-                        .setNegativeButton(R.string.near_confirm_no, (dialog, which) -> dialog.dismiss())
-                        .create();
-
-                confirmDialog.setCanceledOnTouchOutside(true);
-                confirmDialog.show();
-
-            });
-
-        /*new ChooseImageOptionsDialog()
-                .show(view().getContext())
-                .subscribe(
-                        integer -> {
-                            rootPresenter.showLoginScreen();
-                        }
-                );*/
-    }
-
     // end
 
-    // ======= region private methods =======
+    // ======= region DI =======
 
     @Subcomponent
     @DaggerScope(NearEventsController.class)
@@ -208,5 +233,4 @@ public class NearEventsController extends BaseController<NearEventsView> impleme
     }
 
     // end
-
 }

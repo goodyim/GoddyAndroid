@@ -48,8 +48,12 @@ public class TextUtils {
     public static String getMarkerTitle(Deal deal) {
         String title;
 
+        if (deal == null) return null;
+
         if (TextUtils.isEmpty(deal.getTitle()))
-            title = deal.getDescription().substring(0, Constants.TITLE_CHARACTERS_COUNT) + "...";
+            title = deal.getDescription()
+                    .substring(0, Constants.TITLE_CHARACTERS_COUNT)
+                    .trim() + "...";
         else
             title = deal.getTitle();
 

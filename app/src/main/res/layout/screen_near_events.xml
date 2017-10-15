@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="viewModel"
             type="im.goody.android.screens.new_event.NewEventViewModel" />
     </data>
 
-    <im.goody.android.screens.near_events.NearEventsView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <im.goody.android.screens.near_events.NearEventsView style="@style/FullExpandLayout">
 
-        <com.google.android.gms.maps.MapView
-            android:id="@+id/mapView"
-            style="@style/FullExpandFromParent" />
+        <android.support.design.widget.CoordinatorLayout style="@style/FullExpandFromParent">
+
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapView"
+                style="@style/FullExpandLayout" />
+
+            <include
+                android:id="@+id/marker_panel"
+                layout="@layout/map_bottom_sheet" />
+        </android.support.design.widget.CoordinatorLayout>
+
     </im.goody.android.screens.near_events.NearEventsView>
 </layout>
