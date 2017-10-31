@@ -7,6 +7,14 @@ public class Location {
     private String longitude;
     private String address;
 
+    public Location() {}
+
+    public Location(Double latitude, Double longitude, String address) {
+        this.latitude = String.valueOf(latitude);
+        this.longitude = String.valueOf(longitude);
+        this.address = address;
+    }
+
     public LatLng toLatLng() {
         Double lat = Double.parseDouble(latitude);
         Double lon = Double.parseDouble(longitude);

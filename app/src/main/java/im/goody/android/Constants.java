@@ -28,4 +28,6 @@ public class Constants {
     }
 
     public static final long ID_NONE = -1;
+
+    public static final String CACSE_FILE_NAME = "goddy_temp.jpg";
 }

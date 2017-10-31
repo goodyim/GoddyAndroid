@@ -7,19 +7,18 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.location.places.Place;
-
 import im.goody.android.R;
+import im.goody.android.data.dto.Location;
 
 public class NewPostBindingAdapter {
 
     @BindingAdapter("location")
-    public static void bindLocation(TextView textView, Place place) {
-        if (place == null) {
+    public static void bindLocation(TextView textView, Location location) {
+        if (location == null) {
             textView.setText(null);
             setParentVisibility(textView, View.GONE);
         } else {
-            textView.setText(place.getAddress());
+            textView.setText(location.getAddress());
             setParentVisibility(textView, View.VISIBLE);
         }
     }

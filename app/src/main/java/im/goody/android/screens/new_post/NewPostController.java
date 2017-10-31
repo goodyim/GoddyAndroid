@@ -8,14 +8,31 @@ import android.view.View;
 import com.google.android.gms.location.places.Place;
 
 import im.goody.android.R;
+import im.goody.android.data.dto.Deal;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.screens.common.NewController;
 import im.goody.android.ui.helpers.BarBuilder;
+import im.goody.android.utils.TextUtils;
 import im.goody.android.utils.UIUtils;
 
+@SuppressWarnings("unused")
 public class NewPostController extends NewController<NewPostView> {
-    private NewPostViewModel viewModel = new NewPostViewModel();
+    private NewPostViewModel viewModel;
+
+    private Long id;
+
+    public NewPostController(Deal deal) {
+        id = deal.getId();
+        viewModel = new NewPostViewModel(deal);
+
+        if (!TextUtils.isEmpty(deal.getImageUrl()))
+            loadImage(deal);
+    }
+
+    public NewPostController() {
+        viewModel = new NewPostViewModel();
+    }
 
     // ======= region Base Controller =======
 
@@ -31,7 +48,7 @@ public class NewPostController extends NewController<NewPostView> {
         rootPresenter.newBarBuilder()
                 .setToolbarVisible(true)
                 .setHomeState(BarBuilder.HOME_ARROW)
-                .setTitleRes(R.string.new_post_title)
+                .setTitleRes(id == null ? R.string.new_post_title : R.string.edit_post_title)
                 .setHomeListener(v -> {
                     Activity activity = getActivity();
                     if (activity != null) {
@@ -58,10 +75,58 @@ public class NewPostController extends NewController<NewPostView> {
     }
 
     void clearLocation() {
-        viewModel.location.set(null);
+        viewModel.setLocation(null);
     }
 
-    void createPost() {
+    void sendData() {
+        if (id != null) editPost();
+        else createPost();
+    }
+
+    // endregion
+
+    // ======= region NewController =======
+
+    @Override
+    protected Uri getImageUri() {
+        return viewModel.getImageUri();
+    }
+
+    @Override
+    protected void imageUriChanged(Uri uri) {
+        viewModel.setImageUri(uri);
+    }
+
+    @Override
+    protected void imageChanged(Uri uri) {
+        viewModel.setImageFromUri(uri);
+    }
+
+    @Override
+    protected void placeChanged(Place place) {
+        viewModel.setLocation(place);
+    }
+
+    // end
+
+    // ======= region private methods =======
+
+    private void editPost() {
+        rootPresenter.showProgress(R.string.edit_post_progress);
+        disposable = repository.editPost(id, viewModel.body(), viewModel.getImageUri())
+                .subscribe(
+                        result -> {
+                            rootPresenter.hideProgress();
+                            rootPresenter.showNews();
+                        },
+                        error -> {
+                            rootPresenter.hideProgress();
+                            showError(error);
+                        }
+                );
+    }
+
+    private void createPost() {
         rootPresenter.showProgress(R.string.create_post_progress);
         disposable = repository.createPost(viewModel.body(), viewModel.getImageUri())
                 .subscribe(
@@ -85,30 +150,6 @@ public class NewPostController extends NewController<NewPostView> {
     public interface Component {
 
         void inject(NewPostController controller);
-    }
-
-    // endregion
-
-    // ======= region private methods =======
-
-    @Override
-    protected Uri getImageUri() {
-        return viewModel.getImageUri();
-    }
-
-    @Override
-    protected void imageUriChanged(Uri uri) {
-        viewModel.setImageUri(uri);
-    }
-
-    @Override
-    protected void imageChanged(Uri uri) {
-        viewModel.setImageFromUri(uri);
-    }
-
-    @Override
-    protected void placeChanged(Place place) {
-        viewModel.location.set(place);
     }
 
     // endregion

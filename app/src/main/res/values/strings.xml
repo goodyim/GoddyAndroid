@@ -116,4 +116,8 @@
     <string name="near_confirm_no">No</string>
     <string name="detail">Detail</string>
     <string name="refresh">Refresh</string>
+    <string name="edit">Edit</string>
+    <string name="edit_post_progress">Editing</string>
+    <string name="edit_post_title">Edit post</string>
+    <string name="edit_event_title">Edit event</string>
 </resources>

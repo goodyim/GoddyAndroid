@@ -1,10 +1,17 @@
 package im.goody.android.data;
 
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -31,6 +38,7 @@ import im.goody.android.data.network.res.UserRes;
 import im.goody.android.di.components.DataComponent;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -113,8 +121,27 @@ public class Repository implements IRepository {
     }
 
     @Override
+    public Observable<ResponseBody> editPost(Long id, NewPostReq body, Uri imageUri) {
+        return restService.updateDeal(preferencesManager.getUserToken(),
+                id,
+                RestCallTransformer.objectToPartMap(body, "good_deal"),
+                getPartFromUri(imageUri, "upload"))
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    @Override
     public Observable<ResponseBody> createEvent(NewEventReq body, Uri imageUri) {
         return restService.uploadDeal(preferencesManager.getUserToken(),
+                RestCallTransformer.objectToPartMap(body, "good_deal"),
+                getPartFromUri(imageUri, "upload"))
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<ResponseBody> editEvent(Long id, NewEventReq body, Uri imageUri) {
+        return restService.updateDeal(preferencesManager.getUserToken(),
+                id,
                 RestCallTransformer.objectToPartMap(body, "good_deal"),
                 getPartFromUri(imageUri, "upload"))
                 .observeOn(AndroidSchedulers.mainThread());
@@ -178,6 +205,21 @@ public class Repository implements IRepository {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    @Override
+    public Observable<Uri> cacheWebImage(String imageUrl) {
+        return Observable.just(imageUrl)
+                .subscribeOn(Schedulers.io())
+                .map(url -> {
+                    Bitmap bmp = Picasso.with(App.getAppContext())
+                            .load(imageUrl)
+                            .get();
+                    File file = cacheBitmap(bmp);
+
+                    return Uri.fromFile(file);
+                })
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     //endregion
 
     // ======= region Comments =======
@@ -188,8 +230,26 @@ public class Repository implements IRepository {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-
     // endregion
+
+
+    private File cacheBitmap(Bitmap bmp) throws IOException {
+        File file = new File(Environment.getExternalStorageDirectory(), Constants.CACSE_FILE_NAME);
+        if (!file.exists())
+            file.createNewFile();
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+        byte[] bitmapData = bos.toByteArray();
+
+        //write the bytes in file
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(bitmapData);
+        fos.flush();
+        fos.close();
+
+        return file;
+    }
 
 
     @Override

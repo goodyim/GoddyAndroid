@@ -4,6 +4,7 @@ import android.support.annotation.StringRes;
 
 import com.bluelinelabs.conductor.Controller;
 
+import im.goody.android.data.dto.Deal;
 import im.goody.android.ui.helpers.BarBuilder;
 
 public interface IRootPresenter {
@@ -37,4 +38,7 @@ public interface IRootPresenter {
     void showPhotoScreen(String imageUrl);
 
     void showNearEventsScreen();
+
+    void showEditPostScreen(Deal deal);
+    void showEditEventScreen(Deal deal);
 }

@@ -25,6 +25,7 @@ public class DetailPostController extends BaseController<DetailPostView>
 
     private DetailPostViewModel viewModel = new DetailPostViewModel();
     private MenuItem eventStateItem;
+    private MenuItem editItem;
 
     public DetailPostController(Long id) {
         super(new BundleBuilder()
@@ -68,13 +69,23 @@ public class DetailPostController extends BaseController<DetailPostView>
         inflater.inflate(R.menu.deal_menu, menu);
 
         eventStateItem = menu.add(Menu.NONE, 1, 0, "");
+        editItem = menu.add(R.string.edit);
 
         eventStateItem.setOnMenuItemClickListener(item -> {
             changeEventState();
             return true;
         });
+        editItem.setOnMenuItemClickListener(item -> {
+            showEditScreen();
+            return true;
+        });
 
-        eventStateItem.setVisible(false);
+        if(viewModel.getBody() == null) {
+            editItem.setVisible(false);
+            eventStateItem.setVisible(false);
+        } else {
+            updateMenu();
+        }
     }
 
     @Override
@@ -183,7 +194,8 @@ public class DetailPostController extends BaseController<DetailPostView>
 
     // endregion
 
-    // ======= region DI =======
+
+    // ======= region private methods =======
 
     private void report() {
         disposable = repository.sendReport(viewModel.getId()).subscribe(
@@ -191,9 +203,16 @@ public class DetailPostController extends BaseController<DetailPostView>
                 error -> view().showMessage(error.getMessage())
         );
     }
-    // endregion
 
-    // ======= region private methods =======
+    private void showEditScreen() {
+        Deal deal = viewModel.getDeal();
+
+        if(deal.getEvent() == null) {
+            rootPresenter.showEditPostScreen(deal);
+        } else {
+            rootPresenter.showEditEventScreen(deal);
+        }
+    }
 
     private void updateMenu() {
         Deal deal = viewModel.getDeal();
@@ -201,7 +220,11 @@ public class DetailPostController extends BaseController<DetailPostView>
         if (deal.getEvent() != null && deal.isOwner()) {
             eventStateItem.setTitle(getCloseOpenItemTitle());
             eventStateItem.setVisible(true);
+        } else {
+            eventStateItem.setVisible(false);
         }
+
+        editItem.setVisible(deal.isOwner());
     }
 
     @SuppressWarnings("CodeBlock2Expr")
@@ -229,6 +252,10 @@ public class DetailPostController extends BaseController<DetailPostView>
                 : R.string.open_event;
         return getActivity().getString(titleRes);
     }
+
+    // endregion
+
+    // ======= region DI =======
 
     @dagger.Subcomponent
     @DaggerScope(DetailPostController.class)

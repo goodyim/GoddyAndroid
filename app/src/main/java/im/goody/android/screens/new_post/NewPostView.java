@@ -23,7 +23,7 @@ public class NewPostView extends BaseView<NewPostController, ScreenNewPostBindin
         binding.newPostPhoto.setOnClickListener(v -> controller.choosePhoto());
         binding.newPostLocationClear.setOnClickListener(v -> controller.clearLocation());
         binding.newPhotoSend.setOnClickListener(v -> {
-            controller.createPost();
+            controller.sendData();
             UIUtils.hideKeyboard(getFocusedChild());
         });
         binding.newPostClearImage.setOnClickListener(v -> controller.clearPhoto());

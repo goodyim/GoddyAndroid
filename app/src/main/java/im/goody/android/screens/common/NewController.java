@@ -17,8 +17,10 @@ import java.io.File;
 import im.goody.android.R;
 import im.goody.android.core.BaseController;
 import im.goody.android.core.BaseView;
+import im.goody.android.data.dto.Deal;
 import im.goody.android.ui.dialogs.ChooseImageOptionsDialog;
 import im.goody.android.ui.dialogs.OptionsDialog;
+import im.goody.android.utils.NetUtils;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -99,6 +101,15 @@ public abstract class NewController<V extends BaseView> extends BaseController<V
 
     public void clearPhoto() {
         imageChanged(null);
+        imageUriChanged(null);
+    }
+
+    protected void loadImage(Deal deal) {
+        repository.cacheWebImage(NetUtils.buildDealImageUrl(deal))
+                .subscribe(uri -> {
+                    imageChanged(uri);
+                    imageUriChanged(uri);
+                });
     }
 
     // ======= region private methods =======

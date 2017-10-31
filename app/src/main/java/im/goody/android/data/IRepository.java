@@ -35,6 +35,9 @@ public interface IRepository {
 
     Observable<ResponseBody> createPost(NewPostReq body, Uri imageUri);
     Observable<ResponseBody> createEvent(NewEventReq body, Uri imageUri);
+
+    Observable<ResponseBody> editEvent(Long id, NewEventReq body, Uri imageUri);
+
     Observable<String> sendReport(long id);
 
     Observable<User> getUserProfile(long id);
@@ -48,4 +51,8 @@ public interface IRepository {
     void logout();
 
     Observable<List<Deal>> getEvents();
+
+    Observable<ResponseBody> editPost(Long id, NewPostReq body, Uri imageUri);
+
+    Observable<Uri> cacheWebImage(String imageUrl);
 }

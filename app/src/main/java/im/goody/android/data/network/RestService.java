@@ -20,6 +20,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Path;
@@ -46,6 +47,13 @@ public interface RestService {
     @Multipart
     @POST("good_deals")
     Observable<ResponseBody> uploadDeal(@Header("X-User-Token") String token,
+                                        @PartMap Map<String, RequestBody> params,
+                                        @Part MultipartBody.Part file);
+
+    @Multipart
+    @PUT("good_deals/{id}")
+    Observable<ResponseBody> updateDeal(@Header("X-User-Token") String token,
+                                        @Path("id") long id,
                                         @PartMap Map<String, RequestBody> params,
                                         @Part MultipartBody.Part file);
 
@@ -80,4 +88,5 @@ public interface RestService {
 
     @GET("events")
     Observable<List<Deal>> getActiveEvents(@Header("X-User-Token") String token);
+
 }

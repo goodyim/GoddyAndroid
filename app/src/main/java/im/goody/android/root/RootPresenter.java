@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import im.goody.android.App;
 import im.goody.android.data.IRepository;
+import im.goody.android.data.dto.Deal;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.screens.about.AboutController;
 import im.goody.android.screens.detail_post.DetailPostController;
@@ -25,8 +26,7 @@ import im.goody.android.ui.helpers.BarBuilder;
 
 public class RootPresenter implements IRootPresenter {
 
-    @Inject
-    IRepository repository;
+    @Inject IRepository repository;
     private IRootView rootView;
 
     public RootPresenter() {
@@ -166,14 +166,26 @@ public class RootPresenter implements IRootPresenter {
 
     @Override
     public void showPhotoScreen(String imageUrl) {
-        if(rootView != null)
+        if (rootView != null)
             rootView.showScreen(PhotoController.class, imageUrl);
     }
 
     @Override
     public void showNearEventsScreen() {
-        if(rootView!= null)
+        if (rootView != null)
             rootView.showScreenAsRoot(NearEventsController.class);
+    }
+
+    @Override
+    public void showEditPostScreen(Deal deal) {
+        if (rootView != null)
+            rootView.showScreen(NewPostController.class, deal);
+    }
+
+    @Override
+    public void showEditEventScreen(Deal deal) {
+        if (rootView != null)
+            rootView.showScreen(NewEventController.class, deal);
     }
 
     //endregion

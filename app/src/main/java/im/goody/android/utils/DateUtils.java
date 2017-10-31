@@ -16,7 +16,7 @@ public class DateUtils {
 
     public static String getReadableDate(String input) {
         try {
-            Date date = StringToDate(input);
+            Date date = stringToDate(input);
             return getRelativeTimeSpanString(App.getAppContext(), date.getTime(), true)
                     .toString();
         } catch (Exception e) {
@@ -30,7 +30,22 @@ public class DateUtils {
         return format.format(date);
     }
 
-    private static Date StringToDate(String time) throws ParseException {
+    public static Calendar calendarFromString(String time) {
+        if (time == null) return null;
+
+        try {
+            Date date = stringToDate(time);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+
+            return calendar;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private static Date stringToDate(String time) throws ParseException {
         SimpleDateFormat inputFormat = new SimpleDateFormat(INPUT_PATTERN, Locale.getDefault());
 
         return inputFormat.parse(time);
@@ -38,7 +53,7 @@ public class DateUtils {
 
     public static String getAbsoluteDate(String input) {
         try {
-            Date date = StringToDate(input);
+            Date date = stringToDate(input);
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);

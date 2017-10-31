@@ -6,12 +6,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.location.places.Place;
-
 import java.util.Calendar;
 import java.util.Locale;
 
 import im.goody.android.R;
+import im.goody.android.data.dto.Location;
 
 import static im.goody.android.Constants.DATE_FORMAT;
 
@@ -38,13 +37,13 @@ public class NewEventBindingAdapter {
     }
 
     @BindingAdapter("event_location")
-    public static void bindLocation(TextView view, Place place) {
+    public static void bindLocation(TextView view, Location location) {
         String address;
 
-        if (place == null) {
+        if (location == null) {
             address = view.getContext().getString(R.string.choose_location);
         } else {
-            address = place.getAddress().toString();
+            address = location.getAddress();
         }
 
         view.setText(address);
