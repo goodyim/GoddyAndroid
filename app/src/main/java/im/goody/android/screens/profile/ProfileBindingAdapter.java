@@ -2,6 +2,8 @@ package im.goody.android.screens.profile;
 
 import android.databinding.BindingAdapter;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -32,6 +34,12 @@ public class ProfileBindingAdapter {
                         View parent = (View) view.getParent();
 
                         parent.setBackground(new BitmapDrawable(parent.getResources(), bitmap));
+                    }, error -> {
+                        View parent = (View) view.getParent();
+
+                        int defaultColor = ContextCompat.getColor(view.getContext(), R.color.primary);
+
+                        parent.setBackground(new ColorDrawable(defaultColor));
                     });
     }
 }
