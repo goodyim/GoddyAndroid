@@ -7,4 +7,10 @@
     <integer-array name="progress_colors">
         <item>@color/accent</item>
     </integer-array>
+
+    <string-array name="quick_words">
+        <item>@string/quick_word_0</item>
+        <item>@string/quick_word_1</item>
+        <item>@string/quick_word_2</item>
+    </string-array>
 </resources>

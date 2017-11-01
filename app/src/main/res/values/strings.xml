@@ -120,4 +120,8 @@
     <string name="edit_post_progress">Editing</string>
     <string name="edit_post_title">Edit post</string>
     <string name="edit_event_title">Edit event</string>
+
+    <string name="quick_word_0">Ready to help</string>
+    <string name="quick_word_1">What should I bring with me?</string>
+    <string name="quick_word_2">I\'ll be there soon</string>
 </resources>

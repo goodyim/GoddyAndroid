@@ -11,7 +11,7 @@ import im.goody.android.databinding.ScreenDetailBinding;
 import im.goody.android.utils.UIUtils;
 
 public class DetailPostView extends BaseView<DetailPostController, ScreenDetailBinding>
-        implements SwipeRefreshLayout.OnRefreshListener {
+        implements SwipeRefreshLayout.OnRefreshListener, QuickWordsAdapter.Handler {
     private DetailPostAdapter adapter;
 
     public DetailPostView(Context context, AttributeSet attrs) {
@@ -70,6 +70,9 @@ public class DetailPostView extends BaseView<DetailPostController, ScreenDetailB
         binding.detailPostList.setAdapter(adapter);
 
         scrollToPosition(data.getPosition());
+
+        if(data.getDeal().getEvent() != null)
+            initQuickWords();
     }
 
     public void commentCreated() {
@@ -87,6 +90,14 @@ public class DetailPostView extends BaseView<DetailPostController, ScreenDetailB
             binding.detailPostList.setVisibility(VISIBLE);
     }
 
+    public void initQuickWords() {
+        binding.quickWordContainer.setVisibility(VISIBLE);
+        binding.quickWordsList.setLayoutManager(new LinearLayoutManager(getContext(),
+                LinearLayoutManager.HORIZONTAL, false));
+        binding.quickWordsList.setHasFixedSize(true);
+        binding.quickWordsList.setAdapter(new QuickWordsAdapter(this));
+    }
+
     public void startLoading() {
         binding.detailPostRefresh.setRefreshing(true);
     }
@@ -97,5 +108,10 @@ public class DetailPostView extends BaseView<DetailPostController, ScreenDetailB
 
     public void showCommentProgress() {
         binding.commentProgress.setVisibility(VISIBLE);
+    }
+
+    @Override
+    public void handle(String word) {
+        binding.detailCommentBody.setText(word);
     }
 }

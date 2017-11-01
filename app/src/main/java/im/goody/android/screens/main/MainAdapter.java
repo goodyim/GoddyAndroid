@@ -134,8 +134,13 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
             eventBinding.itemEventJoin.setOnClickListener(v ->
                     handler.changeParticipateState(deal.getId())
                             .subscribe(
-                                    response ->
-                                            viewModel.participates.set(response.isParticipates()),
+                                    response -> {
+                                        viewModel.participates.set(response.isParticipates());
+
+                                        if(response.isParticipates()) {
+                                            handler.showDetail(viewModel.getDeal().getId());
+                                        }
+                                    },
                                     Throwable::printStackTrace));
 
             eventBinding.itemEventAvatar.setOnClickListener(v ->
