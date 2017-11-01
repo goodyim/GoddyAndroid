@@ -25,7 +25,9 @@ public class CircleImageView extends AppCompatImageView {
 
     @Override
     public void setImageBitmap(Bitmap bm) {
-        Drawable drawable = BitmapUtils.prepareAvatar(bm, getContext());
+        Bitmap scaled = Bitmap.createScaledBitmap(bm, getWidth(), getHeight(), false);
+
+        Drawable drawable = BitmapUtils.prepareAvatar(scaled, getContext());
         super.setImageDrawable(drawable);
     }
 
@@ -33,7 +35,10 @@ public class CircleImageView extends AppCompatImageView {
     public void setImageDrawable(@Nullable Drawable drawable) {
         if (drawable instanceof BitmapDrawable) {
             Bitmap bmp = ((BitmapDrawable) drawable).getBitmap();
-            Drawable result = BitmapUtils.prepareAvatar(bmp, getContext());
+
+            Bitmap scaled = Bitmap.createScaledBitmap(bmp, getWidth(), getHeight(), false);
+
+            Drawable result = BitmapUtils.prepareAvatar(scaled, getContext());
             super.setImageDrawable(result);
         } else {
             super.setImageDrawable(drawable);

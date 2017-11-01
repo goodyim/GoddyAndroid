@@ -32,10 +32,10 @@
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/primary"
                         app:cardCornerRadius="0dp">
 
                         <android.support.constraint.ConstraintLayout
+                            android:id="@+id/profile_main"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -45,11 +45,11 @@
                                 android:layout_width="@dimen/register_avatar_size"
                                 android:layout_height="@dimen/register_avatar_size"
                                 android:layout_marginTop="@dimen/size_big"
+                                android:src="@drawable/round_drawable"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:profile_avatar="@{user.avatarUrl}"
-                                android:src="@drawable/round_drawable" />
+                                app:profile_avatar="@{user.avatarUrl}" />
 
                             <TextView
                                 android:id="@+id/profile_name"
@@ -59,8 +59,7 @@
                                 android:layout_marginStart="@dimen/size_small"
                                 android:layout_marginTop="@dimen/size_normal"
                                 android:text="@{user.name}"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                                android:textColor="@color/white"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
                                 app:layout_constraintEnd_toEndOf="@+id/profile_avatar"
                                 app:layout_constraintStart_toStartOf="@+id/profile_avatar"
                                 app:layout_constraintTop_toBottomOf="@+id/profile_avatar"
