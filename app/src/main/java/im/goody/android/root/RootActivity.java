@@ -115,6 +115,9 @@ public class RootActivity extends AppCompatActivity
             case R.id.action_near_events:
                 presenter.showNearEventsScreen();
                 break;
+            case R.id.action_participating_events:
+                presenter.showParticipatingEvents();
+                break;
            /* TODO uncomment after screen will have been realized
            case R.id.action_about:
                 presenter.showAboutScreen();

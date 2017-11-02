@@ -188,6 +188,15 @@ public class RootPresenter implements IRootPresenter {
             rootView.showScreen(NewEventController.class, deal);
     }
 
+    @Override
+    public void showParticipatingEvents() {
+        if(rootView != null) {
+            long id = repository.getUserData().getUser().getId();
+
+            rootView.showScreenAsRoot(MainController.class, id, false, true);
+        }
+    }
+
     //endregion
 
     @Override

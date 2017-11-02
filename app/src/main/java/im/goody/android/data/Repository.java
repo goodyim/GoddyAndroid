@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -104,6 +105,21 @@ public class Repository implements IRepository {
         Long resultId = id == Constants.ID_NONE ? null : id;
 
         return restService.getDeals(preferencesManager.getUserToken(), resultId, page)
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    // TODO replace with its own server request
+    @Override
+    public Observable<List<Deal>> getEvents(long userId, int page) {
+        if (page > 1)
+            return Observable.just(Collections.emptyList());
+
+        return getEvents()
+                .observeOn(Schedulers.io())
+                .flatMap(Observable::fromIterable)
+                .filter(Deal::isParticipates)
+                .toList()
+                .toObservable()
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

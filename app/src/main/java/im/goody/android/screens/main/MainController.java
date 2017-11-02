@@ -23,15 +23,24 @@ public class MainController extends BaseController<MainView> implements MainAdap
     private MainViewModel viewModel = new MainViewModel();
     private boolean findItems = true;
     private static final String USER_ID_KEY = "MainController.id";
-
     private static final String SHOW_ARROW_KEY = "MainController.showArrow";
+    private static final String EVENTS_ONLY = "MainController.eventsOnly";
 
     private static final boolean SHOW_ARROW_NONE = false;
+
+    public MainController(Long id, Boolean showArrow, Boolean eventsOnly) {
+        super(new BundleBuilder()
+                .putLong(USER_ID_KEY, id)
+                .putBoolean(SHOW_ARROW_KEY, showArrow)
+                .putBoolean(EVENTS_ONLY, eventsOnly)
+                .build());
+    }
 
     public MainController(Long id, Boolean showArrow) {
         super(new BundleBuilder()
                 .putLong(USER_ID_KEY, id)
                 .putBoolean(SHOW_ARROW_KEY, showArrow)
+                .putBoolean(EVENTS_ONLY, false)
                 .build());
     }
 
@@ -46,8 +55,15 @@ public class MainController extends BaseController<MainView> implements MainAdap
     // ======= region MainController =======
 
     void refreshData() {
-        disposable = convertDealsToModels(
-                repository.getPosts(getId(), viewModel.resetPageAndGet()))
+        Observable<List<Deal>> observable;
+
+        if (isEventsOnly()) {
+            observable = repository.getEvents(getId(), viewModel.resetPageAndGet());
+        } else {
+            observable = repository.getPosts(getId(), viewModel.resetPageAndGet());
+        }
+
+        disposable = convertDealsToModels(observable)
                 .subscribe(
                         result -> {
                             findItems = true;
@@ -72,8 +88,16 @@ public class MainController extends BaseController<MainView> implements MainAdap
         }
 
         findItems = false;
-        disposable = convertDealsToModels(
-                repository.getPosts(getId(), viewModel.incrementPageAndGet()))
+
+        Observable<List<Deal>> observable;
+
+        if (isEventsOnly()) {
+            observable = repository.getEvents(getId(), viewModel.incrementPageAndGet());
+        } else {
+            observable = repository.getPosts(getId(), viewModel.incrementPageAndGet());
+        }
+
+        disposable = convertDealsToModels(observable)
                 .subscribe(
                         result -> {
                             viewModel.addData(result);
@@ -232,6 +256,10 @@ public class MainController extends BaseController<MainView> implements MainAdap
 
     private boolean isIdMine() {
         return getId() == repository.getUserData().getUser().getId();
+    }
+
+    private boolean isEventsOnly() {
+        return getArgs().getBoolean(EVENTS_ONLY);
     }
 
     //endregion

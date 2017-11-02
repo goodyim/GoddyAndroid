@@ -30,6 +30,8 @@ public interface IRepository {
     <T> T getError(Throwable t, Class<T> tClass);
 
     Observable<List<Deal>> getPosts(long userId, int page);
+    Observable<List<Deal>> getEvents(long userId, int page);
+
     Observable<Deal> getDeal(long id);
     Observable<CommentRes> sendComment(long dealId, NewCommentReq body);
 
