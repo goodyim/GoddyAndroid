@@ -21,8 +21,8 @@ public class AppConfig {
     public static String ENDCODING = "UTF-8";
 
     public static final int MAX_CONNECTION_TIMEOUT = 15000;
-    public static final int MAX_READ_TIMEOUT = 10000;
-    public static final int MAX_WRITE_TIMEOUT = 5000;
+    public static final int MAX_READ_TIMEOUT = 15000;
+    public static final int MAX_WRITE_TIMEOUT = 15000;
 
     public static final int RETRY_REQUEST_COUNT = 3;
     public static final int RETRY_REQUEST_BASE_DELAY = 1000;

@@ -1,10 +1,9 @@
 package im.goody.android.data;
 
-import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
-import android.provider.MediaStore;
 
 import com.squareup.picasso.Picasso;
 
@@ -12,6 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.util.Collections;
 import java.util.List;
@@ -67,9 +67,12 @@ public class Repository implements IRepository {
 
     @Override
     public Observable<UserRes> register(RegisterReq data, Uri avatarUri) {
-        return restService.registerUser(
-                RestCallTransformer.objectToPartMap(data, "user"),
-                getPartFromUri(avatarUri, "user[avatar]"))
+
+        return getPart(avatarUri, "user[avatar]")
+                .flatMap(part ->
+                        restService.registerUser(
+                                RestCallTransformer.objectToPartMap(data, "good_deal"),
+                                part.getPart()))
                 .doOnNext(preferencesManager::saveUser)
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -131,36 +134,44 @@ public class Repository implements IRepository {
 
     @Override
     public Observable<ResponseBody> createPost(NewPostReq body, Uri uri) {
-        return restService.uploadDeal(preferencesManager.getUserToken(),
-                RestCallTransformer.objectToPartMap(body, "good_deal"),
-                getPartFromUri(uri, "upload"))
+        return getPart(uri, "upload")
+                .flatMap(part ->
+                        restService.uploadDeal(preferencesManager.getUserToken(),
+                                RestCallTransformer.objectToPartMap(body, "good_deal"),
+                                part.getPart()))
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<ResponseBody> editPost(Long id, NewPostReq body, Uri imageUri) {
-        return restService.updateDeal(preferencesManager.getUserToken(),
-                id,
-                RestCallTransformer.objectToPartMap(body, "good_deal"),
-                getPartFromUri(imageUri, "upload"))
+        return getPart(imageUri, "upload")
+                .flatMap(part ->
+                        restService.updateDeal(preferencesManager.getUserToken(),
+                                id,
+                                RestCallTransformer.objectToPartMap(body, "good_deal"),
+                                part.getPart()))
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
 
     @Override
     public Observable<ResponseBody> createEvent(NewEventReq body, Uri imageUri) {
-        return restService.uploadDeal(preferencesManager.getUserToken(),
-                RestCallTransformer.objectToPartMap(body, "good_deal"),
-                getPartFromUri(imageUri, "upload"))
+        return getPart(imageUri, "upload")
+                .flatMap(part ->
+                        restService.uploadDeal(preferencesManager.getUserToken(),
+                                RestCallTransformer.objectToPartMap(body, "good_deal"),
+                                part.getPart()))
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<ResponseBody> editEvent(Long id, NewEventReq body, Uri imageUri) {
-        return restService.updateDeal(preferencesManager.getUserToken(),
-                id,
-                RestCallTransformer.objectToPartMap(body, "good_deal"),
-                getPartFromUri(imageUri, "upload"))
+        return getPart(imageUri, "upload")
+                .flatMap(part ->
+                        restService.updateDeal(preferencesManager.getUserToken(),
+                                id,
+                                RestCallTransformer.objectToPartMap(body, "good_deal"),
+                                part.getPart()))
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -256,7 +267,7 @@ public class Repository implements IRepository {
             file.createNewFile();
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+        bmp.compress(Bitmap.CompressFormat.JPEG, 30, bos);
         byte[] bitmapData = bos.toByteArray();
 
         //write the bytes in file
@@ -282,26 +293,39 @@ public class Repository implements IRepository {
         }
     }
 
+    private Observable<PartContainer> getPart(Uri uri, String partName) {
+        return Observable.just(partName)
+                .subscribeOn(Schedulers.io())
+                .map(partName1 -> getPartFromUri(uri, partName1));
+    }
 
-    private MultipartBody.Part getPartFromUri(Uri uri, String partName) {
-        if (uri == null) return null;
 
-        String path;
-        Cursor cursor = App.getAppContext().
-                getContentResolver().query(uri, null, null, null, null);
-        if (cursor == null) {
-            path = uri.getPath();
-        } else {
-            cursor.moveToFirst();
-            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            path = cursor.getString(idx);
-            cursor.close();
-        }
+    private PartContainer getPartFromUri(Uri uri, String partName) throws IOException {
+        if (uri == null) return new PartContainer(null);
 
-        File file = new File(path);
+
+        InputStream input = App.getAppContext().getContentResolver().openInputStream(uri);
+        Bitmap bm = BitmapFactory.decodeStream(input);
+
+        File file = cacheBitmap(bm);
 
         RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
 
-        return MultipartBody.Part.createFormData(partName, file.getName(), reqFile);
+        MultipartBody.Part part = MultipartBody.Part.createFormData(partName,
+               System.currentTimeMillis() + file.getName(),  reqFile);
+
+        return new PartContainer(part);
+    }
+
+    private class PartContainer {
+        private final MultipartBody.Part part;
+
+        private PartContainer(MultipartBody.Part part) {
+            this.part = part;
+        }
+
+        private MultipartBody.Part getPart() {
+            return part;
+        }
     }
 }

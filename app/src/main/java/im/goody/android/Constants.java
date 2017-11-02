@@ -29,5 +29,5 @@ public class Constants {
 
     public static final long ID_NONE = -1;
 
-    public static final String CACHE_FILE_NAME = "goddy_temp.jpg";
+    public static final String CACHE_FILE_NAME = "goddy_temp.jpeg";
 }

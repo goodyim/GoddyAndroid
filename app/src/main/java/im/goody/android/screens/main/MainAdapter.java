@@ -90,14 +90,13 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
         void bind(MainItemViewModel model) {
             binding.setVariable(BR.viewModel, model);
+            binding.executePendingBindings();
 
             if (getItemViewType() == TYPE_POST) {
                 bindPost(model);
             } else {
                 bindEvent(model);
             }
-
-            binding.executePendingBindings();
         }
 
         private void bindEvent(MainItemViewModel viewModel) {
