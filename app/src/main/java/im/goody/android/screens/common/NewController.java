@@ -20,6 +20,7 @@ import im.goody.android.core.BaseView;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.ui.dialogs.ChooseImageOptionsDialog;
 import im.goody.android.ui.dialogs.OptionsDialog;
+import im.goody.android.utils.FileUtils;
 import im.goody.android.utils.NetUtils;
 
 import static android.app.Activity.RESULT_OK;
@@ -147,9 +148,16 @@ public abstract class NewController<V extends BaseView> extends BaseController<V
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         File photo = new File(Environment.getExternalStorageDirectory(),
                 "photo_" + System.currentTimeMillis() + ".jpg");
+
+        Uri uri = FileUtils.uriFromFile(photo);
+
         intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                Uri.fromFile(photo));
-        imageUriChanged(Uri.fromFile(photo));
+                uri);
+
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+        imageUriChanged(uri);
+
         startActivityForResult(intent, CAMERA_REQUEST);
     }
 

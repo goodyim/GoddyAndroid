@@ -96,18 +96,19 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/size_small"
             android:layout_marginLeft="@dimen/size_normal"
-            android:layout_marginRight="@dimen/size_small"
+            android:layout_marginRight="16dp"
             android:layout_marginStart="@dimen/size_normal"
             android:layout_marginTop="@dimen/size_normal"
             android:drawableLeft="@drawable/ic_info_outline"
             android:drawablePadding="@dimen/size_little"
             android:drawableStart="@drawable/ic_info_outline"
             android:gravity="center_vertical"
-            android:text="@{data.deal.event.resources}"
+            app:event_resources="@{data.deal.event.resources}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_event_image"
-            tools:text="Resourses name + count" />
+            tools:text="Resourses name + count"
+            app:layout_constraintHorizontal_bias="0.0" />
 
         <TextView
             android:id="@+id/detail_event_location"
@@ -115,7 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/size_small"
             android:layout_marginLeft="@dimen/size_normal"
-            android:layout_marginRight="@dimen/size_small"
+            android:layout_marginRight="16dp"
             android:layout_marginStart="@dimen/size_normal"
             android:layout_marginTop="@dimen/size_small"
             android:background="?android:attr/selectableItemBackground"
@@ -128,7 +129,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_event_resources"
-            tools:text="Location" />
+            tools:text="Location"
+            app:layout_constraintHorizontal_bias="0.0" />
 
         <TextView
             android:id="@+id/detail_event_date"
@@ -136,7 +138,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/size_small"
             android:layout_marginLeft="@dimen/size_normal"
-            android:layout_marginRight="@dimen/size_small"
+            android:layout_marginRight="16dp"
             android:layout_marginStart="@dimen/size_normal"
             android:layout_marginTop="@dimen/size_small"
             android:drawableLeft="@drawable/ic_time"
@@ -147,7 +149,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_event_location"
-            tools:text="DD MM YYY HH:mm" />
+            tools:text="DD MM YYY HH:mm"
+            app:layout_constraintHorizontal_bias="0.0" />
 
         <TextView
             android:id="@+id/detail_event_participates"

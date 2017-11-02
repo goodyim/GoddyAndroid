@@ -103,7 +103,7 @@
                 android:drawablePadding="@dimen/size_little"
                 android:drawableStart="@drawable/ic_info_outline"
                 android:gravity="center_vertical"
-                android:text="@{viewModel.deal.event.resources}"
+                app:event_resources="@{viewModel.deal.event.resources}"
                 tools:text="Resourses name + count" />
 
             <TextView

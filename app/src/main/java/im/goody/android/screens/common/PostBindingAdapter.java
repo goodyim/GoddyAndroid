@@ -58,6 +58,16 @@ public class PostBindingAdapter {
         }
     }
 
+    @BindingAdapter("event_resources")
+    public static void bindResources(TextView view, String resources) {
+        if (resources != null) {
+            view.setText(resources);
+            view.setVisibility(View.VISIBLE);
+        } else {
+            view.setVisibility(View.GONE);
+        }
+    }
+
     @BindingAdapter("address")
     public static void bindLocation(TextView view, Location location) {
         if (location != null && !TextUtils.isEmpty(location.getAddress())) {

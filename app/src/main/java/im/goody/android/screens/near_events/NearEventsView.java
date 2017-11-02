@@ -25,6 +25,7 @@ public class NearEventsView extends BaseView<NearEventsController, ScreenNearEve
     @Override
     protected void onAttached() {
         behavior = BottomSheetBehavior.from(binding.markerPanel.getRoot());
+        behavior.setSkipCollapsed(true);
 
         binding.markerPanel.mapBottomDetail.setOnClickListener(v -> {
             Deal event = binding.markerPanel.getEvent();
@@ -45,6 +46,7 @@ public class NearEventsView extends BaseView<NearEventsController, ScreenNearEve
 
     public void showInfoPanel(Deal deal) {
         binding.markerPanel.setEvent(deal);
+
         behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 }

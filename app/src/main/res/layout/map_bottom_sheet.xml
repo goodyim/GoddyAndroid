@@ -12,62 +12,70 @@
         <import type="im.goody.android.utils.TextUtils" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:background="@color/white"
         app:behavior_hideable="true"
+        android:orientation="vertical"
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
         tools:showIn="@layout/screen_near_events">
 
         <View
             android:id="@+id/divider"
-            style="@style/FullWidthFromParent"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/divider"
-            app:layout_constraintTop_toTopOf="parent" />
+            />
 
-        <TextView
-            android:id="@+id/map_event_title"
-            android:layout_width="0dp"
-            android:maxLines="1"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/size_small"
-            android:layout_marginEnd="@dimen/size_normal"
-            android:layout_marginLeft="@dimen/size_normal"
-            android:layout_marginRight="@dimen/size_small"
-            android:layout_marginStart="@dimen/size_normal"
-            android:layout_marginTop="@dimen/size_small"
-            android:text="@{TextUtils.getMarkerTitle(event)}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            app:layout_constraintBottom_toBottomOf="@+id/map_bottom_detail"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/map_bottom_detail"
-            app:layout_constraintTop_toTopOf="@+id/map_bottom_detail"
-            tools:text="Title" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/map_event_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/size_normal"
+                android:text="@{TextUtils.getMarkerTitle(event)}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                tools:text="Title" />
+
+            <Button
+                android:id="@+id/map_bottom_detail"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/size_normal"
+                android:layout_marginRight="@dimen/size_normal"
+                android:text="@string/detail" />
+
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/map_event_date"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_time"
             android:drawablePadding="@dimen/size_little"
             android:drawableStart="@drawable/ic_time"
             android:gravity="center_vertical"
+            android:visibility="visible"
             app:event_date="@{event.event.date}"
-            app:layout_constraintLeft_toLeftOf="@+id/map_event_title"
-            app:layout_constraintRight_toRightOf="@+id/map_bottom_detail"
             tools:text="DD MM YYY HH:mm"
-            app:layout_constraintHorizontal_bias="0.0"
-            android:layout_marginTop="@dimen/size_small"
-            app:layout_constraintTop_toBottomOf="@+id/map_bottom_detail" />
+            android:layout_marginLeft="@dimen/size_normal"
+            android:layout_marginRight="@dimen/size_normal"
+            />
 
         <TextView
             android:id="@+id/map_event_resources"
-            style="@style/FullWidthFromParent"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="5"
             android:layout_marginBottom="@dimen/size_normal"
             android:layout_marginTop="@dimen/size_small"
             android:drawableLeft="@drawable/ic_info_outline"
@@ -75,25 +83,10 @@
             android:drawableStart="@drawable/ic_info_outline"
             android:gravity="center_vertical"
             android:text="@{event.event.resources}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="@+id/map_event_date"
-            app:layout_constraintRight_toRightOf="@+id/map_event_date"
-            app:layout_constraintTop_toBottomOf="@+id/map_event_date"
-            app:layout_constraintVertical_bias="0.48000002"
-            tools:text="Resourses name + count" />
-
-        <Button
-            android:id="@+id/map_bottom_detail"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/size_normal"
+            tools:text="Resourses name + count"
+            android:layout_marginLeft="@dimen/size_normal"
             android:layout_marginRight="@dimen/size_normal"
-            android:layout_marginTop="@dimen/size_small"
-            android:text="@string/detail"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            />
 
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 </layout>

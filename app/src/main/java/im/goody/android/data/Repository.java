@@ -36,6 +36,7 @@ import im.goody.android.data.network.res.FollowRes;
 import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.data.network.res.UserRes;
 import im.goody.android.di.components.DataComponent;
+import im.goody.android.utils.FileUtils;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -215,7 +216,7 @@ public class Repository implements IRepository {
                             .get();
                     File file = cacheBitmap(bmp);
 
-                    return Uri.fromFile(file);
+                    return FileUtils.uriFromFile(file);
                 })
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -234,7 +235,7 @@ public class Repository implements IRepository {
 
 
     private File cacheBitmap(Bitmap bmp) throws IOException {
-        File file = new File(Environment.getExternalStorageDirectory(), Constants.CACSE_FILE_NAME);
+        File file = new File(Environment.getExternalStorageDirectory(), Constants.CACHE_FILE_NAME);
         if (!file.exists())
             file.createNewFile();
 

@@ -19,6 +19,7 @@ import im.goody.android.di.components.RootComponent;
 import im.goody.android.ui.dialogs.ChooseImageOptionsDialog;
 import im.goody.android.ui.dialogs.OptionsDialog;
 import im.goody.android.ui.helpers.BarBuilder;
+import im.goody.android.utils.FileUtils;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -149,9 +150,14 @@ public class RegisterController extends BaseController<RegisterView> {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         File photo = new File(Environment.getExternalStorageDirectory(),
                 "photo_" + System.currentTimeMillis() + ".jpg");
+
+        Uri uri = FileUtils.uriFromFile(photo);
+
         intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                Uri.fromFile(photo));
-        viewModel.setAvatarUri(Uri.fromFile(photo));
+                uri);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+        viewModel.setAvatarUri(uri);
         startActivityForResult(intent, CAMERA_REQUEST);
     }
 

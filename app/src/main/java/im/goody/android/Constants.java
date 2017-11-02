@@ -7,7 +7,7 @@ public class Constants {
     public static final int DEFAULT_ANIMATION_DURATION = 200;
     public static final int COLLAPSED_CHARACTERS_COUNT = 200;
 
-    public static final int TITLE_CHARACTERS_COUNT = 27;
+    public static final int TITLE_CHARACTERS_COUNT = 37;
 
     public static final String DATE_FORMAT = "%02d.%02d.%d %02d:%02d";
 
@@ -29,5 +29,5 @@ public class Constants {
 
     public static final long ID_NONE = -1;
 
-    public static final String CACSE_FILE_NAME = "goddy_temp.jpg";
+    public static final String CACHE_FILE_NAME = "goddy_temp.jpg";
 }

@@ -9,6 +9,9 @@ public class TextUtils {
     private static final String THOUSAND_FORMAT = "%.2fK";
     private static final String MILLION_FORMAT = "%.2fM";
 
+    private static final String TITLE_FORMAT = "%s...";
+    private static final int DOTS_LENGTH = 3;
+
     public static String buildShareText(Deal deal) {
         String url = AppConfig.SHARE_DEALS_URL + deal.getId();
         String tags = "#goody #гуди";
@@ -54,6 +57,12 @@ public class TextUtils {
             title = deal.getDescription();
         else
             title = deal.getTitle();
+
+        if (title.length() > Constants.TITLE_CHARACTERS_COUNT + DOTS_LENGTH) {
+            title = title.substring(0, Constants.TITLE_CHARACTERS_COUNT).trim();
+
+            title = String.format(Locale.getDefault(), TITLE_FORMAT, title);
+        }
 
         return title;
     }
