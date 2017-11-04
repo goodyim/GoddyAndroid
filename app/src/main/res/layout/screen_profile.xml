@@ -14,284 +14,317 @@
 
     <im.goody.android.screens.profile.ProfileView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
-        <android.support.v4.widget.SwipeRefreshLayout style="@style/FullExpandFromParent"
-            android:id="@+id/profile_refresh">
+        <android.support.design.widget.CoordinatorLayout style="@style/FullExpandFromParent">
 
-            <ScrollView
-                android:id="@+id/profile_container"
-                style="@style/FullExpandLayout"
-                android:visibility="visible">
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/app_bar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-                <LinearLayout
+                <android.support.design.widget.CollapsingToolbarLayout
+                    android:id="@+id/collapsing_toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    app:contentScrim="?attr/colorPrimary"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                    <android.support.v7.widget.CardView
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/profile_main"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="0dp">
-
-                        <android.support.constraint.ConstraintLayout
-                            android:id="@+id/profile_main"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                        android:fitsSystemWindows="true"
+                        app:layout_collapseMode="parallax">
 
 
-                            <im.goody.android.ui.views.CircleImageView
-                                android:id="@+id/profile_avatar"
-                                android:layout_width="@dimen/register_avatar_size"
-                                android:layout_height="@dimen/register_avatar_size"
-                                android:layout_marginTop="@dimen/size_big"
-                                android:src="@drawable/round_drawable"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:profile_avatar="@{user.avatarUrl}" />
+                        <im.goody.android.ui.views.CircleImageView
+                            android:id="@+id/profile_avatar"
+                            android:layout_width="@dimen/register_avatar_size"
+                            android:layout_height="@dimen/register_avatar_size"
+                            android:layout_marginTop="64dp"
+                            android:src="@drawable/round_drawable"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:profile_avatar="@{user.avatarUrl}"
+                            tools:layout_editor_absoluteX="166dp" />
 
-                            <TextView
-                                android:id="@+id/profile_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/size_small"
-                                android:layout_marginStart="@dimen/size_small"
-                                android:layout_marginTop="@dimen/size_normal"
-                                android:text="@{user.name}"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
-                                app:layout_constraintEnd_toEndOf="@+id/profile_avatar"
-                                app:layout_constraintStart_toStartOf="@+id/profile_avatar"
-                                app:layout_constraintTop_toBottomOf="@+id/profile_avatar"
-                                tools:text="User name" />
+                        <TextView
+                            android:id="@+id/profile_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/size_small"
+                            android:layout_marginStart="@dimen/size_small"
+                            android:layout_marginTop="@dimen/size_normal"
+                            android:text="@{user.name}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                            app:layout_constraintEnd_toEndOf="@+id/profile_avatar"
+                            app:layout_constraintStart_toStartOf="@+id/profile_avatar"
+                            app:layout_constraintTop_toBottomOf="@+id/profile_avatar"
+                            tools:text="User name" />
 
-                            <TextView
-                                android:id="@+id/profile_registration_date"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/size_small"
-                                android:paddingBottom="@dimen/size_normal"
-                                android:text="@{@string/registration_date_format(DateUtils.getAbsoluteDate(user.registrationDate))}"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
-                                app:layout_constraintLeft_toLeftOf="@+id/profile_name"
-                                app:layout_constraintRight_toRightOf="@+id/profile_name"
-                                app:layout_constraintTop_toBottomOf="@+id/profile_name"
-                                tools:text="With us since June 2, 2000" />
+                        <TextView
+                            android:id="@+id/profile_registration_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/size_small"
+                            android:paddingBottom="@dimen/size_normal"
+                            android:text="@{@string/registration_date_format(DateUtils.getAbsoluteDate(user.registrationDate))}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            app:layout_constraintLeft_toLeftOf="@+id/profile_name"
+                            app:layout_constraintRight_toRightOf="@+id/profile_name"
+                            app:layout_constraintTop_toBottomOf="@+id/profile_name"
+                            tools:text="With us since June 2, 2000" />
 
-                            <android.support.v7.widget.AppCompatButton
-                                android:id="@+id/profile_follow"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/size_small"
-                                android:text="@{user.isFollowing ? @string/unfollow : @string/follow}"
-                                android:textColor="@color/white"
-                                app:backgroundTint="@color/accent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintDimensionRatio="w,4:1"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/profile_registration_date"
-                                tools:layout_editor_absoluteX="110dp" />
+                        <android.support.v7.widget.AppCompatButton
+                            android:id="@+id/profile_follow"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/size_small"
+                            android:text="@{user.isFollowing ? @string/unfollow : @string/follow}"
+                            android:textColor="@color/white"
+                            app:backgroundTint="@color/accent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintDimensionRatio="w,4:1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/profile_registration_date"
+                            tools:layout_editor_absoluteX="110dp" />
 
-                        </android.support.constraint.ConstraintLayout>
+                    </android.support.constraint.ConstraintLayout>
 
-                    </android.support.v7.widget.CardView>
-
-                    <android.support.v7.widget.CardView
+                    <android.support.v7.widget.Toolbar
+                        android:id="@+id/toolbar"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:cardElevation="0dp"
-                        android:layout_marginTop="@dimen/size_small"
-                        android:id="@+id/profile_show_posts"
-                        android:clickable="true"
-                        android:foreground="?android:attr/selectableItemBackground">
+                        android:layout_height="?attr/actionBarSize"
+                        app:layout_collapseMode="pin"
+                        app:navigationIcon="?homeAsUpIndicator"
+                        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-                        <android.support.constraint.ConstraintLayout
+                </android.support.design.widget.CollapsingToolbarLayout>
+
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/profile_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <android.support.v4.widget.NestedScrollView
+                    android:id="@+id/scroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/profile_show_posts"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/profile_card">
+                            android:layout_marginTop="@dimen/size_small"
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            app:cardElevation="0dp">
 
-                            <ImageView
-                                android:id="@+id/profile_posts_icon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/size_normal"
-                                android:layout_marginLeft="@dimen/size_normal"
-                                android:layout_marginStart="@dimen/size_normal"
-                                android:layout_marginTop="@dimen/size_normal"
-                                android:tint="@color/accent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                android:src="@drawable/ic_comment" />
+                            <android.support.constraint.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/profile_card">
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/size_small"
-                                android:layout_marginStart="@dimen/size_small"
-                                android:text="@string/user_posts"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
-                                android:textColor="@color/accent"
-                                app:layout_constraintBottom_toBottomOf="@id/profile_posts_icon"
-                                app:layout_constraintStart_toEndOf="@id/profile_posts_icon"
-                                app:layout_constraintTop_toTopOf="@id/profile_posts_icon" />
+                                <ImageView
+                                    android:id="@+id/profile_posts_icon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/size_normal"
+                                    android:layout_marginLeft="@dimen/size_normal"
+                                    android:layout_marginStart="@dimen/size_normal"
+                                    android:layout_marginTop="@dimen/size_normal"
+                                    android:src="@drawable/ic_comment"
+                                    android:tint="@color/accent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
-                        </android.support.constraint.ConstraintLayout>
-                    </android.support.v7.widget.CardView>
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/size_small"
+                                    android:layout_marginStart="@dimen/size_small"
+                                    android:text="@string/user_posts"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
+                                    android:textColor="@color/accent"
+                                    app:layout_constraintBottom_toBottomOf="@id/profile_posts_icon"
+                                    app:layout_constraintStart_toEndOf="@id/profile_posts_icon"
+                                    app:layout_constraintTop_toTopOf="@id/profile_posts_icon" />
 
-                    <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/size_small"
-                        android:background="?android:attr/selectableItemBackground">
+                            </android.support.constraint.ConstraintLayout>
+                        </android.support.v7.widget.CardView>
 
-                        <android.support.constraint.ConstraintLayout
+                        <android.support.v7.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/profile_card">
+                            android:layout_marginTop="@dimen/size_small"
+                            android:background="?android:attr/selectableItemBackground">
 
-
-                            <ImageView
-                                android:id="@+id/profile_followers_icon"
-                                android:layout_width="wrap_content"
+                            <android.support.constraint.ConstraintLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/size_normal"
-                                android:layout_marginStart="@dimen/size_normal"
-                                android:layout_marginTop="@dimen/size_normal"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                android:src="@drawable/ic_person" />
-
-                            <TextView
-                                android:id="@+id/followers_label"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/size_normal"
-                                android:layout_marginStart="@dimen/size_normal"
-                                android:text="@string/profile_followers"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                                app:layout_constraintBottom_toBottomOf="@+id/profile_followers_icon"
-                                app:layout_constraintStart_toEndOf="@+id/profile_followers_icon"
-                                app:layout_constraintTop_toTopOf="@+id/profile_followers_icon" />
-
-                            <TextView
-                                android:id="@+id/followers"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/size_normal"
-                                android:layout_marginRight="@dimen/size_normal"
-                                android:text="@{String.valueOf(user.followers)}"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                                app:layout_constraintBottom_toBottomOf="@+id/profile_followers_icon"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@+id/profile_followers_icon"
-                                tools:text="123" />
-
-                            <View
-                                android:id="@+id/view3"
-                                android:layout_width="0dp"
-                                android:layout_height="@dimen/size_divider"
-                                android:layout_marginTop="@dimen/size_normal"
-                                android:background="@color/divider"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintLeft_toLeftOf="@id/followers_label"
-                                app:layout_constraintTop_toBottomOf="@id/profile_followers_icon" />
-
-                            <!-- ======= element ======= -->
-
-                            <ImageView
-                                android:id="@+id/profile_post_count_icon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/size_normal"
-                                android:layout_marginStart="@dimen/size_normal"
-                                android:layout_marginTop="16dp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/view3"
-                                android:src="@drawable/ic_comment" />
-
-                            <TextView
-                                android:id="@+id/posts_count_label"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/size_normal"
-                                android:layout_marginStart="@dimen/size_normal"
-                                android:text="@string/profile_posts_count"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                                app:layout_constraintBottom_toBottomOf="@+id/profile_post_count_icon"
-                                app:layout_constraintStart_toEndOf="@+id/profile_post_count_icon"
-                                app:layout_constraintTop_toTopOf="@+id/profile_post_count_icon" />
+                                android:background="@drawable/profile_card">
 
 
-                            <TextView
-                                android:id="@+id/posts_count"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/size_normal"
-                                android:layout_marginRight="@dimen/size_normal"
-                                android:text="@{String.valueOf(user.deals)}"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                                app:layout_constraintBottom_toBottomOf="@+id/profile_post_count_icon"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@+id/profile_post_count_icon"
-                                tools:text="123" />
+                                <ImageView
+                                    android:id="@+id/profile_followers_icon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/size_normal"
+                                    android:layout_marginStart="@dimen/size_normal"
+                                    android:layout_marginTop="@dimen/size_normal"
+                                    android:src="@drawable/ic_person"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
-                            <View
-                                android:id="@+id/view2"
-                                android:layout_width="0dp"
-                                android:layout_height="@dimen/size_divider"
-                                android:layout_marginTop="@dimen/size_normal"
-                                android:background="@color/divider"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintLeft_toLeftOf="@id/posts_count_label"
-                                app:layout_constraintTop_toBottomOf="@id/profile_post_count_icon" />
+                                <TextView
+                                    android:id="@+id/followers_label"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/size_normal"
+                                    android:layout_marginStart="@dimen/size_normal"
+                                    android:text="@string/profile_followers"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                    app:layout_constraintBottom_toBottomOf="@+id/profile_followers_icon"
+                                    app:layout_constraintStart_toEndOf="@+id/profile_followers_icon"
+                                    app:layout_constraintTop_toTopOf="@+id/profile_followers_icon" />
 
-                            <!-- ======= element ======= -->
+                                <TextView
+                                    android:id="@+id/followers"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="@dimen/size_normal"
+                                    android:layout_marginRight="@dimen/size_normal"
+                                    android:text="@{String.valueOf(user.followers)}"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                    app:layout_constraintBottom_toBottomOf="@+id/profile_followers_icon"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="@+id/profile_followers_icon"
+                                    tools:text="123" />
 
-                            <ImageView
-                                android:id="@+id/profile_event_count_icon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="16dp"
-                                android:layout_marginLeft="@dimen/size_normal"
-                                android:layout_marginStart="@dimen/size_normal"
-                                android:layout_marginTop="@dimen/size_normal"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/view2"
-                                android:src="@drawable/ic_event" />
+                                <View
+                                    android:id="@+id/view3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="@dimen/size_divider"
+                                    android:layout_marginTop="@dimen/size_normal"
+                                    android:background="@color/divider"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintLeft_toLeftOf="@id/followers_label"
+                                    app:layout_constraintTop_toBottomOf="@id/profile_followers_icon" />
 
-                            <TextView
-                                android:id="@+id/profile_event_count_label"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/size_normal"
-                                android:layout_marginStart="@dimen/size_normal"
-                                android:text="@string/profile_event_count"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                                app:layout_constraintBottom_toBottomOf="@+id/profile_event_count_icon"
-                                app:layout_constraintStart_toEndOf="@+id/profile_event_count_icon"
-                                app:layout_constraintTop_toTopOf="@+id/profile_event_count_icon" />
+                                <!-- ======= element ======= -->
 
-                            <TextView
-                                android:id="@+id/events_count"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/size_normal"
-                                android:layout_marginRight="@dimen/size_normal"
-                                android:text="@{String.valueOf(user.events)}"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                                app:layout_constraintBottom_toBottomOf="@+id/profile_event_count_icon"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@+id/profile_event_count_icon"
-                                tools:text="123" />
+                                <ImageView
+                                    android:id="@+id/profile_post_count_icon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/size_normal"
+                                    android:layout_marginStart="@dimen/size_normal"
+                                    android:layout_marginTop="16dp"
+                                    android:src="@drawable/ic_comment"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/view3" />
 
-                        </android.support.constraint.ConstraintLayout>
-                    </android.support.v7.widget.CardView>
-                </LinearLayout>
-            </ScrollView>
+                                <TextView
+                                    android:id="@+id/posts_count_label"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/size_normal"
+                                    android:layout_marginStart="@dimen/size_normal"
+                                    android:text="@string/profile_posts_count"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                    app:layout_constraintBottom_toBottomOf="@+id/profile_post_count_icon"
+                                    app:layout_constraintStart_toEndOf="@+id/profile_post_count_icon"
+                                    app:layout_constraintTop_toTopOf="@+id/profile_post_count_icon" />
 
-        </android.support.v4.widget.SwipeRefreshLayout>
+
+                                <TextView
+                                    android:id="@+id/posts_count"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="@dimen/size_normal"
+                                    android:layout_marginRight="@dimen/size_normal"
+                                    android:text="@{String.valueOf(user.deals)}"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                    app:layout_constraintBottom_toBottomOf="@+id/profile_post_count_icon"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="@+id/profile_post_count_icon"
+                                    tools:text="123" />
+
+                                <View
+                                    android:id="@+id/view2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="@dimen/size_divider"
+                                    android:layout_marginTop="@dimen/size_normal"
+                                    android:background="@color/divider"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintLeft_toLeftOf="@id/posts_count_label"
+                                    app:layout_constraintTop_toBottomOf="@id/profile_post_count_icon" />
+
+                                <!-- ======= element ======= -->
+
+                                <ImageView
+                                    android:id="@+id/profile_event_count_icon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="16dp"
+                                    android:layout_marginLeft="@dimen/size_normal"
+                                    android:layout_marginStart="@dimen/size_normal"
+                                    android:layout_marginTop="@dimen/size_normal"
+                                    android:src="@drawable/ic_event"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+                                <TextView
+                                    android:id="@+id/profile_event_count_label"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/size_normal"
+                                    android:layout_marginStart="@dimen/size_normal"
+                                    android:text="@string/profile_event_count"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                    app:layout_constraintBottom_toBottomOf="@+id/profile_event_count_icon"
+                                    app:layout_constraintStart_toEndOf="@+id/profile_event_count_icon"
+                                    app:layout_constraintTop_toTopOf="@+id/profile_event_count_icon" />
+
+                                <TextView
+                                    android:id="@+id/events_count"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="@dimen/size_normal"
+                                    android:layout_marginRight="@dimen/size_normal"
+                                    android:text="@{String.valueOf(user.events)}"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                    app:layout_constraintBottom_toBottomOf="@+id/profile_event_count_icon"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="@+id/profile_event_count_icon"
+                                    tools:text="123" />
+
+                            </android.support.constraint.ConstraintLayout>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+
+                </android.support.v4.widget.NestedScrollView>
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+        </android.support.design.widget.CoordinatorLayout>
     </im.goody.android.screens.profile.ProfileView>
 </layout>

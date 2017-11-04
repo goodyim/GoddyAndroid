@@ -24,6 +24,7 @@ public class BitmapUtils {
         return ThumbnailUtils.extractThumbnail(original, size, size);
     }
 
+    @SuppressWarnings("unused")
     public static Bitmap blur(Context context, Bitmap image) {
         int width = Math.round(image.getWidth() * BITMAP_SCALE);
         int height = Math.round(image.getHeight() * BITMAP_SCALE);

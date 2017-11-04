@@ -46,9 +46,8 @@ public class ProfileController extends BaseController<ProfileView> {
     @Override
     protected void initActionBar() {
         rootPresenter.newBarBuilder()
-                .setToolbarVisible(true)
-                .setHomeState(BarBuilder.HOME_ARROW)
-                .setTitleRes(R.string.profile)
+                .setToolbarVisible(false)
+                .setHomeState(BarBuilder.HOME_GONE)
                 .build();
     }
 
@@ -65,11 +64,20 @@ public class ProfileController extends BaseController<ProfileView> {
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
 
+        view().takeActivity(getActivity());
+
         if (manager.getUserId() == getId())
             view().hideFollowButton();
 
         if (viewModel == null) loadData();
         else view().setData(viewModel);
+    }
+
+    @Override
+    protected void onDetach(@NonNull View view) {
+        view().takeActivity(null);
+
+        super.onDetach(view);
     }
 
     void loadData() {
@@ -112,6 +120,11 @@ public class ProfileController extends BaseController<ProfileView> {
 
     void showAvatar() {
         rootPresenter.showPhotoScreen(viewModel.getAvatarUrl());
+    }
+
+    void backClicked() {
+        if (getActivity() != null)
+            getActivity().onBackPressed();
     }
 
     // end
