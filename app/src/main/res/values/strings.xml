@@ -111,9 +111,6 @@
     <string name="photo">Photo</string>
     <string name="near_events">Near events</string>
 
-    <string name="near_confirm">Go to post?</string>
-    <string name="near_confirm_yes">Yes</string>
-    <string name="near_confirm_no">No</string>
     <string name="detail">Detail</string>
     <string name="refresh">Refresh</string>
     <string name="edit">Edit</string>
@@ -124,5 +121,5 @@
     <string name="quick_word_0">Ready to help</string>
     <string name="quick_word_1">What should I bring with me?</string>
     <string name="quick_word_2">I\'ll be there soon</string>
-    <string name="participating_events">Participating events</string>
+    <string name="participating_events">Active events</string>
 </resources>

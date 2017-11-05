@@ -98,4 +98,26 @@
     <string name="setting_title">Настройки</string>
     <string name="title_hint">Заголовок</string>
     <string name="unknown_error">Неизвестная ошибка</string>
+    <string name="detail">Подробно</string>
+    <string name="edit">Редактировать</string>
+    <string name="edit_event_title">Редактировать событие</string>
+    <string name="edit_post_progress">Редактируем</string>
+    <string name="edit_post_title">Редактировать пост</string>
+    <string name="follow">Подписаться</string>
+    <string name="my_posts">Мои посты</string>
+    <string name="near_events">Ближайшие события</string>
+    <string name="participating_events">Активные события</string>
+    <string name="photo">Фото</string>
+    <string name="photo_title">Фото</string>
+    <string name="profile">Профиль</string>
+    <string name="profile_event_count">События</string>
+    <string name="profile_followers">Подписчики</string>
+    <string name="profile_posts_count">Посты</string>
+    <string name="quick_word_0">Готов помочь</string>
+    <string name="quick_word_1">Что нужно взять с собой?</string>
+    <string name="quick_word_2">Скоро буду</string>
+    <string name="refresh">Обновить</string>
+    <string name="registration_date_format">С нами с %s</string>
+    <string name="unfollow">Отписаться</string>
+    <string name="user_posts">Посты пользователя</string>
 </resources>
