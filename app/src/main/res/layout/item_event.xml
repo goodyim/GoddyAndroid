@@ -24,19 +24,36 @@
             android:orientation="vertical"
             android:background="?android:attr/selectableItemBackground">
 
-            <CheckedTextView
-                android:id="@+id/item_event_title"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/event_header_selector"
-                android:padding="@dimen/size_normal"
-                android:drawableRight="@drawable/ic_more_white"
-                android:drawableEnd="@drawable/ic_more_white"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="@color/white"
-                android:checked="@{viewModel.deal.event.active}"
-                app:title="@{viewModel.deal.title}"
-                tools:text="Title goes here"/>
+                android:orientation="horizontal"
+                tools:background="@drawable/event_header_active"
+
+                android:background="@{viewModel.active ? @drawable/event_header_active : @drawable/event_header_closed}">
+
+                <TextView
+                    android:id="@+id/item_event_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:padding="@dimen/size_normal"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textColor="@color/white"
+                    app:title="@{viewModel.deal.title}"
+                    tools:text="Title goes here" />
+
+                <ImageView
+                    android:id="@+id/item_event_menu"
+                    android:layout_marginTop="@dimen/size_normal"
+                    android:layout_marginRight="@dimen/size_small"
+                    android:layout_marginEnd="@dimen/size_small"
+                    android:layout_width="wrap_content"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_more_white"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

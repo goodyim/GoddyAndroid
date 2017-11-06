@@ -71,7 +71,7 @@
             app:layout_constraintBottom_toTopOf="@+id/main_new_post"
             app:layout_constraintLeft_toLeftOf="@+id/main_new_post"
             app:layout_constraintRight_toRightOf="@+id/main_new_post"
-            android:src="@drawable/ic_event" />
+            android:src="@drawable/ic_event_white" />
     </im.goody.android.screens.main.MainView>
 
 </layout>

@@ -17,11 +17,9 @@ import java.io.File;
 import im.goody.android.R;
 import im.goody.android.core.BaseController;
 import im.goody.android.core.BaseView;
-import im.goody.android.data.dto.Deal;
 import im.goody.android.ui.dialogs.ChooseImageOptionsDialog;
 import im.goody.android.ui.dialogs.OptionsDialog;
 import im.goody.android.utils.FileUtils;
-import im.goody.android.utils.NetUtils;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -29,14 +27,17 @@ public abstract class NewController<V extends BaseView> extends BaseController<V
     private static final int IMAGE_PICK_REQUEST = 0;
     private static final int CAMERA_REQUEST = 1;
     private static final int PLACE_PICKER_REQUEST = 2;
+    protected static final int CACHE_IMAGE_REQUEST = 3;
 
     private static final int LOCATION_PERMISSION_REQUEST = 1;
     private static final int STORAGE_PERMISSION_REQUEST = 2;
 
     private static final String[] LOCATION_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
-    private static final String[] STORAGE_PERMISSIONS = {Manifest.permission.READ_EXTERNAL_STORAGE};
+    protected static final String[] STORAGE_PERMISSIONS = {Manifest.permission.READ_EXTERNAL_STORAGE};
 
     private OptionsDialog dialog = new ChooseImageOptionsDialog();
+
+    protected String tempImageUrl;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -53,6 +54,13 @@ public abstract class NewController<V extends BaseView> extends BaseController<V
                     makeGalleryRequest();
                 } else {
                     view().showMessage(R.string.read_permission_denied);
+                }
+                break;
+            case CACHE_IMAGE_REQUEST:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    loadImage(tempImageUrl);
+                } else {
+                    view().showMessage(R.string.cache_image_permission_denied);
                 }
         }
     }
@@ -105,9 +113,10 @@ public abstract class NewController<V extends BaseView> extends BaseController<V
         imageUriChanged(null);
     }
 
-    protected void loadImage(Deal deal) {
-        repository.cacheWebImage(NetUtils.buildDealImageUrl(deal))
+    protected void loadImage(String url) {
+        repository.cacheWebImage(url)
                 .subscribe(uri -> {
+                    tempImageUrl = null;
                     imageChanged(uri);
                     imageUriChanged(uri);
                 });

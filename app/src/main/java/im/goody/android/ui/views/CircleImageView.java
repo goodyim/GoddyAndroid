@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import im.goody.android.utils.BitmapUtils;
 
 public class CircleImageView extends AppCompatImageView {
+
     public CircleImageView(Context context) {
         super(context);
     }
@@ -25,23 +26,25 @@ public class CircleImageView extends AppCompatImageView {
 
     @Override
     public void setImageBitmap(Bitmap bm) {
-        Bitmap scaled = Bitmap.createScaledBitmap(bm, getWidth(), getHeight(), false);
-
-        Drawable drawable = BitmapUtils.prepareAvatar(scaled, getContext());
-        super.setImageDrawable(drawable);
+        post(()-> setBitmap(bm, getWidth(), getHeight()));
     }
 
     @Override
     public void setImageDrawable(@Nullable Drawable drawable) {
         if (drawable instanceof BitmapDrawable) {
+
             Bitmap bmp = ((BitmapDrawable) drawable).getBitmap();
 
-            Bitmap scaled = Bitmap.createScaledBitmap(bmp, getWidth(), getHeight(), false);
-
-            Drawable result = BitmapUtils.prepareAvatar(scaled, getContext());
-            super.setImageDrawable(result);
+            post(() -> setBitmap(bmp, getWidth(), getHeight()));
         } else {
             super.setImageDrawable(drawable);
         }
+    }
+
+    private void setBitmap(Bitmap bm, int width, int height) {
+        Bitmap scaled = Bitmap.createScaledBitmap(bm, width, height, false);
+
+        Drawable result = BitmapUtils.prepareAvatar(scaled, getContext());
+        super.setImageDrawable(result);
     }
 }

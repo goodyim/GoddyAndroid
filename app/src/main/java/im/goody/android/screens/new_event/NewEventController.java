@@ -1,5 +1,6 @@
 package im.goody.android.screens.new_event;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
@@ -20,6 +21,7 @@ import im.goody.android.screens.common.NewController;
 import im.goody.android.ui.dialogs.DatePickDialog;
 import im.goody.android.ui.dialogs.TimePickDialog;
 import im.goody.android.ui.helpers.BarBuilder;
+import im.goody.android.utils.NetUtils;
 import im.goody.android.utils.TextUtils;
 import im.goody.android.utils.UIUtils;
 
@@ -33,8 +35,15 @@ public class NewEventController extends NewController<NewEventView> {
         id = deal.getId();
         viewModel = new NewEventViewModel(deal);
 
-        if (!TextUtils.isEmpty(deal.getImageUrl()))
-            loadImage(deal);
+        if (!TextUtils.isEmpty(deal.getImageUrl())) {
+            tempImageUrl = NetUtils.buildDealImageUrl(deal);
+
+            if (isPermissionGranted(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                loadImage(tempImageUrl);
+            } else {
+                requestPermissions(STORAGE_PERMISSIONS, CACHE_IMAGE_REQUEST);
+            }
+        }
     }
 
     public NewEventController() {

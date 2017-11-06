@@ -10,6 +10,7 @@ import im.goody.android.R;
 import im.goody.android.core.BaseController;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Location;
+import im.goody.android.data.network.res.EventStateRes;
 import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
@@ -158,8 +159,7 @@ public class MainController extends BaseController<MainView> implements MainAdap
     @Override
     public Observable<Deal> like(long id) {
         return repository.likeDeal(id)
-                .doOnError(error ->
-                        view().showMessage(getErrorMessage(error)));
+                .doOnError(this::showError);
     }
 
     @Override
@@ -167,6 +167,20 @@ public class MainController extends BaseController<MainView> implements MainAdap
         return repository.changeParticipateState(id)
                 .doOnError(error ->
                         view().showMessage(getErrorMessage(error)));
+    }
+
+    @Override
+    public Observable<EventStateRes> changeEventState(long id) {
+        return repository.changeEventState(id)
+                .doOnError(this::showError);
+    }
+
+    @Override
+    public void showEdit(Deal deal) {
+        if (deal.getEvent() == null)
+            rootPresenter.showEditPostScreen(deal);
+        else
+            rootPresenter.showEditEventScreen(deal);
     }
 
     @Override

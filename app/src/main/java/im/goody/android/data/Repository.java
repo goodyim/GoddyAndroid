@@ -71,7 +71,7 @@ public class Repository implements IRepository {
         return getPart(avatarUri, "user[avatar]")
                 .flatMap(part ->
                         restService.registerUser(
-                                RestCallTransformer.objectToPartMap(data, "good_deal"),
+                                RestCallTransformer.objectToPartMap(data, "user"),
                                 part.getPart()))
                 .doOnNext(preferencesManager::saveUser)
                 .observeOn(AndroidSchedulers.mainThread());

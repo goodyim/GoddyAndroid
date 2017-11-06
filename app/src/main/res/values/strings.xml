@@ -122,4 +122,5 @@
     <string name="quick_word_1">What should I bring with me?</string>
     <string name="quick_word_2">I\'ll be there soon</string>
     <string name="participating_events">Active events</string>
+    <string name="cache_image_permission_denied">Cannot cache post image without permissions</string>
 </resources>

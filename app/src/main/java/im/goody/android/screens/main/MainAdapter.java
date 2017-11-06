@@ -12,9 +12,11 @@ import im.goody.android.BR;
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Location;
+import im.goody.android.data.network.res.EventStateRes;
 import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.databinding.ItemEventBinding;
 import im.goody.android.databinding.ItemPostBinding;
+import im.goody.android.screens.main.MainItemMenu.ChangeState;
 import im.goody.android.utils.NetUtils;
 import im.goody.android.utils.TextUtils;
 import io.reactivex.Observable;
@@ -76,6 +78,9 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
         Observable<ParticipateRes> changeParticipateState(long id);
 
+        Observable<EventStateRes> changeEventState(long id);
+
+        void showEdit(Deal deal);
         void openPhoto(String imageUrl);
     }
 
@@ -109,17 +114,45 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
             eventBinding.actionPanel.panelItemComments
                     .setOnClickListener(v -> handler.showDetail(deal.getId()));
 
+            eventBinding.itemEventTitle.setOnClickListener(v -> handler.showDetail(deal.getId()));
+
             eventBinding.actionPanel.panelItemShare.setOnClickListener(v -> {
                 String text = TextUtils.buildShareText(deal);
                 handler.share(text);
             });
 
-            eventBinding.itemEventTitle.setOnClickListener(v -> MainItemMenu.show(v).subscribe(id -> {
-                switch (id) {
-                    case R.id.action_report:
-                        handler.report(deal.getId());
+
+            eventBinding.itemEventMenu.setOnClickListener(v -> {
+                ChangeState changeState;
+
+                if (!deal.isOwner()) {
+                    changeState = ChangeState.HIDDEN;
+                } else if (deal.getEvent().isActive()) {
+                    changeState = ChangeState.CLOSE;
+                } else {
+                    changeState = ChangeState.OPEN;
                 }
-            }));
+
+                MainItemMenu menu = new MainItemMenu.Builder()
+                        .setChangeState(changeState)
+                        .setShowEdit(deal.isOwner())
+                        .build();
+
+                menu.show(v).subscribe(id -> {
+                    switch (id) {
+                        case R.id.action_report:
+                            handler.report(deal.getId());
+                            break;
+                        case R.id.action_change_event_state:
+                            handler.changeEventState(deal.getId())
+                                    .subscribe(viewModel::changeEventState,
+                                            Throwable::printStackTrace);
+                            break;
+                        case R.id.action_edit_event:
+                            handler.showEdit(deal);
+                    }
+                });
+            });
 
             eventBinding.itemEventLocation
                     .setOnClickListener(v -> handler.openMap(deal.getLocation()));
@@ -165,12 +198,22 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                 handler.share(text);
             });
 
-            postBinding.newItemMenu.setOnClickListener(v -> MainItemMenu.show(v).subscribe(id -> {
-                switch (id) {
-                    case R.id.action_report:
-                        handler.report(deal.getId());
-                }
-            }));
+            postBinding.newItemMenu.setOnClickListener(v -> {
+                MainItemMenu menu = new MainItemMenu.Builder()
+                        .setChangeState(ChangeState.HIDDEN)
+                        .setShowEdit(deal.isOwner())
+                        .build();
+
+                menu.show(v).subscribe(id -> {
+                    switch (id) {
+                        case R.id.action_report:
+                            handler.report(deal.getId());
+                            break;
+                        case R.id.action_edit_event:
+                            handler.showEdit(deal);
+                    }
+                });
+            });
 
             postBinding.newsItemLocation
                     .setOnClickListener(v -> handler.openMap(deal.getLocation()));

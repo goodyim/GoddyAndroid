@@ -14,7 +14,6 @@ public class SettingView extends BaseView<SettingController, ScreenSettingBindin
 
     @Override
     protected void onAttached() {
-
     }
 
     @Override

@@ -1,5 +1,6 @@
 package im.goody.android.screens.new_post;
 
+import android.Manifest;
 import android.app.Activity;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.screens.common.NewController;
 import im.goody.android.ui.helpers.BarBuilder;
+import im.goody.android.utils.NetUtils;
 import im.goody.android.utils.TextUtils;
 import im.goody.android.utils.UIUtils;
 
@@ -26,8 +28,15 @@ public class NewPostController extends NewController<NewPostView> {
         id = deal.getId();
         viewModel = new NewPostViewModel(deal);
 
-        if (!TextUtils.isEmpty(deal.getImageUrl()))
-            loadImage(deal);
+        if (!TextUtils.isEmpty(deal.getImageUrl())) {
+            tempImageUrl = NetUtils.buildDealImageUrl(deal);
+
+            if (isPermissionGranted(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                loadImage(tempImageUrl);
+            } else {
+                requestPermissions(STORAGE_PERMISSIONS, CACHE_IMAGE_REQUEST);
+            }
+        }
     }
 
     public NewPostController() {

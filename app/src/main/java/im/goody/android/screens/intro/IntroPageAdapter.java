@@ -12,7 +12,7 @@ import im.goody.android.databinding.ItemIntroBinding;
 class IntroPageAdapter extends PagerAdapter {
 
     private int[] pages = {R.drawable.intro_1, R.drawable.intro_2, R.drawable.intro_3,
-            R.drawable.intro_4, R.drawable.intro_5};
+            R.drawable.intro_4, R.drawable.intro_5, R.drawable.intro_6};
 
     @Override
     public int getCount() {
