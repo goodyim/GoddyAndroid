@@ -71,7 +71,10 @@ public class DetailPostView extends BaseView<DetailPostController, ScreenDetailB
 
         scrollToPosition(data.getPosition());
 
-        if(data.getDeal().getEvent() != null)
+
+        // TODO uncomment condition after tips design will have been updated
+        //noinspection ALL
+        if(/*data.getDeal().getEvent() != null*/ false)
             initQuickWords();
     }
 
