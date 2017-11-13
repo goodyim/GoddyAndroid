@@ -66,12 +66,12 @@
     <string name="read_permission_denied">Необходимо предоставить приложению доступ к памяти телефона</string>
 
     <string name="login_progress_title">Ищем вас</string>
-    <string name="login_redirect">Еще нет аккаунта? Зарегестрируйтесь</string>
+    <string name="login_redirect">Еще нет аккаунта? Зарегистрируйтесь</string>
     <string name="login_title">Вход</string>
 
     <string name="logout">Выйти</string>
 
-    <string name="news_title">Новости</string>
+    <string name="news_title">Лента</string>
 
     <string name="menu_report">Сообщить о нарушении</string>
 
@@ -105,7 +105,7 @@
     <string name="edit_post_title">Редактировать пост</string>
     <string name="follow">Подписаться</string>
     <string name="my_posts">Мои посты</string>
-    <string name="near_events">Ближайшие события</string>
+    <string name="near_events">События поблизости</string>
     <string name="participating_events">Активные события</string>
     <string name="photo">Фото</string>
     <string name="photo_title">Фото</string>
