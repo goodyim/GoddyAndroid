@@ -24,8 +24,10 @@ public class DetailPostController extends BaseController<DetailPostView>
     private static final String ID_KEY = "DetailPostController.id";
 
     private DetailPostViewModel viewModel = new DetailPostViewModel();
+
     private MenuItem eventStateItem;
     private MenuItem editItem;
+    private MenuItem deleteItem;
 
     public DetailPostController(Long id) {
         super(new BundleBuilder()
@@ -70,6 +72,7 @@ public class DetailPostController extends BaseController<DetailPostView>
 
         eventStateItem = menu.add(Menu.NONE, 1, 0, "");
         editItem = menu.add(R.string.edit);
+        deleteItem = menu.add(R.string.delete);
 
         eventStateItem.setOnMenuItemClickListener(item -> {
             changeEventState();
@@ -80,9 +83,15 @@ public class DetailPostController extends BaseController<DetailPostView>
             return true;
         });
 
+        deleteItem.setOnMenuItemClickListener(item -> {
+            deletePost();
+            return true;
+        });
+
         if(viewModel.getBody() == null) {
             editItem.setVisible(false);
             eventStateItem.setVisible(false);
+            deleteItem.setVisible(false);
         } else {
             updateMenu();
         }
@@ -148,9 +157,9 @@ public class DetailPostController extends BaseController<DetailPostView>
                 });
     }
 
-
-
     // endregion
+
+
 
     // ======= region DetailPostHandler =======
 
@@ -194,8 +203,16 @@ public class DetailPostController extends BaseController<DetailPostView>
 
     // endregion
 
-
     // ======= region private methods =======
+
+
+    private void deletePost() {
+        disposable = repository.deletePost(viewModel.getId())
+                .subscribe(response -> {
+                    showToast(R.string.delete_success);
+                    rootPresenter.showNews();
+                }, this::showError);
+    }
 
     private void report() {
         disposable = repository.sendReport(viewModel.getId()).subscribe(
@@ -225,6 +242,7 @@ public class DetailPostController extends BaseController<DetailPostView>
         }
 
         editItem.setVisible(deal.isOwner());
+        deleteItem.setVisible(deal.isOwner());
     }
 
     @SuppressWarnings("CodeBlock2Expr")

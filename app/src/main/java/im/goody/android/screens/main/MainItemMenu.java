@@ -12,6 +12,7 @@ public class MainItemMenu {
     private MainItemMenu() {}
 
     private boolean showEdit;
+    private boolean showDelete;
     private ChangeState state;
 
     enum ChangeState {
@@ -26,7 +27,8 @@ public class MainItemMenu {
             Menu menu = popup.getMenu();
 
             configureChangeStateItem(menu.findItem(R.id.action_change_event_state));
-            configureEditItem(menu.findItem(R.id.action_edit_event));
+            configureEditItem(menu.findItem(R.id.action_edit_post));
+            configureDeleteItem(menu.findItem(R.id.action_delete_post));
 
             popup.setOnMenuItemClickListener(item -> {
                 source.onNext(item.getItemId());
@@ -35,6 +37,10 @@ public class MainItemMenu {
 
             popup.show();
         });
+    }
+
+    private void configureDeleteItem(MenuItem item) {
+        item.setVisible(showDelete);
     }
 
     private void configureChangeStateItem(MenuItem item) {
@@ -68,6 +74,11 @@ public class MainItemMenu {
 
         Builder setChangeState(ChangeState state) {
             menu.state = state;
+            return this;
+        }
+
+        Builder setShowDelete(boolean showDelete) {
+            menu.showDelete = showDelete;
             return this;
         }
 

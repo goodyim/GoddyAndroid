@@ -121,4 +121,6 @@
     <string name="unfollow">Отписаться</string>
     <string name="user_posts">Посты пользователя</string>
     <string name="cache_image_permission_denied">Невозможно кэшировать изображение поста без резрешений</string>
+    <string name="delete">Удалить</string>
+    <string name="delete_success">Запись была успешно удалена</string>
 </resources>

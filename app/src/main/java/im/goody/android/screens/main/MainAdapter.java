@@ -20,7 +20,9 @@ import im.goody.android.screens.main.MainItemMenu.ChangeState;
 import im.goody.android.utils.NetUtils;
 import im.goody.android.utils.TextUtils;
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
+@SuppressWarnings("WeakerAccess")
 class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
     private static final int TYPE_POST = R.layout.item_post;
@@ -63,6 +65,12 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
         notifyItemRangeInserted(size, items.size());
     }
 
+    void removeItem(MainItemViewModel viewModel) {
+        int position = data.indexOf(viewModel);
+        data.remove(viewModel);
+        notifyItemRemoved(position);
+    }
+
     interface MainItemHandler {
         void report(long id);
 
@@ -81,7 +89,10 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
         Observable<EventStateRes> changeEventState(long id);
 
         void showEdit(Deal deal);
+
         void openPhoto(String imageUrl);
+
+        Observable<ResponseBody> deletePost(long id);
     }
 
     class MainHolder extends RecyclerView.ViewHolder {
@@ -136,6 +147,7 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                 MainItemMenu menu = new MainItemMenu.Builder()
                         .setChangeState(changeState)
                         .setShowEdit(deal.isOwner())
+                        .setShowDelete(deal.isOwner())
                         .build();
 
                 menu.show(v).subscribe(id -> {
@@ -148,8 +160,14 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                                     .subscribe(viewModel::changeEventState,
                                             Throwable::printStackTrace);
                             break;
-                        case R.id.action_edit_event:
+                        case R.id.action_edit_post:
                             handler.showEdit(deal);
+                            break;
+                        case R.id.action_delete_post:
+                            handler.deletePost(deal.getId())
+                                    .subscribe(response ->
+                                                    removeItem(viewModel),
+                                            Throwable::printStackTrace);
                     }
                 });
             });
@@ -169,7 +187,7 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                                     response -> {
                                         viewModel.participates.set(response.isParticipates());
 
-                                        if(response.isParticipates()) {
+                                        if (response.isParticipates()) {
                                             handler.showDetail(viewModel.getDeal().getId());
                                         }
                                     },
@@ -202,6 +220,7 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                 MainItemMenu menu = new MainItemMenu.Builder()
                         .setChangeState(ChangeState.HIDDEN)
                         .setShowEdit(deal.isOwner())
+                        .setShowDelete(deal.isOwner())
                         .build();
 
                 menu.show(v).subscribe(id -> {
@@ -209,8 +228,14 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                         case R.id.action_report:
                             handler.report(deal.getId());
                             break;
-                        case R.id.action_edit_event:
+                        case R.id.action_edit_post:
                             handler.showEdit(deal);
+                            break;
+                        case R.id.action_delete_post:
+                            handler.deletePost(deal.getId())
+                                    .subscribe(response ->
+                                                    removeItem(viewModel),
+                                            Throwable::printStackTrace);
                     }
                 });
             });

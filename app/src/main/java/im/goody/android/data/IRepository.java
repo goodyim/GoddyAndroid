@@ -57,4 +57,6 @@ public interface IRepository {
     Observable<ResponseBody> editPost(Long id, NewPostReq body, Uri imageUri);
 
     Observable<Uri> cacheWebImage(String imageUrl);
+
+    Observable<ResponseBody> deletePost(long id);
 }

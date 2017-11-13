@@ -16,6 +16,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -56,6 +57,10 @@ public interface RestService {
                                         @Path("id") long id,
                                         @PartMap Map<String, RequestBody> params,
                                         @Part MultipartBody.Part file);
+
+    @DELETE("good_deals/{id}")
+    Observable<ResponseBody> deletePost(@Header("X-User-Token") String token,
+                                        @Path("id") long id);
 
     @GET("good_deals/{id}")
     Observable<Deal> getDeal(@Header("X-User-Token") String token,

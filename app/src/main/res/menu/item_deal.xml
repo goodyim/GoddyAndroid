@@ -4,7 +4,10 @@
         android:id="@+id/action_change_event_state"/>
 
     <item android:title="@string/edit"
-        android:id="@+id/action_edit_event" />
+        android:id="@+id/action_edit_post" />
+
+    <item android:title="@string/delete"
+        android:id="@+id/action_delete_post" />
 
     <item android:title="@string/menu_report"
         android:id="@+id/action_report"

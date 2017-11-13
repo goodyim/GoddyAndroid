@@ -6,10 +6,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bluelinelabs.conductor.RestoreViewOnCreateController;
 
@@ -100,6 +102,11 @@ public abstract class BaseController<V extends BaseView> extends RestoreViewOnCr
         String uri = String.format(Locale.ENGLISH, OPEN_MAP, address);
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
         startActivity(intent);
+    }
+
+    protected void showToast(@StringRes int id) {
+        Toast.makeText(getActivity(), id, Toast.LENGTH_SHORT)
+                .show();
     }
 
     // endregion

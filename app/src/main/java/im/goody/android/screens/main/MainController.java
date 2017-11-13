@@ -17,6 +17,7 @@ import im.goody.android.di.components.RootComponent;
 import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.ui.helpers.BundleBuilder;
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
 import static im.goody.android.Constants.ID_NONE;
 
@@ -172,6 +173,12 @@ public class MainController extends BaseController<MainView> implements MainAdap
     @Override
     public Observable<EventStateRes> changeEventState(long id) {
         return repository.changeEventState(id)
+                .doOnError(this::showError);
+    }
+
+    @Override
+    public Observable<ResponseBody> deletePost(long id) {
+        return repository.deletePost(id)
                 .doOnError(this::showError);
     }
 
