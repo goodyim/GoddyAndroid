@@ -9,7 +9,7 @@ public class AppConfig {
     static final boolean LOG_ENABLED = DEBUG;
 
     // Retrofit config
-    private static final String HOST = "http://www.goody.im/";
+    private static final String HOST = "https://www.goody.im/";
 
     public static final String BASE_URL = HOST+ "api/v1/";
     public static final String SHARE_DEALS_URL = HOST + "good_deals/";

@@ -88,4 +88,5 @@ dependencies {
     // scalable imageView
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
 
+    compile 'com.github.mklimek:ssl-utils-android:1.0.1'
 }

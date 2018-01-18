@@ -1,11 +1,15 @@
 package im.goody.android.di.modules;
 
+import android.content.Context;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.mklimek.sslutilsandroid.SslUtils;
 
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
+import javax.net.ssl.SSLContext;
 
 import dagger.Module;
 import dagger.Provides;
@@ -22,8 +26,8 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public class NetworkModule {
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient() {
-        return createClient();
+    OkHttpClient provideOkHttpClient(Context context) {
+        return createClient(context);
     }
 
     @Provides
@@ -38,11 +42,13 @@ public class NetworkModule {
         return retrofit.create(RestService.class);
     }
 
-    private OkHttpClient createClient() {
+    private OkHttpClient createClient(Context context) {
+        SSLContext sslContext = SslUtils.getSslContextForCertificateFile(context, "goody.cer");
         return new OkHttpClient.Builder()
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .connectTimeout(AppConfig.MAX_CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS)
                 .readTimeout(AppConfig.MAX_READ_TIMEOUT, TimeUnit.MILLISECONDS)
+                .sslSocketFactory(sslContext.getSocketFactory())
                 .writeTimeout(AppConfig.MAX_WRITE_TIMEOUT, TimeUnit.MILLISECONDS)
                 .build();
     }
