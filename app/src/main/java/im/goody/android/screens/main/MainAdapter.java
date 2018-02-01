@@ -80,7 +80,7 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
         void openMap(Location location);
 
-        void openProfile(long id);
+        void openProfile(String id);
 
         Observable<Deal> like(long id);
 
@@ -194,10 +194,12 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                                     Throwable::printStackTrace));
 
             eventBinding.itemEventAvatar.setOnClickListener(v ->
-                    handler.openProfile(deal.getAuthor().getId()));
+                    handler.openProfile(String.valueOf(deal.getAuthor().getId())));
 
             eventBinding.itemEventImage.setOnClickListener(v ->
                     handler.openPhoto(NetUtils.buildDealImageUrl(deal)));
+
+            eventBinding.itemEventDescription.setMentionListener(handler::openProfile);
         }
 
 
@@ -250,10 +252,12 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                     }, Throwable::printStackTrace));
 
             postBinding.newsItemUserAvatar.setOnClickListener(v ->
-                    handler.openProfile(deal.getAuthor().getId()));
+                    handler.openProfile(String.valueOf(deal.getAuthor().getId())));
 
             postBinding.newsItemImage.setOnClickListener(v ->
                     handler.openPhoto(NetUtils.buildDealImageUrl(deal)));
+
+            postBinding.newsItemDescription.setMentionListener(handler::openProfile);
         }
     }
 }

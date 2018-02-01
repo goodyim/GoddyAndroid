@@ -104,16 +104,17 @@ public class Repository implements IRepository {
     //region ================= News =================
 
     @Override
-    public Observable<List<Deal>> getPosts(long id, int page) {
-        Long resultId = id == Constants.ID_NONE ? null : id;
+    public Observable<List<Deal>> getPosts(String id, int page) {
+        if (id.equals(Constants.ID_NONE))
+            id = null;
 
-        return restService.getDeals(preferencesManager.getUserToken(), resultId, page)
+        return restService.getDeals(preferencesManager.getUserToken(), id, page)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     // TODO replace with its own server request
     @Override
-    public Observable<List<Deal>> getEvents(long userId, int page) {
+    public Observable<List<Deal>> getEvents(String userId, int page) {
         if (page > 1)
             return Observable.just(Collections.emptyList());
 
@@ -183,13 +184,13 @@ public class Repository implements IRepository {
     }
 
     @Override
-    public Observable<User> getUserProfile(long id) {
-        return restService.getUserProfile(preferencesManager.getUserToken(), id)
-                .observeOn(AndroidSchedulers.mainThread());
+    public Observable<User> getUserProfile(String identifier) {
+            return restService.getUserProfile(preferencesManager.getUserToken(), identifier)
+                    .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
-    public Observable<FollowRes> changeFollowState(long id) {
+    public Observable<FollowRes> changeFollowState(String id) {
         return restService.changeFollowState(preferencesManager.getUserToken(), id)
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -318,7 +319,7 @@ public class Repository implements IRepository {
         RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
 
         MultipartBody.Part part = MultipartBody.Part.createFormData(partName,
-               System.currentTimeMillis() + file.getName(),  reqFile);
+                System.currentTimeMillis() + file.getName(), reqFile);
 
         return new PartContainer(part);
     }

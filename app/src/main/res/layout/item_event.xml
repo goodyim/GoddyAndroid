@@ -87,7 +87,7 @@
 
             </LinearLayout>
 
-            <TextView
+            <im.goody.android.ui.views.AutoLinkTextView
                 android:id="@+id/item_event_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

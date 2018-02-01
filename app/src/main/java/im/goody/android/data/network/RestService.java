@@ -42,7 +42,7 @@ public interface RestService {
 
     @GET("good_deals")
     Observable<List<Deal>> getDeals(@Header("X-User-Token") String token,
-                                    @Query("user_id") Long userId,
+                                    @Query("user_id") String userId,
                                     @Query("page") int page);
 
     @Multipart
@@ -84,11 +84,11 @@ public interface RestService {
 
     @GET("users/{id}")
     Observable<User> getUserProfile(@Header("X-User-Token") String token,
-                                    @Path("id") long id);
+                                    @Path("id") String id);
 
     @POST("users/{id}/follow")
     Observable<FollowRes> changeFollowState(@Header("X-User-Token") String token,
-                                            @Path("id") long id);
+                                            @Path("id") String id);
 
 
     @GET("events")

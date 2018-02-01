@@ -7,6 +7,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import im.goody.android.Constants;
 import im.goody.android.R;
 import im.goody.android.core.BaseController;
 import im.goody.android.data.dto.Deal;
@@ -176,7 +177,7 @@ public class DetailPostController extends BaseController<DetailPostView>
     }
 
     @Override
-    public void openProfile(long id) {
+    public void openProfile(String id) {
         rootPresenter.showProfile(id);
     }
 
@@ -199,6 +200,12 @@ public class DetailPostController extends BaseController<DetailPostView>
     @Override
     public void openPhoto(String url) {
         rootPresenter.showPhotoScreen(url);
+    }
+
+    @Override
+    public void reply(String author) {
+        viewModel.commentBody.set(String.format(Constants.MENTION_FORMAT, author));
+        view().showCommentFocus();
     }
 
     // endregion

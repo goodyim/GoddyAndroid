@@ -211,15 +211,13 @@ public class NearEventsController extends BaseController<NearEventsView>
         }
         observable
                 .filter(deal -> !TextUtils.isEmpty(deal.getLocation().getLatitude()))
-                .forEach(deal -> {
+                .subscribe(deal -> {
                     Location location = deal.getLocation();
                     MarkerOptions options = new MarkerOptions()
                             .position(location.toLatLng());
 
                     googleMap.addMarker(options).setTag(deal);
-                });
-
-        observable.doOnError(this::showError);
+                }, this::showError);
     }
 
     // end

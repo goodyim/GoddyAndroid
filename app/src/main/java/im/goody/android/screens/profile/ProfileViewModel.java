@@ -8,6 +8,7 @@ import im.goody.android.data.network.res.FollowRes;
 
 public class ProfileViewModel {
     private String name;
+    private String id;
     private String avatarUrl;
     private int deals;
     private int events;
@@ -18,6 +19,7 @@ public class ProfileViewModel {
     public final ObservableInt followers = new ObservableInt();
     ProfileViewModel(User user) {
         name = user.getName();
+        id = String.valueOf(user.getId());
         avatarUrl = user.getAvatarUrl();
         deals = user.getDealsCount();
         events = user.getEventsCount();
@@ -28,6 +30,10 @@ public class ProfileViewModel {
     }
 
     // ======= region getters =======
+
+    public String getId() {
+        return id;
+    }
 
     public String getRegistrationDate() {
         return registrationDate;
@@ -81,6 +87,5 @@ public class ProfileViewModel {
         followers.set(result.getFollowersCount());
         isFollowing.set(result.isSubscribed());
     }
-
     // endregion
 }

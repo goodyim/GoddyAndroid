@@ -7,12 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Location;
+import im.goody.android.ui.views.AutoLinkTextView;
 import im.goody.android.utils.DateUtils;
 import im.goody.android.utils.NetUtils;
 import im.goody.android.utils.TextUtils;
@@ -103,5 +103,10 @@ public class PostBindingAdapter {
             result = title;
         }
         view.setText(result);
+    }
+
+    @BindingAdapter("link_text")
+    public static void bindLinkedText(AutoLinkTextView view, String text) {
+        view.setLinkedText(text);
     }
 }

@@ -27,7 +27,10 @@ public class Constants {
         public static final String OPEN_MAP = "geo:0,0?q=%s";
     }
 
-    public static final long ID_NONE = -1;
+    public static final String ID_NONE = "none";
 
     public static final String CACHE_FILE_NAME = "goddy_temp.jpeg";
+
+    public static final String NUMBER_PATTERN = "[-+]?\\d*\\.?\\d+";
+    public static final String MENTION_FORMAT = "@%s";
 }

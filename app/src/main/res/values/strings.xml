@@ -125,4 +125,6 @@
     <string name="cache_image_permission_denied">Cannot cache post image without permissions</string>
     <string name="delete">Delete</string>
     <string name="delete_success">Post was successfully deleted</string>
+
+    <string name="comment_reply">Reply</string>
 </resources>

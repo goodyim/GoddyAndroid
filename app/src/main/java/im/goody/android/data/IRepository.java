@@ -29,8 +29,8 @@ public interface IRepository {
     void firstLaunched();
     <T> T getError(Throwable t, Class<T> tClass);
 
-    Observable<List<Deal>> getPosts(long userId, int page);
-    Observable<List<Deal>> getEvents(long userId, int page);
+    Observable<List<Deal>> getPosts(String userId, int page);
+    Observable<List<Deal>> getEvents(String userId, int page);
 
     Observable<Deal> getDeal(long id);
     Observable<CommentRes> sendComment(long dealId, NewCommentReq body);
@@ -42,8 +42,9 @@ public interface IRepository {
 
     Observable<String> sendReport(long id);
 
-    Observable<User> getUserProfile(long id);
-    Observable<FollowRes> changeFollowState(long id);
+    Observable<User> getUserProfile(String identifier);
+
+    Observable<FollowRes> changeFollowState(String id);
 
     Observable<Deal> likeDeal(long id);
     Observable<ParticipateRes> changeParticipateState(long id);

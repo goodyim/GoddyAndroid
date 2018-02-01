@@ -30,17 +30,17 @@ public class MainController extends BaseController<MainView> implements MainAdap
 
     private static final boolean SHOW_ARROW_NONE = false;
 
-    public MainController(Long id, Boolean showArrow, Boolean eventsOnly) {
+    public MainController(String id, Boolean showArrow, Boolean eventsOnly) {
         super(new BundleBuilder()
-                .putLong(USER_ID_KEY, id)
+                .putString(USER_ID_KEY, id)
                 .putBoolean(SHOW_ARROW_KEY, showArrow)
                 .putBoolean(EVENTS_ONLY, eventsOnly)
                 .build());
     }
 
-    public MainController(Long id, Boolean showArrow) {
+    public MainController(String id, Boolean showArrow) {
         super(new BundleBuilder()
-                .putLong(USER_ID_KEY, id)
+                .putString(USER_ID_KEY, id)
                 .putBoolean(SHOW_ARROW_KEY, showArrow)
                 .putBoolean(EVENTS_ONLY, false)
                 .build());
@@ -153,7 +153,7 @@ public class MainController extends BaseController<MainView> implements MainAdap
     }
 
     @Override
-    public void openProfile(long id) {
+    public void openProfile(String id) {
         rootPresenter.showProfile(id);
     }
 
@@ -215,9 +215,10 @@ public class MainController extends BaseController<MainView> implements MainAdap
     }
 
     private Integer getTitleRes() {
-        long id = getId();
+        String id = getId();
 
-        if (id == ID_NONE) return R.string.news_title;
+        if (isEventsOnly() && isIdMine()) return R.string.participating_events;
+        if (id.equals(ID_NONE)) return R.string.news_title;
         if (isIdMine()) return R.string.my_posts;
         return R.string.user_posts;
     }
@@ -230,7 +231,7 @@ public class MainController extends BaseController<MainView> implements MainAdap
             view().showData(viewModel.getData());
             view().scrollToPosition(viewModel.getPosition());
         }
-        if (getId() != ID_NONE && !isIdMine()) view().hideNewButton();
+        if (!getId().equals(ID_NONE) && !isIdMine()) view().hideNewButton();
     }
 
     @Override
@@ -267,8 +268,8 @@ public class MainController extends BaseController<MainView> implements MainAdap
     }
 
     @SuppressWarnings("ConstantConditions")
-    private long getId() {
-        return getArgs().getLong(USER_ID_KEY, ID_NONE);
+    private String getId() {
+        return getArgs().getString(USER_ID_KEY, ID_NONE);
     }
 
     private boolean isShowArrow() {
@@ -276,7 +277,7 @@ public class MainController extends BaseController<MainView> implements MainAdap
     }
 
     private boolean isIdMine() {
-        return getId() == repository.getUserData().getUser().getId();
+        return getId().equals(String.valueOf(repository.getUserData().getUser().getId()));
     }
 
     private boolean isEventsOnly() {

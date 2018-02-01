@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.AttributeSet;
+import android.widget.EditText;
 
 import im.goody.android.Constants;
 import im.goody.android.core.BaseView;
@@ -116,5 +117,15 @@ public class DetailPostView extends BaseView<DetailPostController, ScreenDetailB
     @Override
     public void handle(String word) {
         binding.detailCommentBody.setText(word);
+    }
+
+    public void showCommentFocus() {
+        EditText editText = binding.detailCommentBody;
+        editText.requestFocus();
+        UIUtils.showKeyboard(editText);
+
+        binding.detailCommentBody.post(() ->
+                editText.setSelection(editText.getText().length())
+        );
     }
 }

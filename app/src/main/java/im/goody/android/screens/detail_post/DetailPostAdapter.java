@@ -21,10 +21,13 @@ import io.reactivex.Observable;
 class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPostHolder> {
     private DetailPostBodyViewModel viewModel;
     private DetailPostHandler handler;
+    private CommentOptionsDialog commentDialog;
 
     DetailPostAdapter(DetailPostBodyViewModel viewModel, DetailPostHandler handler) {
         this.viewModel = viewModel;
         this.handler = handler;
+
+        commentDialog = new CommentOptionsDialog();
     }
 
     @Override
@@ -69,13 +72,15 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
 
         void openMap(Location location);
 
-        void openProfile(long id);
+        void openProfile(String id);
 
         Observable<ParticipateRes> changeParticipateState();
 
         Observable<Deal> like();
 
         void openPhoto(String s);
+
+        void reply(String author);
     }
 
     class DetailPostHolder extends RecyclerView.ViewHolder {
@@ -107,8 +112,20 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
             CommentBinding commentBinding = (CommentBinding) binding;
 
             commentBinding.commentAvatar.setOnClickListener(v ->
-                    handler.openProfile(comment.getAuthor().getId())
+                    handler.openProfile(String.valueOf(comment.getAuthor().getId()))
             );
+
+            commentBinding.commentBody.setMentionListener(handler::openProfile);
+
+            commentBinding.getRoot().setOnClickListener(v -> {
+                commentDialog.show(commentBinding.getRoot().getContext())
+                        .subscribe(id -> {
+                            switch (id) {
+                                case CommentOptionsDialog.ACTION_REPLY:
+                                    handler.reply(comment.getAuthor().getName());
+                            }
+                        });
+            });
         }
 
         private void bindPost(DetailPostBodyViewModel body) {
@@ -127,10 +144,12 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
                     }, Throwable::printStackTrace));
 
             postBinding.newsItemUserAvatar.setOnClickListener(v ->
-                    handler.openProfile(deal.getAuthor().getId()));
+                    handler.openProfile(String.valueOf(deal.getAuthor().getId())));
 
             postBinding.newsItemImage.setOnClickListener(v ->
                     handler.openPhoto(NetUtils.buildDealImageUrl(deal)));
+
+            postBinding.newsItemDescription.setMentionListener(handler::openProfile);
         }
 
         private void bindEvent(DetailPostBodyViewModel body) {
@@ -157,10 +176,12 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
                                     Throwable::printStackTrace));
 
             eventBinding.detailEventAvatar.setOnClickListener(v ->
-                    handler.openProfile(deal.getAuthor().getId()));
+                    handler.openProfile(String.valueOf(deal.getAuthor().getId())));
 
             eventBinding.detailEventImage.setOnClickListener(v ->
                     handler.openPhoto(NetUtils.buildDealImageUrl(deal)));
+
+            eventBinding.detailEventDescription.setMentionListener(handler::openProfile);
         }
     }
 }

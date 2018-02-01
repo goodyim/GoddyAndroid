@@ -81,7 +81,7 @@
                 app:post_image="@{viewModel.deal}"
                 android:src="@color/placeholder_color" />
 
-            <TextView
+            <im.goody.android.ui.views.AutoLinkTextView
                 android:id="@+id/news_item_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

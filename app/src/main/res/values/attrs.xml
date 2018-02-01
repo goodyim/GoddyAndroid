@@ -4,5 +4,9 @@
     <declare-styleable name="AspectImageView">
         <attr name="aspect_ratio" format="float"/>
     </declare-styleable>
+    
+    <declare-styleable name="AutoLinkTextView">
+        <attr name="linked_text" format="string" />
+    </declare-styleable>
 
 </resources>

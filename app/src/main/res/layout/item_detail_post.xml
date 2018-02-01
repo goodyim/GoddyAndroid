@@ -73,14 +73,14 @@
             app:post_image="@{data.deal}"
             android:src="@color/placeholder_color" />
 
-        <TextView
+        <im.goody.android.ui.views.AutoLinkTextView
             android:id="@+id/news_item_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/size_normal"
             android:paddingRight="@dimen/size_normal"
             android:paddingTop="@dimen/size_normal"
-            android:text="@{data.deal.description}"
+            app:link_text="@{data.deal.description}"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/primary_text"
             app:layout_constraintLeft_toLeftOf="parent"

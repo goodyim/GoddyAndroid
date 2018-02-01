@@ -14,13 +14,20 @@ public class OptionsDialog {
         this.itemsId = items;
     }
 
+    public OptionsDialog(int items) {
+        this.itemsId = items;
+    }
+
     public Observable<Integer> show(Context context) {
         return Observable.create(e -> {
             String[] items = context.getResources().getStringArray(itemsId);
-            String title = context.getString(titleId);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle(title);
+
+            if (titleId != 0) {
+                builder.setTitle(context.getString(titleId));
+            }
+
             builder.setItems(items, (dialog, which) -> e.onNext(which));
             builder.show();
         });

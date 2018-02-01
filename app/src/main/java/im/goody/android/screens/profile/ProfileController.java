@@ -23,9 +23,9 @@ public class ProfileController extends BaseController<ProfileView> {
 
     private ProfileViewModel viewModel;
 
-    public ProfileController(Long id) {
+    public ProfileController(String id) {
         super(new BundleBuilder()
-                .putLong(ID_KEY, id)
+                .putString(ID_KEY, id)
                 .build());
     }
 
@@ -66,7 +66,7 @@ public class ProfileController extends BaseController<ProfileView> {
 
         view().takeActivity(getActivity());
 
-        if (manager.getUserId() == getId())
+        if (String.valueOf(manager.getUserId()).equals(getId()))
             view().hideFollowButton();
 
         if (viewModel == null) loadData();
@@ -110,8 +110,10 @@ public class ProfileController extends BaseController<ProfileView> {
 
     // ======= region private methods =======
 
-    private long getId() {
-        return getArgs().getLong(ID_KEY);
+    private String getId() {
+        if (viewModel != null)
+            return viewModel.getId();
+        return getArgs().getString(ID_KEY);
     }
 
     void showPosts() {

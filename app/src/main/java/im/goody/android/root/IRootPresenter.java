@@ -17,7 +17,7 @@ public interface IRootPresenter {
 
     // Show screen methods
     void showNews();
-    void showUserPosts(Long id);
+    void showUserPosts(String id);
     void showMyPosts();
 
     void showLoginScreen();
@@ -33,7 +33,7 @@ public interface IRootPresenter {
     void logout();
 
     void showMyProfile();
-    void showProfile(long id);
+    void showProfile(String id);
 
     void showPhotoScreen(String imageUrl);
 

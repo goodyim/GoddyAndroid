@@ -91,7 +91,7 @@ public class RootPresenter implements IRootPresenter {
     }
 
     @Override
-    public void showUserPosts(Long userId) {
+    public void showUserPosts(String userId) {
         if (rootView != null) {
             rootView.showScreen(MainController.class, userId, true);
             rootView.showDrawerHeader(repository.getUserData());
@@ -104,7 +104,7 @@ public class RootPresenter implements IRootPresenter {
         if (rootView != null) {
             long id = repository.getUserData().getUser().getId();
 
-            rootView.showScreenAsRoot(MainController.class, id, false);
+            rootView.showScreenAsRoot(MainController.class, String.valueOf(id), false);
             rootView.showDrawerHeader(repository.getUserData());
         }
     }
@@ -155,11 +155,11 @@ public class RootPresenter implements IRootPresenter {
 
     @Override
     public void showMyProfile() {
-        showProfile(repository.getUserData().getUser().getId());
+        showProfile(String.valueOf(repository.getUserData().getUser().getId()));
     }
 
     @Override
-    public void showProfile(long id) {
+    public void showProfile(String id) {
         if (rootView != null)
             rootView.showScreen(ProfileController.class, id);
     }
@@ -193,7 +193,7 @@ public class RootPresenter implements IRootPresenter {
         if(rootView != null) {
             long id = repository.getUserData().getUser().getId();
 
-            rootView.showScreenAsRoot(MainController.class, id, false, true);
+            rootView.showScreenAsRoot(MainController.class, String.valueOf(id), false, true);
         }
     }
 

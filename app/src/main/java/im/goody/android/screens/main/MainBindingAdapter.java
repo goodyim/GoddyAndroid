@@ -5,20 +5,19 @@ import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextPaint;
-import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
-import android.widget.TextView;
 
 import im.goody.android.App;
 import im.goody.android.R;
+import im.goody.android.ui.views.AutoLinkTextView;
 
 import static im.goody.android.Constants.COLLAPSED_CHARACTERS_COUNT;
 
 public class MainBindingAdapter {
     @BindingAdapter({"description", "expandState"})
-    public static void bindDescription(TextView view, MainItemViewModel model, boolean isExpanded) {
+    public static void bindDescription(AutoLinkTextView view, MainItemViewModel model, boolean isExpanded) {
         String original = model.getDeal().getDescription();
         Spannable result;
         if (isExpanded || original.length() <= COLLAPSED_CHARACTERS_COUNT) {
@@ -28,8 +27,7 @@ public class MainBindingAdapter {
             result = addMoreLink(part, model);
         }
 
-        view.setMovementMethod(LinkMovementMethod.getInstance());
-        view.setText(result);
+        view.setLinkedText(result);
     }
 
     private static Spannable addMoreLink(String text, MainItemViewModel model) {
