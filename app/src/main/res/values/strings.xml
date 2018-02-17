@@ -127,4 +127,10 @@
     <string name="delete_success">Post was successfully deleted</string>
 
     <string name="comment_reply">Reply</string>
+    <string name="login_forgot_password">Forgot a password?</string>
+    <string name="deafult_hint">Start typing...</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="forgot_password_title">Enter your email</string>
+    <string name="recover_instructions_sent">Recover instructions sent to %s</string>
 </resources>

@@ -23,6 +23,7 @@ public class LoginView extends BaseView<LoginController, ScreenLoginBinding> {
             controller.login();
         });
         binding.signInRedirect.setOnClickListener(v -> controller.goToRegister());
+        binding.signInForgotPassword.setOnClickListener(v -> controller.forgotPasswordClicked());
     }
 
     @Override

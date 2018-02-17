@@ -255,6 +255,12 @@ public class Repository implements IRepository {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    @Override
+    public Observable<ResponseBody> recoverPassword(String email) {
+        return restService.recoverPassword(email)
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     //endregion
 
     // ======= region Comments =======

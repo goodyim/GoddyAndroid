@@ -7,6 +7,7 @@ import im.goody.android.R;
 import im.goody.android.core.BaseController;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
+import im.goody.android.ui.dialogs.EditTextDialog;
 import im.goody.android.ui.helpers.BarBuilder;
 
 public class LoginController extends BaseController<LoginView> {
@@ -35,6 +36,12 @@ public class LoginController extends BaseController<LoginView> {
 
     void goToRegister() {
         rootPresenter.showRegisterScreen();
+    }
+
+    void forgotPasswordClicked() {
+        new EditTextDialog(R.string.forgot_password_title)
+                .show(getActivity())
+                .subscribe(this::recoverPassword);
     }
 
     //endregion
@@ -68,6 +75,20 @@ public class LoginController extends BaseController<LoginView> {
     }
 
     //endregion
+
+    // ======= region private methods =======
+
+    private void recoverPassword(String email) {
+        repository.recoverPassword(email)
+                .subscribe(ignored -> {
+                    if (getActivity() != null) {
+                        String message = getActivity().getString(R.string.recover_instructions_sent, email);
+                        view().showMessage(message);
+                    }
+                }, this::showError);
+    }
+
+    // end
 
     //======= region DI =======
 

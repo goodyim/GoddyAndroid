@@ -94,4 +94,7 @@ public interface RestService {
     @GET("events")
     Observable<List<Deal>> getActiveEvents(@Header("X-User-Token") String token);
 
+
+    @GET("users/reset_password")
+    Observable<ResponseBody> recoverPassword(@Query("email") String email);
 }

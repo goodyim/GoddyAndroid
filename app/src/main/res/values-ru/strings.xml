@@ -123,4 +123,6 @@
     <string name="cache_image_permission_denied">Невозможно кэшировать изображение поста без резрешений</string>
     <string name="delete">Удалить</string>
     <string name="delete_success">Запись была успешно удалена</string>
+    <string name="comment_reply">Ответить</string>
+    <string name="login_forgot_password">Восстановаить пароль</string>
 </resources>

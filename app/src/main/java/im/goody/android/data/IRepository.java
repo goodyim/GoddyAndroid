@@ -60,4 +60,6 @@ public interface IRepository {
     Observable<Uri> cacheWebImage(String imageUrl);
 
     Observable<ResponseBody> deletePost(long id);
+
+    Observable<ResponseBody> recoverPassword(String result);
 }
