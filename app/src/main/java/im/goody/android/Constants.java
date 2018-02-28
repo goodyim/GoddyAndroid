@@ -17,6 +17,7 @@ public class Constants {
     public static final int PAGE_ITEM_COUNT = 15;
 
     public static final int SECOND = 1000;
+    static final int CACHE_SIZE = 10 * 1024 * 1024;
 
     public static int[] PROGRESS_COLORS = {
             R.color.accent,
@@ -33,4 +34,15 @@ public class Constants {
 
     public static final String NUMBER_PATTERN = "[-+]?\\d*\\.?\\d+";
     public static final String MENTION_FORMAT = "@%s";
+
+    public static class NotificationExtra {
+        public static final String TYPE = "type";
+        public static final String TYPE_COMMENT = "type_comment";
+        public static final String TYPE_MENTION = "mention";
+
+        public static final String ID = "id";
+        public static final String MESSAGE = "message";
+        public static final String AUTHOR_NAME = "author";
+        public static final String TITLE = "title";
+    }
 }

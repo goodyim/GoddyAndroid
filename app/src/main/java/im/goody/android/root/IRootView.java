@@ -14,4 +14,6 @@ interface IRootView extends IBarView {
 
     void showProgress(@StringRes int titleRes);
     void hideProgress();
+
+    void showMessage(String message);
 }

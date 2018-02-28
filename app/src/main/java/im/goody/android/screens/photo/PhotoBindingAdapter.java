@@ -3,13 +3,12 @@ package im.goody.android.screens.photo;
 import android.databinding.BindingAdapter;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
+import im.goody.android.App;
 
 public class PhotoBindingAdapter {
     @BindingAdapter("photo")
     public static void bindPhoto(ImageView imageView, String url) {
-        Picasso.with(imageView.getContext())
-                .load(url)
+        App.picasso.load(url)
                 .into(imageView);
     }
 }

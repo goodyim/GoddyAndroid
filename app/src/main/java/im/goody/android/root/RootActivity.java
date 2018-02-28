@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -21,7 +22,6 @@ import com.bluelinelabs.conductor.Conductor;
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -32,6 +32,8 @@ import im.goody.android.R;
 import im.goody.android.data.network.res.UserRes;
 import im.goody.android.databinding.ActivityRootBinding;
 import im.goody.android.di.components.RootComponent;
+import im.goody.android.screens.detail_post.DetailPostController;
+import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.main.MainController;
 import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.ui.helpers.MenuItemHolder;
@@ -39,6 +41,10 @@ import im.goody.android.ui.helpers.MenuItemHolder;
 @SuppressWarnings("deprecation")
 public class RootActivity extends AppCompatActivity
         implements IRootView, NavigationView.OnNavigationItemSelectedListener {
+
+    public static final String EXTRA_POST_ID = "post_id";
+
+    private static final long ID_NONE = -1;
 
     @Inject
     IRootPresenter presenter;
@@ -66,8 +72,14 @@ public class RootActivity extends AppCompatActivity
         if (!router.hasRootController()) {
             Class<? extends Controller> controller = presenter.getStartController();
             showScreenAsRoot(controller);
-            if (controller == MainController.class)
+            if (controller == MainController.class) {
                 binding.navView.setCheckedItem(R.id.action_main_screen);
+            }
+        }
+
+        long extraPostId = getIntent().getLongExtra(EXTRA_POST_ID, ID_NONE);
+        if (extraPostId != ID_NONE) {
+            showScreen(DetailPostController.class, extraPostId);
         }
     }
 
@@ -117,6 +129,9 @@ public class RootActivity extends AppCompatActivity
                 break;
             case R.id.action_participating_events:
                 presenter.showParticipatingEvents();
+                break;
+            case R.id.action_feedback:
+                presenter.showFeedback();
                 break;
            /* TODO uncomment after screen will have been realized
            case R.id.action_about:
@@ -237,6 +252,7 @@ public class RootActivity extends AppCompatActivity
         if (controller == null) {
             controller = instantiateController(controllerClass, args);
         }
+
         router.pushController(RouterTransaction.with(controller).tag(tag));
     }
 
@@ -246,6 +262,9 @@ public class RootActivity extends AppCompatActivity
         if (args != null && args.length > 0) tag += args[0];
 
         Controller controller = instantiateController(controllerClass, args);
+
+        checkMainItemIfLogout(controller);
+
         router.setRoot(RouterTransaction.with(controller).tag(tag));
     }
 
@@ -257,8 +276,7 @@ public class RootActivity extends AppCompatActivity
 
         nameView.setText(userRes.getUser().getName());
 
-        Picasso.with(this)
-                .load(userRes.getUser().getAvatarUrl())
+        App.picasso.load(userRes.getUser().getAvatarUrl())
                 .placeholder(R.drawable.round_drawable)
                 .fit()
                 .into(imageView);
@@ -284,6 +302,12 @@ public class RootActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    public void showMessage(String message) {
+        Snackbar.make(binding.coordinatorLayout, message, Snackbar.LENGTH_LONG)
+                .show();
+    }
+
     //endregion
 
     private <C extends Controller> C instantiateController(Class<C> controllerClass, Object... args) {
@@ -302,6 +326,12 @@ public class RootActivity extends AppCompatActivity
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    private void checkMainItemIfLogout(Controller controller) {
+        if (controller.getClass() == LoginController.class) {
+            binding.navView.setCheckedItem(R.id.action_main_screen);
         }
     }
 }

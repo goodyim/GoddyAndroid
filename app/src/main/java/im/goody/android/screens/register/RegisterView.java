@@ -1,6 +1,7 @@
 package im.goody.android.screens.register;
 
 import android.content.Context;
+import android.text.InputFilter;
 import android.util.AttributeSet;
 
 import im.goody.android.core.BaseView;
@@ -27,6 +28,10 @@ public class RegisterView extends BaseView<RegisterController, ScreenRegisterBin
         binding.registerSubmit.setOnClickListener(v -> {
             UIUtils.hideKeyboard(getFocusedChild());
             controller.register();
+        });
+
+        binding.registerName.setFilters(new InputFilter[] {
+                (charSequence, i, i1, spanned, i2, i3) -> charSequence.toString().toLowerCase()
         });
     }
 

@@ -8,6 +8,7 @@ import im.goody.android.root.RootActivity;
 import im.goody.android.root.RootPresenter;
 import im.goody.android.screens.about.AboutController;
 import im.goody.android.screens.detail_post.DetailPostController;
+import im.goody.android.screens.feedback.FeedBackController;
 import im.goody.android.screens.intro.IntroController;
 import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.main.MainController;
@@ -41,4 +42,7 @@ public interface RootComponent {
     ProfileController.Component plusProfile();
 
     NearEventsController.Component plusNearEvents();
+
+    FeedBackController.Component plusFeedback();
+
 }

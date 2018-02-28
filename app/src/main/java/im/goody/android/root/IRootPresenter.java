@@ -43,4 +43,6 @@ public interface IRootPresenter {
     void showEditEventScreen(Deal deal);
 
     void showParticipatingEvents();
+
+    void showFeedback();
 }

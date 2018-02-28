@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import im.goody.android.data.dto.Deal;
+import im.goody.android.data.dto.Feedback;
 import im.goody.android.data.dto.User;
 import im.goody.android.data.network.req.NewCommentReq;
 import im.goody.android.data.network.res.CommentRes;
@@ -32,13 +33,19 @@ public interface RestService {
     @Multipart
     @POST("users")
     Observable<UserRes> registerUser(
+            @Header("fcmToken") String fcmToken,
             @PartMap Map<String, RequestBody> params,
             @Part MultipartBody.Part file
     );
 
     @GET("users/get_token")
-    Observable<UserRes> loginUser(@Query("user_name") String name,
+    Observable<UserRes> loginUser(@Header("fcmToken") String fcmToken,
+                                  @Query("user_name") String name,
                                   @Query("password") String password);
+
+    @GET("users/register_fcm_token")
+    Observable<ResponseBody> sendFcmToken(@Header("fcmToken") String fcmToken,
+                                          @Header("X-User-Token") String UserToken);
 
     @GET("good_deals")
     Observable<List<Deal>> getDeals(@Header("X-User-Token") String token,
@@ -70,6 +77,7 @@ public interface RestService {
     Observable<CommentRes> sendComment(@Header("X-User-Token") String token,
                                        @Query("good_deal_id") long id,
                                        @Body NewCommentReq comment);
+
     @POST("good_deals/{id}/like")
     Observable<Deal> like(@Header("X-User-Token") String token,
                           @Path("id") long id);
@@ -97,4 +105,10 @@ public interface RestService {
 
     @GET("users/reset_password")
     Observable<ResponseBody> recoverPassword(@Query("email") String email);
+
+    @DELETE("users/destroy_session")
+    Observable<ResponseBody> logout(@Header("X-User-Token") String token);
+
+    @GET("notifications")
+    Observable<List<Feedback>> loadNotifications(@Header("X-User-Token") String token);
 }

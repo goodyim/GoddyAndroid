@@ -125,4 +125,15 @@
     <string name="delete_success">Запись была успешно удалена</string>
     <string name="comment_reply">Ответить</string>
     <string name="login_forgot_password">Восстановаить пароль</string>
+    <string name="comment_notification_format">%s: %s</string>
+    <string name="deafult_hint">Начните печатать…</string>
+    <string name="ok">Подтвердить</string>
+    <string name="cancel">Отменить</string>
+    <string name="forgot_password_title">Введите ваш email</string>
+    <string name="recover_instructions_sent">Интрукции по восстановлению пароля отправлены на %s</string>
+    <string name="feedback_title">Уведомления</string>
+    <string name="empty_list">Здесь пока ничего нет :(</string>
+    <string name="feedback_comment">Оставил комментрий к вашей записи</string>
+    <string name="feedback_common">Нажмите, чтобы увидеть подробности</string>
+    <string name="mention_notification_format">%s упомянул вас</string>
 </resources>

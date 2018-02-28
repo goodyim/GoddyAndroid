@@ -5,6 +5,11 @@
         android:checkableBehavior="single">
 
         <item
+            android:id="@+id/action_feedback"
+            android:icon="@drawable/ic_notifications"
+            android:title="@string/feedback_title" />
+
+        <item
             android:id="@+id/action_main_screen"
             android:icon="@drawable/ic_rss"
             android:title="@string/news_title" />
@@ -29,11 +34,6 @@
             android:icon="@drawable/ic_settings"
             android:title="@string/action_settings" />
 
-        <item
-            android:id="@+id/action_logout"
-            android:icon="@drawable/ic_logout"
-            android:title="@string/logout" />
-
         <!-- TODO uncomment after screens will have been realized -->
 
         <!--<item android:id="@+id/action_support"-->
@@ -43,5 +43,14 @@
         <!--<item android:id="@+id/action_about"-->
         <!--android:icon="@drawable/ic_info_outline"-->
         <!--android:title="@string/action_about"/>-->
+    </group>
+
+    <group
+        android:id="@+id/nav_second_group"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/action_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/logout" />
     </group>
 </menu>

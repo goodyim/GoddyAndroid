@@ -4,8 +4,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Log;
 
-import com.squareup.picasso.Picasso;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -22,6 +23,7 @@ import javax.inject.Inject;
 import im.goody.android.App;
 import im.goody.android.Constants;
 import im.goody.android.data.dto.Deal;
+import im.goody.android.data.dto.Feedback;
 import im.goody.android.data.dto.User;
 import im.goody.android.data.local.PreferencesManager;
 import im.goody.android.data.network.RestService;
@@ -71,6 +73,7 @@ public class Repository implements IRepository {
         return getPart(avatarUri, "user[avatar]")
                 .flatMap(part ->
                         restService.registerUser(
+                                getFcmToken(),
                                 RestCallTransformer.objectToPartMap(data, "user"),
                                 part.getPart()))
                 .doOnNext(preferencesManager::saveUser)
@@ -79,7 +82,7 @@ public class Repository implements IRepository {
 
     @Override
     public Observable<UserRes> login(LoginReq data) {
-        return restService.loginUser(data.getName(), data.getPassword())
+        return restService.loginUser(getFcmToken(), data.getName(), data.getPassword())
                 .doOnNext(preferencesManager::saveUser)
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -185,8 +188,8 @@ public class Repository implements IRepository {
 
     @Override
     public Observable<User> getUserProfile(String identifier) {
-            return restService.getUserProfile(preferencesManager.getUserToken(), identifier)
-                    .observeOn(AndroidSchedulers.mainThread());
+        return restService.getUserProfile(preferencesManager.getUserToken(), identifier)
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
@@ -224,8 +227,10 @@ public class Repository implements IRepository {
     }
 
     @Override
-    public void logout() {
-        preferencesManager.clearUserData();
+    public Observable<ResponseBody> logout() {
+        return restService.logout(preferencesManager.getUserToken())
+                .doOnNext(res -> preferencesManager.clearUserData())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
@@ -239,8 +244,7 @@ public class Repository implements IRepository {
         return Observable.just(imageUrl)
                 .subscribeOn(Schedulers.io())
                 .map(url -> {
-                    Bitmap bmp = Picasso.with(App.getAppContext())
-                            .load(imageUrl)
+                    Bitmap bmp =  App.picasso.load(imageUrl)
                             .get();
                     File file = cacheBitmap(bmp);
 
@@ -258,6 +262,20 @@ public class Repository implements IRepository {
     @Override
     public Observable<ResponseBody> recoverPassword(String email) {
         return restService.recoverPassword(email)
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public void sendRegistrationToServer(String refreshedToken) {
+        restService.sendFcmToken(refreshedToken, preferencesManager.getUserToken())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(res -> Log.d(this.getClass().getName(), "Token sent"),
+                        Throwable::printStackTrace);
+    }
+
+    @Override
+    public Observable<List<Feedback>> getFeedback() {
+        return restService.loadNotifications(preferencesManager.getUserToken())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -328,6 +346,10 @@ public class Repository implements IRepository {
                 System.currentTimeMillis() + file.getName(), reqFile);
 
         return new PartContainer(part);
+    }
+
+    private String getFcmToken() {
+        return FirebaseInstanceId.getInstance().getToken();
     }
 
     private class PartContainer {

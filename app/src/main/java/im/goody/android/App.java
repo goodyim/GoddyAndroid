@@ -3,6 +3,7 @@ package im.goody.android;
 import android.app.Application;
 import android.content.Context;
 
+import com.squareup.picasso.LruCache;
 import com.squareup.picasso.Picasso;
 
 import dagger.Provides;
@@ -16,13 +17,19 @@ public class App extends Application {
     private static DataComponent dataComponent;
     private static RootComponent rootComponent;
 
+    public static Picasso picasso;
+
     @Override
     public void onCreate() {
         super.onCreate();
         appContext = getApplicationContext();
         initDaggerComponents();
 
-        Picasso.with(this).setLoggingEnabled(true);
+        picasso = new Picasso.Builder(this)
+                .memoryCache(new LruCache(Constants.CACHE_SIZE))
+                .build();
+
+        picasso.setLoggingEnabled(true);
     }
 
     public static Context getAppContext() {

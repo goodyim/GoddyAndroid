@@ -7,8 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
+import im.goody.android.App;
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Location;
@@ -21,15 +20,15 @@ import im.goody.android.utils.TextUtils;
 public class PostBindingAdapter {
     @BindingAdapter("post_image")
     public static void bindImage(ImageView view, Deal deal) {
-        Picasso.with(view.getContext()).cancelRequest(view);
+        App.picasso.cancelRequest(view);
 
         if (deal.getImageUrl() == null) {
             view.setVisibility(View.GONE);
             return;
         }
         view.setVisibility(View.VISIBLE);
-        Picasso.with(view.getContext())
-                .load(NetUtils.buildDealImageUrl(deal))
+
+        App.picasso.load(NetUtils.buildDealImageUrl(deal))
                 .placeholder(R.color.placeholder_color)
                 .fit()
                 .centerCrop()
@@ -38,12 +37,11 @@ public class PostBindingAdapter {
 
     @BindingAdapter("author_avatar")
     public static void bindAvatar(ImageView view, String url) {
-        Picasso.with(view.getContext()).cancelRequest(view);
+        App.picasso.cancelRequest(view);
 
         view.setImageResource(R.drawable.round_drawable);
 
-        Picasso.with(view.getContext())
-                .load(url)
+        App.picasso.load(url)
                 .placeholder(R.drawable.round_drawable)
                 .fit()
                 .into(view);

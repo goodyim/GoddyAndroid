@@ -9,9 +9,11 @@ import javax.inject.Inject;
 import im.goody.android.App;
 import im.goody.android.data.IRepository;
 import im.goody.android.data.dto.Deal;
+import im.goody.android.data.network.error.StandardError;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.screens.about.AboutController;
 import im.goody.android.screens.detail_post.DetailPostController;
+import im.goody.android.screens.feedback.FeedBackController;
 import im.goody.android.screens.intro.IntroController;
 import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.main.MainController;
@@ -26,7 +28,8 @@ import im.goody.android.ui.helpers.BarBuilder;
 
 public class RootPresenter implements IRootPresenter {
 
-    @Inject IRepository repository;
+    @Inject
+    IRepository repository;
     private IRootView rootView;
 
     public RootPresenter() {
@@ -190,10 +193,17 @@ public class RootPresenter implements IRootPresenter {
 
     @Override
     public void showParticipatingEvents() {
-        if(rootView != null) {
+        if (rootView != null) {
             long id = repository.getUserData().getUser().getId();
 
             rootView.showScreenAsRoot(MainController.class, String.valueOf(id), false, true);
+        }
+    }
+
+    @Override
+    public void showFeedback() {
+        if (rootView != null) {
+            rootView.showScreen(FeedBackController.class);
         }
     }
 
@@ -206,7 +216,13 @@ public class RootPresenter implements IRootPresenter {
 
     @Override
     public void logout() {
-        repository.logout();
-        showLoginScreen();
+        repository.logout().subscribe(
+                result -> showLoginScreen(),
+                error -> {
+                    StandardError errorObject = repository.getError(error, StandardError.class);
+                    String message = errorObject != null ? errorObject.getErrors() : error.getMessage();
+
+                    rootView.showMessage(message);
+                });
     }
 }
