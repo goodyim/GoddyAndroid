@@ -29,8 +29,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 tools:background="@drawable/event_header_active"
-
-                android:background="@{viewModel.active ? @drawable/event_header_active : @drawable/event_header_closed}">
+                app:event_color="@{viewModel.state}">
 
                 <TextView
                     android:id="@+id/item_event_title"
@@ -194,7 +193,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/size_normal"
                     android:layout_marginEnd="@dimen/size_normal"
-                    android:visibility="@{viewModel.deal.event.active ? View.VISIBLE : View.INVISIBLE}"
+                    app:join_visibility="@{viewModel.state}"
                     android:text="@{viewModel.participates ? @string/leave : @string/join}"/>
 
             </LinearLayout>

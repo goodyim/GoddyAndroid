@@ -22,7 +22,7 @@
             android:id="@+id/detail_event_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@{data.active ? @color/accent : @color/primary}"
+            app:event_color="@{data.state}"
             android:padding="@dimen/size_normal"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="@color/white"
@@ -179,7 +179,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_small"
-            android:visibility="@{data.active ? View.VISIBLE : View.INVISIBLE}"
+            app:join_visibility="@{data.state}"
             android:text="@{data.participates ? @string/leave : @string/join}"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_event_date" />

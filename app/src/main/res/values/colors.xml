@@ -25,4 +25,5 @@
 
     <color name="placeholder_color">#f2f2f2</color>
     <color name="photo_toolbar_color">#33000000</color>
+    <color name="red">#F00</color>
 </resources>

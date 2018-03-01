@@ -138,7 +138,7 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
                 if (!deal.isOwner()) {
                     changeState = ChangeState.HIDDEN;
-                } else if (deal.getEvent().isActive()) {
+                } else if (deal.getEvent().isOpen()) {
                     changeState = ChangeState.CLOSE;
                 } else {
                     changeState = ChangeState.OPEN;
@@ -186,6 +186,7 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                             .subscribe(
                                     response -> {
                                         viewModel.participates.set(response.isParticipates());
+                                        viewModel.state.set(response.getStatus());
 
                                         if (response.isParticipates()) {
                                             handler.showDetail(viewModel.getDeal().getId());

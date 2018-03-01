@@ -177,12 +177,22 @@ public class Deal {
     @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class Event {
+        public static final String ACTIVE = "active";
+        public static final String IN_PROGRESS = "in_process";
+        public static final String CLOSED = "finished";
+
         private String resources;
         private String date;
-        private boolean active;
 
-        public boolean isActive() {
-            return active;
+        @JsonProperty("aasm_state")
+        private String state;
+
+        public String getState() {
+            return state;
+        }
+
+        public void setState(String state) {
+            this.state = state;
         }
 
         public String getResources() {
@@ -193,9 +203,6 @@ public class Deal {
             return date;
         }
 
-        public void setActive(boolean active) {
-            this.active = active;
-        }
 
         public void setResources(String resources) {
             this.resources = resources;
@@ -203,6 +210,10 @@ public class Deal {
 
         public void setDate(String date) {
             this.date = date;
+        }
+
+        public boolean isOpen() {
+            return !state.equals(CLOSED);
         }
     }
 }

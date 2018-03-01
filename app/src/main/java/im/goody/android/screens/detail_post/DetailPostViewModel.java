@@ -57,9 +57,9 @@ public class DetailPostViewModel {
         bodyViewModel.panelViewModel.commentsCount.set(comment.getCommentsCount());
     }
 
-    void updateEventState(boolean active) {
-        bodyViewModel.getDeal().getEvent().setActive(active);
-        bodyViewModel.active.set(active);
+    void updateEventState(String active) {
+        bodyViewModel.getDeal().getEvent().setState(active);
+        bodyViewModel.state.set(active);
     }
 
     Deal getDeal() {

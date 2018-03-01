@@ -171,8 +171,10 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
             eventBinding.detailEventJoin.setOnClickListener(v ->
                     handler.changeParticipateState()
                             .subscribe(
-                                    response ->
-                                            viewModel.participates.set(response.isParticipates()),
+                                    response -> {
+                                        viewModel.state.set(response.getStatus());
+                                        viewModel.participates.set(response.isParticipates());
+                                    },
                                     Throwable::printStackTrace));
 
             eventBinding.detailEventAvatar.setOnClickListener(v ->

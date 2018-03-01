@@ -1,13 +1,16 @@
 package im.goody.android.data.network.res;
 
-public class EventStateRes {
-    private boolean active;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    public boolean isActive() {
-        return active;
+public class EventStateRes {
+    @JsonProperty("aasm_state")
+    private String state;
+
+    public String getState() {
+        return state;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setState(String state) {
+        this.state = state;
     }
 }

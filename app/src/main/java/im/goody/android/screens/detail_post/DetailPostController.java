@@ -257,12 +257,12 @@ public class DetailPostController extends BaseController<DetailPostView>
         disposable = repository.changeEventState(viewModel.getId())
                 .subscribe(
                         eventStateRes -> {
-                            viewModel.updateEventState(eventStateRes.isActive());
+                            viewModel.updateEventState(eventStateRes.getState());
                             eventStateItem.setTitle(getCloseOpenItemTitle());
 
-                            int msgRes = eventStateRes.isActive()
-                                    ? R.string.event_opened
-                                    : R.string.event_closed;
+                            int msgRes = eventStateRes.getState().equals(Deal.Event.CLOSED)
+                                    ? R.string.event_closed
+                                    : R.string.event_opened;
 
                             view().showMessage(msgRes);
                         }, this::showError);
@@ -272,7 +272,7 @@ public class DetailPostController extends BaseController<DetailPostView>
     private String getCloseOpenItemTitle() {
         Deal.Event event = viewModel.getDeal().getEvent();
 
-        int titleRes = event.isActive()
+        int titleRes = event.isOpen()
                 ? R.string.close_event
                 : R.string.open_event;
         return getActivity().getString(titleRes);

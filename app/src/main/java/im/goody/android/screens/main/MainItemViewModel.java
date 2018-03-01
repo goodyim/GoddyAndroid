@@ -3,6 +3,7 @@ package im.goody.android.screens.main;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
 
 import im.goody.android.BR;
 import im.goody.android.data.dto.Deal;
@@ -18,7 +19,7 @@ public class MainItemViewModel extends BaseObservable {
     private boolean expanded;
 
     public final ObservableBoolean participates;
-    public final ObservableBoolean active = new ObservableBoolean(false);
+    public final ObservableField<String> state = new ObservableField<>("");
 
     MainItemViewModel(Deal deal) {
         this.deal = deal;
@@ -28,7 +29,7 @@ public class MainItemViewModel extends BaseObservable {
         participates = new ObservableBoolean(deal.isParticipates());
 
         if (deal.getEvent() != null)
-            active.set(deal.getEvent().isActive());
+            state.set(deal.getEvent().getState());
     }
 
     public boolean isExpanded() {
@@ -36,8 +37,8 @@ public class MainItemViewModel extends BaseObservable {
     }
 
     void changeEventState(EventStateRes stateRes) {
-        active.set(stateRes.isActive());
-        deal.getEvent().setActive(stateRes.isActive());
+        state.set(stateRes.getState());
+        deal.getEvent().setState(stateRes.getState());
     }
 
     void setExpanded(boolean expanded) {

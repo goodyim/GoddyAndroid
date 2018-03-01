@@ -10,6 +10,7 @@ import android.widget.TextView;
 import im.goody.android.App;
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
+import im.goody.android.data.dto.Deal.Event;
 import im.goody.android.data.dto.Location;
 import im.goody.android.ui.views.AutoLinkTextView;
 import im.goody.android.utils.DateUtils;
@@ -106,5 +107,33 @@ public class PostBindingAdapter {
     @BindingAdapter("link_text")
     public static void bindLinkedText(AutoLinkTextView view, String text) {
         view.setLinkedText(text);
+    }
+
+    @BindingAdapter("event_color")
+    public static void bindEventColor(View view, String state) {
+        int backgroundRes = 0;
+
+        switch (state) {
+            case Event.ACTIVE:
+                backgroundRes = R.drawable.event_header_active;
+                break;
+            case Event.IN_PROGRESS:
+                backgroundRes = R.drawable.event_header_in_progress;
+                break;
+            case Event.CLOSED:
+                backgroundRes = R.drawable.event_header_closed;
+        }
+
+        view.setBackgroundResource(backgroundRes);
+    }
+
+    @BindingAdapter(("join_visibility"))
+    public static void bindJoinVisibility(View view, String state) {
+        int visibility = View.VISIBLE;
+
+        if (state.equals(Event.CLOSED))
+            visibility = View.INVISIBLE;
+
+        view.setVisibility(visibility);
     }
 }
