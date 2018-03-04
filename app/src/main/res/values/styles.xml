@@ -70,8 +70,6 @@
 
     <style name="LoginControl" parent="FullWidthFromParent">
         <item name="android:layout_height">@dimen/edit_text_size</item>
-        <item name="android:layout_marginLeft">@dimen/size_normal</item>
-        <item name="android:layout_marginRight">@dimen/size_normal</item>
         <item name="android:layout_marginTop">@dimen/size_normal</item>
         <item name="android:padding">@dimen/size_normal</item>
     </style>

@@ -142,4 +142,9 @@
     <string name="login_subtitle">Let\'s make the good together!</string>
     <string name="login_submit">Login</string>
     <string name="register_action">Register</string>
+    <string name="sex_male">Male</string>
+    <string name="sex_female">Female</string>
+    <string name="register_sex_title">Choose your sex</string>
+    <string name="register_birthday_title">Birthday</string>
+    <string name="register_redirect">Login</string>
 </resources>

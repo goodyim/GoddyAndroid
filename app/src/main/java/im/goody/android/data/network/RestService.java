@@ -34,9 +34,7 @@ public interface RestService {
     @POST("users")
     Observable<UserRes> registerUser(
             @Header("fcmToken") String fcmToken,
-            @PartMap Map<String, RequestBody> params,
-            @Part MultipartBody.Part file
-    );
+            @PartMap Map<String, RequestBody> params);
 
     @GET("users/get_token")
     Observable<UserRes> loginUser(@Header("fcmToken") String fcmToken,

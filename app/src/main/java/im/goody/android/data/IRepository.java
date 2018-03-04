@@ -23,7 +23,7 @@ import okhttp3.ResponseBody;
 public interface IRepository {
 
     Observable<UserRes> login(LoginReq data);
-    Observable<UserRes> register(RegisterReq data, Uri avatarUri);
+    Observable<UserRes> register(RegisterReq data);
     boolean isSigned();
 
     boolean isFirstLaunch();

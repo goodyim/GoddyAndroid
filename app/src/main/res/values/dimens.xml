@@ -26,4 +26,5 @@
     <dimen name="corner_radius">2dp</dimen>
     <dimen name="drawer_image_size">60dp</dimen>
     <dimen name="appbar_elevation">4dp</dimen>
+    <dimen name="auth_header_height">120dp</dimen>
 </resources>

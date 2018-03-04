@@ -1,10 +1,8 @@
 package im.goody.android.screens.login;
 
-import android.content.Context;
 import android.databinding.BaseObservable;
 import android.text.TextUtils;
 
-import im.goody.android.App;
 import im.goody.android.data.network.req.LoginReq;
 
 import static im.goody.android.Constants.MIN_NAME_LENGTH;
@@ -14,10 +12,6 @@ import static im.goody.android.Constants.MIN_PASSWORD_LENGTH;
 public class LoginViewModel extends BaseObservable {
     private String name;
     private String password;
-
-    LoginViewModel() {
-        Context context = App.getAppContext();
-    }
 
     boolean isValid() {
         return isEmailValid() && isPasswordValid();

@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Calendar;
+import java.util.Locale;
+
 import im.goody.android.App;
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
@@ -17,8 +20,11 @@ import im.goody.android.utils.DateUtils;
 import im.goody.android.utils.NetUtils;
 import im.goody.android.utils.TextUtils;
 
+import static im.goody.android.Constants.DATE_FORMAT;
+import static im.goody.android.Constants.DATE_TIME_FORMAT;
+
 @SuppressWarnings("unused")
-public class PostBindingAdapter {
+public class CommonBindingAdapter {
     @BindingAdapter("post_image")
     public static void bindImage(ImageView view, Deal deal) {
         App.picasso.cancelRequest(view);
@@ -135,5 +141,29 @@ public class PostBindingAdapter {
             visibility = View.INVISIBLE;
 
         view.setVisibility(visibility);
+    }
+
+    @BindingAdapter(value = {"date", "time_disabled"}, requireAll = false)
+    public static void bindDate(TextView view, Calendar calendar, Boolean timeDisabled) {
+        String date;
+
+        if (calendar == null) {
+            date = view.getContext().getString(R.string.choose_date);
+        } else {
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH) + 1;
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            int hours = calendar.get(Calendar.HOUR_OF_DAY);
+            int minutes = calendar.get(Calendar.MINUTE);
+
+            if (timeDisabled == null || !timeDisabled)
+                date = String.format(Locale.getDefault(), DATE_TIME_FORMAT,
+                    day, month, year, hours, minutes);
+            else
+                date = String.format(Locale.getDefault(), DATE_FORMAT, day, month, year);
+        }
+
+        view.setText(date);
     }
 }

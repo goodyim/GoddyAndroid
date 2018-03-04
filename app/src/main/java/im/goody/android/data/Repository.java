@@ -68,14 +68,10 @@ public class Repository implements IRepository {
     //region ================= User =================
 
     @Override
-    public Observable<UserRes> register(RegisterReq data, Uri avatarUri) {
+    public Observable<UserRes> register(RegisterReq data) {
 
-        return getPart(avatarUri, "user[avatar]")
-                .flatMap(part ->
-                        restService.registerUser(
-                                getFcmToken(),
-                                RestCallTransformer.objectToPartMap(data, "user"),
-                                part.getPart()))
+        return restService.registerUser(getFcmToken(),
+                RestCallTransformer.objectToPartMap(data, "user"))
                 .doOnNext(preferencesManager::saveUser)
                 .observeOn(AndroidSchedulers.mainThread());
     }

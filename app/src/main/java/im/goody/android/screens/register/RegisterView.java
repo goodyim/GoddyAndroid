@@ -20,10 +20,8 @@ public class RegisterView extends BaseView<RegisterController, ScreenRegisterBin
 
     @Override
     protected void onAttached() {
-        binding.registerImage.setOnClickListener(v -> {
-            UIUtils.hideKeyboard(getFocusedChild());
-            controller.chooseAvatar();
-        });
+        binding.registerBirthday.setOnClickListener(v -> controller.chooseDate());
+        binding.registerRedirect.setOnClickListener(v -> controller.redirectToLogin());
 
         binding.registerSubmit.setOnClickListener(v -> {
             UIUtils.hideKeyboard(getFocusedChild());
