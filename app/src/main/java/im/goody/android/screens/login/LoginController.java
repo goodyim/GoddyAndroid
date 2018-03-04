@@ -57,7 +57,8 @@ public class LoginController extends BaseController<LoginView> {
     @Override
     protected void initActionBar() {
         rootPresenter.newBarBuilder()
-                .setToolbarVisible(true)
+                .setToolbarVisible(false)
+                .setStatusBarVisible(false)
                 .setHomeState(BarBuilder.HOME_GONE)
                 .setTitleRes(R.string.login_title)
                 .build();

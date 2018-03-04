@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.text.TextUtils;
 
 import java.io.IOException;
@@ -18,7 +17,6 @@ import im.goody.android.App;
 import im.goody.android.BR;
 import im.goody.android.R;
 import im.goody.android.data.network.req.RegisterReq;
-import im.goody.android.utils.BitmapUtils;
 
 import static android.util.Patterns.EMAIL_ADDRESS;
 import static im.goody.android.Constants.MIN_NAME_LENGTH;
@@ -50,7 +48,7 @@ public class RegisterViewModel extends BaseObservable{
     private Drawable invalidFieldDrawable;
     RegisterViewModel() {
         Context context = App.getAppContext();
-        emptyFieldDrawable = ContextCompat.getDrawable(context, R.drawable.field_background);
+        emptyFieldDrawable = ContextCompat.getDrawable(context, R.drawable.rounded_border_rectangle);
         validFieldDrawable = ContextCompat.getDrawable(context, R.drawable.field_valid);
         invalidFieldDrawable = ContextCompat.getDrawable(context, R.drawable.field_invalid);
 

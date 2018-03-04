@@ -44,8 +44,9 @@ public class RegisterController extends BaseController<RegisterView> {
     @Override
     protected void initActionBar() {
         rootPresenter.newBarBuilder()
-                .setHomeState(BarBuilder.HOME_ARROW)
-                .setToolbarVisible(true)
+                .setHomeState(BarBuilder.HOME_GONE)
+                .setStatusBarVisible(false)
+                .setToolbarVisible(false)
                 .setTitleRes(R.string.register_title)
                 .build();
     }
