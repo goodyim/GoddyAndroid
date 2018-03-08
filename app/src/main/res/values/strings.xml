@@ -10,7 +10,7 @@
     <string name="action_about">About</string>
 
     <!-- screen_main -->
-    <string name="news_title">News</string>
+    <string name="news_title">Events</string>
 
     <!-- screen_intro -->
     <string name="intro_close">Close</string>
@@ -147,4 +147,5 @@
     <string name="register_sex_title">Sex</string>
     <string name="register_birthday_title">Birthday</string>
     <string name="register_redirect">Login</string>
+    <string name="map">Map</string>
 </resources>

@@ -5,9 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import im.goody.android.core.IBarView;
 
 public class BarBuilder {
@@ -19,13 +16,13 @@ public class BarBuilder {
     private boolean toolbarVisible;
 
     private boolean statusBarVisible = true;
+
     public static final int HOME_GONE = 0;
     public static final int HOME_HAMBURGER = 1;
-
     public static final int HOME_ARROW = 2;
+
     @Nullable
     private Integer titleRes;
-    private List<MenuItemHolder> items = new ArrayList<>();
 
     public BarBuilder(IBarView view) {
         this.view = view;
@@ -59,12 +56,6 @@ public class BarBuilder {
     }
 
     @NonNull
-    public BarBuilder addAction(MenuItemHolder item) {
-        this.items.add(item);
-        return this;
-    }
-
-    @NonNull
     public BarBuilder setStatusBarVisible(boolean statusBarVisible) {
         this.statusBarVisible = statusBarVisible;
         return this;
@@ -77,10 +68,8 @@ public class BarBuilder {
             if (titleRes != null)
                 view.setToolbarTitle(titleRes);
 
-
             view.setHomeListener(homeListener);
             view.setHomeState(homeState);
-            view.setToolBarMenuItem(items);
             view.setStatusBarVisible(statusBarVisible);
         }
     }

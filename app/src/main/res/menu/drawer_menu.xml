@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group
         android:id="@+id/nav_min_group"
-        android:checkableBehavior="single">
+        android:checkableBehavior="none">
 
         <item
             android:id="@+id/action_feedback"
@@ -10,29 +10,34 @@
             android:title="@string/feedback_title" />
 
         <item
+            android:id="@+id/action_map"
+            android:icon="@drawable/ic_map"
+            android:title="@string/map" />
+
+        <item
             android:id="@+id/action_main_screen"
             android:icon="@drawable/ic_rss"
             android:title="@string/news_title" />
 
-        <item
-            android:id="@+id/action_near_events"
-            android:icon="@drawable/ic_map"
-            android:title="@string/near_events" />
+        <!--<item-->
+            <!--android:id="@+id/action_participating_events"-->
+            <!--android:icon="@drawable/ic_event"-->
+            <!--android:title="@string/participating_events" />-->
 
         <item
-            android:id="@+id/action_participating_events"
-            android:icon="@drawable/ic_event"
-            android:title="@string/participating_events" />
-
-        <item
-            android:id="@+id/action_my_posts"
+            android:id="@+id/action_profile"
             android:icon="@drawable/ic_person"
-            android:title="@string/my_posts" />
+            android:title="@string/profile" />
 
         <item
             android:id="@+id/action_settings"
             android:icon="@drawable/ic_settings"
             android:title="@string/action_settings" />
+
+        <item
+            android:id="@+id/action_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/logout" />
 
         <!-- TODO uncomment after screens will have been realized -->
 
@@ -43,14 +48,5 @@
         <!--<item android:id="@+id/action_about"-->
         <!--android:icon="@drawable/ic_info_outline"-->
         <!--android:title="@string/action_about"/>-->
-    </group>
-
-    <group
-        android:id="@+id/nav_second_group"
-        android:checkableBehavior="none">
-        <item
-            android:id="@+id/action_logout"
-            android:icon="@drawable/ic_logout"
-            android:title="@string/logout" />
     </group>
 </menu>

@@ -12,31 +12,24 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bluelinelabs.conductor.Conductor;
 import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import im.goody.android.App;
 import im.goody.android.R;
-import im.goody.android.data.network.res.UserRes;
 import im.goody.android.databinding.ActivityRootBinding;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.screens.detail_post.DetailPostController;
-import im.goody.android.screens.login.LoginController;
-import im.goody.android.screens.main.MainController;
 import im.goody.android.ui.helpers.BarBuilder;
-import im.goody.android.ui.helpers.MenuItemHolder;
 
 @SuppressWarnings("deprecation")
 public class RootActivity extends AppCompatActivity
@@ -72,12 +65,10 @@ public class RootActivity extends AppCompatActivity
         if (!router.hasRootController()) {
             Class<? extends Controller> controller = presenter.getStartController();
             showScreenAsRoot(controller);
-            if (controller == MainController.class) {
-                binding.navView.setCheckedItem(R.id.action_main_screen);
-            }
         }
 
         long extraPostId = getIntent().getLongExtra(EXTRA_POST_ID, ID_NONE);
+
         if (extraPostId != ID_NONE) {
             showScreen(DetailPostController.class, extraPostId);
         }
@@ -93,14 +84,23 @@ public class RootActivity extends AppCompatActivity
         setSupportActionBar(binding.toolbar);
         actionBar = getSupportActionBar();
 
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
         drawerToggle = new ActionBarDrawerToggle(this,
                 binding.drawerLayout,
                 binding.toolbar,
                 R.string.open_drawer,
                 R.string.close_drawer);
+
+
         binding.drawerLayout.addDrawerListener(drawerToggle);
         binding.drawerLayout.setFitsSystemWindows(true);
+        binding.drawerLayout.useCustomBehavior(Gravity.START);
+        binding.drawerLayout.setViewScale(Gravity.START, 0.8f);
+        binding.drawerLayout.setViewElevation(Gravity.START, 20);
+
         binding.navView.setNavigationItemSelectedListener(this);
+
         drawerToggle.syncState();
     }
 
@@ -115,8 +115,8 @@ public class RootActivity extends AppCompatActivity
             case R.id.action_main_screen:
                 presenter.showNews();
                 break;
-            case R.id.action_my_posts:
-                presenter.showMyPosts();
+            case R.id.action_profile:
+                presenter.showMyProfile();
                 break;
             case R.id.action_settings:
                 presenter.showSettingScreen();
@@ -124,12 +124,12 @@ public class RootActivity extends AppCompatActivity
             case R.id.action_logout:
                 presenter.logout();
                 break;
-            case R.id.action_near_events:
+            case R.id.action_map:
                 presenter.showNearEventsScreen();
                 break;
-            case R.id.action_participating_events:
-                presenter.showParticipatingEvents();
-                break;
+//            case R.id.action_participating_events:
+//                presenter.showParticipatingEvents();
+//                break;
             case R.id.action_feedback:
                 presenter.showFeedback();
                 break;
@@ -228,15 +228,12 @@ public class RootActivity extends AppCompatActivity
     @Override
     public void setStatusBarVisible(boolean visible) {
         if (visible) {
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            binding.statusBarView.setVisibility(View.VISIBLE);
+//            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         } else {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            binding.statusBarView.setVisibility(View.GONE);
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-    }
-
-    @Override
-    public void setToolBarMenuItem(List<MenuItemHolder> items) {
-        // TODO: 21.08.2017
     }
 
     //endregion
@@ -245,15 +242,15 @@ public class RootActivity extends AppCompatActivity
 
     @Override
     public void showScreen(Class<? extends Controller> controllerClass, Object... args) {
-        String tag = controllerClass.getName();
-        for (Object obj : args) tag += obj;
+        StringBuilder tag = new StringBuilder(controllerClass.getName());
+        for (Object obj : args) tag.append(obj);
 
-        Controller controller = router.getControllerWithTag(tag);
+        Controller controller = router.getControllerWithTag(tag.toString());
         if (controller == null) {
             controller = instantiateController(controllerClass, args);
         }
 
-        router.pushController(RouterTransaction.with(controller).tag(tag));
+        router.pushController(RouterTransaction.with(controller).tag(tag.toString()));
     }
 
     @Override
@@ -263,25 +260,7 @@ public class RootActivity extends AppCompatActivity
 
         Controller controller = instantiateController(controllerClass, args);
 
-        checkMainItemIfLogout(controller);
-
         router.setRoot(RouterTransaction.with(controller).tag(tag));
-    }
-
-    @Override
-    public void showDrawerHeader(UserRes userRes) {
-        View headerView = binding.navView.getHeaderView(0);
-        TextView nameView = headerView.findViewById(R.id.drawer_name);
-        ImageView imageView = headerView.findViewById(R.id.drawer_avatar);
-
-        nameView.setText(userRes.getUser().getName());
-
-        App.picasso.load(userRes.getUser().getAvatarUrl())
-                .placeholder(R.drawable.round_drawable)
-                .fit()
-                .into(imageView);
-
-        imageView.setOnClickListener(v -> presenter.showMyProfile());
     }
 
     @Override
@@ -326,12 +305,6 @@ public class RootActivity extends AppCompatActivity
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        }
-    }
-
-    private void checkMainItemIfLogout(Controller controller) {
-        if (controller.getClass() == LoginController.class) {
-            binding.navView.setCheckedItem(R.id.action_main_screen);
         }
     }
 }

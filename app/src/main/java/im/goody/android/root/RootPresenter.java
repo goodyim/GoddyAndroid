@@ -42,10 +42,6 @@ public class RootPresenter implements IRootPresenter {
 
     void takeView(IRootView rootView) {
         this.rootView = rootView;
-
-        if (repository.isSigned()) {
-            rootView.showDrawerHeader(repository.getUserData());
-        }
     }
 
     void dropView() {
@@ -89,7 +85,6 @@ public class RootPresenter implements IRootPresenter {
     public void showNews() {
         if (rootView != null) {
             rootView.showScreenAsRoot(MainController.class);
-            rootView.showDrawerHeader(repository.getUserData());
         }
     }
 
@@ -97,7 +92,6 @@ public class RootPresenter implements IRootPresenter {
     public void showUserPosts(String userId) {
         if (rootView != null) {
             rootView.showScreen(MainController.class, userId, true);
-            rootView.showDrawerHeader(repository.getUserData());
         }
     }
 
@@ -108,7 +102,6 @@ public class RootPresenter implements IRootPresenter {
             long id = repository.getUserData().getUser().getId();
 
             rootView.showScreenAsRoot(MainController.class, String.valueOf(id), false);
-            rootView.showDrawerHeader(repository.getUserData());
         }
     }
 

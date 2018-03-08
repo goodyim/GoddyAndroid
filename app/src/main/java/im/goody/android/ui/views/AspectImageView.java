@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import im.goody.android.R;
 
 public class AspectImageView extends AppCompatImageView {
-    private static final float DEFAULT_ASPECT_RATIO = 1.73f;
+    private static final float DEFAULT_ASPECT_RATIO = 1.77f;
     private final float mAspectRatio;
 
     public AspectImageView(Context context, AttributeSet attrs) {

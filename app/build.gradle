@@ -90,6 +90,8 @@ dependencies {
     implementation 'com.github.mklimek:ssl-utils-android:1.0.1'
 
     implementation 'com.google.firebase:firebase-messaging:11.8.0'
+
+    implementation 'com.infideap.drawerbehavior:drawer-behavior:0.0.4'
 }
 
 apply plugin: 'com.google.gms.google-services'

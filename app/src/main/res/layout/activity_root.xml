@@ -4,8 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.v4.widget.DrawerLayout
+    <com.infideap.drawerbehavior.AdvanceDrawerLayout
+        android:fitsSystemWindows="true"
         android:id="@+id/drawer_layout"
+        android:background="@drawable/nav_background"
         style="@style/FullExpandLayout">
 
         <android.support.design.widget.CoordinatorLayout
@@ -17,6 +19,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/AppTheme.AppBarOverlay">
+                
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:id="@+id/status_bar_view"
+                    android:background="@color/primary_dark" />
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -40,10 +48,14 @@
         <android.support.design.widget.NavigationView
             android:id="@+id/nav_view"
             style="@style/NavigationDrawer"
+            android:fitsSystemWindows="true"
+            app:itemTextColor="@color/white"
+            app:itemIconTint="@color/white"
             app:headerLayout="@layout/drawer_header"
+            android:background="@android:color/transparent"
             app:menu="@menu/drawer_menu"/>
 
-    </android.support.v4.widget.DrawerLayout>
+    </com.infideap.drawerbehavior.AdvanceDrawerLayout>
 
 </layout>
 
