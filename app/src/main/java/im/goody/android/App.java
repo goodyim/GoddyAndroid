@@ -3,7 +3,7 @@ package im.goody.android;
 import android.app.Application;
 import android.content.Context;
 
-import com.squareup.picasso.LruCache;
+import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
 import dagger.Provides;
@@ -17,19 +17,19 @@ public class App extends Application {
     private static DataComponent dataComponent;
     private static RootComponent rootComponent;
 
-    public static Picasso picasso;
-
     @Override
     public void onCreate() {
         super.onCreate();
         appContext = getApplicationContext();
         initDaggerComponents();
 
-        picasso = new Picasso.Builder(this)
-                .memoryCache(new LruCache(Constants.CACHE_SIZE))
+        Picasso picasso = new Picasso.Builder(this)
+                .downloader(new OkHttp3Downloader(this, Integer.MAX_VALUE))
                 .build();
 
         picasso.setLoggingEnabled(true);
+
+        Picasso.setSingletonInstance(picasso);
     }
 
     public static Context getAppContext() {

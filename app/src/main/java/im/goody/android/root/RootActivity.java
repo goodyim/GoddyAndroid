@@ -113,7 +113,7 @@ public class RootActivity extends AppCompatActivity
 
         switch (item.getItemId()) {
             case R.id.action_main_screen:
-                presenter.showNews();
+                presenter.showMain();
                 break;
             case R.id.action_profile:
                 presenter.showMyProfile();
@@ -233,6 +233,17 @@ public class RootActivity extends AppCompatActivity
         } else {
             binding.statusBarView.setVisibility(View.GONE);
 //            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+    }
+
+    @Override
+    public void setTabs(BarBuilder.TabInfo tabInfo) {
+        if (tabInfo == null) {
+            binding.tabLayout.setupWithViewPager(null);
+            binding.tabLayout.setVisibility(View.GONE);
+        } else {
+            binding.tabLayout.setupWithViewPager(tabInfo.getPager());
+            binding.tabLayout.setVisibility(View.VISIBLE);
         }
     }
 

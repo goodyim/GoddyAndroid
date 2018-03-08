@@ -126,7 +126,7 @@ public class NewPostController extends NewController<NewPostView> {
                 .subscribe(
                         result -> {
                             rootPresenter.hideProgress();
-                            rootPresenter.showNews();
+                            rootPresenter.showMain();
                         },
                         error -> {
                             rootPresenter.hideProgress();
@@ -141,7 +141,7 @@ public class NewPostController extends NewController<NewPostView> {
                 .subscribe(
                         result -> {
                             rootPresenter.hideProgress();
-                            rootPresenter.showNews();
+                            rootPresenter.showMain();
                         },
                         error -> {
                             rootPresenter.hideProgress();

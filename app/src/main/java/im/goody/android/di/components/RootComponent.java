@@ -12,6 +12,7 @@ import im.goody.android.screens.feedback.FeedBackController;
 import im.goody.android.screens.intro.IntroController;
 import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.main.MainController;
+import im.goody.android.screens.news.NewsController;
 import im.goody.android.screens.near_events.NearEventsController;
 import im.goody.android.screens.new_event.NewEventController;
 import im.goody.android.screens.new_post.NewPostController;
@@ -26,7 +27,7 @@ public interface RootComponent {
     void inject(RootActivity activity);
     void inject(RootPresenter presenter);
 
-    MainController.Component plusMain();
+    NewsController.Component plusNews();
 
     LoginController.Component plusLogin();
     RegisterController.Component plusRegister();
@@ -45,4 +46,5 @@ public interface RootComponent {
 
     FeedBackController.Component plusFeedback();
 
+    MainController.Component plusMain();
 }

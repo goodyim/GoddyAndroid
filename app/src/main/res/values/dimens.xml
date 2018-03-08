@@ -29,4 +29,5 @@
     <dimen name="auth_header_height">120dp</dimen>
     <dimen name="margin_right_register">40dp</dimen>
     <dimen name="form_padding_left">18dp</dimen>
+    <dimen name="tab_indicator_height">3dp</dimen>
 </resources>

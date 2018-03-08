@@ -35,6 +35,18 @@
 
                 </android.support.v7.widget.Toolbar>
 
+                <android.support.design.widget.TabLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/TabTheme"
+                    app:tabGravity="center"
+                    app:tabIndicatorColor="@color/white"
+                    app:tabIndicatorHeight="@dimen/tab_indicator_height"
+                    android:visibility="gone"
+                    app:tabMode="fixed" />
+
             </android.support.design.widget.AppBarLayout>
 
             <FrameLayout

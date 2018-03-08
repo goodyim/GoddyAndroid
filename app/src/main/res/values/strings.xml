@@ -9,8 +9,7 @@
     <string name="action_support">Support</string>
     <string name="action_about">About</string>
 
-    <!-- screen_main -->
-    <string name="news_title">Events</string>
+    <string name="news_title">Feed</string>
 
     <!-- screen_intro -->
     <string name="intro_close">Close</string>
@@ -148,4 +147,7 @@
     <string name="register_birthday_title">Birthday</string>
     <string name="register_redirect">Login</string>
     <string name="map">Map</string>
+    <string name="content_all">All</string>
+    <string name="content_events">Events</string>
+    <string name="content_deals">Deals</string>
 </resources>

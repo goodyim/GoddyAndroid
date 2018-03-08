@@ -11,6 +11,11 @@
         <item name="windowActionBar">false</item>
     </style>
 
+    <style name="TabTheme" parent="AppTheme.AppBarOverlay">
+        <item name="android:background">@color/primary</item>
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
     <!-- custom style -->
     <style name="FormField" parent="FullWidthLayout">
         <item name="android:layout_marginTop">@dimen/size_small</item>

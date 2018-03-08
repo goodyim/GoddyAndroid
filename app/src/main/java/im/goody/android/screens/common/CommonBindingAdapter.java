@@ -7,10 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.Calendar;
 import java.util.Locale;
 
-import im.goody.android.App;
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Deal.Event;
@@ -27,7 +28,9 @@ import static im.goody.android.Constants.DATE_TIME_FORMAT;
 public class CommonBindingAdapter {
     @BindingAdapter("post_image")
     public static void bindImage(ImageView view, Deal deal) {
-        App.picasso.cancelRequest(view);
+        Picasso.with(view.getContext())
+                .cancelRequest(view);
+
 
         if (deal.getImageUrl() == null) {
             view.setVisibility(View.GONE);
@@ -35,7 +38,8 @@ public class CommonBindingAdapter {
         }
         view.setVisibility(View.VISIBLE);
 
-        App.picasso.load(NetUtils.buildDealImageUrl(deal))
+        Picasso.with(view.getContext())
+                .load(NetUtils.buildDealImageUrl(deal))
                 .placeholder(R.color.placeholder_color)
                 .fit()
                 .centerCrop()
@@ -44,11 +48,13 @@ public class CommonBindingAdapter {
 
     @BindingAdapter("author_avatar")
     public static void bindAvatar(ImageView view, String url) {
-        App.picasso.cancelRequest(view);
+        Picasso.with(view.getContext())
+                .cancelRequest(view);
 
         view.setImageResource(R.drawable.round_drawable);
 
-        App.picasso.load(url)
+        Picasso.with(view.getContext())
+                .load(url)
                 .placeholder(R.drawable.round_drawable)
                 .fit()
                 .into(view);

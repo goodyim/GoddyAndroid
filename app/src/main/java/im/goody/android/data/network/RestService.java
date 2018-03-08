@@ -48,7 +48,8 @@ public interface RestService {
     @GET("good_deals")
     Observable<List<Deal>> getDeals(@Header("X-User-Token") String token,
                                     @Query("user_id") String userId,
-                                    @Query("page") int page);
+                                    @Query("page") int page,
+                                    @Query("type") String contentType);
 
     @Multipart
     @POST("good_deals")

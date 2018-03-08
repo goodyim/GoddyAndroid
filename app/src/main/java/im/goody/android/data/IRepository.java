@@ -30,7 +30,7 @@ public interface IRepository {
     void firstLaunched();
     <T> T getError(Throwable t, Class<T> tClass);
 
-    Observable<List<Deal>> getPosts(String userId, int page);
+    Observable<List<Deal>> getPosts(String userId, String contentType, int page);
     Observable<List<Deal>> getEvents(String userId, int page);
 
     Observable<Deal> getDeal(long id);

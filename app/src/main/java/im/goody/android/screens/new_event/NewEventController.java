@@ -167,7 +167,7 @@ public class NewEventController extends NewController<NewEventView> {
                 .subscribe(
                         result -> {
                             rootPresenter.hideProgress();
-                            rootPresenter.showNews();
+                            rootPresenter.showMain();
                         },
                         error -> {
                             rootPresenter.hideProgress();
@@ -181,7 +181,7 @@ public class NewEventController extends NewController<NewEventView> {
                 .subscribe(
                         result -> {
                             rootPresenter.hideProgress();
-                            rootPresenter.showNews();
+                            rootPresenter.showMain();
                         },
                         error -> {
                             rootPresenter.hideProgress();

@@ -80,6 +80,7 @@ dependencies {
 
     // picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
 
     // refresh & load more
     implementation 'com.github.omadahealth:swipy:1.2.3@aar'

@@ -1,4 +1,4 @@
-package im.goody.android.screens.main;
+package im.goody.android.screens.news;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,8 +8,8 @@ import android.widget.PopupMenu;
 import im.goody.android.R;
 import io.reactivex.Observable;
 
-public class MainItemMenu {
-    private MainItemMenu() {}
+public class NewsItemMenu {
+    private NewsItemMenu() {}
 
     private boolean showEdit;
     private boolean showDelete;
@@ -61,10 +61,10 @@ public class MainItemMenu {
     }
 
     static class Builder {
-        private MainItemMenu menu;
+        private NewsItemMenu menu;
 
         Builder() {
-            menu = new MainItemMenu();
+            menu = new NewsItemMenu();
         }
 
         Builder setShowEdit(boolean isShow) {
@@ -82,7 +82,7 @@ public class MainItemMenu {
             return this;
         }
 
-        public MainItemMenu build() {
+        public NewsItemMenu build() {
             return menu;
         }
     }

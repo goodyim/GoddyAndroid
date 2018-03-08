@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="im.goody.android.screens.main.MainItemViewModel" />
+            type="im.goody.android.screens.news.NewsItemViewModel" />
 
         <import type="im.goody.android.utils.DateUtils" />
     </data>

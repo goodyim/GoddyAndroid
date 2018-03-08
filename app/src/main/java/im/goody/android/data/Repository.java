@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -103,11 +104,11 @@ public class Repository implements IRepository {
     //region ================= News =================
 
     @Override
-    public Observable<List<Deal>> getPosts(String id, int page) {
+    public Observable<List<Deal>> getPosts(String id, String contentType, int page) {
         if (id.equals(Constants.ID_NONE))
             id = null;
 
-        return restService.getDeals(preferencesManager.getUserToken(), id, page)
+        return restService.getDeals(preferencesManager.getUserToken(), id, page, contentType)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -240,7 +241,8 @@ public class Repository implements IRepository {
         return Observable.just(imageUrl)
                 .subscribeOn(Schedulers.io())
                 .map(url -> {
-                    Bitmap bmp =  App.picasso.load(imageUrl)
+                    Bitmap bmp =  Picasso.with(App.getAppContext())
+                            .load(imageUrl)
                             .get();
                     File file = cacheBitmap(bmp);
 

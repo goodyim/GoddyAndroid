@@ -3,6 +3,7 @@ package im.goody.android.ui.helpers;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import im.goody.android.core.IBarView;
@@ -20,6 +21,8 @@ public class BarBuilder {
     public static final int HOME_GONE = 0;
     public static final int HOME_HAMBURGER = 1;
     public static final int HOME_ARROW = 2;
+
+    private TabInfo tabInfo;
 
     @Nullable
     private Integer titleRes;
@@ -55,6 +58,11 @@ public class BarBuilder {
         return this;
     }
 
+    public BarBuilder setTabs(ViewPager pager) {
+        tabInfo = new TabInfo(pager);
+        return this;
+    }
+
     @NonNull
     public BarBuilder setStatusBarVisible(boolean statusBarVisible) {
         this.statusBarVisible = statusBarVisible;
@@ -71,6 +79,20 @@ public class BarBuilder {
             view.setHomeListener(homeListener);
             view.setHomeState(homeState);
             view.setStatusBarVisible(statusBarVisible);
+
+            view.setTabs(tabInfo);
+        }
+    }
+
+    public class TabInfo {
+        private final ViewPager pager;
+
+        private TabInfo(ViewPager pager) {
+            this.pager = pager;
+        }
+
+        public ViewPager getPager() {
+            return pager;
         }
     }
 }

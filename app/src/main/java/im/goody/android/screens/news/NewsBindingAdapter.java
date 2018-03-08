@@ -1,4 +1,4 @@
-package im.goody.android.screens.main;
+package im.goody.android.screens.news;
 
 import android.databinding.BindingAdapter;
 import android.support.v4.content.ContextCompat;
@@ -15,9 +15,9 @@ import im.goody.android.ui.views.AutoLinkTextView;
 
 import static im.goody.android.Constants.COLLAPSED_CHARACTERS_COUNT;
 
-public class MainBindingAdapter {
+public class NewsBindingAdapter {
     @BindingAdapter({"description", "expandState"})
-    public static void bindDescription(AutoLinkTextView view, MainItemViewModel model, boolean isExpanded) {
+    public static void bindDescription(AutoLinkTextView view, NewsItemViewModel model, boolean isExpanded) {
         String original = model.getDeal().getDescription();
         Spannable result;
         if (isExpanded || original.length() <= COLLAPSED_CHARACTERS_COUNT) {
@@ -30,7 +30,7 @@ public class MainBindingAdapter {
         view.setLinkedText(result);
     }
 
-    private static Spannable addMoreLink(String text, MainItemViewModel model) {
+    private static Spannable addMoreLink(String text, NewsItemViewModel model) {
         int color = ContextCompat.getColor(App.getAppContext(), R.color.secondary_text);
         String more = App.getAppContext().getString(R.string.expand);
 
