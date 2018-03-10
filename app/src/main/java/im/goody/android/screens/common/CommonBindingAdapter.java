@@ -2,11 +2,13 @@ package im.goody.android.screens.common;
 
 import android.databinding.BindingAdapter;
 import android.support.v4.content.ContextCompat;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.flexbox.FlexboxLayout;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
@@ -139,7 +141,7 @@ public class CommonBindingAdapter {
         view.setBackgroundResource(backgroundRes);
     }
 
-    @BindingAdapter(("join_visibility"))
+    @BindingAdapter("join_visibility")
     public static void bindJoinVisibility(View view, String state) {
         int visibility = View.VISIBLE;
 
@@ -147,6 +149,45 @@ public class CommonBindingAdapter {
             visibility = View.INVISIBLE;
 
         view.setVisibility(visibility);
+    }
+
+    @BindingAdapter({"join_participates", "join_status"})
+    public static void bindJoinStyle(TextView view, boolean participates, String status) {
+        int background = 0, title = 0;
+
+        switch (status) {
+            case Event.ACTIVE:
+                background = R.drawable.join_active;
+                title = participates ? R.string.leave : R.string.active_join;
+                view.setEnabled(true);
+                break;
+            case Event.IN_PROGRESS:
+                background = R.drawable.join_process;
+                title = participates ? R.string.leave : R.string.process_join;
+                view.setEnabled(true);
+                break;
+            case Event.CLOSED:
+                background = R.drawable.join_finished;
+                title = R.string.finished_event;
+                view.setEnabled(false);
+        }
+
+        view.setBackgroundResource(background);
+        view.setText(title);
+    }
+
+    @BindingAdapter("tags")
+    public static void bindTags(FlexboxLayout container, String resources) {
+        String[] tags = resources.split(",");
+
+        container.removeAllViews();
+
+        for(String tag : tags) {
+            LayoutInflater inflater = LayoutInflater.from(container.getContext());
+            TextView view = (TextView) inflater.inflate(R.layout.event_tag, container, false);
+            view.setText(tag);
+            container.addView(view);
+        }
     }
 
     @BindingAdapter(value = {"date", "time_disabled"}, requireAll = false)

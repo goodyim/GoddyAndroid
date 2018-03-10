@@ -30,4 +30,6 @@
     <dimen name="margin_right_register">40dp</dimen>
     <dimen name="form_padding_left">18dp</dimen>
     <dimen name="tab_indicator_height">3dp</dimen>
+    <dimen name="button_text_size">18sp</dimen>
+    <dimen name="join_height">40dp</dimen>
 </resources>

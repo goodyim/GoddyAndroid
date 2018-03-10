@@ -6,15 +6,11 @@
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
 
-    <color name="profile_header">#FF474c55</color>
-
     <color name="white">#FFFFFF</color>
 
     <!-- following material guidelines -->
     <color name="divider">#1F000000</color>
     <color name="icon">#727272</color>
-    <color name="invalid">#F44336</color>
-    <color name="valid">#4CAF50</color>
 
     <color name="auth_cardview_background">#F7F9F8</color>
     <color name="auth_field_border">#EAEAEA</color>
@@ -32,4 +28,13 @@
 
     <color name="nav_gradient_start">#F9957E</color>
     <color name="nav_gradient_end">#F9CA54</color>
+
+    <color name="join_active_start">#FB7769</color>
+    <color name="join_active_end">#FC9E67</color>
+
+    <color name="join_process_start">#F7C163</color>
+    <color name="join_process_end">#FACF62</color>
+
+    <color name="join_finished_start">#B3D648</color>
+    <color name="join_finished_end">#D9E15F</color>
 </resources>

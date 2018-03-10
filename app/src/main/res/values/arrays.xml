@@ -4,9 +4,6 @@
         <item>@string/dialog_item_0</item>
         <item>@string/dialog_item_1</item>
     </string-array>
-    <integer-array name="progress_colors">
-        <item>@color/accent</item>
-    </integer-array>
 
     <string-array name="quick_words">
         <item>@string/quick_word_0</item>

@@ -150,4 +150,7 @@
     <string name="content_all">All</string>
     <string name="content_events">Events</string>
     <string name="content_deals">Deals</string>
+    <string name="active_join">Help!</string>
+    <string name="process_join">Join</string>
+    <string name="finished_event">Finished</string>
 </resources>

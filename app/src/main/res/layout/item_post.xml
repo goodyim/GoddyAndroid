@@ -130,16 +130,16 @@
                 android:id="@+id/new_item_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/size_small"
-                android:layout_marginRight="@dimen/size_small"
+                android:layout_marginEnd="@dimen/size_normal"
+                android:layout_marginRight="@dimen/size_normal"
                 android:layout_marginTop="@dimen/size_small"
                 android:adjustViewBounds="true"
                 android:background="?selectableItemBackgroundBorderless"
                 android:contentDescription="@string/content_more"
+                android:src="@drawable/ic_more"
                 android:tint="@{viewModel.deal.imageUrl != null ? @color/white : @color/icon}"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/ic_more" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>

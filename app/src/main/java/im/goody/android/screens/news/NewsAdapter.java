@@ -44,6 +44,14 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
     }
 
     @Override
+    public void onViewRecycled(NewsHolder holder) {
+        super.onViewRecycled(holder);
+
+        holder.binding.unbind();
+        holder.binding.setVariable(BR.viewModel, null);
+    }
+
+    @Override
     public void onBindViewHolder(NewsHolder holder, int position) {
         holder.bind(data.get(position));
     }
@@ -119,13 +127,11 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
             Deal deal = viewModel.getDeal();
             ItemEventBinding eventBinding = (ItemEventBinding) binding;
 
-            eventBinding.itemEventContainer
+            eventBinding.eventContainer
                     .setOnClickListener(v -> handler.showDetail(deal.getId()));
 
             eventBinding.actionPanel.panelItemComments
                     .setOnClickListener(v -> handler.showDetail(deal.getId()));
-
-            eventBinding.itemEventTitle.setOnClickListener(v -> handler.showDetail(deal.getId()));
 
             eventBinding.actionPanel.panelItemShare.setOnClickListener(v -> {
                 String text = TextUtils.buildShareText(deal);
