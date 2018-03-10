@@ -153,4 +153,7 @@
     <string name="active_join">Help!</string>
     <string name="process_join">Join</string>
     <string name="finished_event">Finished</string>
+    <string name="add_tag">Add tag</string>
+    <string name="choose_tag_title">Enter the tag</string>
+    <string name="tag_already_present">This tag is already present in this post</string>
 </resources>

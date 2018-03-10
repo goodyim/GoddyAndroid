@@ -17,7 +17,9 @@
     </style>
 
     <!-- custom style -->
-    <style name="FormField" parent="FullWidthLayout">
+    <style name="FormField">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/size_small</item>
     </style>
 

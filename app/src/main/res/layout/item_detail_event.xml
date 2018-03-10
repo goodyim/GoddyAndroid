@@ -99,7 +99,6 @@
             android:textColor="@color/primary_text"
             android:layout_marginTop="@dimen/size_small"
             android:gravity="center_vertical"
-            app:time_disabled="@{false}"
             app:event_date="@{data.deal.event.date}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

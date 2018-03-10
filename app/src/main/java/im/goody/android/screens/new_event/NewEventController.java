@@ -19,6 +19,7 @@ import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.screens.common.NewController;
 import im.goody.android.ui.dialogs.DatePickDialog;
+import im.goody.android.ui.dialogs.EditTextDialog;
 import im.goody.android.ui.dialogs.TimePickDialog;
 import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.utils.NetUtils;
@@ -140,6 +141,24 @@ public class NewEventController extends NewController<NewEventView> {
     @Override
     protected int getLayoutResId() {
         return R.layout.screen_new_event;
+    }
+
+    void addTag() {
+        new EditTextDialog(R.string.choose_tag_title).show(getActivity())
+                .subscribe(tag -> {
+                    if (!viewModel.tags.contains(tag)) {
+                        viewModel.tags.add(tag);
+                        view().addTag(tag);
+                    } else {
+                        view().showMessage(R.string.tag_already_present);
+                    }
+                });
+    }
+
+    void removeTag(String tag) {
+        int position = viewModel.tags.indexOf(tag);
+        viewModel.tags.remove(position);
+        view().removeTag(position);
     }
 
     //endregion
