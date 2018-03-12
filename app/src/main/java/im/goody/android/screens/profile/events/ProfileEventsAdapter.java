@@ -8,6 +8,7 @@ import java.util.List;
 
 import im.goody.android.data.dto.Deal;
 import im.goody.android.databinding.ItemProfileEventBinding;
+import im.goody.android.utils.NetUtils;
 import im.goody.android.utils.TextUtils;
 import io.reactivex.Observable;
 
@@ -60,7 +61,8 @@ public class ProfileEventsAdapter extends RecyclerView.Adapter<ProfileEventsAdap
 
             Deal deal = viewModel.getDeal();
 
-            binding.eventImage.setOnClickListener(v -> handler.openPhoto(deal.getImageUrl()));
+            binding.eventImage.setOnClickListener(v ->
+                    handler.openPhoto(NetUtils.buildDealImageUrl(deal)));
 
             binding.actionPanel.panelItemComments
                     .setOnClickListener(v -> handler.showDetail(deal.getId()));

@@ -10,9 +10,9 @@
 
         <android.support.v4.view.ViewPager
             android:id="@+id/main_pager"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             style="@style/FullExpandFromParent"
-            android:animateLayoutChanges="true" />
+            android:animateLayoutChanges="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/main_create_fab"
@@ -21,36 +21,37 @@
             android:layout_marginBottom="@dimen/size_normal"
             android:layout_marginEnd="@dimen/size_normal"
             android:layout_marginRight="@dimen/size_normal"
+            android:background="@drawable/button_login"
+            android:src="@drawable/ic_add"
             app:fabSize="normal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:src="@drawable/ic_add" />
+            app:layout_constraintRight_toRightOf="parent" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/main_new_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/size_normal"
-            android:tint="@color/white"
+            android:src="@drawable/ic_new_deal"
             android:visibility="invisible"
+            app:backgroundTint="@color/white"
             app:fabSize="normal"
             app:layout_constraintBottom_toTopOf="@+id/main_create_fab"
             app:layout_constraintLeft_toLeftOf="@+id/main_create_fab"
-            app:layout_constraintRight_toRightOf="@+id/main_create_fab"
-            android:src="@drawable/ic_create" />
+            app:layout_constraintRight_toRightOf="@+id/main_create_fab" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/main_new_event"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/size_normal"
-            android:tint="@color/white"
+            android:src="@drawable/ic_new_event"
             android:visibility="invisible"
+            app:backgroundTint="@color/white"
             app:fabSize="normal"
             app:layout_constraintBottom_toTopOf="@+id/main_new_post"
             app:layout_constraintLeft_toLeftOf="@+id/main_new_post"
-            app:layout_constraintRight_toRightOf="@+id/main_new_post"
-            android:src="@drawable/ic_event_white" />
+            app:layout_constraintRight_toRightOf="@+id/main_new_post" />
 
     </im.goody.android.screens.main.MainView>
 </layout>
