@@ -46,8 +46,9 @@ public class ProfileController extends BaseController<ProfileView> {
     @Override
     protected void initActionBar() {
         rootPresenter.newBarBuilder()
-                .setToolbarVisible(false)
-                .setHomeState(BarBuilder.HOME_GONE)
+                .setToolbarVisible(true)
+                .setHomeState(BarBuilder.HOME_ARROW)
+                .setTitleRes(R.string.profile)
                 .build();
     }
 
@@ -64,8 +65,6 @@ public class ProfileController extends BaseController<ProfileView> {
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
 
-        view().takeActivity(getActivity());
-
         if (String.valueOf(manager.getUserId()).equals(getId()))
             view().hideFollowButton();
 
@@ -75,8 +74,6 @@ public class ProfileController extends BaseController<ProfileView> {
 
     @Override
     protected void onDetach(@NonNull View view) {
-        view().takeActivity(null);
-
         super.onDetach(view);
     }
 
@@ -84,6 +81,9 @@ public class ProfileController extends BaseController<ProfileView> {
         repository.getUserProfile(getId()).subscribe(user -> {
             viewModel = new ProfileViewModel(user);
             view().setData(viewModel);
+
+            if (getActivity() != null)
+                getActivity().setTitle(user.getName());
         }, error -> {
             view().finishRefresh();
             view().showErrorWithRetry(getErrorMessage(error), v -> {
@@ -116,17 +116,9 @@ public class ProfileController extends BaseController<ProfileView> {
         return getArgs().getString(ID_KEY);
     }
 
-    void showPosts() {
-        rootPresenter.showUserPosts(getId());
-    }
 
     void showAvatar() {
         rootPresenter.showPhotoScreen(viewModel.getAvatarUrl());
-    }
-
-    void backClicked() {
-        if (getActivity() != null)
-            getActivity().onBackPressed();
     }
 
     // end

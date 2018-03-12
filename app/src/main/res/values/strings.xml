@@ -156,4 +156,8 @@
     <string name="add_tag">Add tag</string>
     <string name="choose_tag_title">Enter the tag</string>
     <string name="tag_already_present">This tag is already present in this post</string>
+    <string name="profile_awards">Awards</string>
+    <string name="active_events">Active</string>
+    <string name="progress_events">In progress</string>
+    <string name="finished_events">Finished</string>
 </resources>

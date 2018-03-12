@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="im.goody.android.screens.profile.events.ProfileEventItemViewModel" />
+
+        <import type="im.goody.android.utils.TextUtils" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        bind:cardUseCompatPadding="true">
+
+        <LinearLayout
+            style="@style/FullExpandLayout"
+            android:orientation="vertical">
+
+            <im.goody.android.ui.views.AspectImageView
+                android:id="@+id/event_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:post_image="@{viewModel.deal}" />
+
+            <TextView
+                style="@style/FullWidthLayout"
+                android:layout_margin="@dimen/size_small"
+                android:maxLines="2"
+                android:text="@{TextUtils.getShortTitle(viewModel.deal)}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                tools:text="Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. " />
+
+            <include
+                android:id="@+id/action_panel"
+                layout="@layout/item_action_panel"
+                bind:viewModel="@{viewModel.panelViewModel}" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</layout>

@@ -48,7 +48,7 @@ public class TextUtils {
         return android.text.TextUtils.isEmpty(s) || "null".equals(s);
     }
 
-    public static String getMarkerTitle(Deal deal) {
+    public static String getShortTitle(Deal deal) {
         String title;
 
         if (deal == null) return null;

@@ -31,7 +31,6 @@ public interface IRepository {
     <T> T getError(Throwable t, Class<T> tClass);
 
     Observable<List<Deal>> getPosts(String userId, String contentType, int page);
-    Observable<List<Deal>> getEvents(String userId, int page);
 
     Observable<Deal> getDeal(long id);
     Observable<CommentRes> sendComment(long dealId, NewCommentReq body);
@@ -57,6 +56,8 @@ public interface IRepository {
     Observable<List<Deal>> getEvents();
 
     Observable<ResponseBody> editPost(Long id, NewPostReq body, Uri imageUri);
+
+    Observable<List<Deal>> getEvents(String userId, String state);
 
     Observable<Uri> cacheWebImage(String imageUrl);
 

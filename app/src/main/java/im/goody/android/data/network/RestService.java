@@ -99,7 +99,9 @@ public interface RestService {
 
 
     @GET("events")
-    Observable<List<Deal>> getActiveEvents(@Header("X-User-Token") String token);
+    Observable<List<Deal>> getEvents(@Header("X-User-Token") String token,
+                                     @Query("user_id") String userId,
+                                     @Query("state") String state);
 
 
     @GET("users/reset_password")

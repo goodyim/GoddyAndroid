@@ -18,6 +18,7 @@ import im.goody.android.screens.new_event.NewEventController;
 import im.goody.android.screens.new_post.NewPostController;
 import im.goody.android.screens.photo.PhotoController;
 import im.goody.android.screens.profile.ProfileController;
+import im.goody.android.screens.profile.events.ProfileEventsController;
 import im.goody.android.screens.register.RegisterController;
 import im.goody.android.screens.setting.SettingController;
 
@@ -47,4 +48,6 @@ public interface RootComponent {
     FeedBackController.Component plusFeedback();
 
     MainController.Component plusMain();
+
+    ProfileEventsController.Component plusProfileEvent();
 }
