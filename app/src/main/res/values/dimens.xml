@@ -26,4 +26,10 @@
     <dimen name="corner_radius">2dp</dimen>
     <dimen name="drawer_image_size">60dp</dimen>
     <dimen name="appbar_elevation">4dp</dimen>
+    <dimen name="auth_header_height">120dp</dimen>
+    <dimen name="margin_right_register">40dp</dimen>
+    <dimen name="form_padding_left">18dp</dimen>
+    <dimen name="tab_indicator_height">3dp</dimen>
+    <dimen name="button_text_size">18sp</dimen>
+    <dimen name="join_height">40dp</dimen>
 </resources>

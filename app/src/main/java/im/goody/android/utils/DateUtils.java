@@ -9,7 +9,7 @@ import java.util.Locale;
 import im.goody.android.App;
 
 import static android.text.format.DateUtils.getRelativeTimeSpanString;
-import static im.goody.android.Constants.DATE_FORMAT;
+import static im.goody.android.Constants.DATE_TIME_FORMAT;
 
 public class DateUtils {
     private static final String INPUT_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
@@ -73,7 +73,7 @@ public class DateUtils {
         int hours = calendar.get(Calendar.HOUR_OF_DAY);
         int minutes = calendar.get(Calendar.MINUTE);
 
-        return String.format(Locale.getDefault(), DATE_FORMAT,
+        return String.format(Locale.getDefault(), DATE_TIME_FORMAT,
                 day, month, year, hours, minutes);
     }
 }

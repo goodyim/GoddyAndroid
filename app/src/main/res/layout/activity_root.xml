@@ -4,8 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.v4.widget.DrawerLayout
+    <com.infideap.drawerbehavior.AdvanceDrawerLayout
         android:id="@+id/drawer_layout"
+        android:background="@drawable/nav_background"
+        android:fitsSystemWindows="true"
         style="@style/FullExpandLayout">
 
         <android.support.design.widget.CoordinatorLayout
@@ -27,9 +29,22 @@
 
                 </android.support.v7.widget.Toolbar>
 
+                <android.support.design.widget.TabLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/TabTheme"
+                    app:tabGravity="center"
+                    app:tabIndicatorColor="@color/white"
+                    app:tabIndicatorHeight="@dimen/tab_indicator_height"
+                    android:visibility="gone"
+                    app:tabMode="fixed" />
+
             </android.support.design.widget.AppBarLayout>
 
             <FrameLayout
+                android:fitsSystemWindows="true"
                 android:id="@+id/root_frame"
                 style="@style/FullExpandLayout"
                 android:animateLayoutChanges="true"
@@ -40,10 +55,14 @@
         <android.support.design.widget.NavigationView
             android:id="@+id/nav_view"
             style="@style/NavigationDrawer"
+            android:fitsSystemWindows="true"
+            app:itemTextColor="@color/white"
+            app:itemIconTint="@color/white"
             app:headerLayout="@layout/drawer_header"
+            android:background="@android:color/transparent"
             app:menu="@menu/drawer_menu"/>
 
-    </android.support.v4.widget.DrawerLayout>
+    </com.infideap.drawerbehavior.AdvanceDrawerLayout>
 
 </layout>
 

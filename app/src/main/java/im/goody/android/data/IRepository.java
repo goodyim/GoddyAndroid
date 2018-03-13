@@ -23,15 +23,14 @@ import okhttp3.ResponseBody;
 public interface IRepository {
 
     Observable<UserRes> login(LoginReq data);
-    Observable<UserRes> register(RegisterReq data, Uri avatarUri);
+    Observable<UserRes> register(RegisterReq data);
     boolean isSigned();
 
     boolean isFirstLaunch();
     void firstLaunched();
     <T> T getError(Throwable t, Class<T> tClass);
 
-    Observable<List<Deal>> getPosts(String userId, int page);
-    Observable<List<Deal>> getEvents(String userId, int page);
+    Observable<List<Deal>> getPosts(String userId, String contentType, int page);
 
     Observable<Deal> getDeal(long id);
     Observable<CommentRes> sendComment(long dealId, NewCommentReq body);
@@ -57,6 +56,8 @@ public interface IRepository {
     Observable<List<Deal>> getEvents();
 
     Observable<ResponseBody> editPost(Long id, NewPostReq body, Uri imageUri);
+
+    Observable<List<Deal>> getEvents(String userId, String state);
 
     Observable<Uri> cacheWebImage(String imageUrl);
 

@@ -34,9 +34,7 @@ public interface RestService {
     @POST("users")
     Observable<UserRes> registerUser(
             @Header("fcmToken") String fcmToken,
-            @PartMap Map<String, RequestBody> params,
-            @Part MultipartBody.Part file
-    );
+            @PartMap Map<String, RequestBody> params);
 
     @GET("users/get_token")
     Observable<UserRes> loginUser(@Header("fcmToken") String fcmToken,
@@ -50,7 +48,8 @@ public interface RestService {
     @GET("good_deals")
     Observable<List<Deal>> getDeals(@Header("X-User-Token") String token,
                                     @Query("user_id") String userId,
-                                    @Query("page") int page);
+                                    @Query("page") int page,
+                                    @Query("type") String contentType);
 
     @Multipart
     @POST("good_deals")
@@ -100,7 +99,9 @@ public interface RestService {
 
 
     @GET("events")
-    Observable<List<Deal>> getActiveEvents(@Header("X-User-Token") String token);
+    Observable<List<Deal>> getEvents(@Header("X-User-Token") String token,
+                                     @Query("user_id") String userId,
+                                     @Query("state") String state);
 
 
     @GET("users/reset_password")

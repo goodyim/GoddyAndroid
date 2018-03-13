@@ -1,4 +1,4 @@
-package im.goody.android.screens.main;
+package im.goody.android.screens.news;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -10,7 +10,7 @@ import im.goody.android.data.dto.Deal;
 import im.goody.android.data.network.res.EventStateRes;
 import im.goody.android.screens.common.ActionPanelViewModel;
 
-public class MainItemViewModel extends BaseObservable {
+public class NewsItemViewModel extends BaseObservable {
     private final Deal deal;
 
     public final ActionPanelViewModel panelViewModel;
@@ -21,7 +21,7 @@ public class MainItemViewModel extends BaseObservable {
     public final ObservableBoolean participates;
     public final ObservableField<String> state = new ObservableField<>("");
 
-    MainItemViewModel(Deal deal) {
+    NewsItemViewModel(Deal deal) {
         this.deal = deal;
 
         expanded = false;

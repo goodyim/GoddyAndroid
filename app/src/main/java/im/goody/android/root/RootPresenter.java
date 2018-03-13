@@ -17,6 +17,7 @@ import im.goody.android.screens.feedback.FeedBackController;
 import im.goody.android.screens.intro.IntroController;
 import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.main.MainController;
+import im.goody.android.screens.news.NewsController;
 import im.goody.android.screens.near_events.NearEventsController;
 import im.goody.android.screens.new_event.NewEventController;
 import im.goody.android.screens.new_post.NewPostController;
@@ -42,10 +43,6 @@ public class RootPresenter implements IRootPresenter {
 
     void takeView(IRootView rootView) {
         this.rootView = rootView;
-
-        if (repository.isSigned()) {
-            rootView.showDrawerHeader(repository.getUserData());
-        }
     }
 
     void dropView() {
@@ -86,18 +83,16 @@ public class RootPresenter implements IRootPresenter {
     //region ================= IRootPresenter - Show screens methods =================
 
     @Override
-    public void showNews() {
+    public void showMain() {
         if (rootView != null) {
             rootView.showScreenAsRoot(MainController.class);
-            rootView.showDrawerHeader(repository.getUserData());
         }
     }
 
     @Override
     public void showUserPosts(String userId) {
         if (rootView != null) {
-            rootView.showScreen(MainController.class, userId, true);
-            rootView.showDrawerHeader(repository.getUserData());
+            rootView.showScreen(NewsController.class, NewsController.CONTENT_All, true, userId);
         }
     }
 
@@ -107,8 +102,8 @@ public class RootPresenter implements IRootPresenter {
         if (rootView != null) {
             long id = repository.getUserData().getUser().getId();
 
-            rootView.showScreenAsRoot(MainController.class, String.valueOf(id), false);
-            rootView.showDrawerHeader(repository.getUserData());
+            rootView.showScreenAsRoot(NewsController.class,
+                    NewsController.CONTENT_All, true, String.valueOf(id));
         }
     }
 
@@ -191,14 +186,14 @@ public class RootPresenter implements IRootPresenter {
             rootView.showScreen(NewEventController.class, deal);
     }
 
-    @Override
-    public void showParticipatingEvents() {
-        if (rootView != null) {
-            long id = repository.getUserData().getUser().getId();
-
-            rootView.showScreenAsRoot(MainController.class, String.valueOf(id), false, true);
-        }
-    }
+//    @Override
+//    public void showParticipatingEvents() {
+//        if (rootView != null) {
+//            long id = repository.getUserData().getUser().getId();
+//
+//            rootView.showScreenAsRoot(NewsController.class, String.valueOf(id), false, true);
+//        }
+//    }
 
     @Override
     public void showFeedback() {

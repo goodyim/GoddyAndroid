@@ -16,7 +16,7 @@ public interface IRootPresenter {
     void hideProgress();
 
     // Show screen methods
-    void showNews();
+    void showMain();
     void showUserPosts(String id);
     void showMyPosts();
 
@@ -42,7 +42,7 @@ public interface IRootPresenter {
     void showEditPostScreen(Deal deal);
     void showEditEventScreen(Deal deal);
 
-    void showParticipatingEvents();
+//    void showParticipatingEvents();
 
     void showFeedback();
 }

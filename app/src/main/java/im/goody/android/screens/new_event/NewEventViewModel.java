@@ -10,6 +10,8 @@ import android.provider.MediaStore;
 
 import com.google.android.gms.location.places.Place;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 import im.goody.android.App;
@@ -25,7 +27,8 @@ public class NewEventViewModel extends BaseObservable {
 
     public final ObservableField<String> title = new ObservableField<>();
     public final ObservableField<String> description = new ObservableField<>();
-    public final ObservableField<String> resources = new ObservableField<>();
+
+    final ArrayList<String> tags;
 
     public final ObservableField<Bitmap> image = new ObservableField<>();
 
@@ -43,11 +46,14 @@ public class NewEventViewModel extends BaseObservable {
         description.set(deal.getDescription());
         title.set(deal.getTitle());
 
-        resources.set(deal.getEvent().getResources());
+        String[] temp = deal.getEvent().getResources().split(",");
+        tags = new ArrayList<>(Arrays.asList(temp));
+
         calendar.set(DateUtils.calendarFromString(deal.getEvent().getDate()));
     }
 
     NewEventViewModel() {
+        tags = new ArrayList<>();
     }
 
     NewEventReq body() {
@@ -56,7 +62,7 @@ public class NewEventViewModel extends BaseObservable {
                 .setLongitude(location == null ? null : Double.parseDouble(location.getLongitude()))
                 .setDate(getStringDate())
                 .setTitle(title.get())
-                .setResources(resources.get())
+                .setResources(joinTags())
                 .setDescription(description.get());
     }
 
@@ -102,6 +108,16 @@ public class NewEventViewModel extends BaseObservable {
                     place.getLatLng().longitude, place.getAddress().toString());
         }
         notifyPropertyChanged(BR.location);
+    }
+
+    private String joinTags() {
+        StringBuilder sb = new StringBuilder("");
+
+        for(String tag : tags) {
+            sb.append(tag).append(",");
+        }
+
+        return sb.toString();
     }
 
     // end

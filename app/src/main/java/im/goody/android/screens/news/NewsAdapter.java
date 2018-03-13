@@ -1,4 +1,4 @@
-package im.goody.android.screens.main;
+package im.goody.android.screens.news;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -16,35 +16,43 @@ import im.goody.android.data.network.res.EventStateRes;
 import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.databinding.ItemEventBinding;
 import im.goody.android.databinding.ItemPostBinding;
-import im.goody.android.screens.main.MainItemMenu.ChangeState;
+import im.goody.android.screens.news.NewsItemMenu.ChangeState;
 import im.goody.android.utils.NetUtils;
 import im.goody.android.utils.TextUtils;
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 
 @SuppressWarnings("WeakerAccess")
-class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
+class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
 
     private static final int TYPE_POST = R.layout.item_post;
     private static final int TYPE_EVENT = R.layout.item_event;
-    private List<MainItemViewModel> data;
+    private List<NewsItemViewModel> data;
     private MainItemHandler handler;
 
-    MainAdapter(List<MainItemViewModel> data, MainItemHandler handler) {
+    NewsAdapter(List<NewsItemViewModel> data, MainItemHandler handler) {
         this.data = data;
         this.handler = handler;
     }
 
     @Override
-    public MainHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public NewsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         ViewDataBinding binding = DataBindingUtil.inflate(inflater, viewType,
                 parent, false);
-        return new MainHolder(binding);
+        return new NewsHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(MainHolder holder, int position) {
+    public void onViewRecycled(NewsHolder holder) {
+        super.onViewRecycled(holder);
+
+        holder.binding.unbind();
+        holder.binding.setVariable(BR.viewModel, null);
+    }
+
+    @Override
+    public void onBindViewHolder(NewsHolder holder, int position) {
         holder.bind(data.get(position));
     }
 
@@ -59,13 +67,13 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
         return data.get(position).getDeal().getEvent() == null ? TYPE_POST : TYPE_EVENT;
     }
 
-    void addData(List<MainItemViewModel> items) {
+    void addData(List<NewsItemViewModel> items) {
         int size = getItemCount();
         data.addAll(items);
         notifyItemRangeInserted(size, items.size());
     }
 
-    void removeItem(MainItemViewModel viewModel) {
+    void removeItem(NewsItemViewModel viewModel) {
         int position = data.indexOf(viewModel);
         data.remove(viewModel);
         notifyItemRemoved(position);
@@ -95,16 +103,16 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
         Observable<ResponseBody> deletePost(long id);
     }
 
-    class MainHolder extends RecyclerView.ViewHolder {
+    class NewsHolder extends RecyclerView.ViewHolder {
 
         private ViewDataBinding binding;
 
-        MainHolder(ViewDataBinding binding) {
+        NewsHolder(ViewDataBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
 
-        void bind(MainItemViewModel model) {
+        void bind(NewsItemViewModel model) {
             binding.setVariable(BR.viewModel, model);
             binding.executePendingBindings();
 
@@ -115,17 +123,15 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
             }
         }
 
-        private void bindEvent(MainItemViewModel viewModel) {
+        private void bindEvent(NewsItemViewModel viewModel) {
             Deal deal = viewModel.getDeal();
             ItemEventBinding eventBinding = (ItemEventBinding) binding;
 
-            eventBinding.itemEventContainer
+            eventBinding.eventContainer
                     .setOnClickListener(v -> handler.showDetail(deal.getId()));
 
             eventBinding.actionPanel.panelItemComments
                     .setOnClickListener(v -> handler.showDetail(deal.getId()));
-
-            eventBinding.itemEventTitle.setOnClickListener(v -> handler.showDetail(deal.getId()));
 
             eventBinding.actionPanel.panelItemShare.setOnClickListener(v -> {
                 String text = TextUtils.buildShareText(deal);
@@ -144,7 +150,7 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                     changeState = ChangeState.OPEN;
                 }
 
-                MainItemMenu menu = new MainItemMenu.Builder()
+                NewsItemMenu menu = new NewsItemMenu.Builder()
                         .setChangeState(changeState)
                         .setShowEdit(deal.isOwner())
                         .setShowDelete(deal.isOwner())
@@ -204,7 +210,7 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
         }
 
 
-        private void bindPost(MainItemViewModel viewModel) {
+        private void bindPost(NewsItemViewModel viewModel) {
             Deal deal = viewModel.getDeal();
             ItemPostBinding postBinding = (ItemPostBinding) binding;
 
@@ -220,7 +226,7 @@ class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
             });
 
             postBinding.newItemMenu.setOnClickListener(v -> {
-                MainItemMenu menu = new MainItemMenu.Builder()
+                NewsItemMenu menu = new NewsItemMenu.Builder()
                         .setChangeState(ChangeState.HIDDEN)
                         .setShowEdit(deal.isOwner())
                         .setShowDelete(deal.isOwner())

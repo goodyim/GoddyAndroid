@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data />
+
+    <im.goody.android.screens.profile.events.ProfileEventsView style="@style/FullExpandLayout">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/profile_events_list"
+            style="@style/FullExpandFromParent" />
+
+    </im.goody.android.screens.profile.events.ProfileEventsView>
+</layout>

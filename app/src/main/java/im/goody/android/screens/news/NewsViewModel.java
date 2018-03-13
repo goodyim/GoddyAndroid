@@ -1,28 +1,28 @@
-package im.goody.android.screens.main;
+package im.goody.android.screens.news;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class MainViewModel {
-    private List<MainItemViewModel> data;
+class NewsViewModel {
+    private List<NewsItemViewModel> data;
     private int page;
     private int position;
 
-    MainViewModel() {
+    NewsViewModel() {
         page = 1;
         position = 0;
     }
 
 
-    public List<MainItemViewModel> getData() {
+    public List<NewsItemViewModel> getData() {
         return data == null ? null : new ArrayList<>(data);
     }
 
-    void setData(List<MainItemViewModel> data) {
+    void setData(List<NewsItemViewModel> data) {
         this.data = new ArrayList<>(data);
     }
 
-    void addData(List<MainItemViewModel> additionalData) {
+    void addData(List<NewsItemViewModel> additionalData) {
         data.addAll(additionalData);
     }
 

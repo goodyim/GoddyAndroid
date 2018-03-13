@@ -9,9 +9,19 @@ public class RegisterReq {
     private String name;
     private String email;
     private String password;
-//    private Bitmap avatar;
+
+    private int sex;
+
+    private String birthday;
 
     // ======= region getters =======
+    public int getSex() {
+        return sex;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
 
     public String getName() {
         return name;
@@ -25,13 +35,14 @@ public class RegisterReq {
         return password;
     }
 
-    /*public Bitmap getAvatar() {
-        return avatar;
-    }*/
-
     // endregion
 
     // ======= region setters =======
+
+    public RegisterReq setBirthday(String birthday) {
+        this.birthday = birthday;
+        return this;
+    }
 
     public RegisterReq setName(String name) {
         this.name = name;
@@ -48,11 +59,11 @@ public class RegisterReq {
         return this;
     }
 
-    /*
-   public RegisterReq setAvatar(Bitmap avatar) {
-        this.avatar = avatar;
+
+    public RegisterReq setSex(int sex) {
+        this.sex = sex;
         return this;
-    }*/
+    }
 
     //endregion
 }

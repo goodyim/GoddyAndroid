@@ -2,12 +2,18 @@ package im.goody.android.screens.common;
 
 import android.databinding.BindingAdapter;
 import android.support.v4.content.ContextCompat;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import im.goody.android.App;
+import com.google.android.flexbox.FlexboxLayout;
+import com.squareup.picasso.Picasso;
+
+import java.util.Calendar;
+import java.util.Locale;
+
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Deal.Event;
@@ -17,11 +23,16 @@ import im.goody.android.utils.DateUtils;
 import im.goody.android.utils.NetUtils;
 import im.goody.android.utils.TextUtils;
 
+import static im.goody.android.Constants.DATE_FORMAT;
+import static im.goody.android.Constants.DATE_TIME_FORMAT;
+
 @SuppressWarnings("unused")
-public class PostBindingAdapter {
+public class CommonBindingAdapter {
     @BindingAdapter("post_image")
     public static void bindImage(ImageView view, Deal deal) {
-        App.picasso.cancelRequest(view);
+        Picasso.with(view.getContext())
+                .cancelRequest(view);
+
 
         if (deal.getImageUrl() == null) {
             view.setVisibility(View.GONE);
@@ -29,7 +40,8 @@ public class PostBindingAdapter {
         }
         view.setVisibility(View.VISIBLE);
 
-        App.picasso.load(NetUtils.buildDealImageUrl(deal))
+        Picasso.with(view.getContext())
+                .load(NetUtils.buildDealImageUrl(deal))
                 .placeholder(R.color.placeholder_color)
                 .fit()
                 .centerCrop()
@@ -38,11 +50,13 @@ public class PostBindingAdapter {
 
     @BindingAdapter("author_avatar")
     public static void bindAvatar(ImageView view, String url) {
-        App.picasso.cancelRequest(view);
+        Picasso.with(view.getContext())
+                .cancelRequest(view);
 
         view.setImageResource(R.drawable.round_drawable);
 
-        App.picasso.load(url)
+        Picasso.with(view.getContext())
+                .load(url)
                 .placeholder(R.drawable.round_drawable)
                 .fit()
                 .into(view);
@@ -109,31 +123,66 @@ public class PostBindingAdapter {
         view.setLinkedText(text);
     }
 
-    @BindingAdapter("event_color")
-    public static void bindEventColor(View view, String state) {
-        int backgroundRes = 0;
+    @BindingAdapter({"join_participates", "join_status"})
+    public static void bindJoinStyle(TextView view, boolean participates, String status) {
+        int background = 0, title = 0;
 
-        switch (state) {
+        switch (status) {
             case Event.ACTIVE:
-                backgroundRes = R.drawable.event_header_active;
+                background = R.drawable.join_active;
+                title = participates ? R.string.leave : R.string.active_join;
+                view.setEnabled(true);
                 break;
             case Event.IN_PROGRESS:
-                backgroundRes = R.drawable.event_header_in_progress;
+                background = R.drawable.join_process;
+                title = participates ? R.string.leave : R.string.process_join;
+                view.setEnabled(true);
                 break;
             case Event.CLOSED:
-                backgroundRes = R.drawable.event_header_closed;
+                background = R.drawable.join_finished;
+                title = R.string.finished_event;
+                view.setEnabled(false);
         }
 
-        view.setBackgroundResource(backgroundRes);
+        view.setBackgroundResource(background);
+        view.setText(title);
     }
 
-    @BindingAdapter(("join_visibility"))
-    public static void bindJoinVisibility(View view, String state) {
-        int visibility = View.VISIBLE;
+    @BindingAdapter("tags")
+    public static void bindTags(FlexboxLayout container, String resources) {
+        String[] tags = resources.split(",");
 
-        if (state.equals(Event.CLOSED))
-            visibility = View.INVISIBLE;
+        container.removeAllViews();
 
-        view.setVisibility(visibility);
+        for(String tag : tags) {
+            LayoutInflater inflater = LayoutInflater.from(container.getContext());
+            TextView view = (TextView) inflater.inflate(R.layout.event_tag, container, false);
+            view.setText(tag);
+            container.addView(view);
+        }
+    }
+
+    @BindingAdapter(value = {"date", "time_disabled"}, requireAll = false)
+    public static void bindDate(TextView view, Calendar calendar, Boolean timeDisabled) {
+        String date;
+
+        if (calendar == null) {
+            date = view.getContext().getString(R.string.choose_date);
+        } else {
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH) + 1;
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            int hours = calendar.get(Calendar.HOUR_OF_DAY);
+            int minutes = calendar.get(Calendar.MINUTE);
+
+            if (timeDisabled == null || !timeDisabled)
+                date = String.format(Locale.getDefault(), DATE_TIME_FORMAT,
+                    day, month, year, hours, minutes);
+            else
+                date = String.format(Locale.getDefault(), DATE_FORMAT, day, month, year);
+        }
+
+        view.setText(date);
     }
 }

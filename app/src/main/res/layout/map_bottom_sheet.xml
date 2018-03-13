@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="@dimen/size_normal"
-                android:text="@{TextUtils.getMarkerTitle(event)}"
+                android:text="@{TextUtils.getShortTitle(event)}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 tools:text="Title" />
 

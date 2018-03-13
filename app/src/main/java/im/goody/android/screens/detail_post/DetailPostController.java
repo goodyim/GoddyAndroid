@@ -217,7 +217,7 @@ public class DetailPostController extends BaseController<DetailPostView>
         disposable = repository.deletePost(viewModel.getId())
                 .subscribe(response -> {
                     showToast(R.string.delete_success);
-                    rootPresenter.showNews();
+                    rootPresenter.showMain();
                 }, this::showError);
     }
 

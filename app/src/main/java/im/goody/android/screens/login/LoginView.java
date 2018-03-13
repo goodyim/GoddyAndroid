@@ -22,7 +22,7 @@ public class LoginView extends BaseView<LoginController, ScreenLoginBinding> {
             UIUtils.hideKeyboard(getFocusedChild());
             controller.login();
         });
-        binding.signInRedirect.setOnClickListener(v -> controller.goToRegister());
+        binding.signInRedirectAction.setOnClickListener(v -> controller.goToRegister());
         binding.signInForgotPassword.setOnClickListener(v -> controller.forgotPasswordClicked());
     }
 

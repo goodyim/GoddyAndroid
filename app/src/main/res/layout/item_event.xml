@@ -5,201 +5,189 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <import type="android.view.View"/>
+        <import type="im.goody.android.utils.DateUtils" />
 
         <variable
             name="viewModel"
-            type="im.goody.android.screens.main.MainItemViewModel" />
+            type="im.goody.android.screens.news.NewsItemViewModel" />
     </data>
 
     <android.support.v7.widget.CardView
+        android:id="@+id/event_container"
         style="@style/FullWidthLayout"
         app:cardUseCompatPadding="true">
 
-        <LinearLayout
-            android:id="@+id/item_event_container"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="?android:attr/selectableItemBackground">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/item_event_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/item_image_description"
+                android:scaleType="centerCrop"
+                android:src="@color/placeholder_color"
+                android:visibility="visible"
+                app:layout_constraintDimensionRatio="16:9"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_goneMarginTop="0dp"
+                app:post_image="@{viewModel.deal}" />
+
+            <ImageView
+                android:id="@+id/item_event_menu"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                tools:background="@drawable/event_header_active"
-                app:event_color="@{viewModel.state}">
+                android:layout_marginEnd="@dimen/size_normal"
+                android:layout_marginRight="@dimen/size_normal"
+                android:layout_marginTop="@dimen/size_small"
+                android:adjustViewBounds="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:contentDescription="@string/content_more"
+                android:tint="@{viewModel.deal.imageUrl != null ? @color/white : @color/icon}"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_more" />
 
-                <TextView
-                    android:id="@+id/item_event_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:padding="@dimen/size_normal"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textColor="@color/white"
-                    app:title="@{viewModel.deal.title}"
-                    tools:text="Title goes here" />
+            <im.goody.android.ui.views.CircleImageView
+                android:id="@+id/item_event_avatar"
+                android:layout_width="@dimen/avatar_size"
+                android:layout_height="@dimen/avatar_size"
+                android:layout_marginStart="@dimen/size_normal"
+                android:layout_marginLeft="@dimen/size_normal"
+                android:layout_marginTop="@dimen/size_normal"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/content_avatar"
+                android:src="@drawable/round_drawable"
+                app:author_avatar="@{viewModel.deal.author.avatarUrl}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_event_image" />
 
-                <ImageView
-                    android:id="@+id/item_event_menu"
-                    android:layout_marginTop="@dimen/size_normal"
-                    android:layout_marginRight="@dimen/size_small"
-                    android:layout_marginEnd="@dimen/size_small"
-                    android:layout_width="wrap_content"
-                    android:background="?selectableItemBackgroundBorderless"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_more_white"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/item_event_user_name"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/size_normal"
-                android:layout_marginRight="@dimen/size_normal"
-                android:orientation="horizontal">
+                android:layout_marginStart="@dimen/size_normal"
+                android:text="@{viewModel.deal.author.name}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/secondary_text"
+                app:layout_constraintLeft_toRightOf="@+id/item_event_avatar"
+                app:layout_constraintTop_toTopOf="@+id/item_event_avatar"
+                tools:text="User name" />
 
-                <im.goody.android.ui.views.CircleImageView
-                    android:id="@+id/item_event_avatar"
-                    android:layout_width="@dimen/avatar_size"
-                    android:layout_height="@dimen/avatar_size"
-                    android:layout_marginTop="@dimen/size_normal"
-                    android:layout_marginBottom="@dimen/size_normal"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/content_avatar"
-                    app:author_avatar="@{viewModel.deal.author.avatarUrl}"
-                    android:src="@drawable/round_drawable" />
-
-                <TextView
-                    android:id="@+id/item_event_user_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/size_normal"
-                    android:layout_marginStart="@dimen/size_normal"
-                    android:layout_gravity="center_vertical"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textColor="@color/accent"
-                    android:text="@{viewModel.deal.author.name}"
-                    tools:text="User name" />
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/item_event_create_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:text="@{DateUtils.getReadableDate(viewModel.deal.date)}"
+                app:layout_constraintBottom_toBottomOf="@+id/item_event_avatar"
+                app:layout_constraintLeft_toLeftOf="@+id/item_event_user_name"
+                app:layout_constraintTop_toBottomOf="@+id/item_event_user_name"
+                app:layout_constraintVertical_bias="0.5"
+                tools:text="DD MM, YYYY" />
 
             <im.goody.android.ui.views.AutoLinkTextView
                 android:id="@+id/item_event_description"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:layout_marginLeft="@dimen/size_normal"
                 android:layout_marginRight="@dimen/size_normal"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 app:description="@{viewModel}"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                 app:expandState="@{viewModel.expanded}"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_event_avatar"
                 tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis egestas dui, nec commodo sem. Sed in velit metus. Nulla varius vehicula tortor, ut dapibus purus hendrerit vitae. Praesent iaculis." />
-
-            <im.goody.android.ui.views.AspectImageView
-                android:id="@+id/item_event_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_normal"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/item_image_description"
-                android:src="@color/placeholder_color"
-                app:post_image="@{viewModel.deal}"
-                app:aspect_ratio="1.78"/>
-
-            <TextView
-                android:id="@+id/item_event_resources"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_normal"
-                android:layout_marginLeft="@dimen/size_normal"
-                android:layout_marginRight="@dimen/size_normal"
-                android:drawableLeft="@drawable/ic_info_outline"
-                android:drawablePadding="@dimen/size_little"
-                android:drawableStart="@drawable/ic_info_outline"
-                android:gravity="center_vertical"
-                app:event_resources="@{viewModel.deal.event.resources}"
-                tools:text="Resourses name + count" />
-
-            <TextView
-                android:id="@+id/item_event_location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_small"
-                android:layout_marginLeft="@dimen/size_normal"
-                android:layout_marginRight="@dimen/size_normal"
-                android:background="?android:attr/selectableItemBackground"
-                android:drawableLeft="@drawable/ic_place"
-                android:drawablePadding="@dimen/size_little"
-                android:drawableStart="@drawable/ic_place"
-                android:gravity="center_vertical"
-                app:address="@{viewModel.deal.location}"
-                tools:text="Location" />
 
             <TextView
                 android:id="@+id/item_event_date"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_small"
+                android:layout_marginStart="@dimen/size_normal"
                 android:layout_marginLeft="@dimen/size_normal"
                 android:layout_marginRight="@dimen/size_normal"
-                android:drawableLeft="@drawable/ic_time"
-                android:drawablePadding="@dimen/size_little"
-                android:drawableStart="@drawable/ic_time"
+                android:layout_marginEnd="@dimen/size_normal"
+                android:textColor="@color/primary_text"
+                android:layout_marginTop="@dimen/size_small"
                 android:gravity="center_vertical"
                 app:event_date="@{viewModel.deal.event.date}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_event_description"
                 tools:text="DD MM YYY HH:mm" />
 
             <TextView
-                android:id="@+id/item_event_participates"
+                android:id="@+id/item_event_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_small"
-                android:layout_marginLeft="@dimen/size_normal"
-                android:layout_marginRight="@dimen/size_normal"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:visibility="gone"
-                tools:text="Name 1, Name 2 and more N" />
+                android:background="?android:attr/selectableItemBackground"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:drawablePadding="@dimen/size_small"
+                android:drawableRight="@drawable/ic_arrow_right"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/size_normal"
+                android:paddingRight="@dimen/size_normal"
+                android:textColor="@color/primary_text"
+                app:address="@{viewModel.deal.location}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_event_date"
+                tools:text="Location" />
 
-            <View
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/size_divider"
-                android:layout_marginTop="@dimen/size_normal"
-                android:background="@color/divider"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/tag_container"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginEnd="@dimen/size_normal"
+                android:layout_marginStart="@dimen/size_normal"
+                android:layout_marginTop="@dimen/size_small"
+                app:flexDirection="row"
+                app:flexWrap="wrap"
+                app:tags="@{viewModel.deal.event.resources}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_event_location"
+                tools:layout_height="50dp" />
 
-                <include
-                    android:id="@+id/action_panel"
-                    layout="@layout/item_action_panel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    bind:viewModel="@{viewModel.panelViewModel}" />
+            <include
+                android:id="@+id/action_panel"
+                layout="@layout/item_action_panel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/item_event_join"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/item_event_join"
+                bind:viewModel="@{viewModel.panelViewModel}" />
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-
-                <Button
-                    android:id="@+id/item_event_join"
-                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/size_normal"
-                    android:layout_marginEnd="@dimen/size_normal"
-                    app:join_visibility="@{viewModel.state}"
-                    android:text="@{viewModel.participates ? @string/leave : @string/join}"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
+            <Button
+                android:id="@+id/item_event_join"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/join_height"
+                android:layout_marginBottom="@dimen/size_normal"
+                android:layout_marginEnd="@dimen/size_normal"
+                android:layout_marginStart="@dimen/size_normal"
+                android:layout_marginTop="@dimen/size_normal"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/white"
+                app:join_participates="@{viewModel.participates}"
+                app:join_status="@{viewModel.state}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/action_panel"
+                app:layout_constraintTop_toBottomOf="@+id/tag_container"
+                tools:background="@drawable/join_active"
+                tools:text="@string/active_join" />
+        </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
 </layout>

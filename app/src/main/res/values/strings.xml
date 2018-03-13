@@ -9,8 +9,7 @@
     <string name="action_support">Support</string>
     <string name="action_about">About</string>
 
-    <!-- screen_main -->
-    <string name="news_title">News</string>
+    <string name="news_title">Feed</string>
 
     <!-- screen_intro -->
     <string name="intro_close">Close</string>
@@ -34,7 +33,7 @@
     <string name="password_hint">Password</string>
     <string name="email_hint" translatable="false">Email</string>
     <string name="name_hint">Name</string>
-    <string name="login_redirect">Do not have account? Register</string>
+    <string name="login_redirect">Do not have account?</string>
     <string name="login_title">Login</string>
     <string name="invalid_fields_message">Please make all fields valid</string>
     <string name="register_progress_title">Signing up</string>
@@ -139,4 +138,26 @@
     <string name="feedback_comment">Commented on your post</string>
     <string name="feedback_common">Click to see details</string>
     <string name="mention_notification_format">%s mentioned you</string>
+    <string name="login_subtitle">Let\'s make the good together!</string>
+    <string name="login_submit">Login</string>
+    <string name="register_action">Register</string>
+    <string name="sex_male">Male</string>
+    <string name="sex_female">Female</string>
+    <string name="register_sex_title">Sex</string>
+    <string name="register_birthday_title">Birthday</string>
+    <string name="register_redirect">Login</string>
+    <string name="map">Map</string>
+    <string name="content_all">All</string>
+    <string name="content_events">Events</string>
+    <string name="content_deals">Deals</string>
+    <string name="active_join">Help!</string>
+    <string name="process_join">Join</string>
+    <string name="finished_event">Finished</string>
+    <string name="add_tag">Add tag</string>
+    <string name="choose_tag_title">Enter the tag</string>
+    <string name="tag_already_present">This tag is already present in this post</string>
+    <string name="profile_awards">Awards</string>
+    <string name="active_events">Active</string>
+    <string name="progress_events">In progress</string>
+    <string name="finished_events">Finished</string>
 </resources>

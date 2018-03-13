@@ -80,6 +80,7 @@ dependencies {
 
     // picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
 
     // refresh & load more
     implementation 'com.github.omadahealth:swipy:1.2.3@aar'
@@ -90,6 +91,10 @@ dependencies {
     implementation 'com.github.mklimek:ssl-utils-android:1.0.1'
 
     implementation 'com.google.firebase:firebase-messaging:11.8.0'
+
+    implementation 'com.infideap.drawerbehavior:drawer-behavior:0.0.4'
+
+    implementation 'com.google.android:flexbox:0.3.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

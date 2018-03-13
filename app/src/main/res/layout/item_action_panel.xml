@@ -12,16 +12,13 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="wrap_content"
+        android:padding="@dimen/size_normal"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/panel_like_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/size_small"
-            android:layout_marginLeft="@dimen/size_normal"
-            android:layout_marginStart="@dimen/size_normal"
-            android:layout_marginTop="@dimen/size_small"
             android:background="?selectableItemBackgroundBorderless"
             app:liked="@{viewModel.isLiked}"
             app:likes="@{viewModel.likedCount}"
@@ -55,8 +52,8 @@
             android:id="@+id/panel_item_comments"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_medium"
-            android:layout_marginStart="@dimen/size_medium"
+            android:layout_marginLeft="@dimen/size_normal"
+            android:layout_marginStart="@dimen/size_normal"
             android:background="?selectableItemBackgroundBorderless"
             android:drawableLeft="@drawable/ic_comment"
             android:drawablePadding="@dimen/size_little"
@@ -73,10 +70,8 @@
             android:id="@+id/panel_item_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/size_medium"
-            android:layout_marginLeft="@dimen/size_medium"
-            android:layout_marginRight="@dimen/size_medium"
-            android:layout_marginStart="@dimen/size_medium"
+            android:layout_marginLeft="@dimen/size_normal"
+            android:layout_marginStart="@dimen/size_normal"
             android:background="?selectableItemBackgroundBorderless"
             android:contentDescription="@string/item_share_description"
             app:layout_constraintBottom_toBottomOf="@+id/panel_like_container"

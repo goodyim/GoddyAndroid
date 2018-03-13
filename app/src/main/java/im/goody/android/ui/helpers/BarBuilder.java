@@ -3,10 +3,8 @@ package im.goody.android.ui.helpers;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import im.goody.android.core.IBarView;
 
@@ -19,13 +17,15 @@ public class BarBuilder {
     private boolean toolbarVisible;
 
     private boolean statusBarVisible = true;
+
     public static final int HOME_GONE = 0;
     public static final int HOME_HAMBURGER = 1;
-
     public static final int HOME_ARROW = 2;
+
+    private TabInfo tabInfo;
+
     @Nullable
     private Integer titleRes;
-    private List<MenuItemHolder> items = new ArrayList<>();
 
     public BarBuilder(IBarView view) {
         this.view = view;
@@ -58,9 +58,8 @@ public class BarBuilder {
         return this;
     }
 
-    @NonNull
-    public BarBuilder addAction(MenuItemHolder item) {
-        this.items.add(item);
+    public BarBuilder setTabs(ViewPager pager) {
+        tabInfo = new TabInfo(pager);
         return this;
     }
 
@@ -77,11 +76,23 @@ public class BarBuilder {
             if (titleRes != null)
                 view.setToolbarTitle(titleRes);
 
-
             view.setHomeListener(homeListener);
             view.setHomeState(homeState);
-            view.setToolBarMenuItem(items);
             view.setStatusBarVisible(statusBarVisible);
+
+            view.setTabs(tabInfo);
+        }
+    }
+
+    public class TabInfo {
+        private final ViewPager pager;
+
+        private TabInfo(ViewPager pager) {
+            this.pager = pager;
+        }
+
+        public ViewPager getPager() {
+            return pager;
         }
     }
 }

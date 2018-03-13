@@ -22,7 +22,7 @@ public class LoginController extends BaseController<LoginView> {
             disposable = repository.login(loginData.body()).subscribe(
                     result -> {
                         rootPresenter.hideProgress();
-                        rootPresenter.showNews();
+                        rootPresenter.showMain();
                     },
                     error -> {
                         rootPresenter.hideProgress();
@@ -57,7 +57,8 @@ public class LoginController extends BaseController<LoginView> {
     @Override
     protected void initActionBar() {
         rootPresenter.newBarBuilder()
-                .setToolbarVisible(true)
+                .setToolbarVisible(false)
+                .setStatusBarVisible(false)
                 .setHomeState(BarBuilder.HOME_GONE)
                 .setTitleRes(R.string.login_title)
                 .build();

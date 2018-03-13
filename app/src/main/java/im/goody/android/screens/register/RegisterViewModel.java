@@ -1,28 +1,20 @@
 package im.goody.android.screens.register;
 
-import android.content.ContentResolver;
-import android.content.Context;
 import android.databinding.BaseObservable;
-import android.databinding.Bindable;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.provider.MediaStore;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.databinding.ObservableField;
 import android.text.TextUtils;
 
-import java.io.IOException;
+import java.util.Calendar;
 
-import im.goody.android.App;
-import im.goody.android.BR;
+import im.goody.android.Constants;
 import im.goody.android.R;
 import im.goody.android.data.network.req.RegisterReq;
-import im.goody.android.utils.BitmapUtils;
+import im.goody.android.utils.DateUtils;
 
 import static android.util.Patterns.EMAIL_ADDRESS;
 import static im.goody.android.Constants.MIN_NAME_LENGTH;
 import static im.goody.android.Constants.MIN_PASSWORD_LENGTH;
+import static im.goody.android.Constants.SEX_MALE;
 
 @SuppressWarnings("unused")
 public class RegisterViewModel extends BaseObservable{
@@ -31,33 +23,9 @@ public class RegisterViewModel extends BaseObservable{
     private String email;
     private String password;
 
-    private Uri avatarUri;
+    public ObservableField<Calendar> birthday = new ObservableField<>();
 
-    @Bindable
-    private Drawable nameRes;
-
-    @Bindable
-    private Drawable emailRes;
-
-    @Bindable
-    private Drawable passwordRes;
-
-    @Bindable
-    private Bitmap avatar;
-    private Drawable emptyFieldDrawable;
-
-    private Drawable validFieldDrawable;
-    private Drawable invalidFieldDrawable;
-    RegisterViewModel() {
-        Context context = App.getAppContext();
-        emptyFieldDrawable = ContextCompat.getDrawable(context, R.drawable.field_background);
-        validFieldDrawable = ContextCompat.getDrawable(context, R.drawable.field_valid);
-        invalidFieldDrawable = ContextCompat.getDrawable(context, R.drawable.field_invalid);
-
-        nameRes = emptyFieldDrawable;
-        emailRes = emptyFieldDrawable;
-        passwordRes = emptyFieldDrawable;
-    }
+    private int sex = SEX_MALE;
 
     boolean isValid() {
         return isEmailValid() && isPasswordValid() && isNameValid();
@@ -67,10 +35,16 @@ public class RegisterViewModel extends BaseObservable{
         return new RegisterReq()
                 .setEmail(email)
                 .setPassword(password)
-                .setName(name);
+                .setName(name)
+                .setBirthday(getStringDate())
+                .setSex(sex);
     }
 
     // ======= region getters =======
+
+    public int getSex() {
+        return sex;
+    }
 
     public String getEmail() {
         return email;
@@ -80,90 +54,37 @@ public class RegisterViewModel extends BaseObservable{
         return password;
     }
 
-    public Drawable getEmailRes() {
-        return emailRes;
-    }
-
-    public Drawable getPasswordRes() {
-        return passwordRes;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public Drawable getNameRes() {
-        return nameRes;
-    }
-
-    public Bitmap getAvatar() {
-        return avatar;
-    }
-
-    Uri getAvatarUri() {
-        return avatarUri;
     }
 
     //endregion
 
     // ======= region setters =======
 
+    public void setSex(int id) {
+        switch (id) {
+            case R.id.sex_male:
+                sex = Constants.SEX_MALE;
+                break;
+            case R.id.sex_female:
+                sex = Constants.SEX_FEMALE;
+        }
+    }
+
     public RegisterViewModel setName(String name) {
         this.name = name;
-        setNameDrawable();
         return this;
     }
 
     public RegisterViewModel setEmail(String email) {
         this.email = email;
-        setEmailDrawable();
         return this;
     }
 
     public RegisterViewModel setPassword(String password) {
         this.password = password;
-        setPasswordDrawable();
         return this;
-    }
-
-    public RegisterViewModel setNameRes(Drawable nameRes) {
-        this.nameRes = nameRes;
-        return this;
-    }
-
-    public RegisterViewModel setEmailRes(Drawable emailRes) {
-        this.emailRes = emailRes;
-        return this;
-    }
-
-    public RegisterViewModel setPasswordRes(Drawable passwordRes) {
-        this.passwordRes = passwordRes;
-        return this;
-    }
-
-    public void setAvatarUri(Uri avatarUri) {
-        this.avatarUri = avatarUri;
-    }
-
-    public RegisterViewModel setAvatar(Bitmap avatar) {
-        this.avatar = avatar;
-        notifyPropertyChanged(BR.avatar);
-        return this;
-    }
-
-    void setAvatar(Uri imageUri, boolean isNewFile) {
-        ContentResolver resolver = App.getAppContext().getContentResolver();
-
-        if (isNewFile) resolver.notifyChange(imageUri, null);
-
-        try {
-            avatar = MediaStore.Images.Media.getBitmap(resolver, imageUri);
-        } catch (IOException e) {
-            e.printStackTrace();
-            avatar = null;
-        }
-
-        notifyPropertyChanged(BR.avatar);
     }
 
     // endregion
@@ -182,37 +103,10 @@ public class RegisterViewModel extends BaseObservable{
         return !TextUtils.isEmpty(password) && password.length() >= MIN_PASSWORD_LENGTH;
     }
 
-    private void setEmailDrawable() {
-        if (TextUtils.isEmpty(email))
-            emailRes = emptyFieldDrawable;
-        else
-        if (isEmailValid())
-            emailRes = validFieldDrawable;
-        else
-            emailRes = invalidFieldDrawable;
-        notifyPropertyChanged(BR.emailRes);
-    }
-
-    private void setPasswordDrawable() {
-        if (TextUtils.isEmpty(password))
-            passwordRes = emptyFieldDrawable;
-        else
-        if (isPasswordValid())
-            passwordRes = validFieldDrawable;
-        else
-            passwordRes = invalidFieldDrawable;
-        notifyPropertyChanged(BR.passwordRes);
-    }
-
-    private void setNameDrawable() {
-        if (TextUtils.isEmpty(name))
-            nameRes = emptyFieldDrawable;
-        else
-        if (isNameValid())
-            nameRes = validFieldDrawable;
-        else
-            nameRes = invalidFieldDrawable;
-        notifyPropertyChanged(BR.nameRes);
+    private String getStringDate() {
+        if (birthday.get() != null)
+            return DateUtils.dateToString(birthday.get().getTime());
+        else return null;
     }
 
     // endregion

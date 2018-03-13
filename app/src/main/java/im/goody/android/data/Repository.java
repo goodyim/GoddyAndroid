@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -14,7 +15,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -68,14 +68,10 @@ public class Repository implements IRepository {
     //region ================= User =================
 
     @Override
-    public Observable<UserRes> register(RegisterReq data, Uri avatarUri) {
+    public Observable<UserRes> register(RegisterReq data) {
 
-        return getPart(avatarUri, "user[avatar]")
-                .flatMap(part ->
-                        restService.registerUser(
-                                getFcmToken(),
-                                RestCallTransformer.objectToPartMap(data, "user"),
-                                part.getPart()))
+        return restService.registerUser(getFcmToken(),
+                RestCallTransformer.objectToPartMap(data, "user"))
                 .doOnNext(preferencesManager::saveUser)
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -107,26 +103,11 @@ public class Repository implements IRepository {
     //region ================= News =================
 
     @Override
-    public Observable<List<Deal>> getPosts(String id, int page) {
+    public Observable<List<Deal>> getPosts(String id, String contentType, int page) {
         if (id.equals(Constants.ID_NONE))
             id = null;
 
-        return restService.getDeals(preferencesManager.getUserToken(), id, page)
-                .observeOn(AndroidSchedulers.mainThread());
-    }
-
-    // TODO replace with its own server request
-    @Override
-    public Observable<List<Deal>> getEvents(String userId, int page) {
-        if (page > 1)
-            return Observable.just(Collections.emptyList());
-
-        return getEvents()
-                .observeOn(Schedulers.io())
-                .flatMap(Observable::fromIterable)
-                .filter(Deal::isParticipates)
-                .toList()
-                .toObservable()
+        return restService.getDeals(preferencesManager.getUserToken(), id, page, contentType)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -235,7 +216,12 @@ public class Repository implements IRepository {
 
     @Override
     public Observable<List<Deal>> getEvents() {
-        return restService.getActiveEvents(preferencesManager.getUserToken())
+        return getEvents(null, null);
+    }
+
+    @Override
+    public Observable<List<Deal>> getEvents(String userId, String state) {
+        return restService.getEvents(preferencesManager.getUserToken(), userId, state)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -244,7 +230,8 @@ public class Repository implements IRepository {
         return Observable.just(imageUrl)
                 .subscribeOn(Schedulers.io())
                 .map(url -> {
-                    Bitmap bmp =  App.picasso.load(imageUrl)
+                    Bitmap bmp =  Picasso.with(App.getAppContext())
+                            .load(imageUrl)
                             .get();
                     File file = cacheBitmap(bmp);
 
