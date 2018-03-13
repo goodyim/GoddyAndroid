@@ -111,7 +111,7 @@
     <string name="photo_title">Фото</string>
     <string name="profile">Профиль</string>
     <string name="profile_event_count">События</string>
-    <string name="profile_followers">Подписчики</string>
+    <string name="profile_followers">Друзья</string>
     <string name="profile_posts_count">Посты</string>
     <string name="quick_word_0">Готов помочь</string>
     <string name="quick_word_1">Что нужно взять с собой?</string>
@@ -139,4 +139,23 @@
     <string name="login_submit">Войти</string>
     <string name="register_action">Зарегестрироваться</string>
     <string name="login_subtitle">Сделаем добро вместе</string>
+    <string name="sex_male">Мужской</string>
+    <string name="sex_female">Женский</string>
+    <string name="register_sex_title">Пол</string>
+    <string name="register_birthday_title">День рождения</string>
+    <string name="register_redirect">Вход</string>
+    <string name="map">Карта</string>
+    <string name="content_all">Все записи</string>
+    <string name="content_events">События</string>
+    <string name="content_deals">Добрости</string>
+    <string name="active_join">Помочь!</string>
+    <string name="process_join">Присоедениться</string>
+    <string name="finished_event">Завершено</string>
+    <string name="add_tag">Добавить ресурс</string>
+    <string name="choose_tag_title">Введите название ресурса</string>
+    <string name="tag_already_present">Этот ресурс уже указан в событии</string>
+    <string name="profile_awards">Награды</string>
+    <string name="active_events">Активные</string>
+    <string name="progress_events">В процессе</string>
+    <string name="finished_events">Завершенные</string>
 </resources>
