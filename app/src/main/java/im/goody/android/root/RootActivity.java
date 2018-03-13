@@ -83,8 +83,6 @@ public class RootActivity extends AppCompatActivity
         setSupportActionBar(binding.toolbar);
         actionBar = getSupportActionBar();
 
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-
         drawerToggle = new ActionBarDrawerToggle(this,
                 binding.drawerLayout,
                 binding.toolbar,
@@ -93,7 +91,6 @@ public class RootActivity extends AppCompatActivity
 
 
         binding.drawerLayout.addDrawerListener(drawerToggle);
-        binding.drawerLayout.setFitsSystemWindows(true);
         binding.drawerLayout.useCustomBehavior(Gravity.START);
         binding.drawerLayout.setViewScale(Gravity.START, 0.8f);
         binding.drawerLayout.setViewElevation(Gravity.START, 20);
@@ -102,6 +99,7 @@ public class RootActivity extends AppCompatActivity
 
         drawerToggle.syncState();
     }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -220,11 +218,9 @@ public class RootActivity extends AppCompatActivity
     @Override
     public void setStatusBarVisible(boolean visible) {
         if (visible) {
-            binding.statusBarView.setVisibility(View.VISIBLE);
-//            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         } else {
-            binding.statusBarView.setVisibility(View.GONE);
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
     }
 

@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <com.infideap.drawerbehavior.AdvanceDrawerLayout
-        android:fitsSystemWindows="true"
         android:id="@+id/drawer_layout"
         android:background="@drawable/nav_background"
+        android:fitsSystemWindows="true"
         style="@style/FullExpandLayout">
 
         <android.support.design.widget.CoordinatorLayout
@@ -19,12 +19,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/AppTheme.AppBarOverlay">
-                
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:id="@+id/status_bar_view"
-                    android:background="@color/primary_dark" />
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -50,6 +44,7 @@
             </android.support.design.widget.AppBarLayout>
 
             <FrameLayout
+                android:fitsSystemWindows="true"
                 android:id="@+id/root_frame"
                 style="@style/FullExpandLayout"
                 android:animateLayoutChanges="true"
