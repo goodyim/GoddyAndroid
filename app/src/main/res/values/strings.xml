@@ -81,8 +81,6 @@
     <!-- screen_setting -->
     <string name="setting_title">Settings</string>
 
-    <!-- TODO remove / rename-->
-    <string name="setting_some">Images caching</string>
     <string name="event_default_title">Attention!</string>
     <string name="choose_date">Choose date…</string>
     <string name="choose_time">Select time…</string>
@@ -160,4 +158,26 @@
     <string name="active_events">Active</string>
     <string name="progress_events">In progress</string>
     <string name="finished_events">Finished</string>
+    <string name="choose_help_title">Be notified about help near to you</string>
+    <string name="enable_geo_title">Enable geo conditions</string>
+    <string name="distance_title">Distance</string>
+    <string name="submit">Submit</string>
+    <string name="help_info_loading">Loading current info…</string>
+    <string name="error">Error</string>
+    <string name="help_info_load_error">Failed to load current help settings</string>
+    <string name="skip">Skip</string>
+    <string name="setting_choose_help">Events notifications</string>
+
+    <string name="distance_value" translatable="false">%d km</string>
+    <string name="help_info_updating">Updating help settings…</string>
+    <string name="preset_tags_title">Use popular</string>
+    <string name="custom_tags_title">Or add your own</string>
+
+    <string name="preset_tag_0">Car</string>
+    <string name="preset_tag_1">Time</string>
+    <string name="preset_tag_2">Physical strength</string>
+    <string name="preset_tag_3">people</string>
+    <string name="preset_tag_4">animals</string>
+    <string name="preset_tag_5">children</string>
+    <string name="preset_tag_6">aged people</string>
 </resources>

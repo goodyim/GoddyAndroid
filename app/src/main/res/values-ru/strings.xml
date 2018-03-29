@@ -94,7 +94,6 @@
     <string name="report_submitted">Отчёт отправлен</string>
     <string name="resources_hint">Необходимые ресурсы</string>
     <string name="retry">Повторить</string>
-    <string name="setting_some">Кэширование изображений</string>
     <string name="setting_title">Настройки</string>
     <string name="title_hint">Заголовок</string>
     <string name="unknown_error">Неизвестная ошибка</string>
@@ -158,4 +157,23 @@
     <string name="active_events">Активные</string>
     <string name="progress_events">В процессе</string>
     <string name="finished_events">Завершенные</string>
+    <string name="choose_help_title">Укажите, чем вы можете помочь или тех, кому вы хотите помогать</string>
+    <string name="enable_geo_title">Добавить ограничения по расстоянию</string>
+    <string name="distance_title">Расстояние</string>
+    <string name="submit">Подтвердить</string>
+    <string name="help_info_loading">Загрузка текущего состояния</string>
+    <string name="error">Ошибка</string>
+    <string name="help_info_load_error">Не получилось получить текущее состояние. Попробуйте еще раз</string>
+    <string name="skip">Пропустить</string>
+    <string name="setting_choose_help">Новые события</string>
+    <string name="help_info_updating">Обноляем настройки...</string>
+    <string name="preset_tags_title">Используйте популярные</string>
+    <string name="custom_tags_title">Или добавьте собственные</string>
+    <string name="preset_tag_0">Автомобиль</string>
+    <string name="preset_tag_1">Время</string>
+    <string name="preset_tag_2">Физическая сила</string>
+    <string name="preset_tag_3">Люди</string>
+    <string name="preset_tag_4">Животные</string>
+    <string name="preset_tag_5">Дети</string>
+    <string name="preset_tag_6">Пожилые</string>
 </resources>

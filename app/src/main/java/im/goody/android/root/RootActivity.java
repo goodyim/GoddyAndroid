@@ -138,8 +138,8 @@ public class RootActivity extends AppCompatActivity
 
     @Override
     protected void onStart() {
-        super.onStart();
         ((RootPresenter) presenter).takeView(this);
+        super.onStart();
     }
 
     @Override

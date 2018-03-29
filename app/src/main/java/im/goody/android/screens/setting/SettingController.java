@@ -1,27 +1,46 @@
 package im.goody.android.screens.setting;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.preference.PreferenceController;
 import android.view.View;
 
+import javax.inject.Inject;
+
+import im.goody.android.App;
 import im.goody.android.R;
-import im.goody.android.core.BaseController;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
+import im.goody.android.root.IRootPresenter;
+import im.goody.android.screens.choose_help.ChooseHelpController;
 import im.goody.android.ui.helpers.BarBuilder;
 
-public class SettingController extends BaseController<SettingView> {
+public class SettingController extends PreferenceController {
 
-    private SettingViewModel viewModel = new SettingViewModel();
+    private static final String CHOOSE_HELP_KEY = "events_notifications";
+
+    @Inject
+    protected IRootPresenter rootPresenter;
 
     @Override
-    protected void initDaggerComponent(RootComponent parentComponent) {
-        Component component = parentComponent.plusSetting();
-        if (component != null)
-            component.inject(this);
+    public void onCreatePreferences(Bundle bundle, String s) {
+        addPreferencesFromResource(R.xml.settings);
+
+        getPreferenceScreen().findPreference(CHOOSE_HELP_KEY)
+                .setOnPreferenceClickListener(preference -> {
+                    rootPresenter.showChooseHelp(ChooseHelpController.MODE_EDIT);
+                    return true;
+                });
     }
 
     @Override
-    protected void initActionBar() {
+    public void onAttach(@NonNull View view) {
+        super.onAttach(view);
+        initDagger();
+        initActionBar();
+    }
+
+    private void initActionBar() {
         rootPresenter.newBarBuilder()
                 .setToolbarVisible(true)
                 .setTitleRes(R.string.setting_title)
@@ -29,16 +48,11 @@ public class SettingController extends BaseController<SettingView> {
                 .build();
     }
 
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.screen_setting;
-    }
+    private void initDagger() {
+        RootComponent rootComponent = App.getRootComponent();
+        Component component = rootComponent.plusSetting();
+        component.inject(this);
 
-    @Override
-    protected void onAttach(@NonNull View view) {
-        super.onAttach(view);
-        // TODO: 08.09.2017 set viewModel settings
-        view().setViewModel(viewModel);
     }
 
     //region ================= DI =================

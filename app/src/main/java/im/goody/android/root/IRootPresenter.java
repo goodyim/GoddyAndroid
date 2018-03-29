@@ -19,6 +19,7 @@ public interface IRootPresenter {
     void showMain();
     void showUserPosts(String id);
     void showMyPosts();
+    void showChooseHelp(int mode);
 
     void showLoginScreen();
     void showRegisterScreen();

@@ -13,4 +13,13 @@
     <string-array name="comment_options">
         <item>@string/comment_reply</item>
     </string-array>
+    <string-array name="preset_tags">
+        <item>@string/preset_tag_0</item>
+        <item>@string/preset_tag_1</item>
+        <item>@string/preset_tag_2</item>
+        <item>@string/preset_tag_3</item>
+        <item>@string/preset_tag_4</item>
+        <item>@string/preset_tag_5</item>
+        <item>@string/preset_tag_6</item>
+    </string-array>
 </resources>

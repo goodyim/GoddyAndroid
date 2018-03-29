@@ -12,6 +12,7 @@ import im.goody.android.data.dto.Deal;
 import im.goody.android.data.network.error.StandardError;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.screens.about.AboutController;
+import im.goody.android.screens.choose_help.ChooseHelpController;
 import im.goody.android.screens.detail_post.DetailPostController;
 import im.goody.android.screens.feedback.FeedBackController;
 import im.goody.android.screens.intro.IntroController;
@@ -104,6 +105,16 @@ public class RootPresenter implements IRootPresenter {
 
             rootView.showScreenAsRoot(NewsController.class,
                     NewsController.CONTENT_All, true, String.valueOf(id));
+        }
+    }
+
+    @Override
+    public void showChooseHelp(int mode) {
+        if (rootView != null) {
+            if (mode == ChooseHelpController.MODE_SETUP)
+                rootView.showScreenAsRoot(ChooseHelpController.class, mode);
+            else
+                rootView.showScreen(ChooseHelpController.class, mode);
         }
     }
 

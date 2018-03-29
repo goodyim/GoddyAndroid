@@ -6,6 +6,7 @@ import java.util.List;
 
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Feedback;
+import im.goody.android.data.dto.HelpInfo;
 import im.goody.android.data.dto.User;
 import im.goody.android.data.network.req.LoginReq;
 import im.goody.android.data.network.req.NewCommentReq;
@@ -68,4 +69,8 @@ public interface IRepository {
     void sendRegistrationToServer(String refreshedToken);
 
     Observable<List<Feedback>> getFeedback();
+
+    Observable<HelpInfo> loadHelpInfo();
+
+    Observable<String> updateHelpInfo(HelpInfo body);
 }

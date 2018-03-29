@@ -5,6 +5,7 @@ import java.util.Map;
 
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Feedback;
+import im.goody.android.data.dto.HelpInfo;
 import im.goody.android.data.dto.User;
 import im.goody.android.data.network.req.NewCommentReq;
 import im.goody.android.data.network.res.CommentRes;
@@ -29,6 +30,13 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RestService {
+
+    @GET("users/help_info")
+    Observable<HelpInfo> getHelpInfo(@Header("X-User-Token") String token);
+
+    @POST("users/help_info")
+    Observable<ResponseBody> sendHelpInfo(@Header("X-User-Token") String token,
+                                      @Body HelpInfo body);
 
     @Multipart
     @POST("users")

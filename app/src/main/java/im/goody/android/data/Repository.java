@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +25,7 @@ import im.goody.android.App;
 import im.goody.android.Constants;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Feedback;
+import im.goody.android.data.dto.HelpInfo;
 import im.goody.android.data.dto.User;
 import im.goody.android.data.local.PreferencesManager;
 import im.goody.android.data.network.RestService;
@@ -264,6 +266,30 @@ public class Repository implements IRepository {
     public Observable<List<Feedback>> getFeedback() {
         return restService.loadNotifications(preferencesManager.getUserToken())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<HelpInfo> loadHelpInfo() {
+        // TODO uncomment
+        /*return restService.getHelpInfo(preferencesManager.getUserToken())
+                .observeOn(AndroidSchedulers.mainThread());*/
+
+        ArrayList<String> tags = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            tags.add(String.valueOf("Tag " + i + 1));
+        }
+
+        return Observable.just(new HelpInfo().setTags(tags).setArea(null));
+    }
+
+    @Override
+    public Observable<String> updateHelpInfo(HelpInfo body) {
+        // TODO uncomment
+//        return restService.sendHelpInfo(preferencesManager.getUserToken(), body)
+//                .observeOn(AndroidSchedulers.mainThread());
+
+        return Observable.just("Ok");
     }
 
     //endregion
