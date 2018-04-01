@@ -15,11 +15,13 @@ public class SettingView extends BaseView<SettingController, ScreenSettingBindin
     @Override
     protected void onAttached() {
         binding.settingSubmit.setOnClickListener(v -> controller.saveSettings());
+        binding.settingChooseHelp.setOnClickListener(v -> controller.chooseHelp());
     }
 
     @Override
     protected void onDetached() {
         binding.settingSubmit.setOnClickListener(null);
+        binding.settingChooseHelp.setOnClickListener(null);
     }
 
     void setViewModel(SettingViewModel viewModel) {

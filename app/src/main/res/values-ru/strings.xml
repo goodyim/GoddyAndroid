@@ -164,7 +164,6 @@
     <string name="error">Ошибка</string>
     <string name="help_info_load_error">Не получилось получить текущее состояние. Попробуйте еще раз</string>
     <string name="skip">Пропустить</string>
-    <string name="setting_choose_help">Новые события</string>
     <string name="help_info_updating">Обноляем настройки...</string>
     <string name="preset_tags_title">Используйте популярные</string>
     <string name="custom_tags_title">Или добавьте собственные</string>
@@ -183,4 +182,5 @@
     <string name="setting_notify_mentions">упоминания</string>
     <string name="setting_notify_message">сообщения</string>
     <string name="setting_submit">Сохранить</string>
+    <string name="setting_choose_help">Настройка уведомлений</string>
 </resources>

@@ -11,6 +11,7 @@ import im.goody.android.data.dto.Settings;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.root.IRootPresenter;
+import im.goody.android.screens.choose_help.ChooseHelpController;
 import im.goody.android.ui.helpers.BarBuilder;
 
 public class SettingController extends BaseController<SettingView> {
@@ -57,6 +58,10 @@ public class SettingController extends BaseController<SettingView> {
                 viewModel.isNotifyMessages()
         ));
         getRouter().handleBack();
+    }
+
+    void chooseHelp() {
+        rootPresenter.showChooseHelp(ChooseHelpController.MODE_EDIT);
     }
 
     //region ================= DI =================

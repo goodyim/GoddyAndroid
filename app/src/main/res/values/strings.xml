@@ -166,7 +166,6 @@
     <string name="error">Error</string>
     <string name="help_info_load_error">Failed to load current help settings</string>
     <string name="skip">Skip</string>
-    <string name="setting_choose_help">Events notifications</string>
 
     <string name="distance_value" translatable="false">%d km</string>
     <string name="help_info_updating">Updating help settings…</string>
@@ -187,5 +186,6 @@
     <string name="setting_notify">Notifications:</string>
     <string name="setting_notify_mentions">mentions</string>
     <string name="setting_notify_message">messages</string>
-    <string name="setting_submit">Save settings</string>
+    <string name="setting_submit">Submit</string>
+    <string name="setting_choose_help">Setting up notifications</string>
 </resources>
