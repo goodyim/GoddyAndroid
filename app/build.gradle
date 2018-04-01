@@ -67,6 +67,7 @@ dependencies {
         exclude module: 'okhttp'
     }
     implementation 'com.squareup.retrofit2:converter-jackson:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
     implementation 'com.squareup.okhttp3:okhttp:3.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'

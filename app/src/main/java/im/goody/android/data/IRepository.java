@@ -72,5 +72,5 @@ public interface IRepository {
 
     Observable<HelpInfo> loadHelpInfo();
 
-    Observable<String> updateHelpInfo(HelpInfo body);
+    Observable<ResponseBody> updateHelpInfo(HelpInfo body);
 }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import im.goody.android.Constants;
 import im.goody.android.R;
 import im.goody.android.data.dto.Location;
 
@@ -17,7 +18,9 @@ public class NewEventBindingAdapter {
         if (location == null) {
             address = view.getContext().getString(R.string.choose_location);
         } else {
-            address = location.getAddress();
+            address = location.getAddress() != null
+                    ? location.getAddress()
+                    : String.format(Constants.COORDINATES_FORMAT, location.getLatitude(), location.getLongitude());
         }
 
         view.setText(address);

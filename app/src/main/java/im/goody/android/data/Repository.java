@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Picasso;
 
@@ -15,7 +16,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -42,6 +42,7 @@ import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.data.network.res.UserRes;
 import im.goody.android.di.components.DataComponent;
 import im.goody.android.utils.FileUtils;
+import im.goody.android.utils.TextUtils;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -270,26 +271,21 @@ public class Repository implements IRepository {
 
     @Override
     public Observable<HelpInfo> loadHelpInfo() {
-        // TODO uncomment
-        /*return restService.getHelpInfo(preferencesManager.getUserToken())
-                .observeOn(AndroidSchedulers.mainThread());*/
-
-        ArrayList<String> tags = new ArrayList<>();
-
-        for (int i = 0; i < 5; i++) {
-            tags.add(String.valueOf("Tag " + i + 1));
-        }
-
-        return Observable.just(new HelpInfo().setTags(tags).setArea(null));
+        return restService.getHelpInfo(preferencesManager.getUserToken())
+                .map(string -> {
+                    if (TextUtils.isEmpty(string)) {
+                        return new HelpInfo();
+                    } else {
+                        return new ObjectMapper().readValue(string, HelpInfo.class);
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
-    public Observable<String> updateHelpInfo(HelpInfo body) {
-        // TODO uncomment
-//        return restService.sendHelpInfo(preferencesManager.getUserToken(), body)
-//                .observeOn(AndroidSchedulers.mainThread());
-
-        return Observable.just("Ok");
+    public Observable<ResponseBody> updateHelpInfo(HelpInfo body) {
+        return restService.sendHelpInfo(preferencesManager.getUserToken(), body)
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     //endregion

@@ -30,11 +30,10 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RestService {
+    @GET("zones")
+    Observable<String> getHelpInfo(@Header("X-User-Token") String token);
 
-    @GET("users/help_info")
-    Observable<HelpInfo> getHelpInfo(@Header("X-User-Token") String token);
-
-    @POST("users/help_info")
+    @POST("zones")
     Observable<ResponseBody> sendHelpInfo(@Header("X-User-Token") String token,
                                       @Body HelpInfo body);
 

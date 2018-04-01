@@ -1,9 +1,15 @@
 package im.goody.android.data.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+import java.util.ArrayList;
 import java.util.List;
 
+@JsonRootName("zone")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class HelpInfo {
-    private List<String> tags;
+    private List<String> tags = new ArrayList<>();
     private Area area;
 
     public List<String> getTags() {

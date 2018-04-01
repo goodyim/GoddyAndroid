@@ -14,25 +14,43 @@ import im.goody.android.App;
 import im.goody.android.R;
 import im.goody.android.data.dto.HelpInfo;
 import im.goody.android.data.dto.Location;
+import io.reactivex.annotations.NonNull;
 
 public class ChooseHelpViewModel {
     final List<String> tags;
-    final PresetTag[] presetTags;
+    final PresetTag[] presetTags = loadPresetTags();;
     public ObservableField<Location> place = new ObservableField<>(null);
     public ObservableBoolean isGeoEnabled = new ObservableBoolean(false);
     public ObservableInt radius = new ObservableInt(0);
 
     ChooseHelpViewModel() {
         tags = new ArrayList<>();
-
-        presetTags = buildPresetTags();
     }
 
-    ChooseHelpViewModel(HelpInfo info) {
-        tags = info.getTags();
+    ChooseHelpViewModel(@NonNull HelpInfo info) {
+        tags = info.getTags() != null ? info.getTags() : new ArrayList<>();
 
-        presetTags = buildPresetTags();
+        movePredefinedTagsToPresets();
 
+        HelpInfo.Area area = info.getArea();
+        boolean areaValid = area != null && area.getLatitude() != 0.0 && area.getLongitude() != 0.0;
+        if (areaValid) {
+            place.set(new Location(info.getArea().getLatitude(),
+                    info.getArea().getLongitude(),
+                    info.getArea().getAddress()));
+            radius.set(info.getArea().getRadius());
+        }
+
+        isGeoEnabled.set(areaValid);
+    }
+
+    public HelpInfo body() {
+        return new HelpInfo()
+                .setTags(buildTags())
+                .setArea(buildArea());
+    }
+
+    private void movePredefinedTagsToPresets() {
         ListIterator<String> iterator = tags.listIterator();
         while (iterator.hasNext()) {
             String tag = iterator.next();
@@ -44,21 +62,18 @@ public class ChooseHelpViewModel {
                 }
             }
         }
-
-        if (info.getArea() != null) {
-            place.set(new Location(info.getArea().getLatitude(),
-                    info.getArea().getLongitude(),
-                    info.getArea().getAddress()));
-            radius.set(info.getArea().getRadius());
-        }
-
-        isGeoEnabled.set(info.getArea() != null);
     }
 
-    public HelpInfo body() {
-        return new HelpInfo()
-                .setTags(tags)
-                .setArea(buildArea());
+    private List<String> buildTags() {
+        List<String> result = new ArrayList<>(tags);
+
+        for (PresetTag tag : presetTags) {
+            if (tag.isChecked()) {
+                result.add(tag.getValue());
+            }
+        }
+
+        return result;
     }
 
     private HelpInfo.Area buildArea() {
@@ -69,11 +84,12 @@ public class ChooseHelpViewModel {
             return new HelpInfo.Area()
                     .setAddress(place.get().getAddress())
                     .setLatitude(coordinates.latitude)
-                    .setLongitude(coordinates.longitude);
+                    .setLongitude(coordinates.longitude)
+                    .setRadius(radius.get());
         }
     }
 
-    private PresetTag[] buildPresetTags() {
+    private PresetTag[] loadPresetTags() {
         String[] presetStrings = App.getAppContext().getResources().getStringArray(R.array.preset_tags);
 
         PresetTag[] presets = new PresetTag[presetStrings.length];
@@ -84,7 +100,7 @@ public class ChooseHelpViewModel {
         return presets;
     }
 
-    public class PresetTag {
+    public static class PresetTag {
         private final String value;
         private boolean checked = false;
 

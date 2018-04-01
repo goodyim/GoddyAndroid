@@ -15,15 +15,17 @@ public class InfoDialog {
     private int title;
     private int okMessage;
 
+    private AlertDialog dialog;
+
     public InfoDialog(int messageRes, int titleRes, int okMessageRes) {
-        this.message = message;
-        this.title = title;
+        this.message = messageRes;
+        this.title = titleRes;
         this.okMessage = okMessageRes;
     }
 
     public Observable<Integer> show(Context context) {
         return Observable.create(emitter -> {
-            new AlertDialog.Builder(context)
+            dialog = new AlertDialog.Builder(context)
                     .setCancelable(false)
                     .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
                         dialogInterface.dismiss();
@@ -37,5 +39,9 @@ public class InfoDialog {
                     .setMessage(message)
                     .show();
         });
+    }
+
+    public void dismiss() {
+        if (dialog != null && dialog.isShowing()) dialog.dismiss();
     }
 }

@@ -12,6 +12,8 @@ public class Constants {
     public static final String DATE_TIME_FORMAT = "%02d.%02d.%d %02d:%02d";
     public static final String DATE_FORMAT = "%02d.%02d.%d";
 
+    public static final String COORDINATES_FORMAT = "%s %s";
+
     public static final int ONE_MILLION = 1_000_000;
     public static final int ONE_THOUSAND = 1_000;
 

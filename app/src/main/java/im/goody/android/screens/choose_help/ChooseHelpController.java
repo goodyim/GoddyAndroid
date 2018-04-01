@@ -37,6 +37,8 @@ public class ChooseHelpController extends BaseController<ChooseHelpView> {
 
     private ChooseHelpViewModel viewModel;
 
+    private ErrorDialog errorDialog = new ErrorDialog(R.string.help_info_load_error);
+
 
     public ChooseHelpController(Integer mode) {
         this(new BundleBuilder()
@@ -84,7 +86,7 @@ public class ChooseHelpController extends BaseController<ChooseHelpView> {
             view().setData(viewModel);
         }
 
-        if(getMode() == MODE_EDIT) {
+        if (getMode() == MODE_EDIT) {
             view().showHideSkip();
         }
     }
@@ -179,8 +181,9 @@ public class ChooseHelpController extends BaseController<ChooseHelpView> {
     }
 
     private void showErrorDialog() {
-        new ErrorDialog(R.string.help_info_load_error)
-                .show(getActivity())
+        errorDialog.dismiss();
+
+        errorDialog.show(getActivity())
                 .subscribe(button -> {
                     if (button == InfoDialog.BUTTON_CANCEL) {
                         if (getMode() == MODE_SETUP) {
