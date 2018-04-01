@@ -120,11 +120,27 @@ public class PreferencesManager {
 
     public Settings getSettings() {
         return new Settings(
-                sharedPreferences.getBoolean(ALERT_FROM_SUBSCRIBER_KEY, true),
-                sharedPreferences.getBoolean(ALERT_FROM_NEARBY_KEY, true),
-                sharedPreferences.getBoolean(NOTIFY_MENTIONS_KEY, true),
-                sharedPreferences.getBoolean(NOTIFY_MESSAGES_KEY, true)
+                isAlertFromSubscriber(),
+                isAlertFromNearby(),
+                isNotifyMentions(),
+                isNotifyMessages()
         );
+    }
+
+    public boolean isAlertFromSubscriber() {
+        return sharedPreferences.getBoolean(ALERT_FROM_SUBSCRIBER_KEY, true);
+    }
+
+    public boolean isAlertFromNearby() {
+        return sharedPreferences.getBoolean(ALERT_FROM_NEARBY_KEY, true);
+    }
+
+    public boolean isNotifyMentions() {
+        return sharedPreferences.getBoolean(NOTIFY_MENTIONS_KEY, true);
+    }
+
+    public boolean isNotifyMessages() {
+        return sharedPreferences.getBoolean(NOTIFY_MESSAGES_KEY, true);
     }
 
     //endregion
