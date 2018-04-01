@@ -18,8 +18,7 @@
     <string name="content_clear_location">Сбросить место</string>
 
     <string name="create_post_progress">Создание в процессе</string>
-    <string name="description_hint">Что нового?</string
-    >
+    <string name="description_hint">Что нового?</string>
     <string name="detail_title">Пост</string>
     <string name="dialog_item_0">Выбрать фото</string>
     <string name="dialog_item_1">Сделать снимок</string>
@@ -176,4 +175,12 @@
     <string name="preset_tag_4">Животные</string>
     <string name="preset_tag_5">Дети</string>
     <string name="preset_tag_6">Пожилые</string>
+
+    <string name="setting_alert">Оповещения:</string>
+    <string name="setting_alert_from_subscriber">от подписчиков</string>
+    <string name="setting_alert_from_nearby">от людей поблизости</string>
+    <string name="setting_notify">Уведомления:</string>
+    <string name="setting_notify_mentions">упоминания</string>
+    <string name="setting_notify_message">сообщения</string>
+    <string name="setting_submit">Сохранить</string>
 </resources>

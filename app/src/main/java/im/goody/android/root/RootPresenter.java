@@ -18,10 +18,10 @@ import im.goody.android.screens.feedback.FeedBackController;
 import im.goody.android.screens.intro.IntroController;
 import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.main.MainController;
-import im.goody.android.screens.news.NewsController;
 import im.goody.android.screens.near_events.NearEventsController;
 import im.goody.android.screens.new_event.NewEventController;
 import im.goody.android.screens.new_post.NewPostController;
+import im.goody.android.screens.news.NewsController;
 import im.goody.android.screens.photo.PhotoController;
 import im.goody.android.screens.profile.ProfileController;
 import im.goody.android.screens.register.RegisterController;
@@ -153,7 +153,7 @@ public class RootPresenter implements IRootPresenter {
     @Override
     public void showSettingScreen() {
         if (rootView != null)
-            rootView.showScreenAsRoot(SettingController.class);
+            rootView.showScreen(SettingController.class);
     }
 
     @Override

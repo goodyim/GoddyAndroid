@@ -26,6 +26,7 @@ import im.goody.android.Constants;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Feedback;
 import im.goody.android.data.dto.HelpInfo;
+import im.goody.android.data.dto.Settings;
 import im.goody.android.data.dto.User;
 import im.goody.android.data.local.PreferencesManager;
 import im.goody.android.data.network.RestService;
@@ -376,4 +377,18 @@ public class Repository implements IRepository {
             return part;
         }
     }
+
+    //region ================= Settings =================
+
+    @Override
+    public void saveSettings(Settings settings) {
+        preferencesManager.saveSettings(settings);
+    }
+
+    @Override
+    public Settings getSettings() {
+        return preferencesManager.getSettings();
+    }
+
+    //endregion
 }
