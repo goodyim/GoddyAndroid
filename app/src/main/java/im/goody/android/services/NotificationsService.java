@@ -17,10 +17,12 @@ import im.goody.android.root.RootActivity;
 import static im.goody.android.Constants.NotificationExtra.AUTHOR_NAME;
 import static im.goody.android.Constants.NotificationExtra.ID;
 import static im.goody.android.Constants.NotificationExtra.MESSAGE;
+import static im.goody.android.Constants.NotificationExtra.TAGS;
 import static im.goody.android.Constants.NotificationExtra.TITLE;
 import static im.goody.android.Constants.NotificationExtra.TYPE;
 import static im.goody.android.Constants.NotificationExtra.TYPE_COMMENT;
 import static im.goody.android.Constants.NotificationExtra.TYPE_MENTION;
+import static im.goody.android.Constants.NotificationExtra.TYPE_NEW_EVENT;
 
 
 public class NotificationsService extends FirebaseMessagingService {
@@ -39,7 +41,20 @@ public class NotificationsService extends FirebaseMessagingService {
                     break;
                 case TYPE_MENTION:
                     processMention(data);
+                    break;
+                case TYPE_NEW_EVENT:
+                    processNewEvent(data);
             }
+        }
+    }
+
+    private void processNewEvent(Map<String, String> data) {
+        if (isNotNull(data, ID, TAGS)) {
+            Long id = Long.valueOf(data.get(ID));
+            String tags = data.get(TAGS);
+            String title = getString(R.string.new_event_notification_title);
+            String content = getString(R.string.new_event_notification_content, tags);
+            sendNotification(title, content, id);
         }
     }
 

@@ -1,6 +1,7 @@
 package im.goody.android.root;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -154,6 +155,17 @@ public class RootActivity extends AppCompatActivity
             router.popCurrentController();
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        long extraPostId = intent.getLongExtra(EXTRA_POST_ID, ID_NONE);
+
+        if (extraPostId != ID_NONE) {
+            showScreen(DetailPostController.class, extraPostId);
         }
     }
 

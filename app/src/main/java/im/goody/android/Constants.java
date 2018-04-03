@@ -43,10 +43,12 @@ public class Constants {
         public static final String TYPE = "type";
         public static final String TYPE_COMMENT = "type_comment";
         public static final String TYPE_MENTION = "mention";
+        public static final String TYPE_NEW_EVENT = "new_event";
 
         public static final String ID = "id";
         public static final String MESSAGE = "message";
         public static final String AUTHOR_NAME = "author";
         public static final String TITLE = "title";
+        public static final String TAGS = "tags";
     }
 }

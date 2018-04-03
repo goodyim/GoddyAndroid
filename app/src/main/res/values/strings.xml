@@ -180,4 +180,6 @@
     <string name="preset_tag_4">animals</string>
     <string name="preset_tag_5">children</string>
     <string name="preset_tag_6">aged people</string>
+    <string name="new_event_notification_title">Help needed</string>
+    <string name="new_event_notification_content">New event with tags: %s</string>
 </resources>
