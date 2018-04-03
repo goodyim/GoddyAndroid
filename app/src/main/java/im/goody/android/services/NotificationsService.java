@@ -49,10 +49,10 @@ public class NotificationsService extends FirebaseMessagingService {
     }
 
     private void processNewEvent(Map<String, String> data) {
-        if (isNotNull(data, ID, TAGS)) {
+        if (isNotNull(data, ID, TAGS, MESSAGE)) {
             Long id = Long.valueOf(data.get(ID));
             String tags = data.get(TAGS);
-            String title = getString(R.string.new_event_notification_title);
+            String title = data.get(MESSAGE);
             String content = getString(R.string.new_event_notification_content, tags);
             sendNotification(title, content, id);
         }

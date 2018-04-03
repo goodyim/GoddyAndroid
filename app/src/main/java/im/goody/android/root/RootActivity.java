@@ -161,6 +161,7 @@ public class RootActivity extends AppCompatActivity
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        ((RootPresenter) presenter).takeView(this);
 
         long extraPostId = intent.getLongExtra(EXTRA_POST_ID, ID_NONE);
 
