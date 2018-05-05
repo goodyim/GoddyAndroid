@@ -11,7 +11,11 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
 
+import javax.inject.Inject;
+
+import im.goody.android.App;
 import im.goody.android.R;
+import im.goody.android.data.local.PreferencesManager;
 import im.goody.android.root.RootActivity;
 
 import static im.goody.android.Constants.NotificationExtra.AUTHOR_NAME;
@@ -27,8 +31,19 @@ import static im.goody.android.Constants.NotificationExtra.TYPE_NEW_EVENT;
 
 public class NotificationsService extends FirebaseMessagingService {
 
+
+    @Inject
+    PreferencesManager preferencesManager;
+
     private static final String GOODY_CHANNEL = "GOODY_CHANNEL";
     private static final int GOODY_SESSION = 1337;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        App.getDataComponent().inject(this);
+    }
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -59,7 +74,7 @@ public class NotificationsService extends FirebaseMessagingService {
     }
 
     private void processComment(Map<String, String> data) {
-        if(isNotNull(data, TITLE, AUTHOR_NAME, MESSAGE, ID)) {
+        if(isNotNull(data, TITLE, AUTHOR_NAME, MESSAGE, ID) && preferencesManager.isCommentNotificationsEnabled()) {
             String notificationTitle = data.get(TITLE);
             String notificationContent = getString(
                     R.string.comment_notification_format,
@@ -72,7 +87,7 @@ public class NotificationsService extends FirebaseMessagingService {
     }
 
     private void processMention(Map<String, String> data) {
-        if(isNotNull(data, TITLE, AUTHOR_NAME, ID)) {
+        if(isNotNull(data, TITLE, AUTHOR_NAME, ID) && preferencesManager.isMentionNotificationsEnabled()) {
             String notificationTitle = data.get(TITLE);
             String notificationContent = getString(
                     R.string.mention_notification_format,

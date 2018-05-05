@@ -166,7 +166,7 @@
     <string name="error">Error</string>
     <string name="help_info_load_error">Failed to load current help settings</string>
     <string name="skip">Skip</string>
-    <string name="setting_choose_help">Events notifications</string>
+    <string name="setting_choose_help">Events</string>
 
     <string name="distance_value" translatable="false">%d km</string>
     <string name="help_info_updating">Updating help settings…</string>
@@ -182,4 +182,6 @@
     <string name="preset_tag_6">aged people</string>
     <string name="new_event_notification_title">Help needed</string>
     <string name="new_event_notification_content">New event with tags: %s</string>
+    <string name="settings_mention">Mentions</string>
+    <string name="settings_comments">Comments</string>
 </resources>

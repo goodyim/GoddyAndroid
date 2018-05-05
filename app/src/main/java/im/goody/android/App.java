@@ -2,6 +2,7 @@ package im.goody.android;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDexApplication;
 
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
@@ -12,7 +13,7 @@ import im.goody.android.di.components.RootComponent;
 import im.goody.android.di.modules.DataModule;
 import im.goody.android.di.modules.RootModule;
 
-public class App extends Application {
+public class App extends MultiDexApplication {
     private static Context appContext;
     private static DataComponent dataComponent;
     private static RootComponent rootComponent;

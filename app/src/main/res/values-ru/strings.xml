@@ -178,4 +178,7 @@
     <string name="preset_tag_6">Пожилые</string>
     <string name="new_event_notification_title">Нужна помощь</string>
     <string name="new_event_notification_content">Новое событие с ресурсами: %s</string>
+
+    <string name="settings_mention">Упоминания</string>
+    <string name="settings_comments">Комментарии</string>
 </resources>
