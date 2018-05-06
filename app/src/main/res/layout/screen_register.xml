@@ -115,45 +115,45 @@
 
                 <RadioGroup
                     android:id="@+id/register_sex"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/size_normal"
                     android:layout_marginLeft="@dimen/size_normal"
+                    android:layout_marginStart="@dimen/size_normal"
                     android:layout_marginTop="@dimen/size_normal"
                     android:onCheckedChanged="@{(rg, id) -> data.setSex(id)}"
                     android:orientation="horizontal"
-                    app:layout_constraintRight_toRightOf="@id/register_birthday"
+                    app:layout_constraintEnd_toEndOf="@+id/register_birthday"
                     app:layout_constraintStart_toStartOf="@+id/register_birthday"
                     app:layout_constraintTop_toBottomOf="@+id/register_birthday">
 
                     <RadioButton
                         android:id="@+id/sex_male"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:checked="true"
+                        android:paddingRight="@dimen/size_normal"
+                        android:paddingEnd="@dimen/size_normal"
                         android:text="@string/sex_male" />
 
                     <RadioButton
                         android:id="@+id/sex_female"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="@string/sex_female" />
                 </RadioGroup>
 
                 <EditText
                     android:id="@+id/register_password"
                     style="@style/LoginControl"
+                    android:layout_marginTop="@dimen/size_normal"
                     android:background="@drawable/rounded_border_rectangle"
                     android:gravity="center_vertical"
                     android:hint="@string/password_hint"
-                    android:paddingStart="@dimen/form_padding_left"
-                    android:paddingLeft="@dimen/form_padding_left"
                     android:inputType="textPassword"
-                    android:layout_marginTop="@dimen/size_normal"
+                    android:paddingLeft="@dimen/form_padding_left"
+                    android:paddingStart="@dimen/form_padding_left"
                     android:text="@={data.password}"
-                    app:layout_constraintEnd_toEndOf="@+id/register_sex"
+                    app:layout_constraintEnd_toEndOf="@+id/register_name"
                     app:layout_constraintStart_toStartOf="@+id/register_name"
                     app:layout_constraintTop_toBottomOf="@+id/register_sex" />
 

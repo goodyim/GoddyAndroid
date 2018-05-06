@@ -12,6 +12,7 @@ import com.bluelinelabs.conductor.Controller;
 
 import im.goody.android.Constants;
 import im.goody.android.R;
+import im.goody.android.ui.dialogs.InfoDialog;
 
 public abstract class BaseView<C extends Controller, B extends ViewDataBinding> extends ConstraintLayout {
 
@@ -75,6 +76,11 @@ public abstract class BaseView<C extends Controller, B extends ViewDataBinding> 
     }
 
     protected Snackbar getSnackBarWithMessage(String message) {
-        return Snackbar.make(this, message, Snackbar.LENGTH_SHORT).setDuration(Constants.SECOND);
+        return Snackbar.make(this, message, Snackbar.LENGTH_SHORT).setDuration(Constants.SECOND)
+                .setAction(R.string.open_full, v -> {
+                    InfoDialog dialog = new InfoDialog(message, R.string.app_name, R.string.ok);
+
+                    dialog.show(getContext()).subscribe(code -> dialog.dismiss());
+                });
     }
 }

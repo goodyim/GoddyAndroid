@@ -22,6 +22,7 @@ import javax.inject.Inject;
 import im.goody.android.App;
 import im.goody.android.data.IRepository;
 import im.goody.android.data.network.error.StandardError;
+import im.goody.android.data.validation.ValidateResult;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.root.IRootPresenter;
 import io.reactivex.disposables.Disposable;
@@ -84,6 +85,11 @@ public abstract class BaseController<V extends BaseView> extends RestoreViewOnCr
     protected void showError(Throwable error) {
         if (view() != null)
             view().showMessage(getErrorMessage(error));
+    }
+
+    protected void showError(ValidateResult result) {
+        if (view() != null)
+            view().showMessage(result.getMessage());
     }
 
     protected String getErrorMessage(Throwable error) {

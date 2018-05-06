@@ -181,4 +181,8 @@
 
     <string name="settings_mention">Упоминания</string>
     <string name="settings_comments">Комментарии</string>
+    <string name="open_full">Открыть</string>
+    <string name="invalid_password">Пароль должен содержать не менее 8 символов</string>
+    <string name="invalid_email">Email некорректен</string>
+    <string name="invalid_name">Имя должно содержать только строчные латинские буквы и быть не менее 4 символов</string>
 </resources>

@@ -9,15 +9,16 @@ import java.util.Calendar;
 import im.goody.android.Constants;
 import im.goody.android.R;
 import im.goody.android.data.network.req.RegisterReq;
+import im.goody.android.data.validation.Validatable;
+import im.goody.android.data.validation.ValidateResult;
 import im.goody.android.utils.DateUtils;
 
 import static android.util.Patterns.EMAIL_ADDRESS;
-import static im.goody.android.Constants.MIN_NAME_LENGTH;
 import static im.goody.android.Constants.MIN_PASSWORD_LENGTH;
 import static im.goody.android.Constants.SEX_MALE;
 
 @SuppressWarnings("unused")
-public class RegisterViewModel extends BaseObservable{
+public class RegisterViewModel extends BaseObservable implements Validatable {
 
     private String name;
     private String email;
@@ -26,10 +27,6 @@ public class RegisterViewModel extends BaseObservable{
     public ObservableField<Calendar> birthday = new ObservableField<>();
 
     private int sex = SEX_MALE;
-
-    boolean isValid() {
-        return isEmailValid() && isPasswordValid() && isNameValid();
-    }
 
     RegisterReq body() {
         return new RegisterReq()
@@ -92,7 +89,7 @@ public class RegisterViewModel extends BaseObservable{
     // ======= region private methods =======
 
     private boolean isNameValid() {
-        return !TextUtils.isEmpty(name) && name.length() >= MIN_NAME_LENGTH;
+        return !TextUtils.isEmpty(name) && name.matches("[a-z]{4,}");
     }
 
     private boolean isEmailValid() {
@@ -107,6 +104,25 @@ public class RegisterViewModel extends BaseObservable{
         if (birthday.get() != null)
             return DateUtils.dateToString(birthday.get().getTime());
         else return null;
+    }
+
+    @Override
+    public ValidateResult validate() {
+        ValidateResult result = new ValidateResult();
+
+        if (!isNameValid()) {
+            result.getErrorResources().add(R.string.invalid_name);
+        }
+
+        if (!isEmailValid()) {
+            result.getErrorResources().add(R.string.invalid_email);
+        }
+
+        if (!isPasswordValid()) {
+            result.getErrorResources().add(R.string.invalid_password);
+        }
+
+        return result;
     }
 
     // endregion

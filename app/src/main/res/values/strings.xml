@@ -184,4 +184,8 @@
     <string name="new_event_notification_content">New event with tags: %s</string>
     <string name="settings_mention">Mentions</string>
     <string name="settings_comments">Comments</string>
+    <string name="invalid_name">Name must contain only lowercase Latin letters and be at least 4 characters long</string>
+    <string name="invalid_email">Email is invalid</string>
+    <string name="invalid_password">Password should be at least 8 characters long</string>
+    <string name="open_full">Open</string>
 </resources>

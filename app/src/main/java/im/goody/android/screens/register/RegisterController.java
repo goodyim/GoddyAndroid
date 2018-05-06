@@ -7,6 +7,7 @@ import android.view.View;
 
 import im.goody.android.R;
 import im.goody.android.core.BaseController;
+import im.goody.android.data.validation.ValidateResult;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.screens.choose_help.ChooseHelpController;
@@ -59,7 +60,8 @@ public class RegisterController extends BaseController<RegisterView> {
     }
 
     void register() {
-        if (viewModel.isValid()) {
+        ValidateResult validateResult = viewModel.validate();
+        if (validateResult.isValid()) {
             rootPresenter.showProgress(R.string.register_progress_title);
             disposable = repository.register(viewModel.body())
                     .subscribe(
@@ -73,7 +75,7 @@ public class RegisterController extends BaseController<RegisterView> {
                             }
             );
         } else {
-            view().showMessage(R.string.invalid_fields_message);
+            showError(validateResult);
         }
     }
 
