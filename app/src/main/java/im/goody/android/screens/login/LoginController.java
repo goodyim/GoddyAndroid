@@ -9,6 +9,7 @@ import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.ui.dialogs.EditTextDialog;
 import im.goody.android.ui.helpers.BarBuilder;
+import io.reactivex.disposables.Disposable;
 
 public class LoginController extends BaseController<LoginView> {
 
@@ -19,7 +20,7 @@ public class LoginController extends BaseController<LoginView> {
     void login() {
         if (loginData.isValid()) {
             rootPresenter.showProgress(R.string.login_progress_title);
-            disposable = repository.login(loginData.body()).subscribe(
+            Disposable disposable = repository.login(loginData.body()).subscribe(
                     result -> {
                         rootPresenter.hideProgress();
                         rootPresenter.showMain();
@@ -29,6 +30,7 @@ public class LoginController extends BaseController<LoginView> {
                         view().showMessage(error.getMessage());
                     }
             );
+            compositeDisposable.add(disposable);
         } else {
             view().showMessage(R.string.invalid_fields_message);
         }
@@ -39,9 +41,10 @@ public class LoginController extends BaseController<LoginView> {
     }
 
     void forgotPasswordClicked() {
-        new EditTextDialog(R.string.forgot_password_title)
+        Disposable disposable = new EditTextDialog(R.string.forgot_password_title)
                 .show(getActivity())
                 .subscribe(this::recoverPassword);
+        compositeDisposable.add(disposable);
     }
 
     //endregion
@@ -80,13 +83,14 @@ public class LoginController extends BaseController<LoginView> {
     // ======= region private methods =======
 
     private void recoverPassword(String email) {
-        repository.recoverPassword(email)
+        Disposable disposable = repository.recoverPassword(email)
                 .subscribe(ignored -> {
                     if (getActivity() != null) {
                         String message = getActivity().getString(R.string.recover_instructions_sent, email);
                         view().showMessage(message);
                     }
                 }, this::showError);
+        compositeDisposable.add(disposable);
     }
 
     // end

@@ -17,6 +17,7 @@ import im.goody.android.di.components.RootComponent;
 import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.ui.helpers.BundleBuilder;
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 import okhttp3.ResponseBody;
 
 import static im.goody.android.Constants.ID_NONE;
@@ -66,7 +67,7 @@ public class NewsController extends BaseController<NewsView> implements NewsAdap
                 viewModel.resetPageAndGet());
 
 
-        disposable = convertDealsToModels(observable)
+        Disposable disposable = convertDealsToModels(observable)
                 .subscribe(
                         result -> {
                             findItems = true;
@@ -82,6 +83,8 @@ public class NewsController extends BaseController<NewsView> implements NewsAdap
                             });
                         }
                 );
+
+        compositeDisposable.add(disposable);
     }
 
     void loadMore() {
@@ -97,7 +100,7 @@ public class NewsController extends BaseController<NewsView> implements NewsAdap
                 getContentType(),
                 viewModel.incrementPageAndGet());
 
-        disposable = convertDealsToModels(observable)
+        Disposable disposable = convertDealsToModels(observable)
                 .subscribe(
                         result -> {
                             viewModel.addData(result);
@@ -112,6 +115,7 @@ public class NewsController extends BaseController<NewsView> implements NewsAdap
                         },
                         () -> view().addScrollListener()
                 );
+        compositeDisposable.add(disposable);
     }
 
     // endregion
@@ -120,10 +124,11 @@ public class NewsController extends BaseController<NewsView> implements NewsAdap
 
     @Override
     public void report(long id) {
-        repository.sendReport(id).subscribe(
+        Disposable disposable = repository.sendReport(id).subscribe(
                 s -> view().showMessage(view().getContext().getString(R.string.report_submitted)),
                 error -> view().showMessage(error.getMessage())
         );
+        compositeDisposable.add(disposable);
     }
 
     @Override

@@ -17,6 +17,7 @@ import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.utils.NetUtils;
 import im.goody.android.utils.TextUtils;
 import im.goody.android.utils.UIUtils;
+import io.reactivex.disposables.Disposable;
 
 @SuppressWarnings("unused")
 public class NewPostController extends NewController<NewPostView> {
@@ -122,7 +123,7 @@ public class NewPostController extends NewController<NewPostView> {
 
     private void editPost() {
         rootPresenter.showProgress(R.string.edit_post_progress);
-        disposable = repository.editPost(id, viewModel.body(), viewModel.getImageUri())
+        Disposable disposable = repository.editPost(id, viewModel.body(), viewModel.getImageUri())
                 .subscribe(
                         result -> {
                             rootPresenter.hideProgress();
@@ -133,11 +134,13 @@ public class NewPostController extends NewController<NewPostView> {
                             showError(error);
                         }
                 );
+
+        compositeDisposable.add(disposable);
     }
 
     private void createPost() {
         rootPresenter.showProgress(R.string.create_post_progress);
-        disposable = repository.createPost(viewModel.body(), viewModel.getImageUri())
+        Disposable disposable = repository.createPost(viewModel.body(), viewModel.getImageUri())
                 .subscribe(
                         result -> {
                             rootPresenter.hideProgress();
@@ -148,6 +151,8 @@ public class NewPostController extends NewController<NewPostView> {
                             showError(error);
                         }
                 );
+
+        compositeDisposable.add(disposable);
     }
 
     // endregion

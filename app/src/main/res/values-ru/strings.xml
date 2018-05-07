@@ -136,7 +136,7 @@
     <string name="feedback_common">Нажмите, чтобы увидеть подробности</string>
     <string name="mention_notification_format">%s упомянул вас</string>
     <string name="login_submit">Войти</string>
-    <string name="register_action">Зарегестрироваться</string>
+    <string name="register_action">Зарегистрироваться</string>
     <string name="login_subtitle">Сделаем добро вместе</string>
     <string name="sex_male">Мужской</string>
     <string name="sex_female">Женский</string>

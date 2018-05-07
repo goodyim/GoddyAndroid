@@ -15,6 +15,7 @@ import im.goody.android.ui.dialogs.ChooseImageOptionsDialog;
 import im.goody.android.ui.dialogs.DatePickDialog;
 import im.goody.android.ui.dialogs.OptionsDialog;
 import im.goody.android.ui.helpers.BarBuilder;
+import io.reactivex.disposables.Disposable;
 
 public class RegisterController extends BaseController<RegisterView> {
     private static final int IMAGE_PICK_REQUEST = 0;
@@ -63,7 +64,7 @@ public class RegisterController extends BaseController<RegisterView> {
         ValidateResult validateResult = viewModel.validate();
         if (validateResult.isValid()) {
             rootPresenter.showProgress(R.string.register_progress_title);
-            disposable = repository.register(viewModel.body())
+            Disposable disposable = repository.register(viewModel.body())
                     .subscribe(
                             result -> {
                                 rootPresenter.hideProgress();
@@ -74,6 +75,7 @@ public class RegisterController extends BaseController<RegisterView> {
                                 showError(error);
                             }
             );
+            compositeDisposable.add(disposable);
         } else {
             showError(validateResult);
         }
@@ -81,8 +83,10 @@ public class RegisterController extends BaseController<RegisterView> {
 
     void chooseDate() {
         Context context = getActivity();
-        DatePickDialog.with(context).show(viewModel.birthday.get())
+        Disposable disposable = DatePickDialog.with(context).show(viewModel.birthday.get())
                 .subscribe(calendar -> viewModel.birthday.set(calendar));
+
+        compositeDisposable.add(disposable);
     }
 
     void redirectToLogin() {

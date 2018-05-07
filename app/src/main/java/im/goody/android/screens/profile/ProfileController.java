@@ -14,6 +14,7 @@ import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.ui.helpers.BundleBuilder;
+import io.reactivex.disposables.Disposable;
 
 public class ProfileController extends BaseController<ProfileView> {
     private static final String ID_KEY = "ProfileController.id";
@@ -65,7 +66,7 @@ public class ProfileController extends BaseController<ProfileView> {
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
 
-        if (String.valueOf(manager.getUserId()).equals(getId()))
+        if (isMineProfile())
             view().hideFollowButton();
 
         if (viewModel == null) loadData();
@@ -78,7 +79,7 @@ public class ProfileController extends BaseController<ProfileView> {
     }
 
     void loadData() {
-        repository.getUserProfile(getId()).subscribe(user -> {
+        Disposable d = repository.getUserProfile(getId()).subscribe(user -> {
             viewModel = new ProfileViewModel(user);
             view().setData(viewModel);
 
@@ -91,10 +92,11 @@ public class ProfileController extends BaseController<ProfileView> {
                 loadData();
             });
         });
+        compositeDisposable.add(d);
     }
 
     void follow() {
-        repository.changeFollowState(getId())
+        Disposable d = repository.changeFollowState(getId())
                 .subscribe(
                         result ->
                                 viewModel.updateFollowState(result),
@@ -104,7 +106,9 @@ public class ProfileController extends BaseController<ProfileView> {
                                         v -> follow()
                                 )
                 );
+        compositeDisposable.add(d);
     }
+
 
     // end
 
@@ -119,6 +123,11 @@ public class ProfileController extends BaseController<ProfileView> {
 
     void showAvatar() {
         rootPresenter.showPhotoScreen(viewModel.getAvatarUrl());
+    }
+
+
+    private boolean isMineProfile() {
+        return String.valueOf(manager.getUserId()).equals(getId()) || manager.getUserName().equals(getId());
     }
 
     // end

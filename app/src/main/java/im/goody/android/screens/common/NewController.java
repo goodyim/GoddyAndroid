@@ -20,6 +20,7 @@ import im.goody.android.core.BaseView;
 import im.goody.android.ui.dialogs.ChooseImageOptionsDialog;
 import im.goody.android.ui.dialogs.OptionsDialog;
 import im.goody.android.utils.FileUtils;
+import io.reactivex.disposables.Disposable;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -114,18 +115,20 @@ public abstract class NewController<V extends BaseView> extends BaseController<V
     }
 
     protected void loadImage(String url) {
-        repository.cacheWebImage(url)
+        Disposable disposable = repository.cacheWebImage(url)
                 .subscribe(uri -> {
                     tempImageUrl = null;
                     imageChanged(uri);
                     imageUriChanged(uri);
                 });
+
+        compositeDisposable.add(disposable);
     }
 
     // ======= region private methods =======
 
     private void showDialog() {
-        disposable = dialog.show(getActivity()).subscribe(index -> {
+        Disposable disposable = dialog.show(getActivity()).subscribe(index -> {
             switch (index) {
                 case IMAGE_PICK_REQUEST:
                     makeGalleryRequest();
@@ -134,6 +137,8 @@ public abstract class NewController<V extends BaseView> extends BaseController<V
                     takePhoto();
             }
         });
+
+        compositeDisposable.add(disposable);
     }
 
     private void makePlacePickerRequest() {

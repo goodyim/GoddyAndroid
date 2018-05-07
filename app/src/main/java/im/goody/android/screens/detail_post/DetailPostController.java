@@ -19,6 +19,7 @@ import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.ui.helpers.BundleBuilder;
 import im.goody.android.utils.TextUtils;
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 
 public class DetailPostController extends BaseController<DetailPostView>
         implements DetailPostAdapter.DetailPostHandler {
@@ -132,7 +133,7 @@ public class DetailPostController extends BaseController<DetailPostView>
 
     void sendComment() {
         view().showCommentProgress();
-        disposable = repository.sendComment(viewModel.getId(), viewModel.getCommentObject())
+        Disposable d = repository.sendComment(viewModel.getId(), viewModel.getCommentObject())
                 .subscribe(commentRes -> {
                     viewModel.addComment(commentRes);
                     viewModel.commentBody.set(null);
@@ -141,10 +142,11 @@ public class DetailPostController extends BaseController<DetailPostView>
                     view().hideCommentProgress();
                     showError(error);
                 });
+        compositeDisposable.add(d);
     }
 
     void loadData() {
-        disposable = repository.getDeal(viewModel.getId())
+        Disposable d = repository.getDeal(viewModel.getId())
                 .subscribe(deal -> {
                     viewModel.setBody(deal);
                     view().showData(viewModel);
@@ -156,6 +158,7 @@ public class DetailPostController extends BaseController<DetailPostView>
                         loadData();
                     });
                 });
+        compositeDisposable.add(d);
     }
 
     // endregion
@@ -214,18 +217,20 @@ public class DetailPostController extends BaseController<DetailPostView>
 
 
     private void deletePost() {
-        disposable = repository.deletePost(viewModel.getId())
+        Disposable d  = repository.deletePost(viewModel.getId())
                 .subscribe(response -> {
                     showToast(R.string.delete_success);
                     rootPresenter.showMain();
                 }, this::showError);
+        compositeDisposable.add(d);
     }
 
     private void report() {
-        disposable = repository.sendReport(viewModel.getId()).subscribe(
+        Disposable d = repository.sendReport(viewModel.getId()).subscribe(
                 s -> view().showMessage(getActivity().getString(R.string.report_submitted)),
                 error -> view().showMessage(error.getMessage())
         );
+        compositeDisposable.add(d);
     }
 
     private void showEditScreen() {
@@ -254,7 +259,7 @@ public class DetailPostController extends BaseController<DetailPostView>
 
     @SuppressWarnings("CodeBlock2Expr")
     private void changeEventState() {
-        disposable = repository.changeEventState(viewModel.getId())
+        Disposable disposable = repository.changeEventState(viewModel.getId())
                 .subscribe(
                         eventStateRes -> {
                             viewModel.updateEventState(eventStateRes.getState());
@@ -266,6 +271,7 @@ public class DetailPostController extends BaseController<DetailPostView>
 
                             view().showMessage(msgRes);
                         }, this::showError);
+        compositeDisposable.add(disposable);
     }
 
     @NonNull

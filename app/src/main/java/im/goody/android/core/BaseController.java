@@ -25,7 +25,7 @@ import im.goody.android.data.network.error.StandardError;
 import im.goody.android.data.validation.ValidateResult;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.root.IRootPresenter;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.CompositeDisposable;
 
 import static im.goody.android.Constants.Pattern.OPEN_MAP;
 
@@ -36,7 +36,7 @@ public abstract class BaseController<V extends BaseView> extends RestoreViewOnCr
     @Inject
     protected IRootPresenter rootPresenter;
 
-    protected Disposable disposable;
+    protected CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     protected BaseController() {
         initDagger();
@@ -71,7 +71,7 @@ public abstract class BaseController<V extends BaseView> extends RestoreViewOnCr
     @Override
     protected void onDetach(@NonNull View view) {
         view().dropController();
-        if (disposable != null && !disposable.isDisposed()) disposable.dispose();
+        if (!compositeDisposable.isDisposed()) compositeDisposable.dispose();
         super.onDetach(view);
     }
 
