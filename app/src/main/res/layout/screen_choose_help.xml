@@ -79,7 +79,7 @@
                     android:paddingBottom="@dimen/size_small"
                     android:paddingEnd="@dimen/size_small"
                     android:paddingRight="@dimen/size_small"
-                    android:text="@string/add_tag"
+                    android:text="@string/choose_help_add_tag"
                     android:paddingTop="@dimen/size_small"
                     android:textColor="@color/secondary_text"
                     tools:ignore="RtlSymmetry" />

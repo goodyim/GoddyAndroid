@@ -150,7 +150,7 @@
     <string name="active_join">Помочь!</string>
     <string name="process_join">Присоедениться</string>
     <string name="finished_event">Завершено</string>
-    <string name="add_tag">Добавить ресурс</string>
+    <string name="add_tag">Что вам нужно для помощи?</string>
     <string name="choose_tag_title">Введите название ресурса</string>
     <string name="tag_already_present">Этот ресурс уже указан в событии</string>
     <string name="profile_awards">Награды</string>
@@ -185,4 +185,6 @@
     <string name="invalid_password">Пароль должен содержать не менее 8 символов</string>
     <string name="invalid_email">Email некорректен</string>
     <string name="invalid_name">Имя должно содержать только строчные латинские буквы и быть не менее 4 символов</string>
+
+    <string name="choose_help_add_tag">Добавить ресурс</string>
 </resources>

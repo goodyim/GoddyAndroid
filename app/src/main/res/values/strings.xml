@@ -188,4 +188,5 @@
     <string name="invalid_email">Email is invalid</string>
     <string name="invalid_password">Password should be at least 8 characters long</string>
     <string name="open_full">Open</string>
+    <string name="choose_help_add_tag">Add resource</string>
 </resources>
