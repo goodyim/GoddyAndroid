@@ -82,7 +82,7 @@
     <string name="setting_title">Settings</string>
 
     <string name="event_default_title">Attention!</string>
-    <string name="choose_date">Choose date…</string>
+    <string name="choose_date">When the help is needed?</string>
     <string name="choose_time">Select time…</string>
     <string name="new_event_title">New Event</string>
     <string name="title_hint">Title</string>
@@ -189,4 +189,6 @@
     <string name="invalid_password">Password should be at least 8 characters long</string>
     <string name="open_full">Open</string>
     <string name="choose_help_add_tag">Add resource</string>
+    <string name="date_immediately">Immediately</string>
+    <string name="date_pick">Pick manually</string>
 </resources>

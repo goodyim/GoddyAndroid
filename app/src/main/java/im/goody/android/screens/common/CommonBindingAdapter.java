@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import java.util.Calendar;
 import java.util.Locale;
 
+import im.goody.android.App;
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Deal.Event;
@@ -142,11 +143,13 @@ public class CommonBindingAdapter {
         }
     }
 
-    @BindingAdapter(value = {"date", "time_disabled"}, requireAll = false)
-    public static void bindDate(TextView view, Calendar calendar, Boolean timeDisabled) {
+    @BindingAdapter(value = {"date", "time_disabled", "date_immediately"}, requireAll = false)
+    public static void bindDate(TextView view, Calendar calendar, Boolean timeDisabled, boolean immediately) {
         String date;
 
-        if (calendar == null) {
+        if(immediately) {
+            date = App.getAppContext().getString(R.string.date_immediately);
+        } else if (calendar == null) {
             date = view.getContext().getString(R.string.choose_date);
         } else {
             int year = calendar.get(Calendar.YEAR);

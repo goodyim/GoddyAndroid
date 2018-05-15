@@ -184,6 +184,8 @@ public class Deal {
         private String resources;
         private String date;
 
+        private boolean immediately = false;
+
         @JsonProperty("aasm_state")
         private String state;
 
@@ -193,6 +195,10 @@ public class Deal {
 
         public void setState(String state) {
             this.state = state;
+        }
+
+        public void setImmediately(boolean immediately) {
+            this.immediately = immediately;
         }
 
         public String getResources() {
@@ -210,6 +216,10 @@ public class Deal {
 
         public void setDate(String date) {
             this.date = date;
+        }
+
+        public boolean isImmediately() {
+            return immediately;
         }
 
         public boolean isOpen() {

@@ -3,6 +3,7 @@ package im.goody.android.screens.new_event;
 import android.content.ContentResolver;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -24,6 +25,7 @@ import im.goody.android.utils.TextUtils;
 
 public class NewEventViewModel extends BaseObservable {
     public final ObservableField<Calendar> calendar = new ObservableField<>();
+    public final ObservableBoolean isDateImmediate = new ObservableBoolean(false);
 
     public final ObservableField<String> title = new ObservableField<>();
     public final ObservableField<String> description = new ObservableField<>();
@@ -46,10 +48,15 @@ public class NewEventViewModel extends BaseObservable {
         description.set(deal.getDescription());
         title.set(deal.getTitle());
 
-        String[] temp = deal.getEvent().getResources().split(",");
+        Deal.Event event = deal.getEvent();
+
+        String[] temp = event.getResources().split(",");
         tags = new ArrayList<>(Arrays.asList(temp));
 
-        calendar.set(DateUtils.calendarFromString(deal.getEvent().getDate()));
+        isDateImmediate.set(event.isImmediately());
+
+        if (!event.isImmediately())
+            calendar.set(DateUtils.calendarFromString(event.getDate()));
     }
 
     NewEventViewModel() {
@@ -63,6 +70,7 @@ public class NewEventViewModel extends BaseObservable {
                 .setDate(getStringDate())
                 .setTitle(title.get())
                 .setResources(joinTags())
+                .setImmediately(isDateImmediate.get())
                 .setDescription(description.get());
     }
 

@@ -15,6 +15,7 @@ public class NewEventReq {
     @NameSpace("event") private String resources;
     @NameSpace("event") private Double latitude;
     @NameSpace("event") private Double longitude;
+    @NameSpace("event") private boolean immediately;
 
     // ======= region getters =======
 
@@ -40,6 +41,10 @@ public class NewEventReq {
 
     public String getTitle() {
         return title;
+    }
+
+    public boolean isImmediately() {
+        return immediately;
     }
 
     // end
@@ -73,6 +78,11 @@ public class NewEventReq {
 
     public NewEventReq setLongitude(Double longitude) {
         this.longitude = longitude;
+        return this;
+    }
+
+    public NewEventReq setImmediately(boolean immediately) {
+        this.immediately = immediately;
         return this;
     }
 

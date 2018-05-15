@@ -22,4 +22,8 @@
         <item>@string/preset_tag_5</item>
         <item>@string/preset_tag_6</item>
     </string-array>
+    <string-array name="choose_date_options">
+        <item>@string/date_immediately</item>
+        <item>@string/date_pick</item>
+    </string-array>
 </resources>

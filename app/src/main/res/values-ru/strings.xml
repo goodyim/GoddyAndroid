@@ -31,7 +31,7 @@
 
 
 
-    <string name="choose_date">Выберите дату…</string>
+    <string name="choose_date">Когда нужна помощь?</string>
     <string name="choose_location">Выберите место…</string>
     <string name="choose_photo">Выберите фото…</string>
     <string name="choose_time">Выберите время…</string>
@@ -187,4 +187,7 @@
     <string name="invalid_name">Имя должно содержать только строчные латинские буквы и быть не менее 4 символов</string>
 
     <string name="choose_help_add_tag">Добавить ресурс</string>
+
+    <string name="date_immediately">Срочно</string>
+    <string name="date_pick">Выбрать вручную</string>
 </resources>

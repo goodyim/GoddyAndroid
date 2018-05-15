@@ -1,8 +1,8 @@
 package im.goody.android.screens.new_event;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.view.Menu;
@@ -20,17 +20,21 @@ import im.goody.android.di.components.RootComponent;
 import im.goody.android.screens.common.NewController;
 import im.goody.android.ui.dialogs.DatePickDialog;
 import im.goody.android.ui.dialogs.EditTextDialog;
+import im.goody.android.ui.dialogs.OptionsDialog;
 import im.goody.android.ui.dialogs.TimePickDialog;
 import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.utils.NetUtils;
 import im.goody.android.utils.TextUtils;
 import im.goody.android.utils.UIUtils;
 
-
+@SuppressLint("CheckResult")
 public class NewEventController extends NewController<NewEventView> {
     private NewEventViewModel viewModel;
 
     private Long id;
+
+    private static final int DATE_OPTIONS_IMMEDIATELY = 0;
+    private static final int DATE_OPTIONS_MANUALLY = 1;
 
     public NewEventController(Deal deal) {
         id = deal.getId();
@@ -54,13 +58,18 @@ public class NewEventController extends NewController<NewEventView> {
     // ======= region NewEventController =======
 
     void chooseDate() {
-        Context context = getActivity();
-        DatePickDialog.with(context).show(viewModel.calendar.get())
-                .subscribe(calendar -> {
-                    viewModel.calendar.set(calendar);
+        new OptionsDialog(R.string.choose_date, R.array.choose_date_options)
+                .show(getActivity())
+                .subscribe(integer -> {
+                    switch (integer) {
+                        case DATE_OPTIONS_IMMEDIATELY:
+                            viewModel.isDateImmediate.set(true);
+                            viewModel.calendar.set(null);
+                            break;
+                        case DATE_OPTIONS_MANUALLY:
+                            showDatePickDialog();
 
-                    TimePickDialog.with(context).show(calendar)
-                            .subscribe(calendar1 -> viewModel.calendar.set(calendar1));
+                    }
                 });
     }
 
@@ -86,10 +95,10 @@ public class NewEventController extends NewController<NewEventView> {
         return super.onOptionsItemSelected(item);
     }
 
+
     // end
 
     // ======= region NewController =======
-
     @Override
     protected Uri getImageUri() {
         return viewModel.getImageUri();
@@ -110,10 +119,10 @@ public class NewEventController extends NewController<NewEventView> {
         viewModel.setLocation(place);
     }
 
+
     // end
 
     // ======= region BaseController =======
-
     @Override
     protected void initDaggerComponent(RootComponent parentComponent) {
         Component component = parentComponent.plusNewEvent();
@@ -161,19 +170,30 @@ public class NewEventController extends NewController<NewEventView> {
         view().removeTag(position);
     }
 
+
     //endregion
 
     // ======= region DI =======
-
     @Subcomponent
     @DaggerScope(NewEventController.class)
     public interface Component {
+
         void inject(NewEventController controller);
     }
 
     //endregion
 
     // ======= region private methods =======
+    private void showDatePickDialog() {
+        DatePickDialog.with(getActivity()).show(viewModel.calendar.get())
+                .subscribe(calendar -> {
+                    viewModel.calendar.set(calendar);
+                    viewModel.isDateImmediate.set(false);
+
+                    TimePickDialog.with(getActivity()).show(calendar)
+                            .subscribe(calendar1 -> viewModel.calendar.set(calendar1));
+                });
+    }
 
     private void sendData() {
         if (id != null) editEvent();
