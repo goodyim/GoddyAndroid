@@ -191,4 +191,6 @@
     <string name="choose_help_add_tag">Add resource</string>
     <string name="date_immediately">Immediately</string>
     <string name="date_pick">Pick manually</string>
+    <string name="title_event_finished">Event finished</string>
+    <string name="event_finished_message">Help for %s was provided by %s</string>
 </resources>

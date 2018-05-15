@@ -24,6 +24,7 @@ import static im.goody.android.Constants.NotificationExtra.MESSAGE;
 import static im.goody.android.Constants.NotificationExtra.TAGS;
 import static im.goody.android.Constants.NotificationExtra.TITLE;
 import static im.goody.android.Constants.NotificationExtra.TYPE;
+import static im.goody.android.Constants.NotificationExtra.TYPE_CLOSE_EVENT;
 import static im.goody.android.Constants.NotificationExtra.TYPE_COMMENT;
 import static im.goody.android.Constants.NotificationExtra.TYPE_MENTION;
 import static im.goody.android.Constants.NotificationExtra.TYPE_NEW_EVENT;
@@ -59,7 +60,23 @@ public class NotificationsService extends FirebaseMessagingService {
                     break;
                 case TYPE_NEW_EVENT:
                     processNewEvent(data);
+                    break;
+                case TYPE_CLOSE_EVENT:
+                    processCloseEvent(data);
             }
+        }
+    }
+
+    private void processCloseEvent(Map<String, String> data) {
+        if (isNotNull(data, ID, MESSAGE, AUTHOR_NAME)) {
+            Long id = Long.valueOf(data.get(ID));
+            String helperNames = data.get(MESSAGE);
+            String author = data.get(AUTHOR_NAME);
+
+            String title = getString(R.string.title_event_finished);
+            String content = getString(R.string.event_finished_message, author, helperNames);
+
+            sendNotification(title, content, id);
         }
     }
 
@@ -74,7 +91,7 @@ public class NotificationsService extends FirebaseMessagingService {
     }
 
     private void processComment(Map<String, String> data) {
-        if(isNotNull(data, TITLE, AUTHOR_NAME, MESSAGE, ID) && preferencesManager.isCommentNotificationsEnabled()) {
+        if (isNotNull(data, TITLE, AUTHOR_NAME, MESSAGE, ID) && preferencesManager.isCommentNotificationsEnabled()) {
             String notificationTitle = data.get(TITLE);
             String notificationContent = getString(
                     R.string.comment_notification_format,
@@ -87,7 +104,7 @@ public class NotificationsService extends FirebaseMessagingService {
     }
 
     private void processMention(Map<String, String> data) {
-        if(isNotNull(data, TITLE, AUTHOR_NAME, ID) && preferencesManager.isMentionNotificationsEnabled()) {
+        if (isNotNull(data, TITLE, AUTHOR_NAME, ID) && preferencesManager.isMentionNotificationsEnabled()) {
             String notificationTitle = data.get(TITLE);
             String notificationContent = getString(
                     R.string.mention_notification_format,
@@ -129,7 +146,7 @@ public class NotificationsService extends FirebaseMessagingService {
     private boolean isNotNull(Map<String, String> data, String... keys) {
         boolean result = true;
 
-        for(String key : keys) {
+        for (String key : keys) {
             if (data.get(key) == null)
                 result = false;
         }

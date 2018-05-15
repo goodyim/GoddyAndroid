@@ -190,4 +190,7 @@
 
     <string name="date_immediately">Срочно</string>
     <string name="date_pick">Выбрать вручную</string>
+
+    <string name="title_event_finished">Событие завершено</string>
+    <string name="event_finished_message">Помощь для %s оказана %s</string>
 </resources>
