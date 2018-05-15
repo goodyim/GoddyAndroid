@@ -72,16 +72,6 @@ public class CommonBindingAdapter {
         }
     }
 
-    @BindingAdapter("event_resources")
-    public static void bindResources(TextView view, String resources) {
-        if (resources != null) {
-            view.setText(resources);
-            view.setVisibility(View.VISIBLE);
-        } else {
-            view.setVisibility(View.GONE);
-        }
-    }
-
     @BindingAdapter("address")
     public static void bindLocation(TextView view, Location location) {
         if (location != null && !TextUtils.isEmpty(location.getAddress())) {
@@ -104,18 +94,6 @@ public class CommonBindingAdapter {
 
         textView.setTextColor(color);
         imageView.setColorFilter(color);
-    }
-
-
-    @BindingAdapter("title")
-    public static void bindTitle(TextView view, String title) {
-        String result;
-        if (TextUtils.isEmpty(title)) {
-            result = view.getContext().getString(R.string.event_default_title);
-        } else {
-            result = title;
-        }
-        view.setText(result);
     }
 
     @BindingAdapter("link_text")
@@ -150,9 +128,11 @@ public class CommonBindingAdapter {
 
     @BindingAdapter("tags")
     public static void bindTags(FlexboxLayout container, String resources) {
-        String[] tags = resources.split(",");
-
         container.removeAllViews();
+
+        if (TextUtils.isEmpty(resources)) return;
+
+        String[] tags = resources.split(",");
 
         for(String tag : tags) {
             LayoutInflater inflater = LayoutInflater.from(container.getContext());

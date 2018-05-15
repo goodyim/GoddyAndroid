@@ -18,7 +18,7 @@ public class ValidateResult {
 
         for(Integer errorRes: errorResources) {
             String error = App.getAppContext().getString(errorRes);
-            builder.append("*").append(error).append("\n");
+            builder.append("* ").append(error).append("\n");
         }
 
         return builder.toString();

@@ -123,7 +123,7 @@
     <string name="delete">Удалить</string>
     <string name="delete_success">Запись была успешно удалена</string>
     <string name="comment_reply">Ответить</string>
-    <string name="login_forgot_password">Восстановаить пароль</string>
+    <string name="login_forgot_password">Восстановить пароль</string>
     <string name="comment_notification_format">%s: %s</string>
     <string name="deafult_hint">Начните печатать…</string>
     <string name="ok">Подтвердить</string>
