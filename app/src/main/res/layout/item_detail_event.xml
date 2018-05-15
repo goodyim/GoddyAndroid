@@ -80,6 +80,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginLeft="@dimen/size_normal"
             android:layout_marginRight="@dimen/size_normal"
+            android:textIsSelectable="true"
             android:text="@{data.deal.description}"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
             app:layout_constraintHorizontal_bias="0.0"

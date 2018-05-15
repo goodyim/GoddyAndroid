@@ -99,6 +99,7 @@
                 android:layout_marginLeft="@dimen/size_normal"
                 android:layout_marginRight="@dimen/size_normal"
                 app:description="@{viewModel}"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                 app:expandState="@{viewModel.expanded}"
                 app:layout_constraintHorizontal_bias="0.0"
