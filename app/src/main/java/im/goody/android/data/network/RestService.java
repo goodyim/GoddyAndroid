@@ -84,6 +84,10 @@ public interface RestService {
                                        @Query("good_deal_id") long id,
                                        @Body NewCommentReq comment);
 
+    @DELETE("comments/{id}")
+    Observable<ResponseBody> deleteComment(@Header("X-User-Token") String token,
+                                           @Path("id") long id);
+
     @POST("good_deals/{id}/like")
     Observable<Deal> like(@Header("X-User-Token") String token,
                           @Path("id") long id);

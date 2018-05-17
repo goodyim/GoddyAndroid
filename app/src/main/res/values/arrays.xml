@@ -13,6 +13,10 @@
     <string-array name="comment_options">
         <item>@string/comment_reply</item>
     </string-array>
+    <string-array name="comment_options_extended">
+        <item>@string/comment_reply</item>
+        <item>@string/delete</item>
+    </string-array>
     <string-array name="preset_tags">
         <item>@string/preset_tag_0</item>
         <item>@string/preset_tag_1</item>

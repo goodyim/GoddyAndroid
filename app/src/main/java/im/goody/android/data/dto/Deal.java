@@ -172,6 +172,10 @@ public class Deal {
         this.comments = comments;
     }
 
+    public void removeComment(int commentPosition) {
+        comments.remove(commentPosition);
+    }
+
     // endregion
 
     @JsonIgnoreProperties(ignoreUnknown = true)

@@ -10,6 +10,7 @@ import android.view.View;
 import im.goody.android.Constants;
 import im.goody.android.R;
 import im.goody.android.core.BaseController;
+import im.goody.android.data.dto.Comment;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Location;
 import im.goody.android.data.network.res.ParticipateRes;
@@ -209,6 +210,18 @@ public class DetailPostController extends BaseController<DetailPostView>
     public void reply(String author) {
         viewModel.commentBody.set(String.format(Constants.MENTION_FORMAT, author));
         view().showCommentFocus();
+    }
+
+    @Override
+    public void deleteComment(int commentPosition) {
+        Comment comment = viewModel.getDeal().getComments().get(commentPosition);
+        Disposable d = repository.deleteComment(comment.getId())
+                .subscribe(ignored -> {
+                    viewModel.removeComment(commentPosition);
+                    view().removeComment(commentPosition);
+                    view().showMessage(R.string.comment_deleted);
+                }, this::showError);
+        compositeDisposable.add(d);
     }
 
     // endregion

@@ -193,4 +193,5 @@
 
     <string name="title_event_finished">Событие завершено</string>
     <string name="event_finished_message">Помощь для %s оказана %s</string>
+    <string name="comment_deleted">Комментарий был успешно удалён</string>
 </resources>

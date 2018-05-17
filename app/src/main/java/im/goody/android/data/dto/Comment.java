@@ -13,6 +13,8 @@ public class Comment {
     @JsonProperty("created_at")
     private String date;
 
+    private long id;
+
     // ======= region getters =======
 
     public String getContent() {
@@ -25,6 +27,10 @@ public class Comment {
 
     public String getDate() {
         return date;
+    }
+
+    public long getId() {
+        return id;
     }
 
     // endregion
@@ -42,6 +48,10 @@ public class Comment {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     // endregion

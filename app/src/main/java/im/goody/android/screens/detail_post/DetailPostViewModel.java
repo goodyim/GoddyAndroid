@@ -66,5 +66,9 @@ public class DetailPostViewModel {
         return bodyViewModel.getDeal();
     }
 
+    public void removeComment(int commentPosition) {
+        getDeal().removeComment(commentPosition);
+    }
+
     // endregion
 }

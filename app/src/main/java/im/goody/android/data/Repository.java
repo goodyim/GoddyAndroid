@@ -288,6 +288,11 @@ public class Repository implements IRepository {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    @Override
+    public Observable<ResponseBody> deleteComment(long commentId) {
+        return restService.deleteComment(preferencesManager.getUserToken(), commentId);
+    }
+
     //endregion
 
     // ======= region Comments =======

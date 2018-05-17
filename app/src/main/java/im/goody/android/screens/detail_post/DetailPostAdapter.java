@@ -63,6 +63,10 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
         return viewModel == null ? 0 : viewModel.getDeal().getComments().size() + 1;
     }
 
+    void notifyCommentRemoved(int number) {
+        notifyItemRemoved(number + 1);
+    }
+
     void notifyCommentAdded() {
         notifyItemInserted(viewModel.getDeal().getComments().size());
     }
@@ -81,6 +85,8 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
         void openPhoto(String s);
 
         void reply(String author);
+
+        void deleteComment(int commentPosition);
     }
 
     class DetailPostHolder extends RecyclerView.ViewHolder {
@@ -118,11 +124,17 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
             commentBinding.commentBody.setMentionListener(handler::openProfile);
 
             commentBinding.getRoot().setOnClickListener(v -> {
-                commentDialog.show(commentBinding.getRoot().getContext())
+                boolean isOwner = viewModel.getDeal().isOwner();
+                int itemsId = isOwner ? R.array.comment_options_extended : R.array.comment_options;
+
+                commentDialog.show(commentBinding.getRoot().getContext(), itemsId)
                         .subscribe(id -> {
                             switch (id) {
                                 case CommentOptionsDialog.ACTION_REPLY:
                                     handler.reply(comment.getAuthor().getName());
+                                    break;
+                                case CommentOptionsDialog.ACTION_DELETE:
+                                    handler.deleteComment(getCommentPosition());
                             }
                         });
             });
@@ -184,6 +196,10 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
                     handler.openPhoto(NetUtils.buildDealImageUrl(deal)));
 
             eventBinding.detailEventDescription.setMentionListener(handler::openProfile);
+        }
+
+        private int getCommentPosition() {
+            return getAdapterPosition() - 1;
         }
     }
 }

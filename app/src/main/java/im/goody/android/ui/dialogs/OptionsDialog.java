@@ -32,4 +32,9 @@ public class OptionsDialog {
             builder.show();
         });
     }
+
+    public Observable<Integer> show(Context context, int itemsId) {
+        this.itemsId = itemsId;
+        return show(context);
+    }
 }

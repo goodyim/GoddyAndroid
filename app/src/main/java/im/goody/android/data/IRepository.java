@@ -73,4 +73,6 @@ public interface IRepository {
     Observable<HelpInfo> loadHelpInfo();
 
     Observable<ResponseBody> updateHelpInfo(HelpInfo body);
+
+    Observable<ResponseBody> deleteComment(long commentId);
 }

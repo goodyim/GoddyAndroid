@@ -128,4 +128,8 @@ public class DetailPostView extends BaseView<DetailPostController, ScreenDetailB
                 editText.setSelection(editText.getText().length())
         );
     }
+
+    public void removeComment(int commentPosition) {
+        adapter.notifyCommentRemoved(commentPosition);
+    }
 }
