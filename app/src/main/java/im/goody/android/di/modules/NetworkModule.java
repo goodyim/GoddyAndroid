@@ -13,6 +13,8 @@ import javax.net.ssl.SSLContext;
 
 import dagger.Module;
 import dagger.Provides;
+import im.goody.android.data.local.PreferencesManager;
+import im.goody.android.data.network.AuthInterceptor;
 import im.goody.android.data.network.RestService;
 import im.goody.android.utils.AppConfig;
 import okhttp3.OkHttpClient;
@@ -27,8 +29,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class NetworkModule {
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient(Context context) {
-        return createClient(context);
+    OkHttpClient provideOkHttpClient(Context context, AuthInterceptor interceptor) {
+        return createClient(context, interceptor);
     }
 
     @Provides
@@ -43,10 +45,17 @@ public class NetworkModule {
         return retrofit.create(RestService.class);
     }
 
-    private OkHttpClient createClient(Context context) {
+    @Provides
+    @Singleton
+    AuthInterceptor provideAuthInterceptor(PreferencesManager manager) {
+        return new AuthInterceptor(manager);
+    }
+
+    private OkHttpClient createClient(Context context, AuthInterceptor interceptor) {
         SSLContext sslContext = SslUtils.getSslContextForCertificateFile(context, "goody.cer");
         return new OkHttpClient.Builder()
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addInterceptor(interceptor)
                 .connectTimeout(AppConfig.MAX_CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS)
                 .readTimeout(AppConfig.MAX_READ_TIMEOUT, TimeUnit.MILLISECONDS)
                 .sslSocketFactory(sslContext.getSocketFactory())

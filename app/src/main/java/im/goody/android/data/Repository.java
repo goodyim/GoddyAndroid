@@ -110,13 +110,13 @@ public class Repository implements IRepository {
         if (id.equals(Constants.ID_NONE))
             id = null;
 
-        return restService.getDeals(preferencesManager.getUserToken(), id, page, contentType)
+        return restService.getDeals(id, page, contentType)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<Deal> getDeal(long id) {
-        return restService.getDeal(preferencesManager.getUserToken(), id)
+        return restService.getDeal(id)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -124,7 +124,7 @@ public class Repository implements IRepository {
     public Observable<ResponseBody> createPost(NewPostReq body, Uri uri) {
         return getPart(uri, "upload")
                 .flatMap(part ->
-                        restService.uploadDeal(preferencesManager.getUserToken(),
+                        restService.uploadDeal(
                                 RestCallTransformer.objectToPartMap(body, "good_deal"),
                                 part.getPart()))
                 .observeOn(AndroidSchedulers.mainThread());
@@ -134,7 +134,7 @@ public class Repository implements IRepository {
     public Observable<ResponseBody> editPost(Long id, NewPostReq body, Uri imageUri) {
         return getPart(imageUri, "upload")
                 .flatMap(part ->
-                        restService.updateDeal(preferencesManager.getUserToken(),
+                        restService.updateDeal(
                                 id,
                                 RestCallTransformer.objectToPartMap(body, "good_deal"),
                                 part.getPart()))
@@ -146,7 +146,7 @@ public class Repository implements IRepository {
     public Observable<ResponseBody> createEvent(NewEventReq body, Uri imageUri) {
         return getPart(imageUri, "upload")
                 .flatMap(part ->
-                        restService.uploadDeal(preferencesManager.getUserToken(),
+                        restService.uploadDeal(
                                 RestCallTransformer.objectToPartMap(body, "good_deal"),
                                 part.getPart()))
                 .observeOn(AndroidSchedulers.mainThread());
@@ -156,7 +156,7 @@ public class Repository implements IRepository {
     public Observable<ResponseBody> editEvent(Long id, NewEventReq body, Uri imageUri) {
         return getPart(imageUri, "upload")
                 .flatMap(part ->
-                        restService.updateDeal(preferencesManager.getUserToken(),
+                        restService.updateDeal(
                                 id,
                                 RestCallTransformer.objectToPartMap(body, "good_deal"),
                                 part.getPart()))
@@ -172,31 +172,31 @@ public class Repository implements IRepository {
 
     @Override
     public Observable<User> getUserProfile(String identifier) {
-        return restService.getUserProfile(preferencesManager.getUserToken(), identifier)
+        return restService.getUserProfile(identifier)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<FollowRes> changeFollowState(String id) {
-        return restService.changeFollowState(preferencesManager.getUserToken(), id)
+        return restService.changeFollowState(id)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<Deal> likeDeal(long id) {
-        return restService.like(preferencesManager.getUserToken(), id)
+        return restService.like(id)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<ParticipateRes> changeParticipateState(long id) {
-        return restService.participate(preferencesManager.getUserToken(), id)
+        return restService.participate(id)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<EventStateRes> changeEventState(long id) {
-        return restService.changeEventState(preferencesManager.getUserToken(), id)
+        return restService.changeEventState(id)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -212,7 +212,7 @@ public class Repository implements IRepository {
 
     @Override
     public Observable<ResponseBody> logout() {
-        return restService.logout(preferencesManager.getUserToken())
+        return restService.logout()
                 .doOnNext(res -> preferencesManager.clearUserData())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -224,7 +224,7 @@ public class Repository implements IRepository {
 
     @Override
     public Observable<List<Deal>> getEvents(String userId, String state) {
-        return restService.getEvents(preferencesManager.getUserToken(), userId, state)
+        return restService.getEvents(userId, state)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -233,7 +233,7 @@ public class Repository implements IRepository {
         return Observable.just(imageUrl)
                 .subscribeOn(Schedulers.io())
                 .map(url -> {
-                    Bitmap bmp =  Picasso.with(App.getAppContext())
+                    Bitmap bmp = Picasso.with(App.getAppContext())
                             .load(imageUrl)
                             .get();
                     File file = cacheBitmap(bmp);
@@ -245,7 +245,7 @@ public class Repository implements IRepository {
 
     @Override
     public Observable<ResponseBody> deletePost(long id) {
-        return restService.deletePost(preferencesManager.getUserToken(), id)
+        return restService.deletePost(id)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -257,7 +257,7 @@ public class Repository implements IRepository {
 
     @Override
     public void sendRegistrationToServer(String refreshedToken) {
-        restService.sendFcmToken(refreshedToken, preferencesManager.getUserToken())
+        restService.sendFcmToken(refreshedToken)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(res -> Log.d(this.getClass().getName(), "Token sent"),
                         Throwable::printStackTrace);
@@ -265,13 +265,13 @@ public class Repository implements IRepository {
 
     @Override
     public Observable<List<Feedback>> getFeedback() {
-        return restService.loadNotifications(preferencesManager.getUserToken())
+        return restService.loadNotifications()
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<HelpInfo> loadHelpInfo() {
-        return restService.getHelpInfo(preferencesManager.getUserToken())
+        return restService.getHelpInfo()
                 .map(string -> {
                     if (TextUtils.isEmpty(string)) {
                         return new HelpInfo();
@@ -284,13 +284,13 @@ public class Repository implements IRepository {
 
     @Override
     public Observable<ResponseBody> updateHelpInfo(HelpInfo body) {
-        return restService.sendHelpInfo(preferencesManager.getUserToken(), body)
+        return restService.sendHelpInfo(body)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<ResponseBody> deleteComment(long commentId) {
-        return restService.deleteComment(preferencesManager.getUserToken(), commentId);
+        return restService.deleteComment(commentId);
     }
 
     //endregion
@@ -299,7 +299,7 @@ public class Repository implements IRepository {
 
     @Override
     public Observable<CommentRes> sendComment(long dealId, NewCommentReq body) {
-        return restService.sendComment(preferencesManager.getUserToken(), dealId, body)
+        return restService.sendComment(dealId, body)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

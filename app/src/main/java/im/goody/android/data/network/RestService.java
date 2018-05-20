@@ -31,17 +31,15 @@ import retrofit2.http.Query;
 
 public interface RestService {
     @GET("zones")
-    Observable<String> getHelpInfo(@Header("X-User-Token") String token);
+    Observable<String> getHelpInfo();
 
     @POST("zones")
-    Observable<ResponseBody> sendHelpInfo(@Header("X-User-Token") String token,
-                                      @Body HelpInfo body);
+    Observable<ResponseBody> sendHelpInfo(@Body HelpInfo body);
 
     @Multipart
     @POST("users")
-    Observable<UserRes> registerUser(
-            @Header("fcmToken") String fcmToken,
-            @PartMap Map<String, RequestBody> params);
+    Observable<UserRes> registerUser(@Header("fcmToken") String fcmToken,
+                                     @PartMap Map<String, RequestBody> params);
 
     @GET("users/get_token")
     Observable<UserRes> loginUser(@Header("fcmToken") String fcmToken,
@@ -49,69 +47,55 @@ public interface RestService {
                                   @Query("password") String password);
 
     @GET("users/register_fcm_token")
-    Observable<ResponseBody> sendFcmToken(@Header("fcmToken") String fcmToken,
-                                          @Header("X-User-Token") String UserToken);
+    Observable<ResponseBody> sendFcmToken(@Header("fcmToken") String fcmToken);
 
     @GET("good_deals")
-    Observable<List<Deal>> getDeals(@Header("X-User-Token") String token,
-                                    @Query("user_id") String userId,
+    Observable<List<Deal>> getDeals(@Query("user_id") String userId,
                                     @Query("page") int page,
                                     @Query("type") String contentType);
 
     @Multipart
     @POST("good_deals")
-    Observable<ResponseBody> uploadDeal(@Header("X-User-Token") String token,
-                                        @PartMap Map<String, RequestBody> params,
+    Observable<ResponseBody> uploadDeal(@PartMap Map<String, RequestBody> params,
                                         @Part MultipartBody.Part file);
 
     @Multipart
     @PUT("good_deals/{id}")
-    Observable<ResponseBody> updateDeal(@Header("X-User-Token") String token,
-                                        @Path("id") long id,
+    Observable<ResponseBody> updateDeal(@Path("id") long id,
                                         @PartMap Map<String, RequestBody> params,
                                         @Part MultipartBody.Part file);
 
     @DELETE("good_deals/{id}")
-    Observable<ResponseBody> deletePost(@Header("X-User-Token") String token,
-                                        @Path("id") long id);
+    Observable<ResponseBody> deletePost(@Path("id") long id);
 
     @GET("good_deals/{id}")
-    Observable<Deal> getDeal(@Header("X-User-Token") String token,
-                             @Path("id") long id);
+    Observable<Deal> getDeal(@Path("id") long id);
 
     @POST("comments")
-    Observable<CommentRes> sendComment(@Header("X-User-Token") String token,
-                                       @Query("good_deal_id") long id,
+    Observable<CommentRes> sendComment(@Query("good_deal_id") long id,
                                        @Body NewCommentReq comment);
 
     @DELETE("comments/{id}")
-    Observable<ResponseBody> deleteComment(@Header("X-User-Token") String token,
-                                           @Path("id") long id);
+    Observable<ResponseBody> deleteComment(@Path("id") long id);
 
     @POST("good_deals/{id}/like")
-    Observable<Deal> like(@Header("X-User-Token") String token,
-                          @Path("id") long id);
+    Observable<Deal> like(@Path("id") long id);
 
     @POST("good_deals/{id}/participate")
-    Observable<ParticipateRes> participate(@Header("X-User-Token") String token,
-                                           @Path("id") long id);
+    Observable<ParticipateRes> participate(@Path("id") long id);
 
     @POST("good_deals/{id}/close")
-    Observable<EventStateRes> changeEventState(@Header("X-User-Token") String token,
-                                               @Path("id") long id);
+    Observable<EventStateRes> changeEventState(@Path("id") long id);
 
     @GET("users/{id}")
-    Observable<User> getUserProfile(@Header("X-User-Token") String token,
-                                    @Path("id") String id);
+    Observable<User> getUserProfile(@Path("id") String id);
 
     @POST("users/{id}/follow")
-    Observable<FollowRes> changeFollowState(@Header("X-User-Token") String token,
-                                            @Path("id") String id);
+    Observable<FollowRes> changeFollowState(@Path("id") String id);
 
 
     @GET("events")
-    Observable<List<Deal>> getEvents(@Header("X-User-Token") String token,
-                                     @Query("user_id") String userId,
+    Observable<List<Deal>> getEvents(@Query("user_id") String userId,
                                      @Query("state") String state);
 
 
@@ -119,8 +103,8 @@ public interface RestService {
     Observable<ResponseBody> recoverPassword(@Query("email") String email);
 
     @DELETE("users/destroy_session")
-    Observable<ResponseBody> logout(@Header("X-User-Token") String token);
+    Observable<ResponseBody> logout();
 
     @GET("notifications")
-    Observable<List<Feedback>> loadNotifications(@Header("X-User-Token") String token);
+    Observable<List<Feedback>> loadNotifications();
 }
