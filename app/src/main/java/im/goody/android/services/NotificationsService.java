@@ -19,6 +19,7 @@ import im.goody.android.data.local.PreferencesManager;
 import im.goody.android.root.RootActivity;
 
 import static im.goody.android.Constants.NotificationExtra.AUTHOR_NAME;
+import static im.goody.android.Constants.NotificationExtra.FOLLOWEE_NEW_EVENT;
 import static im.goody.android.Constants.NotificationExtra.ID;
 import static im.goody.android.Constants.NotificationExtra.MESSAGE;
 import static im.goody.android.Constants.NotificationExtra.TAGS;
@@ -28,6 +29,7 @@ import static im.goody.android.Constants.NotificationExtra.TYPE_CLOSE_EVENT;
 import static im.goody.android.Constants.NotificationExtra.TYPE_COMMENT;
 import static im.goody.android.Constants.NotificationExtra.TYPE_MENTION;
 import static im.goody.android.Constants.NotificationExtra.TYPE_NEW_EVENT;
+import static im.goody.android.Constants.NotificationExtra.TYPE_NEW_PARTICIPATOR;
 
 
 public class NotificationsService extends FirebaseMessagingService {
@@ -63,7 +65,38 @@ public class NotificationsService extends FirebaseMessagingService {
                     break;
                 case TYPE_CLOSE_EVENT:
                     processCloseEvent(data);
+                    break;
+                case TYPE_NEW_PARTICIPATOR:
+                    processNewParticipator(data);
+                    break;
+                case FOLLOWEE_NEW_EVENT:
+                    processFolloweeNewEvent(data);
+                    break;
             }
+        }
+    }
+
+    private void processFolloweeNewEvent(Map<String, String> data) {
+        if (isNotNull(data, ID, AUTHOR_NAME, TITLE)) {
+            Long id = Long.valueOf(data.get(ID));
+            String author = data.get(AUTHOR_NAME);
+            String title = data.get(TITLE);
+
+            String content = getString(R.string.follow_new_event_content, author);
+
+            sendNotification(title, content, id);
+        }
+    }
+
+    private void processNewParticipator(Map<String, String> data) {
+        if (isNotNull(data, ID, TITLE, MESSAGE)) {
+            Long id = Long.valueOf(data.get(ID));
+            String title = data.get(TITLE);
+            String participatorName = data.get(MESSAGE);
+
+            String content = getString(R.string.new_participator_content, participatorName);
+
+            sendNotification(title, content, id);
         }
     }
 

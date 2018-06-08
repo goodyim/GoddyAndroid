@@ -39,7 +39,7 @@
     <string name="intro_close">Закрыть</string>
     <string name="intro_start">На старт</string>
 
-    <string name="close_event">Зыкрыть</string>
+    <string name="close_event">Завершить</string>
 
 
     <string name="event_default_title">Внимание!</string>
@@ -194,4 +194,6 @@
     <string name="title_event_finished">Событие завершено</string>
     <string name="event_finished_message">Помощь для %s оказана %s</string>
     <string name="comment_deleted">Комментарий был успешно удалён</string>
+    <string name="new_participator_content">Вам хочет помочь \@%s</string>
+    <string name="follow_new_event_content">\@%s нужна ваша помощь!</string>
 </resources>

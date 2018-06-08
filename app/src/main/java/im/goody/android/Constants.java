@@ -45,6 +45,9 @@ public class Constants {
         public static final String TYPE_MENTION = "mention";
         public static final String TYPE_NEW_EVENT = "new_event";
         public static final String TYPE_CLOSE_EVENT = "close_event";
+        public static final String TYPE_NEW_PARTICIPATOR = "new_participator";
+        public static final String FOLLOWEE_NEW_EVENT = "followee_new_event";
+
 
         public static final String ID = "id";
         public static final String MESSAGE = "message";

@@ -194,4 +194,6 @@
     <string name="title_event_finished">Event finished</string>
     <string name="event_finished_message">Help for %s was provided by %s</string>
     <string name="comment_deleted">Comment was successfully deleted</string>
+    <string name="new_participator_content">\@%s is ready to help you</string>
+    <string name="follow_new_event_content">\@%s needs your help!</string>
 </resources>
