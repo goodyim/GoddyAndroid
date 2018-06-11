@@ -101,7 +101,7 @@ public class RootPresenter implements IRootPresenter {
     @Override
     public void showMyPosts() {
         if (rootView != null) {
-            long id = repository.getUserData().getUser().getId();
+            long id = repository.getCurrentUser().getId();
 
             rootView.showScreenAsRoot(NewsController.class,
                     NewsController.CONTENT_All, true, String.valueOf(id));
@@ -164,7 +164,7 @@ public class RootPresenter implements IRootPresenter {
 
     @Override
     public void showMyProfile() {
-        showProfile(String.valueOf(repository.getUserData().getUser().getId()));
+        showProfile(String.valueOf(repository.getCurrentUser().getId()));
     }
 
     @Override
@@ -200,7 +200,7 @@ public class RootPresenter implements IRootPresenter {
 //    @Override
 //    public void showParticipatingEvents() {
 //        if (rootView != null) {
-//            long id = repository.getUserData().getUser().getId();
+//            long id = repository.getCurrentUser().getUser().getId();
 //
 //            rootView.showScreenAsRoot(NewsController.class, String.valueOf(id), false, true);
 //        }

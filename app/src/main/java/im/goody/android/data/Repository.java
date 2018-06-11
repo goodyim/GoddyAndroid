@@ -201,13 +201,14 @@ public class Repository implements IRepository {
     }
 
     @Override
-    public UserRes getUserData() {
-        return new UserRes()
-                .setUser(new UserRes.User()
-                        .setId(preferencesManager.getUserId())
-                        .setAvatarUrl(preferencesManager.getUserAvatarUrl())
-                        .setName(preferencesManager.getUserName())
-                );
+    public UserRes.User getCurrentUser() {
+        UserRes.User user = new UserRes.User();
+
+        user.setId(preferencesManager.getUserId());
+        user.setAvatarUrl(preferencesManager.getUserAvatarUrl());
+        user.setName(preferencesManager.getUserName());
+
+        return user;
     }
 
     @Override

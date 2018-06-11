@@ -2,6 +2,7 @@ package im.goody.android.screens.detail_post;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -22,16 +23,19 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
     private DetailPostBodyViewModel viewModel;
     private DetailPostHandler handler;
     private CommentOptionsDialog commentDialog;
+    private long userId;
 
-    DetailPostAdapter(DetailPostBodyViewModel viewModel, DetailPostHandler handler) {
+    DetailPostAdapter(DetailPostBodyViewModel viewModel, DetailPostHandler handler, long userId) {
         this.viewModel = viewModel;
         this.handler = handler;
+        this.userId = userId;
 
         commentDialog = new CommentOptionsDialog();
     }
 
+    @NonNull
     @Override
-    public DetailPostHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DetailPostHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater =
                 LayoutInflater.from(parent.getContext());
         ViewDataBinding binding = DataBindingUtil.inflate(layoutInflater, viewType,
@@ -51,7 +55,7 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
     }
 
     @Override
-    public void onBindViewHolder(DetailPostHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DetailPostHolder holder, int position) {
         Object target = position == 0
                 ? viewModel
                 : viewModel.getDeal().getComments().get(position - 1);
@@ -124,8 +128,8 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
             commentBinding.commentBody.setMentionListener(handler::openProfile);
 
             commentBinding.getRoot().setOnClickListener(v -> {
-                boolean isOwner = viewModel.getDeal().isOwner();
-                int itemsId = isOwner ? R.array.comment_options_extended : R.array.comment_options;
+                boolean isShowDelete = viewModel.getDeal().isOwner() || userId == comment.getAuthor().getId();
+                int itemsId = isShowDelete ? R.array.comment_options_extended : R.array.comment_options;
 
                 commentDialog.show(commentBinding.getRoot().getContext(), itemsId)
                         .subscribe(id -> {

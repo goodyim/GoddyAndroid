@@ -63,8 +63,8 @@ public class DetailPostView extends BaseView<DetailPostController, ScreenDetailB
                 .findFirstVisibleItemPosition();
     }
 
-    public void showData(DetailPostViewModel data) {
-        adapter = new DetailPostAdapter(data.getBody(), controller);
+    public void showData(DetailPostViewModel data, long userId) {
+        adapter = new DetailPostAdapter(data.getBody(), controller, userId);
 
         finishLoading();
 

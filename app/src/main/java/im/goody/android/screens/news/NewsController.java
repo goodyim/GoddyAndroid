@@ -271,7 +271,7 @@ public class NewsController extends BaseController<NewsView> implements NewsAdap
     }
 
     private boolean isIdMine() {
-        return getId().equals(String.valueOf(repository.getUserData().getUser().getId()));
+        return getId().equals(String.valueOf(repository.getCurrentUser().getId()));
     }
 
     private String getContentType() {

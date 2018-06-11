@@ -120,7 +120,7 @@ public class DetailPostController extends BaseController<DetailPostView>
         viewModel.setId(getArgs().getLong(ID_KEY));
 
         if (viewModel.getBody() != null) {
-            view().showData(viewModel);
+            view().showData(viewModel, getCurrentUserId());
         } else {
             loadData();
         }
@@ -150,7 +150,7 @@ public class DetailPostController extends BaseController<DetailPostView>
         Disposable d = repository.getDeal(viewModel.getId())
                 .subscribe(deal -> {
                     viewModel.setBody(deal);
-                    view().showData(viewModel);
+                    view().showData(viewModel, getCurrentUserId());
                     updateMenu();
                 }, error -> {
                     view().finishLoading();
@@ -162,12 +162,12 @@ public class DetailPostController extends BaseController<DetailPostView>
         compositeDisposable.add(d);
     }
 
+
     // endregion
 
 
 
     // ======= region DetailPostHandler =======
-
     @Override
     public void share(Deal deal) {
         String text = TextUtils.buildShareText(viewModel.getBody().getDeal());
@@ -224,10 +224,14 @@ public class DetailPostController extends BaseController<DetailPostView>
         compositeDisposable.add(d);
     }
 
+
     // endregion
 
     // ======= region private methods =======
 
+    private int getCurrentUserId() {
+        return repository.getCurrentUser().getId();
+    }
 
     private void deletePost() {
         Disposable d  = repository.deletePost(viewModel.getId())

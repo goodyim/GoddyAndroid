@@ -50,7 +50,7 @@ public interface IRepository {
     Observable<Deal> likeDeal(long id);
     Observable<ParticipateRes> changeParticipateState(long id);
     Observable<EventStateRes> changeEventState(long id);
-    UserRes getUserData();
+    UserRes.User getCurrentUser();
 
     Observable<ResponseBody> logout();
 
