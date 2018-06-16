@@ -27,6 +27,8 @@ public class ProfileView extends BaseView<ProfileController, ScreenProfileBindin
         binding.profileFollow.setOnClickListener(v -> controller.follow());
 
         binding.profileAvatar.setOnClickListener(v -> controller.showAvatar());
+
+        binding.dealsCount.setOnClickListener(v -> controller.showDeals());
     }
 
     @Override

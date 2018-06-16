@@ -130,6 +130,10 @@ public class ProfileController extends BaseController<ProfileView> {
         return String.valueOf(manager.getUserId()).equals(getId()) || manager.getUserName().equals(getId());
     }
 
+    public void showDeals() {
+        rootPresenter.showUserPosts(viewModel.getId());
+    }
+
     // end
 
     // ======= region DI =======
