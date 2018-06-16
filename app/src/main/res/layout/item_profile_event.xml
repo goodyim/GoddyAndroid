@@ -18,28 +18,37 @@
         android:layout_height="wrap_content"
         bind:cardUseCompatPadding="true">
 
-        <LinearLayout
-            style="@style/FullExpandLayout"
+        <android.support.constraint.ConstraintLayout
+            android:layout_height="match_parent"
+            style="@style/FullWidthLayout"
             android:orientation="vertical">
 
             <im.goody.android.ui.views.AspectImageView
                 android:id="@+id/event_image"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/FullWidthFromParent"
                 app:post_image="@{viewModel.deal}" />
 
             <TextView
-                style="@style/FullWidthLayout"
+                android:id="@+id/event_text"
+                style="@style/FullWidthFromParent"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/size_small"
                 android:maxLines="2"
                 android:text="@{TextUtils.getShortTitle(viewModel.deal)}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                app:layout_constraintTop_toBottomOf="@id/event_image"
                 tools:text="Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. " />
 
             <include
                 android:id="@+id/action_panel"
                 layout="@layout/item_action_panel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintVertical_bias="1.0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/event_text"
                 bind:viewModel="@{viewModel.panelViewModel}" />
-        </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 </layout>
