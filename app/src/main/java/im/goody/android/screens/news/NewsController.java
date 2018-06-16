@@ -115,6 +115,7 @@ public class NewsController extends BaseController<NewsView> implements NewsAdap
                         },
                         () -> view().addScrollListener()
                 );
+
         compositeDisposable.add(disposable);
     }
 

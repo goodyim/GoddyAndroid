@@ -71,7 +71,10 @@ public abstract class BaseController<V extends BaseView> extends RestoreViewOnCr
     @Override
     protected void onDetach(@NonNull View view) {
         view().dropController();
-        if (!compositeDisposable.isDisposed()) compositeDisposable.dispose();
+        if (!compositeDisposable.isDisposed()) {
+            compositeDisposable.dispose();
+            compositeDisposable = new CompositeDisposable();
+        }
         super.onDetach(view);
     }
 
