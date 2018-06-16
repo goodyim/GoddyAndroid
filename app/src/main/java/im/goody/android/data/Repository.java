@@ -41,6 +41,7 @@ import im.goody.android.data.network.res.FollowRes;
 import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.data.network.res.UserRes;
 import im.goody.android.di.components.DataComponent;
+import im.goody.android.utils.AppConfig;
 import im.goody.android.utils.FileUtils;
 import im.goody.android.utils.TextUtils;
 import io.reactivex.Observable;
@@ -308,12 +309,15 @@ public class Repository implements IRepository {
 
 
     private File cacheBitmap(Bitmap bmp) throws IOException {
-        File file = new File(Environment.getExternalStorageDirectory(), Constants.CACHE_FILE_NAME);
-        if (!file.exists())
+        File file = new File(getCachePath(), Constants.CACHE_FILE_NAME);
+
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
             file.createNewFile();
+        }
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 30, bos);
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, bos);
         byte[] bitmapData = bos.toByteArray();
 
         //write the bytes in file
@@ -337,6 +341,10 @@ public class Repository implements IRepository {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    private String getCachePath() {
+        return String.format(AppConfig.CACHE_PATH_FORMAT, Environment.getExternalStorageDirectory());
     }
 
     private Observable<PartContainer> getPart(Uri uri, String partName) {

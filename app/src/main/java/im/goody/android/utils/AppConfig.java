@@ -1,5 +1,7 @@
 package im.goody.android.utils;
 
+import java.io.File;
+
 import im.goody.android.BuildConfig;
 
 public class AppConfig {
@@ -17,6 +19,8 @@ public class AppConfig {
     private static final String IMAGES_BASE_URL = "http://dobrodel.s3.amazonaws.com";
     static final String IMAGES_URl_PATTERN = IMAGES_BASE_URL +
             "/good_deals/images/{0}/medium/{1}";
+
+    public static final String CACHE_PATH_FORMAT = "%s" + File.separator + "goody";
 
     public static String ENDCODING = "UTF-8";
 
