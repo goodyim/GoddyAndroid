@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="Notifications">
-    <Preference android:title="@string/setting_choose_help"
-        android:key="events_notifications"/>
-    <CheckBoxPreference android:title="@string/settings_mention"
-        android:defaultValue="true"
-        android:key="mention_notifications" />
-    <CheckBoxPreference android:title="@string/settings_comments"
-        android:defaultValue="true"
-        android:key="comment_notifications" />
+        <Preference
+            android:key="events_notifications"
+            android:title="@string/setting_choose_help" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="mention_notifications"
+            android:title="@string/settings_mention" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="comment_notifications"
+            android:title="@string/settings_comments" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="finished_event"
+            android:summary="@string/settings_finished_event_summary"
+            android:title="@string/settings_finished_event" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="new_participator"
+            android:title="@string/settings_new_participator" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="new_followee_event"
+            android:title="@string/settings_new_followee"
+            android:summary="@string/settings_new_followee_summary"/>
     </PreferenceCategory>
 </PreferenceScreen>

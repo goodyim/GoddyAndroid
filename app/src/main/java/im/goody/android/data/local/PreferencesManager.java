@@ -16,8 +16,13 @@ public class PreferencesManager {
 
     private static final String FIRST_LAUNCH_KEY = "Goody.firstLaunch";
 
-    private static final String SETTINGS_MENTIONS_KEY = "mention_notifications";
-    private static final String SETTINGS_COMMENTS_KEY = "comment_notifications";
+    public static final String SETTINGS_MENTIONS_KEY = "mention_notifications";
+    public static final String SETTINGS_COMMENTS_KEY = "comment_notifications";
+    public static final String SETTINGS_FINISHED_EVENT = "finished_event";
+    public static final String SETTINGS_NEW_PARTICIPATOR = "new_participator";
+    public static final String SETTINGS_NEW_FOLLOWEE = "new_followee_event";
+
+    private static final boolean DEFAULT_BOOLEAN_SETTING = true;
 
     public PreferencesManager(Context context) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -107,13 +112,8 @@ public class PreferencesManager {
 
     //region ================= Settings =================
 
-    public boolean isMentionNotificationsEnabled() {
-        return sharedPreferences.getBoolean(SETTINGS_MENTIONS_KEY, true);
-    }
-
-
-    public boolean isCommentNotificationsEnabled() {
-        return sharedPreferences.getBoolean(SETTINGS_COMMENTS_KEY, true);
+    public boolean isSettingEnabled(String key) {
+        return sharedPreferences.getBoolean(key, DEFAULT_BOOLEAN_SETTING);
     }
 
     //

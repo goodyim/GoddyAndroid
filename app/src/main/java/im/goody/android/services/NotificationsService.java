@@ -30,6 +30,7 @@ import static im.goody.android.Constants.NotificationExtra.TYPE_COMMENT;
 import static im.goody.android.Constants.NotificationExtra.TYPE_MENTION;
 import static im.goody.android.Constants.NotificationExtra.TYPE_NEW_EVENT;
 import static im.goody.android.Constants.NotificationExtra.TYPE_NEW_PARTICIPATOR;
+import static im.goody.android.data.local.PreferencesManager.*;
 
 
 public class NotificationsService extends FirebaseMessagingService {
@@ -77,7 +78,8 @@ public class NotificationsService extends FirebaseMessagingService {
     }
 
     private void processFolloweeNewEvent(Map<String, String> data) {
-        if (isNotNull(data, ID, AUTHOR_NAME, TITLE)) {
+        if (isNotNull(data, ID, AUTHOR_NAME, TITLE)
+                && preferencesManager.isSettingEnabled(SETTINGS_NEW_FOLLOWEE)) {
             Long id = Long.valueOf(data.get(ID));
             String author = data.get(AUTHOR_NAME);
             String title = data.get(TITLE);
@@ -89,7 +91,8 @@ public class NotificationsService extends FirebaseMessagingService {
     }
 
     private void processNewParticipator(Map<String, String> data) {
-        if (isNotNull(data, ID, TITLE, MESSAGE)) {
+        if (isNotNull(data, ID, TITLE, MESSAGE)
+                && preferencesManager.isSettingEnabled(SETTINGS_NEW_PARTICIPATOR)) {
             Long id = Long.valueOf(data.get(ID));
             String title = data.get(TITLE);
             String participatorName = data.get(MESSAGE);
@@ -101,7 +104,8 @@ public class NotificationsService extends FirebaseMessagingService {
     }
 
     private void processCloseEvent(Map<String, String> data) {
-        if (isNotNull(data, ID, MESSAGE, AUTHOR_NAME)) {
+        if (isNotNull(data, ID, MESSAGE, AUTHOR_NAME)
+                && preferencesManager.isSettingEnabled(SETTINGS_FINISHED_EVENT)) {
             Long id = Long.valueOf(data.get(ID));
             String helperNames = data.get(MESSAGE);
             String author = data.get(AUTHOR_NAME);
@@ -124,7 +128,8 @@ public class NotificationsService extends FirebaseMessagingService {
     }
 
     private void processComment(Map<String, String> data) {
-        if (isNotNull(data, TITLE, AUTHOR_NAME, MESSAGE, ID) && preferencesManager.isCommentNotificationsEnabled()) {
+        if (isNotNull(data, TITLE, AUTHOR_NAME, MESSAGE, ID)
+                && preferencesManager.isSettingEnabled(SETTINGS_COMMENTS_KEY)) {
             String notificationTitle = data.get(TITLE);
             String notificationContent = getString(
                     R.string.comment_notification_format,
@@ -137,7 +142,8 @@ public class NotificationsService extends FirebaseMessagingService {
     }
 
     private void processMention(Map<String, String> data) {
-        if (isNotNull(data, TITLE, AUTHOR_NAME, ID) && preferencesManager.isMentionNotificationsEnabled()) {
+        if (isNotNull(data, TITLE, AUTHOR_NAME, ID)
+                && preferencesManager.isSettingEnabled(SETTINGS_MENTIONS_KEY)) {
             String notificationTitle = data.get(TITLE);
             String notificationContent = getString(
                     R.string.mention_notification_format,

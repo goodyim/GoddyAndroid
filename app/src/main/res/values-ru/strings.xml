@@ -18,8 +18,7 @@
     <string name="content_clear_location">Сбросить место</string>
 
     <string name="create_post_progress">Создание в процессе</string>
-    <string name="description_hint">Что нового?</string
-    >
+    <string name="description_hint">Что нового?</string>
     <string name="detail_title">Пост</string>
     <string name="dialog_item_0">Выбрать фото</string>
     <string name="dialog_item_1">Сделать снимок</string>
@@ -28,7 +27,6 @@
     <string name="event_closed">Событие было успешно зыкрыто</string>
 
     <string name="about_text">Это Гуди</string>
-
 
 
     <string name="choose_date">Когда нужна помощь?</string>
@@ -196,4 +194,9 @@
     <string name="comment_deleted">Комментарий был успешно удалён</string>
     <string name="new_participator_content">Вам хочет помочь \@%s</string>
     <string name="follow_new_event_content">\@%s нужна ваша помощь!</string>
+    <string name="settings_finished_event">Завершение события</string>
+    <string name="settings_new_participator">Новый участник</string>
+    <string name="settings_new_followee">Подписки</string>
+    <string name="settings_new_followee_summary">Новые события людей, на которых вы подписаны</string>
+    <string name="settings_finished_event_summary">Завершение события, в котором вы учавствуете</string>
 </resources>

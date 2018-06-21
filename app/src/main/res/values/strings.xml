@@ -196,4 +196,10 @@
     <string name="comment_deleted">Comment was successfully deleted</string>
     <string name="new_participator_content">\@%s is ready to help you</string>
     <string name="follow_new_event_content">\@%s needs your help!</string>
+    <string name="settings_finished_event">Event finishing</string>
+    <string name="settings_new_participator">New participator</string>
+    <string name="settings_new_followee">Subscriptions</string>
+    <string name="settings_new_followee_summary">New events of people you are subscribed to</string>
+    <string name="settings_finished_event_summary">Finishing event you are participating in</string>
+    <string name="settings_screen_debug">Debug</string>
 </resources>
