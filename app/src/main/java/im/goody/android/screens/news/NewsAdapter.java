@@ -215,7 +215,9 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
             ItemPostBinding postBinding = (ItemPostBinding) binding;
 
             postBinding.newsItemContainer
-                    .setOnClickListener(v -> handler.showDetail(deal.getId()));
+                    .setOnClickListener(v -> {
+                        handler.showDetail(deal.getId());
+                    });
 
             postBinding.actionPanel.panelItemComments
                     .setOnClickListener(v -> handler.showDetail(deal.getId()));

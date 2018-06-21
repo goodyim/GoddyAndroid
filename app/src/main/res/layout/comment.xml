@@ -12,7 +12,9 @@
         <import type="im.goody.android.utils.DateUtils" />
     </data>
 
-    <android.support.constraint.ConstraintLayout style="@style/FullWidthLayout"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/comment_container"
+        style="@style/FullWidthLayout"
         android:background="?attr/selectableItemBackground">
 
         <im.goody.android.ui.views.CircleImageView
@@ -49,8 +51,6 @@
             android:layout_marginRight="@dimen/size_normal"
             android:paddingBottom="@dimen/size_normal"
             app:link_text="@{data.content}"
-            android:clickable="false"
-            android:focusable="false"
             app:layout_constraintLeft_toLeftOf="@+id/comment_user_name"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/comment_user_name"

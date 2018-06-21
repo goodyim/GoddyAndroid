@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.Selection;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -11,6 +12,7 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.regex.Matcher;
@@ -41,6 +43,10 @@ public class AutoLinkTextView extends AppCompatTextView {
         array.recycle();
 
         setMovementMethod(LinkMovementMethod.getInstance());
+
+        setOnClickListener(v -> {
+            ((View) getParent()).callOnClick();
+        });
     }
 
     public void setMentionListener(MentionClickListener mentionListener) {
@@ -50,6 +56,23 @@ public class AutoLinkTextView extends AppCompatTextView {
 
     public CharSequence getLinkedText() {
         return getText();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        int startSelection = getSelectionStart();
+        int endSelection = getSelectionEnd();
+        if (startSelection < 0 || endSelection < 0){
+            Selection.setSelection((Spannable) getText(), getText().length());
+        } else if (startSelection != endSelection) {
+            if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                final CharSequence text = getText();
+                setText(null);
+                setLinkedText(text.toString());
+            }
+        }
+        return super.dispatchTouchEvent(event);
+
     }
 
     public void setLinkedText(Spannable spannable) {

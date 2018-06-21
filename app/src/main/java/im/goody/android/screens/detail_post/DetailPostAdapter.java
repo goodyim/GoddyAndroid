@@ -127,7 +127,7 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
 
             commentBinding.commentBody.setMentionListener(handler::openProfile);
 
-            commentBinding.getRoot().setOnClickListener(v -> {
+            commentBinding.commentContainer.setOnClickListener(v -> {
                 boolean isShowDelete = viewModel.getDeal().isOwner() || userId == comment.getAuthor().getId();
                 int itemsId = isShowDelete ? R.array.comment_options_extended : R.array.comment_options;
 
