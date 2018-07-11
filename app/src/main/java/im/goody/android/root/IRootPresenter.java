@@ -29,7 +29,6 @@ public interface IRootPresenter {
     void showSettingScreen();
     void showNewEventScreen();
     //first start
-    void launched();
 
     void logout();
 
@@ -46,4 +45,6 @@ public interface IRootPresenter {
 //    void showParticipatingEvents();
 
     void showFeedback();
+
+    void showFillProfile();
 }

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <im.goody.android.screens.intro.resources.ResourcesView
+        style="@style/FullExpandLayout">
+
+        <ScrollView style="@style/FullExpandFromParent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/auth_header_height"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/auth_header" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_normal"
+                    android:layout_marginRight="@dimen/size_normal"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:layout_marginTop="@dimen/size_medium"
+                    android:text="@string/choose_help_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_normal"
+                    android:layout_marginRight="@dimen/size_normal"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:layout_marginTop="@dimen/size_normal"
+                    android:text="@string/preset_tags_title" />
+
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/preset_tag_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_normal"
+                    android:layout_marginRight="@dimen/size_normal"
+                    app:flexDirection="row"
+                    app:flexWrap="wrap"
+                    tools:layout_height="100dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_normal"
+                    android:layout_marginRight="@dimen/size_normal"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:layout_marginTop="@dimen/size_normal"
+                    android:text="@string/custom_tags_title" />
+
+                <TextView
+                    android:id="@+id/add_tag"
+                    style="@style/Base.TextAppearance.AppCompat.Widget.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_normal"
+                    android:layout_marginStart="@dimen/size_normal"
+                    android:background="?selectableItemBackground"
+                    android:drawableLeft="@drawable/ic_add_accent"
+                    android:drawablePadding="@dimen/size_small"
+                    android:drawableStart="@drawable/ic_add_accent"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="@dimen/size_small"
+                    android:paddingEnd="@dimen/size_small"
+                    android:paddingRight="@dimen/size_small"
+                    android:paddingTop="@dimen/size_small"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:text="@string/choose_help_add_tag"
+                    android:textColor="@color/secondary_text"
+                    tools:ignore="RtlSymmetry" />
+
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/tag_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_normal"
+                    android:layout_marginRight="@dimen/size_normal"
+                    app:flexDirection="row"
+                    app:flexWrap="wrap"
+                    tools:layout_height="100dp" />
+            </LinearLayout>
+        </ScrollView>
+
+    </im.goody.android.screens.intro.resources.ResourcesView>
+</layout>

@@ -201,5 +201,10 @@
     <string name="settings_new_followee">Subscriptions</string>
     <string name="settings_new_followee_summary">New events of people you are subscribed to</string>
     <string name="settings_finished_event_summary">Finishing event you are participating in</string>
-    <string name="settings_screen_debug">Debug</string>
+
+    <string name="birthday_hint">Choose the date</string>
+    <string name="intro_location_hint">Select distance within which you want to receive notifications</string>
+    <string name="intro_location_title">Good! Do you want to receive notifications from people who need a help?</string>
+    <string name="intro_finish_title">Make world better!</string>
+    <string name="intro_finish_subtitle">Help others and take help yourself, get rewards</string>
 </resources>

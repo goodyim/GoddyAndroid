@@ -1,43 +1,52 @@
 package im.goody.android.screens.intro;
 
-import android.databinding.DataBindingUtil;
-import android.support.v4.view.PagerAdapter;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.annotation.NonNull;
 
-import im.goody.android.R;
-import im.goody.android.databinding.ItemIntroBinding;
+import com.bluelinelabs.conductor.Controller;
+import com.bluelinelabs.conductor.Router;
+import com.bluelinelabs.conductor.RouterTransaction;
+import com.bluelinelabs.conductor.support.RouterPagerAdapter;
 
-class IntroPageAdapter extends PagerAdapter {
+import im.goody.android.screens.choose_help.ChooseHelpViewModel;
+import im.goody.android.screens.intro.finish.IntroFinishController;
+import im.goody.android.screens.intro.greet.GreetController;
+import im.goody.android.screens.intro.location.LocationNotificationsController;
+import im.goody.android.screens.intro.resources.ResourcesController;
 
-    private int[] pages = {R.drawable.intro_1, R.drawable.intro_2, R.drawable.intro_3,
-            R.drawable.intro_4, R.drawable.intro_5, R.drawable.intro_6};
+class IntroPageAdapter extends RouterPagerAdapter {
+    static final int PAGE_COUNT = 4;
+
+    private ChooseHelpViewModel viewModel;
+
+    IntroPageAdapter(@NonNull Controller host, ChooseHelpViewModel viewModel) {
+        super(host);
+        this.viewModel = viewModel;
+    }
+
+    @Override
+    public void configureRouter(@NonNull Router router, int position) {
+        if (!router.hasRootController()) {
+            Controller controller;
+            switch (position) {
+                case 0:
+                    controller = new GreetController();
+                    break;
+                case 1:
+                    controller = new ResourcesController(viewModel);
+                    break;
+                case 2:
+                    controller = new LocationNotificationsController(viewModel);
+                    break;
+                default:
+                    controller = new IntroFinishController(viewModel);
+            }
+
+            router.setRoot(RouterTransaction.with(controller));
+        }
+    }
 
     @Override
     public int getCount() {
-        return pages.length;
-    }
-
-    @Override
-    public boolean isViewFromObject(View view, Object object) {
-        return view.equals(object);
-    }
-
-    @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        LayoutInflater inflater = LayoutInflater.from(container.getContext());
-        View view = inflater.inflate(R.layout.item_intro, container, false);
-        ItemIntroBinding binding = DataBindingUtil.bind(view);
-        IntroPage page = new IntroPage();
-        page.setImage(pages[position]);
-        binding.setPage(page);
-        container.addView(view);
-        return view;
-    }
-
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((View) object);
+        return PAGE_COUNT;
     }
 }

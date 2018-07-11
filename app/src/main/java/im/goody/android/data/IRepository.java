@@ -26,9 +26,10 @@ public interface IRepository {
     Observable<UserRes> login(LoginReq data);
     Observable<UserRes> register(RegisterReq data);
     boolean isSigned();
+    boolean isProfileFilled();
+    void setProfileFilled(boolean isFilled);
 
-    boolean isFirstLaunch();
-    void firstLaunched();
+
     <T> T getError(Throwable t, Class<T> tClass);
 
     Observable<List<Deal>> getPosts(String userId, String contentType, int page);
@@ -75,4 +76,6 @@ public interface IRepository {
     Observable<ResponseBody> updateHelpInfo(HelpInfo body);
 
     Observable<ResponseBody> deleteComment(long commentId);
+
+    Observable<ResponseBody> fillProfile(HelpInfo body);
 }

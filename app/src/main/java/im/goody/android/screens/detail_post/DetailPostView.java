@@ -124,9 +124,9 @@ public class DetailPostView extends BaseView<DetailPostController, ScreenDetailB
         editText.requestFocus();
         UIUtils.showKeyboard(editText);
 
-        binding.detailCommentBody.post(() ->
+        editText.postDelayed(() ->
                 editText.setSelection(editText.getText().length())
-        );
+        , 50);
     }
 
     public void removeComment(int commentPosition) {

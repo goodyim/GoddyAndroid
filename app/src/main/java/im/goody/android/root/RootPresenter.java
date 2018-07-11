@@ -18,10 +18,10 @@ import im.goody.android.screens.feedback.FeedBackController;
 import im.goody.android.screens.intro.IntroController;
 import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.main.MainController;
-import im.goody.android.screens.news.NewsController;
 import im.goody.android.screens.near_events.NearEventsController;
 import im.goody.android.screens.new_event.NewEventController;
 import im.goody.android.screens.new_post.NewPostController;
+import im.goody.android.screens.news.NewsController;
 import im.goody.android.screens.photo.PhotoController;
 import im.goody.android.screens.profile.ProfileController;
 import im.goody.android.screens.register.RegisterController;
@@ -61,12 +61,13 @@ public class RootPresenter implements IRootPresenter {
 
     @Override
     public Class<? extends Controller> getStartController() {
-        if (repository.isFirstLaunch())
-            return IntroController.class;
-        else if (repository.isSigned())
-            return MainController.class;
-        else
-            return LoginController.class;
+        if (repository.isSigned()) {
+            if (repository.isProfileFilled()) {
+                return MainController.class;
+            } else {
+                return IntroController.class;
+            }
+        } else return LoginController.class;
     }
 
     @Override
@@ -213,12 +214,12 @@ public class RootPresenter implements IRootPresenter {
         }
     }
 
-    //endregion
-
     @Override
-    public void launched() {
-        if (repository.isFirstLaunch()) repository.firstLaunched();
+    public void showFillProfile() {
+        rootView.showScreenAsRoot(IntroController.class);
     }
+
+    //endregion
 
     @Override
     public void logout() {

@@ -55,7 +55,6 @@ public abstract class BaseController<V extends BaseView> extends RestoreViewOnCr
         super.onAttach(view);
         view().takeController(this);
         initActionBar();
-        rootPresenter.launched();
     }
 
     protected abstract void initActionBar();

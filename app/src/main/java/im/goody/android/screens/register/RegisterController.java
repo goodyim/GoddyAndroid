@@ -10,7 +10,6 @@ import im.goody.android.core.BaseController;
 import im.goody.android.data.validation.ValidateResult;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
-import im.goody.android.screens.choose_help.ChooseHelpController;
 import im.goody.android.ui.dialogs.ChooseImageOptionsDialog;
 import im.goody.android.ui.dialogs.DatePickDialog;
 import im.goody.android.ui.dialogs.OptionsDialog;
@@ -68,7 +67,7 @@ public class RegisterController extends BaseController<RegisterView> {
                     .subscribe(
                             result -> {
                                 rootPresenter.hideProgress();
-                                rootPresenter.showChooseHelp(ChooseHelpController.MODE_SETUP);
+                                rootPresenter.showFillProfile();
                             },
                             error -> {
                                 rootPresenter.hideProgress();

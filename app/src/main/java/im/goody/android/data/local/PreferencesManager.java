@@ -14,7 +14,7 @@ public class PreferencesManager {
     private static final String USER_TOKEN_KEY = "USER_TOKEN";
     private static final String USER_IMAGE_URL_KEY = "USER_IMAGE_URL";
 
-    private static final String FIRST_LAUNCH_KEY = "Goody.firstLaunch";
+    private static final String FILL_PROFILE_KEY = "FILL_PROFILE";
 
     public static final String SETTINGS_MENTIONS_KEY = "mention_notifications";
     public static final String SETTINGS_COMMENTS_KEY = "comment_notifications";
@@ -48,9 +48,11 @@ public class PreferencesManager {
         editor.apply();
     }
 
-    private void removeValue(String key) {
+    private void removeValues(String... keys) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove(key);
+        for (String key : keys) {
+            editor.remove(key);
+        }
         editor.apply();
     }
 
@@ -87,24 +89,25 @@ public class PreferencesManager {
         return sharedPreferences.contains(USER_TOKEN_KEY);
     }
 
+    public boolean isProfileFilled() {
+        return sharedPreferences.getBoolean(FILL_PROFILE_KEY, true);
+    }
+
+    public void setProfileFilled(boolean isFilled) {
+        setBooleanValue(FILL_PROFILE_KEY, isFilled);
+    }
+
     //endregion
 
 
     //======= region App prefs =======
 
-    public void saveFirstLaunched() {
-        setBooleanValue(FIRST_LAUNCH_KEY, false);
-    }
-
-    public boolean isFirstStart() {
-        return !sharedPreferences.contains(FIRST_LAUNCH_KEY);
-    }
-
     public void clearUserData() {
-        removeValue(USER_NAME_KEY);
-        removeValue(USER_IMAGE_URL_KEY);
-        removeValue(USER_ID_KEY);
-        removeValue(USER_TOKEN_KEY);
+        removeValues(
+                USER_NAME_KEY,
+                USER_IMAGE_URL_KEY,
+                USER_ID_KEY,
+                USER_TOKEN_KEY);
     }
 
     //endregion

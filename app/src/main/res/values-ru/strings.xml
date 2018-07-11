@@ -199,4 +199,8 @@
     <string name="settings_new_followee">Подписки</string>
     <string name="settings_new_followee_summary">Новые события людей, на которых вы подписаны</string>
     <string name="settings_finished_event_summary">Завершение события, в котором вы учавствуете</string>
+
+    <string name="birthday_hint">Выберите дату</string>
+    <string name="intro_location_hint">Выберите расстояние, в пределах которого хотите получать уведомления</string>
+    <string name="intro_location_title">Отлично! Вы готовы получать уведомления от тех, кому нужна помощь?</string>
 </resources>

@@ -89,7 +89,7 @@ public class RegisterViewModel extends BaseObservable implements Validatable {
     // ======= region private methods =======
 
     private boolean isNameValid() {
-        return !TextUtils.isEmpty(name) && name.matches("[a-z]{4,}");
+        return !TextUtils.isEmpty(name) && name.matches("[a-z0-9_]{4,}");
     }
 
     private boolean isEmailValid() {

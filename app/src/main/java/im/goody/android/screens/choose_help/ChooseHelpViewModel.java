@@ -17,13 +17,13 @@ import im.goody.android.data.dto.Location;
 import io.reactivex.annotations.NonNull;
 
 public class ChooseHelpViewModel {
-    final List<String> tags;
-    final PresetTag[] presetTags = loadPresetTags();;
-    public ObservableField<Location> place = new ObservableField<>(null);
+    public final List<String> tags;
+    public final PresetTag[] presetTags = loadPresetTags();
+    public ObservableField<Location> place = new ObservableField<>();
     public ObservableBoolean isGeoEnabled = new ObservableBoolean(false);
     public ObservableInt radius = new ObservableInt(0);
 
-    ChooseHelpViewModel() {
+    public ChooseHelpViewModel() {
         tags = new ArrayList<>();
     }
 
@@ -108,11 +108,11 @@ public class ChooseHelpViewModel {
             this.value = value;
         }
 
-        boolean isChecked() {
+        public boolean isChecked() {
             return checked;
         }
 
-        void setChecked(boolean checked) {
+        public void setChecked(boolean checked) {
             this.checked = checked;
         }
 

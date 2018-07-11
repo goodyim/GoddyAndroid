@@ -1,4 +1,4 @@
-package im.goody.android.screens.choose_help;
+package im.goody.android.screens.intro.resources;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -9,31 +9,23 @@ import android.widget.TextView;
 
 import im.goody.android.R;
 import im.goody.android.core.BaseView;
-import im.goody.android.databinding.ScreenChooseHelpBinding;
+import im.goody.android.databinding.IntroResourcesBinding;
+import im.goody.android.screens.choose_help.ChooseHelpViewModel;
 
-public class ChooseHelpView extends BaseView<ChooseHelpController, ScreenChooseHelpBinding> {
-    public ChooseHelpView(Context context, AttributeSet attrs) {
+public class ResourcesView extends BaseView<ResourcesController, IntroResourcesBinding> {
+    public ResourcesView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-
-
 
     @Override
     protected void onAttached() {
         binding.addTag.setOnClickListener(v -> controller.addTag());
-        binding.chooseHelpSubmit.setOnClickListener(v -> controller.submit());
-        binding.chooseHelpLocation.setOnClickListener(v -> controller.chooseLocation());
-        binding.chooseHelpSkip.setOnClickListener(v -> controller.skip());
     }
 
     @Override
-    protected void onDetached() {
-
-    }
+    protected void onDetached() {}
 
     public void setData(ChooseHelpViewModel viewModel) {
-        binding.setViewModel(viewModel);
-
         binding.tagContainer.removeAllViews();
         for(String tag : viewModel.tags) {
             addTag(tag);
@@ -76,9 +68,5 @@ public class ChooseHelpView extends BaseView<ChooseHelpController, ScreenChooseH
 
     public void removeTag(int position) {
         binding.tagContainer.removeViewAt(position);
-    }
-
-    public void hideSkip() {
-        binding.chooseHelpSkip.setVisibility(GONE);
     }
 }

@@ -1,12 +1,18 @@
 package im.goody.android.screens.intro;
 
+import android.support.annotation.NonNull;
+import android.view.View;
+
 import im.goody.android.R;
 import im.goody.android.core.BaseController;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
+import im.goody.android.screens.choose_help.ChooseHelpViewModel;
 import im.goody.android.ui.helpers.BarBuilder;
 
 public class IntroController extends BaseController<IntroView> {
+    private ChooseHelpViewModel viewModel = new ChooseHelpViewModel();
+
     //region ================= BaseController =================
 
     @Override
@@ -30,15 +36,15 @@ public class IntroController extends BaseController<IntroView> {
         return R.layout.screen_intro;
     }
 
-    void close() {
-        if (repository.isSigned()) {
-            rootPresenter.showMain();
-        } else {
-            rootPresenter.showLoginScreen();
-        }
+    //endregion
+
+    @Override
+    protected void onAttach(@NonNull View view) {
+        super.onAttach(view);
+
+        view().setData(viewModel);
     }
 
-    //endregion
 
     //region ================= DI =================
 

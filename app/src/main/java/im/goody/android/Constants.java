@@ -37,7 +37,7 @@ public class Constants {
 
     public static final String CACHE_FILE_NAME = "goddy_temp.jpeg";
 
-    public static final String MENTION_FORMAT = "@%s";
+    public static final String MENTION_FORMAT = "@%s ";
 
     public static class NotificationExtra {
         public static final String TYPE = "type";

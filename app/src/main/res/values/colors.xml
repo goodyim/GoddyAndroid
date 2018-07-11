@@ -37,4 +37,5 @@
 
     <color name="join_finished_start">#B3D648</color>
     <color name="join_finished_end">#D9E15F</color>
+    <color name="indicator_default">#E0E0E0</color>
 </resources>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="im.goody.android.screens.choose_help.ChooseHelpViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <im.goody.android.screens.intro.location.LocationNotificationsView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/auth_header_height"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/auth_header" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_regular"
+                android:layout_marginLeft="@dimen/size_normal"
+                android:layout_marginRight="@dimen/size_normal"
+                android:layout_marginTop="@dimen/size_medium"
+                android:text="@string/intro_location_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_normal"
+                android:layout_marginStart="@dimen/size_normal"
+                android:layout_marginTop="@dimen/size_small"
+                android:checked="@={viewModel.isGeoEnabled}"
+                android:paddingLeft="@dimen/size_little"
+                android:paddingStart="@dimen/size_little"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_normal"
+                android:fontFamily="@font/open_sans_regular"
+                android:text="@string/intro_location_hint"
+                android:textSize="18sp"
+                android:visibility="@{viewModel.isGeoEnabled ? View.VISIBLE : View.GONE}" />
+
+            <TextView
+                android:id="@+id/choose_help_location"
+                style="@style/LoginControl"
+                android:layout_width="match_parent"
+                android:layout_marginEnd="@dimen/size_normal"
+                android:layout_marginLeft="@dimen/size_normal"
+                android:layout_marginRight="@dimen/size_normal"
+                android:layout_marginStart="@dimen/size_normal"
+                android:layout_marginTop="0dp"
+                android:fontFamily="@font/open_sans_regular"
+                android:background="@drawable/rounded_border_rectangle"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:drawableRight="@drawable/ic_arrow_right"
+                android:paddingLeft="@dimen/size_normal"
+                android:paddingStart="@dimen/size_normal"
+                android:visibility="@{viewModel.isGeoEnabled ? View.VISIBLE : View.GONE}"
+                app:event_location="@{viewModel.place}"
+                tools:ignore="RtlSymmetry"
+                tools:text="Moscow" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_normal"
+                android:layout_marginStart="@dimen/size_normal"
+                android:layout_marginTop="@dimen/size_normal"
+                android:fontFamily="@font/open_sans_regular"
+                android:text="@string/distance_title"
+                android:visibility="@{viewModel.isGeoEnabled ? View.VISIBLE : View.GONE}" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="@{viewModel.isGeoEnabled ? View.VISIBLE : View.GONE}">
+
+                <SeekBar
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/size_small"
+                    android:layout_marginLeft="@dimen/size_normal"
+                    android:layout_marginRight="@dimen/size_small"
+                    android:layout_marginStart="@dimen/size_normal"
+                    android:layout_weight="1"
+                    android:max="100"
+                    android:padding="@dimen/size_small"
+                    android:progress="@={viewModel.radius}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/size_normal"
+                    android:layout_marginRight="@dimen/size_normal"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:text="@{@string/distance_value(viewModel.radius)}"
+                    tools:text="100 km" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </im.goody.android.screens.intro.location.LocationNotificationsView>
+</layout>

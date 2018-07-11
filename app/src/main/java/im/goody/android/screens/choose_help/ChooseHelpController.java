@@ -87,7 +87,7 @@ public class ChooseHelpController extends BaseController<ChooseHelpView> {
         }
 
         if (getMode() == MODE_EDIT) {
-            view().showHideSkip();
+            view().hideSkip();
         }
     }
 

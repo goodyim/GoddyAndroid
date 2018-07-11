@@ -99,6 +99,7 @@
                     android:drawableEnd="@drawable/ic_arrow_right"
                     android:drawableRight="@drawable/ic_arrow_right"
                     app:date="@{data.birthday}"
+                    date_hint="@{@string/birthday_hint}"
                     app:layout_constraintRight_toRightOf="@id/register_name"
                     app:layout_constraintStart_toEndOf="@+id/register_birthday_title"
                     app:layout_constraintTop_toBottomOf="@+id/register_name"

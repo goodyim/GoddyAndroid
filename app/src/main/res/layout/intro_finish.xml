@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <im.goody.android.screens.intro.finish.IntroFinishView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="60dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/auth_header_height"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/auth_header" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/size_normal"
+                android:layout_marginRight="@dimen/size_normal"
+                android:layout_marginTop="@dimen/size_medium"
+                android:text="@string/intro_finish_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_medium"
+                android:layout_marginRight="@dimen/size_medium"
+                android:layout_marginTop="@dimen/size_small"
+                android:layout_marginBottom="@dimen/size_normal"
+                android:text="@string/intro_finish_subtitle"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <im.goody.android.ui.views.AspectImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/size_normal"
+                android:layout_marginBottom="@dimen/size_normal"
+                android:layout_weight="1"
+                app:aspect_ratio="1"
+                app:is_height_main="true"
+                app:srcCompat="@drawable/intro_finish" />
+
+            <Button
+                android:id="@+id/intro_finish_submit"
+                android:layout_width="200dp"
+                android:layout_height="@dimen/edit_text_size"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/size_normal"
+                android:background="@drawable/button_login"
+                android:padding="@dimen/size_normal"
+                android:text="@string/submit"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+    </im.goody.android.screens.intro.finish.IntroFinishView>
+</layout>

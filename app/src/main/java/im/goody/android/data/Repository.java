@@ -76,7 +76,10 @@ public class Repository implements IRepository {
 
         return restService.registerUser(getFcmToken(),
                 RestCallTransformer.objectToPartMap(data, "user"))
-                .doOnNext(preferencesManager::saveUser)
+                .doOnNext(userRes -> {
+                    preferencesManager.saveUser(userRes);
+                    setProfileFilled(false);
+                })
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -93,13 +96,13 @@ public class Repository implements IRepository {
     }
 
     @Override
-    public boolean isFirstLaunch() {
-        return preferencesManager.isFirstStart();
+    public boolean isProfileFilled() {
+        return preferencesManager.isProfileFilled();
     }
 
     @Override
-    public void firstLaunched() {
-        preferencesManager.saveFirstLaunched();
+    public void setProfileFilled(boolean isFilled) {
+        preferencesManager.setProfileFilled(isFilled);
     }
 
     //endregion
@@ -215,7 +218,10 @@ public class Repository implements IRepository {
     @Override
     public Observable<ResponseBody> logout() {
         return restService.logout()
-                .doOnNext(res -> preferencesManager.clearUserData())
+                .doOnNext(res -> {
+                    preferencesManager.clearUserData();
+                    preferencesManager.setProfileFilled(true);
+                })
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -293,6 +299,12 @@ public class Repository implements IRepository {
     @Override
     public Observable<ResponseBody> deleteComment(long commentId) {
         return restService.deleteComment(commentId);
+    }
+
+    @Override
+    public Observable<ResponseBody> fillProfile(HelpInfo body) {
+        return updateHelpInfo(body)
+                .doOnNext(res -> preferencesManager.setProfileFilled(true));
     }
 
     //endregion
