@@ -111,15 +111,15 @@ public class RegisterViewModel extends BaseObservable implements Validatable {
         ValidateResult result = new ValidateResult();
 
         if (!isNameValid()) {
-            result.getErrorResources().add(R.string.invalid_name);
+            result.addError(R.string.invalid_name);
         }
 
         if (!isEmailValid()) {
-            result.getErrorResources().add(R.string.invalid_email);
+            result.addError(R.string.invalid_email);
         }
 
         if (!isPasswordValid()) {
-            result.getErrorResources().add(R.string.invalid_password);
+            result.addError(R.string.invalid_password);
         }
 
         return result;

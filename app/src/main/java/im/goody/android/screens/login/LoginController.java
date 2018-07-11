@@ -18,22 +18,18 @@ public class LoginController extends BaseController<LoginView> {
     //======= region LoginController =======
 
     void login() {
-        if (loginData.isValid()) {
-            rootPresenter.showProgress(R.string.login_progress_title);
-            Disposable disposable = repository.login(loginData.body()).subscribe(
-                    result -> {
-                        rootPresenter.hideProgress();
-                        rootPresenter.showMain();
-                    },
-                    error -> {
-                        rootPresenter.hideProgress();
-                        view().showMessage(error.getMessage());
-                    }
-            );
-            compositeDisposable.add(disposable);
-        } else {
-            view().showMessage(R.string.invalid_fields_message);
-        }
+        rootPresenter.showProgress(R.string.login_progress_title);
+        Disposable disposable = repository.login(loginData.body()).subscribe(
+                result -> {
+                    rootPresenter.hideProgress();
+                    rootPresenter.showMain();
+                },
+                error -> {
+                    rootPresenter.hideProgress();
+                    showError(error);
+                }
+        );
+        compositeDisposable.add(disposable);
     }
 
     void goToRegister() {

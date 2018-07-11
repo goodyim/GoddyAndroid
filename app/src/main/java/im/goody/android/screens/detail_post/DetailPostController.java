@@ -188,8 +188,7 @@ public class DetailPostController extends BaseController<DetailPostView>
     @Override
     public Observable<ParticipateRes> changeParticipateState() {
         return repository.changeParticipateState(viewModel.getId())
-                .doOnError(error ->
-                        view().showMessage(getErrorMessage(error)));
+                .doOnError(this::showError);
     }
 
     @Override
@@ -244,7 +243,7 @@ public class DetailPostController extends BaseController<DetailPostView>
 
     private void report() {
         Disposable d = repository.sendReport(viewModel.getId()).subscribe(
-                s -> view().showMessage(getActivity().getString(R.string.report_submitted)),
+                s -> view().showMessage(R.string.report_submitted),
                 error -> view().showMessage(error.getMessage())
         );
         compositeDisposable.add(d);

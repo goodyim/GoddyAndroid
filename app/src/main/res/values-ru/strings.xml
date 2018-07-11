@@ -203,4 +203,6 @@
     <string name="birthday_hint">Выберите дату</string>
     <string name="intro_location_hint">Выберите расстояние, в пределах которого хотите получать уведомления</string>
     <string name="intro_location_title">Отлично! Вы готовы получать уведомления от тех, кому нужна помощь?</string>
+    <string name="intro_finish_title">Делайте мир лучше!</string>
+    <string name="intro_finish_subtitle">Помогайте другим и принимайте помощь сами, получая награды</string>
 </resources>

@@ -13,10 +13,6 @@ public class LoginViewModel extends BaseObservable {
     private String name;
     private String password;
 
-    boolean isValid() {
-        return isEmailValid() && isPasswordValid();
-    }
-
     LoginReq body() {
         return new LoginReq()
                 .setName(name)
@@ -39,14 +35,5 @@ public class LoginViewModel extends BaseObservable {
 
     public String getPassword() {
         return password;
-    }
-
-
-    private boolean isEmailValid() {
-        return !TextUtils.isEmpty(name) && name.length() >= MIN_NAME_LENGTH;
-    }
-
-    private boolean isPasswordValid() {
-        return !TextUtils.isEmpty(password) && password.length() >= MIN_PASSWORD_LENGTH;
     }
 }
