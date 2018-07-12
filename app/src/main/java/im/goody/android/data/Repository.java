@@ -105,6 +105,16 @@ public class Repository implements IRepository {
         preferencesManager.setProfileFilled(isFilled);
     }
 
+    @Override
+    public boolean isFirstLaunch() {
+        return preferencesManager.isFirstStart();
+    }
+
+    @Override
+    public void firstLaunched() {
+        preferencesManager.saveFirstLaunched();
+    }
+
     //endregion
 
     //region ================= News =================

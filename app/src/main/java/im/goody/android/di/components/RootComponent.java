@@ -12,7 +12,7 @@ import im.goody.android.screens.detail_post.DetailPostController;
 import im.goody.android.screens.feedback.FeedBackController;
 import im.goody.android.screens.intro.IntroController;
 import im.goody.android.screens.intro.finish.IntroFinishController;
-import im.goody.android.screens.intro.greet.GreetController;
+import im.goody.android.screens.greet.GreetController;
 import im.goody.android.screens.intro.location.LocationNotificationsController;
 import im.goody.android.screens.intro.resources.ResourcesController;
 import im.goody.android.screens.login.LoginController;

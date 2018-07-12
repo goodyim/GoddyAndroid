@@ -9,12 +9,11 @@ import com.bluelinelabs.conductor.support.RouterPagerAdapter;
 
 import im.goody.android.screens.choose_help.ChooseHelpViewModel;
 import im.goody.android.screens.intro.finish.IntroFinishController;
-import im.goody.android.screens.intro.greet.GreetController;
 import im.goody.android.screens.intro.location.LocationNotificationsController;
 import im.goody.android.screens.intro.resources.ResourcesController;
 
 class IntroPageAdapter extends RouterPagerAdapter {
-    static final int PAGE_COUNT = 4;
+    static final int PAGE_COUNT = 3;
 
     private ChooseHelpViewModel viewModel;
 
@@ -29,16 +28,15 @@ class IntroPageAdapter extends RouterPagerAdapter {
             Controller controller;
             switch (position) {
                 case 0:
-                    controller = new GreetController();
-                    break;
-                case 1:
                     controller = new ResourcesController(viewModel);
                     break;
-                case 2:
+                case 1:
                     controller = new LocationNotificationsController(viewModel);
                     break;
+                case 2:
                 default:
                     controller = new IntroFinishController(viewModel);
+                    break;
             }
 
             router.setRoot(RouterTransaction.with(controller));

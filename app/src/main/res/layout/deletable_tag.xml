@@ -16,6 +16,7 @@
     android:paddingLeft="@dimen/size_normal"
     android:paddingRight="@dimen/size_normal"
     android:paddingStart="@dimen/size_normal"
+    android:fontFamily="@font/open_sans_regular"
     android:paddingTop="@dimen/size_small"
     android:textColor="@color/primary"
     tools:text="3-5 things">

@@ -15,6 +15,7 @@ import im.goody.android.screens.about.AboutController;
 import im.goody.android.screens.choose_help.ChooseHelpController;
 import im.goody.android.screens.detail_post.DetailPostController;
 import im.goody.android.screens.feedback.FeedBackController;
+import im.goody.android.screens.greet.GreetController;
 import im.goody.android.screens.intro.IntroController;
 import im.goody.android.screens.login.LoginController;
 import im.goody.android.screens.main.MainController;
@@ -61,13 +62,17 @@ public class RootPresenter implements IRootPresenter {
 
     @Override
     public Class<? extends Controller> getStartController() {
+        if (repository.isFirstLaunch()) return GreetController.class;
+
         if (repository.isSigned()) {
             if (repository.isProfileFilled()) {
                 return MainController.class;
             } else {
                 return IntroController.class;
             }
-        } else return LoginController.class;
+        }
+
+        return LoginController.class;
     }
 
     @Override

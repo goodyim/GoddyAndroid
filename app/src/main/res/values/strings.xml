@@ -207,4 +207,5 @@
     <string name="intro_location_title">Good! Do you want to receive notifications from people who need a help?</string>
     <string name="intro_finish_title">Make world better!</string>
     <string name="intro_finish_subtitle">Help others and take help yourself, get rewards</string>
+    <string name="action_continue">Continue</string>
 </resources>

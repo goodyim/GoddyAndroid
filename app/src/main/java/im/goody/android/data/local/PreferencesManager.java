@@ -22,6 +22,8 @@ public class PreferencesManager {
     public static final String SETTINGS_NEW_PARTICIPATOR = "new_participator";
     public static final String SETTINGS_NEW_FOLLOWEE = "new_followee_event";
 
+    private static final String FIRST_LAUNCH_KEY = "Goody.firstLaunch";
+
     private static final boolean DEFAULT_BOOLEAN_SETTING = true;
 
     public PreferencesManager(Context context) {
@@ -108,6 +110,14 @@ public class PreferencesManager {
                 USER_IMAGE_URL_KEY,
                 USER_ID_KEY,
                 USER_TOKEN_KEY);
+    }
+
+    public void saveFirstLaunched() {
+        setBooleanValue(FIRST_LAUNCH_KEY, false);
+    }
+
+    public boolean isFirstStart() {
+        return !sharedPreferences.contains(FIRST_LAUNCH_KEY);
     }
 
     //endregion

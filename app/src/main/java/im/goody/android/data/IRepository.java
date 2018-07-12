@@ -32,6 +32,10 @@ public interface IRepository {
 
     <T> T getError(Throwable t, Class<T> tClass);
 
+    boolean isFirstLaunch();
+
+    void firstLaunched();
+
     Observable<List<Deal>> getPosts(String userId, String contentType, int page);
 
     Observable<Deal> getDeal(long id);
