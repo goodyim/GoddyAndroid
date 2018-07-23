@@ -3,6 +3,7 @@ package im.goody.android.core;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
@@ -78,9 +79,14 @@ public abstract class BaseView<C extends Controller, B extends ViewDataBinding> 
     protected Snackbar getSnackBarWithMessage(String message) {
         return Snackbar.make(this, message, Snackbar.LENGTH_SHORT).setDuration(Constants.SECOND)
                 .setAction(R.string.open_full, v -> {
-                    InfoDialog dialog = new InfoDialog(message, R.string.app_name, R.string.ok);
+                    InfoDialog dialog = getMessageDialog(message);
 
                     dialog.show(getContext()).subscribe(code -> dialog.dismiss());
                 });
+    }
+
+    @NonNull
+    protected InfoDialog getMessageDialog(String message) {
+        return new InfoDialog(message, R.string.app_name, R.string.ok);
     }
 }

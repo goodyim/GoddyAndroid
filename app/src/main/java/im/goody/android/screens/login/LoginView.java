@@ -1,10 +1,13 @@
 package im.goody.android.screens.login;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 
+import im.goody.android.R;
 import im.goody.android.core.BaseView;
 import im.goody.android.databinding.ScreenLoginBinding;
+import im.goody.android.ui.dialogs.InfoDialog;
 import im.goody.android.utils.UIUtils;
 
 public class LoginView extends BaseView<LoginController, ScreenLoginBinding> {
@@ -28,5 +31,11 @@ public class LoginView extends BaseView<LoginController, ScreenLoginBinding> {
 
     @Override
     protected void onDetached() {
+    }
+
+    @NonNull
+    @Override
+    protected InfoDialog getMessageDialog(String message) {
+        return new InfoDialog(message, R.string.app_name, R.string.lets_go);
     }
 }
