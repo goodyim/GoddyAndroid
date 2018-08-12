@@ -81,4 +81,8 @@ public class ChooseHelpView extends BaseView<ChooseHelpController, ScreenChooseH
     public void hideSkip() {
         binding.chooseHelpSkip.setVisibility(GONE);
     }
+
+    public void showLocationFindingText() {
+        binding.chooseHelpLocation.setText(R.string.finding_location);
+    }
 }

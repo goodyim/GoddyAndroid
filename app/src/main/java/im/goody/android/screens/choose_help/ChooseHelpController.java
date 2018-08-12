@@ -20,8 +20,10 @@ import im.goody.android.di.components.RootComponent;
 import im.goody.android.ui.dialogs.EditTextDialog;
 import im.goody.android.ui.dialogs.ErrorDialog;
 import im.goody.android.ui.dialogs.InfoDialog;
+import im.goody.android.ui.dialogs.OptionsDialog;
 import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.ui.helpers.BundleBuilder;
+import io.reactivex.disposables.Disposable;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -96,7 +98,7 @@ public class ChooseHelpController extends BaseController<ChooseHelpView> {
         switch (requestCode) {
             case LOCATION_PERMISSION_REQUEST:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    makePlacePickerRequest();
+                    showLocationDialog();
                 } else {
                     view().showMessage(R.string.location_permission_denied);
                 }
@@ -121,7 +123,7 @@ public class ChooseHelpController extends BaseController<ChooseHelpView> {
     }
 
     void addTag() {
-        new EditTextDialog(R.string.choose_tag_title).show(getActivity())
+        Disposable d = new EditTextDialog(R.string.choose_tag_title).show(getActivity())
                 .subscribe(tag -> {
                     if (!viewModel.tags.contains(tag)) {
                         viewModel.tags.add(tag);
@@ -130,6 +132,7 @@ public class ChooseHelpController extends BaseController<ChooseHelpView> {
                         view().showMessage(R.string.tag_already_present);
                     }
                 });
+        compositeDisposable.add(d);
     }
 
     void removeTag(String tag) {
@@ -140,7 +143,7 @@ public class ChooseHelpController extends BaseController<ChooseHelpView> {
 
     void submit() {
         rootPresenter.showProgress(R.string.help_info_updating);
-        repository.updateHelpInfo(viewModel.body())
+        Disposable d = repository.updateHelpInfo(viewModel.body())
                 .subscribe(res -> {
                     rootPresenter.hideProgress();
                     if (getMode() == MODE_SETUP) {
@@ -152,12 +155,12 @@ public class ChooseHelpController extends BaseController<ChooseHelpView> {
                     rootPresenter.hideProgress();
                     showError(error);
                 });
-
+        compositeDisposable.add(d);
     }
 
     void chooseLocation() {
         if (isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
-            makePlacePickerRequest();
+            showLocationDialog();
         } else {
             requestPermissions(LOCATION_PERMISSIONS, LOCATION_PERMISSION_REQUEST);
         }
@@ -169,7 +172,7 @@ public class ChooseHelpController extends BaseController<ChooseHelpView> {
 
     private void loadInfo() {
         rootPresenter.showProgress(R.string.help_info_loading);
-        repository.loadHelpInfo()
+        Disposable d = repository.loadHelpInfo()
                 .subscribe(info -> {
                     rootPresenter.hideProgress();
                     viewModel = new ChooseHelpViewModel(info);
@@ -178,12 +181,13 @@ public class ChooseHelpController extends BaseController<ChooseHelpView> {
                     rootPresenter.hideProgress();
                     showErrorDialog();
                 });
+        compositeDisposable.add(d);
     }
 
     private void showErrorDialog() {
         errorDialog.dismiss();
 
-        errorDialog.show(getActivity())
+        Disposable d = errorDialog.show(getActivity())
                 .subscribe(button -> {
                     if (button == InfoDialog.BUTTON_CANCEL) {
                         if (getMode() == MODE_SETUP) {
@@ -195,6 +199,35 @@ public class ChooseHelpController extends BaseController<ChooseHelpView> {
                         loadInfo();
                     }
                 });
+        compositeDisposable.add(d);
+    }
+
+    private void showLocationDialog() {
+        Disposable disposable = new OptionsDialog(R.array.location_options)
+                .show(getActivity())
+                .subscribe(item -> {
+                    switch (item) {
+                        case 0:
+                            setLocationToCurrent();
+                            break;
+                        case 1:
+                            makePlacePickerRequest();
+                    }
+                });
+        compositeDisposable.add(disposable);
+    }
+
+    private void setLocationToCurrent() {
+        view().showLocationFindingText();
+
+        Disposable d = repository.getLastLocation()
+                .subscribe(location -> viewModel.place.set(location),
+                        error -> {
+                            showMessage(R.string.location_find_error);
+                            viewModel.place.set(null);
+                        });
+
+        compositeDisposable.add(d);
     }
 
     private void makePlacePickerRequest() {

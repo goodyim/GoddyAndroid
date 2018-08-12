@@ -30,4 +30,8 @@
         <item>@string/date_immediately</item>
         <item>@string/date_pick</item>
     </string-array>
+    <string-array name="location_options">
+        <item>@string/location_auto</item>
+        <item>@string/location_manual</item>
+    </string-array>
 </resources>

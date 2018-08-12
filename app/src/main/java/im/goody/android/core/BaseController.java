@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.IntDef;
+import android.support.annotation.IntegerRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -95,6 +97,12 @@ public abstract class BaseController<V extends BaseView> extends RestoreViewOnCr
     protected void showError(ValidateResult result) {
         if (view() != null)
             view().showMessage(result.getMessage());
+    }
+
+    protected void showMessage(@StringRes int messageRes) {
+        if (view() != null) {
+            view().showMessage(messageRes);
+        }
     }
 
     protected String getErrorMessage(Throwable error) {

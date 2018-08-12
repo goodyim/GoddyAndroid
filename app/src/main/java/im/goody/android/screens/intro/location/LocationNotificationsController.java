@@ -17,6 +17,8 @@ import im.goody.android.data.dto.Location;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.screens.choose_help.ChooseHelpViewModel;
+import im.goody.android.ui.dialogs.OptionsDialog;
+import io.reactivex.disposables.Disposable;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -51,7 +53,7 @@ public class LocationNotificationsController extends BaseController<LocationNoti
         switch (requestCode) {
             case LOCATION_PERMISSION_REQUEST:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    makePlacePickerRequest();
+                    showLocationDialog();
                 } else {
                     view().showMessage(R.string.location_permission_denied);
                 }
@@ -98,13 +100,41 @@ public class LocationNotificationsController extends BaseController<LocationNoti
 
     void chooseLocation() {
         if (isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
-            makePlacePickerRequest();
+            showLocationDialog();
         } else {
             requestPermissions(LOCATION_PERMISSIONS, LOCATION_PERMISSION_REQUEST);
         }
     }
 
     //region ================= private methods =================
+
+    private void showLocationDialog() {
+        Disposable disposable = new OptionsDialog(R.array.location_options)
+                .show(getActivity())
+                .subscribe(item -> {
+                    switch (item) {
+                        case 0:
+                            setLocationToCurrent();
+                            break;
+                        case 1:
+                            makePlacePickerRequest();
+                    }
+                });
+        compositeDisposable.add(disposable);
+    }
+
+    private void setLocationToCurrent() {
+        view().showLocationFindingText();
+
+        Disposable d = repository.getLastLocation()
+                .subscribe(location -> viewModel.place.set(location),
+                        error -> {
+                            showMessage(R.string.location_find_error);
+                            viewModel.place.set(null);
+                        });
+
+        compositeDisposable.add(d);
+    }
 
     private void makePlacePickerRequest() {
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();

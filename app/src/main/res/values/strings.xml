@@ -209,4 +209,8 @@
     <string name="intro_finish_subtitle">Help others and take help yourself, get rewards</string>
     <string name="action_continue">Continue</string>
     <string name="lets_go">Let\'s go!</string>
+    <string name="location_auto">Current location</string>
+    <string name="location_manual">Choose on map</string>
+    <string name="finding_location">Getting last location…</string>
+    <string name="location_find_error">Cannot get last location. Please try to pick it manually</string>
 </resources>

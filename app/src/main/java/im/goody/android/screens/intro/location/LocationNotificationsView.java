@@ -3,6 +3,7 @@ package im.goody.android.screens.intro.location;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import im.goody.android.R;
 import im.goody.android.core.BaseView;
 import im.goody.android.databinding.IntroLocationBinding;
 import im.goody.android.screens.choose_help.ChooseHelpViewModel;
@@ -24,5 +25,9 @@ public class LocationNotificationsView extends BaseView<LocationNotificationsCon
 
     public void setData(ChooseHelpViewModel viewModel) {
         binding.setViewModel(viewModel);
+    }
+
+    public void showLocationFindingText() {
+        binding.chooseHelpLocation.setText(R.string.finding_location);
     }
 }

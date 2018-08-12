@@ -1,12 +1,16 @@
 package im.goody.android.data;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Picasso;
 
@@ -17,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -26,6 +31,7 @@ import im.goody.android.Constants;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Feedback;
 import im.goody.android.data.dto.HelpInfo;
+import im.goody.android.data.dto.Location;
 import im.goody.android.data.dto.User;
 import im.goody.android.data.local.PreferencesManager;
 import im.goody.android.data.network.RestService;
@@ -62,6 +68,8 @@ public class Repository implements IRepository {
     RestService restService;
     @Inject
     Retrofit retrofit;
+    @Inject
+    FusedLocationProviderClient locationClient;
 
     public Repository() {
         DataComponent component = App.getDataComponent();
@@ -315,6 +323,23 @@ public class Repository implements IRepository {
     public Observable<ResponseBody> fillProfile(HelpInfo body) {
         return updateHelpInfo(body)
                 .doOnNext(res -> preferencesManager.setProfileFilled(true));
+    }
+
+    @Override
+    @SuppressLint("MissingPermission")
+    public Observable<Location> getLastLocation() {
+        return Observable.just("")
+                .map(ignored -> {
+                    LocationManager manager = (LocationManager) App.getAppContext().getSystemService(Context.LOCATION_SERVICE);
+
+
+                    android.location.Location location = manager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+
+                    if (location == null) throw new NoSuchElementException("No location found");
+
+                    return new Location(location.getLatitude(), location.getLatitude(), null);
+
+                });
     }
 
     //endregion
