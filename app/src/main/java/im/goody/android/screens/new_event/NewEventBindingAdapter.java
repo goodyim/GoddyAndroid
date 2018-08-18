@@ -15,7 +15,7 @@ public class NewEventBindingAdapter {
     public static void bindLocation(TextView view, Location location) {
         String address;
 
-        if (location == null) {
+        if (location == null || location.getLatitude() == null || location.getLongitude() == null) {
             address = view.getContext().getString(R.string.choose_location);
         } else {
             address = location.getAddress() != null

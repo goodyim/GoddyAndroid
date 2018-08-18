@@ -13,6 +13,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.io.File;
+import java.io.IOException;
 
 import im.goody.android.R;
 import im.goody.android.core.BaseController;
@@ -34,7 +35,7 @@ public abstract class NewController<V extends BaseView> extends BaseController<V
     private static final int STORAGE_PERMISSION_REQUEST = 2;
 
     private static final String[] LOCATION_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
-    protected static final String[] STORAGE_PERMISSIONS = {Manifest.permission.READ_EXTERNAL_STORAGE};
+    protected static final String[] STORAGE_PERMISSIONS = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     private OptionsDialog dialog = new ChooseImageOptionsDialog();
 
@@ -102,7 +103,7 @@ public abstract class NewController<V extends BaseView> extends BaseController<V
     }
 
     public void choosePhoto() {
-        if (isPermissionGranted(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+        if (isPermissionGranted(STORAGE_PERMISSIONS)) {
             showDialog();
         } else {
             requestPermissions(STORAGE_PERMISSIONS, STORAGE_PERMISSION_REQUEST);
@@ -160,7 +161,7 @@ public abstract class NewController<V extends BaseView> extends BaseController<V
 
     private void takePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File photo = new File(Environment.getExternalStorageDirectory(),
+        File photo = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
                 "photo_" + System.currentTimeMillis() + ".jpg");
 
         Uri uri = FileUtils.uriFromFile(photo);

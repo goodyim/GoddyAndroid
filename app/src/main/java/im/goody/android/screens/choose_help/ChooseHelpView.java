@@ -3,9 +3,13 @@ package im.goody.android.screens.choose_help;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
+
+import java.util.List;
 
 import im.goody.android.R;
 import im.goody.android.core.BaseView;
@@ -34,14 +38,18 @@ public class ChooseHelpView extends BaseView<ChooseHelpController, ScreenChooseH
     public void setData(ChooseHelpViewModel viewModel) {
         binding.setViewModel(viewModel);
 
-        binding.tagContainer.removeAllViews();
-        for(String tag : viewModel.tags) {
-            addTag(tag);
-        }
+        setTags(viewModel.tags);
 
         binding.presetTagContainer.removeAllViews();
         for(ChooseHelpViewModel.PresetTag tag: viewModel.presetTags) {
             addPreset(tag);
+        }
+    }
+
+    public void setTags(List<String> tags) {
+        binding.tagContainer.removeAllViews();
+        for(String tag : tags) {
+            addTag(tag);
         }
     }
 

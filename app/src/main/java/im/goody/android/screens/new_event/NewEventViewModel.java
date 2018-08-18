@@ -14,6 +14,8 @@ import com.google.android.gms.location.places.Place;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import im.goody.android.App;
 import im.goody.android.BR;
@@ -85,6 +87,7 @@ public class NewEventViewModel extends BaseObservable {
             return DateUtils.dateToString(calendar.get().getTime());
         else return null;
     }
+
     public Location getLocation() {
         return location;
     }
@@ -118,10 +121,20 @@ public class NewEventViewModel extends BaseObservable {
         notifyPropertyChanged(BR.location);
     }
 
+    public void addTags(String rawTags) {
+        rawTags = rawTags.replace(", ", ",");
+        String[] newTags = rawTags.split(",|\\s");
+        tags.addAll(Arrays.asList(newTags));
+
+        Set<String> set = new LinkedHashSet<>(tags);
+        tags.clear();
+        tags.addAll(set);
+    }
+
     private String joinTags() {
         StringBuilder sb = new StringBuilder("");
 
-        for(String tag : tags) {
+        for (String tag : tags) {
             sb.append(tag).append(",");
         }
 

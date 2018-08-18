@@ -24,6 +24,9 @@ public class Constants {
     public static final int SEX_MALE = 1;
     public static final int SEX_FEMALE = 2;
 
+    public static final int CACHED_IMAGE_HEIGHT = 720;
+    public static final int CACHED_IMAGE_WIDTH = 1280;
+
     public static int[] PROGRESS_COLORS = {
             R.color.accent,
             R.color.primary

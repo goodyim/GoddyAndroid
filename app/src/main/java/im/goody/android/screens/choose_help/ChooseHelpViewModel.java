@@ -7,8 +7,11 @@ import android.databinding.ObservableInt;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Set;
 
 import im.goody.android.App;
 import im.goody.android.R;
@@ -48,6 +51,16 @@ public class ChooseHelpViewModel {
         return new HelpInfo()
                 .setTags(buildTags())
                 .setArea(buildArea());
+    }
+
+    public void addTags(String rawTags) {
+        rawTags = rawTags.replace(", ", ",");
+        String[] newTags = rawTags.split(",|\\s");
+        tags.addAll(Arrays.asList(newTags));
+
+        Set<String> set = new LinkedHashSet<>(tags);
+        tags.clear();
+        tags.addAll(set);
     }
 
     private void movePredefinedTagsToPresets() {

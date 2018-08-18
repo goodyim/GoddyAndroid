@@ -154,13 +154,9 @@ public class NewEventController extends NewController<NewEventView> {
 
     void addTag() {
         new EditTextDialog(R.string.choose_tag_title).show(getActivity())
-                .subscribe(tag -> {
-                    if (!viewModel.tags.contains(tag)) {
-                        viewModel.tags.add(tag);
-                        view().addTag(tag);
-                    } else {
-                        view().showMessage(R.string.tag_already_present);
-                    }
+                .subscribe(tags -> {
+                    viewModel.addTags(tags);
+                    view().setTags(viewModel.tags);
                 });
     }
 

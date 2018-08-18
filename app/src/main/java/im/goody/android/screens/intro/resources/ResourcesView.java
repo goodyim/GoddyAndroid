@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import im.goody.android.R;
 import im.goody.android.core.BaseView;
 import im.goody.android.databinding.IntroResourcesBinding;
@@ -26,14 +28,18 @@ public class ResourcesView extends BaseView<ResourcesController, IntroResourcesB
     protected void onDetached() {}
 
     public void setData(ChooseHelpViewModel viewModel) {
-        binding.tagContainer.removeAllViews();
-        for(String tag : viewModel.tags) {
-            addTag(tag);
-        }
+        setTags(viewModel.tags);
 
         binding.presetTagContainer.removeAllViews();
         for(ChooseHelpViewModel.PresetTag tag: viewModel.presetTags) {
             addPreset(tag);
+        }
+    }
+
+    public void setTags(List<String> tags) {
+        binding.tagContainer.removeAllViews();
+        for(String tag : tags) {
+            addTag(tag);
         }
     }
 

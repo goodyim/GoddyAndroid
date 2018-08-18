@@ -12,13 +12,6 @@
             android:orientation="vertical"
             android:paddingBottom="60dp">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/auth_header_height"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/auth_header" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,7 +55,7 @@
                 android:background="@drawable/button_login"
                 android:fontFamily="@font/open_sans_regular"
                 android:padding="@dimen/size_normal"
-                android:text="@string/submit"
+                android:text="@string/lets_go"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
                 android:textColor="@color/white" />
 

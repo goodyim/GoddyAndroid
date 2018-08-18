@@ -124,13 +124,9 @@ public class ChooseHelpController extends BaseController<ChooseHelpView> {
 
     void addTag() {
         Disposable d = new EditTextDialog(R.string.choose_tag_title).show(getActivity())
-                .subscribe(tag -> {
-                    if (!viewModel.tags.contains(tag)) {
-                        viewModel.tags.add(tag);
-                        view().addTag(tag);
-                    } else {
-                        view().showMessage(R.string.tag_already_present);
-                    }
+                .subscribe(tags -> {
+                    viewModel.addTags(tags);
+                    view().setTags(viewModel.tags);
                 });
         compositeDisposable.add(d);
     }
@@ -224,7 +220,7 @@ public class ChooseHelpController extends BaseController<ChooseHelpView> {
                 .subscribe(location -> viewModel.place.set(location),
                         error -> {
                             showMessage(R.string.location_find_error);
-                            viewModel.place.set(null);
+                            viewModel.place.set(new Location());
                         });
 
         compositeDisposable.add(d);

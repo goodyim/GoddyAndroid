@@ -132,8 +132,16 @@ public abstract class BaseController<V extends BaseView> extends RestoreViewOnCr
 
     //======= region Permissions =======
 
-    protected boolean isPermissionGranted(String permission) {
-        return ContextCompat.checkSelfPermission(App.getAppContext(), permission) == PackageManager.PERMISSION_GRANTED;
+    protected boolean isPermissionGranted(String... permissions) {
+        boolean result = true;
+
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(App.getAppContext(), permission) != PackageManager.PERMISSION_GRANTED) {
+                result = false;
+                break;
+            }
+        }
+        return result;
     }
 
     //endregion

@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 import im.goody.android.R;
 import im.goody.android.core.BaseView;
 import im.goody.android.databinding.ScreenNewEventBinding;
@@ -32,9 +34,12 @@ public class NewEventView extends BaseView<NewEventController, ScreenNewEventBin
 
     public void setData(NewEventViewModel viewModel) {
         binding.setViewModel(viewModel);
+        setTags(viewModel.tags);
+    }
 
+    public void setTags(List<String> tags) {
         binding.tagContainer.removeAllViews();
-        for(String tag : viewModel.tags) {
+        for(String tag : tags) {
             addTag(tag);
         }
     }

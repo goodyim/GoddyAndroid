@@ -130,7 +130,7 @@ public class LocationNotificationsController extends BaseController<LocationNoti
                 .subscribe(location -> viewModel.place.set(location),
                         error -> {
                             showMessage(R.string.location_find_error);
-                            viewModel.place.set(null);
+                            viewModel.place.set(new Location());
                         });
 
         compositeDisposable.add(d);

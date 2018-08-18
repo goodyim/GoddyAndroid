@@ -357,14 +357,15 @@ public class Repository implements IRepository {
 
     private File cacheBitmap(Bitmap bmp) throws IOException {
         File file = new File(getCachePath(), Constants.CACHE_FILE_NAME);
-
         if (!file.exists()) {
             file.getParentFile().mkdirs();
             file.createNewFile();
         }
 
+        Bitmap scaled = Bitmap.createScaledBitmap(bmp,Constants.CACHED_IMAGE_WIDTH, Constants.CACHED_IMAGE_HEIGHT, true);
+
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.PNG, 100, bos);
+        scaled.compress(Bitmap.CompressFormat.PNG, 100, bos);
         byte[] bitmapData = bos.toByteArray();
 
         //write the bytes in file
