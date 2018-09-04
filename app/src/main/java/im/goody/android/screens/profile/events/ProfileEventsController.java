@@ -11,6 +11,7 @@ import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.ui.helpers.BundleBuilder;
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 
 public class ProfileEventsController extends BaseController<ProfileEventsView>
         implements ProfileEventsAdapter.ProfileEventItemHandler {
@@ -103,7 +104,7 @@ public class ProfileEventsController extends BaseController<ProfileEventsView>
     // end
 
     private void loadData() {
-        repository.getEvents(getUserId(), getEventsState())
+        Disposable d = repository.getEvents(getUserId(), getEventsState())
                 .flatMap(Observable::fromIterable)
                 .map(ProfileEventItemViewModel::new)
                 .toList()
@@ -112,6 +113,7 @@ public class ProfileEventsController extends BaseController<ProfileEventsView>
                     viewModel.setEvents(events);
                     view().showEvents(events);
                 }, error -> view().showMessage(getErrorMessage(error)));
+        compositeDisposable.add(d);
     }
 
     // ======= region DI =======

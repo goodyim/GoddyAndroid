@@ -32,6 +32,7 @@ import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Feedback;
 import im.goody.android.data.dto.HelpInfo;
 import im.goody.android.data.dto.Location;
+import im.goody.android.data.dto.Participant;
 import im.goody.android.data.dto.User;
 import im.goody.android.data.local.PreferencesManager;
 import im.goody.android.data.network.RestService;
@@ -340,6 +341,12 @@ public class Repository implements IRepository {
                     return new Location(location.getLatitude(), location.getLatitude(), null);
 
                 });
+    }
+
+    @Override
+    public Observable<List<Participant>> getParticipants(long id) {
+        return restService.getParticipants(id)
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     //endregion

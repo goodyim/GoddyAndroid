@@ -1,5 +1,6 @@
 package im.goody.android.root;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.StringRes;
 
 import com.bluelinelabs.conductor.Controller;
@@ -23,6 +24,7 @@ import im.goody.android.screens.near_events.NearEventsController;
 import im.goody.android.screens.new_event.NewEventController;
 import im.goody.android.screens.new_post.NewPostController;
 import im.goody.android.screens.news.NewsController;
+import im.goody.android.screens.participants.ParticipantsController;
 import im.goody.android.screens.photo.PhotoController;
 import im.goody.android.screens.profile.ProfileController;
 import im.goody.android.screens.register.RegisterController;
@@ -224,8 +226,16 @@ public class RootPresenter implements IRootPresenter {
         rootView.showScreenAsRoot(IntroController.class);
     }
 
+    @Override
+    public void openParticipants(long id) {
+        if (rootView != null) {
+            rootView.showScreen(ParticipantsController.class, id);
+        }
+    }
+
     //endregion
 
+    @SuppressLint("CheckResult")
     @Override
     public void logout() {
         repository.logout().subscribe(

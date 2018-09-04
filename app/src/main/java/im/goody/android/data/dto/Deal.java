@@ -46,9 +46,13 @@ public class Deal {
         comments.add(comment);
     }
 
+
+    // ======= region getters =======
+
     public boolean isLiked() {
         return liked;
     }
+
     public Event getEvent() {
         return event;
     }
@@ -56,9 +60,6 @@ public class Deal {
     public Location getLocation() {
         return location;
     }
-
-    // ======= region getters =======
-
     public boolean isOwner() {
         return isOwner;
     }
@@ -99,11 +100,12 @@ public class Deal {
         return new ArrayList<>(comments);
     }
 
-    // endregion
 
+
+    // endregion
     // ======= region setters =======
 
-    public Deal isOwner(boolean isOwner) {
+    public Deal setIsOwner(boolean isOwner) {
         this.isOwner = isOwner;
         return this;
     }
@@ -193,6 +195,20 @@ public class Deal {
         @JsonProperty("aasm_state")
         private String state;
 
+        @JsonProperty("participants")
+        private int participantsCount;
+
+        @JsonProperty("last_participants")
+        private List<String> lastParticipantsAvatars;
+
+        public List<String> getLastParticipantsAvatars() {
+            return lastParticipantsAvatars;
+        }
+
+        public int getParticipantsCount() {
+            return participantsCount;
+        }
+
         public String getState() {
             return state;
         }
@@ -213,6 +229,13 @@ public class Deal {
             return date;
         }
 
+
+        public void setLastParticipantsAvatars(List<String> lastParticipantsAvatars) {
+            this.lastParticipantsAvatars = lastParticipantsAvatars;
+        }
+        public void setParticipantsCount(Integer participantsCount) {
+            this.participantsCount = participantsCount;
+        }
 
         public void setResources(String resources) {
             this.resources = resources;

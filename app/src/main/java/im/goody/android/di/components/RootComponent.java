@@ -21,6 +21,7 @@ import im.goody.android.screens.news.NewsController;
 import im.goody.android.screens.near_events.NearEventsController;
 import im.goody.android.screens.new_event.NewEventController;
 import im.goody.android.screens.new_post.NewPostController;
+import im.goody.android.screens.participants.ParticipantsController;
 import im.goody.android.screens.photo.PhotoController;
 import im.goody.android.screens.profile.ProfileController;
 import im.goody.android.screens.profile.events.ProfileEventsController;
@@ -65,4 +66,6 @@ public interface RootComponent {
     LocationNotificationsController.Component plusIntroLocation();
 
     IntroFinishController.Component plusIntroFinish();
+
+    ParticipantsController.Component plusParticipant();
 }

@@ -100,6 +100,8 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
 
         void openPhoto(String imageUrl);
 
+        void openParticipants(long id);
+
         Observable<ResponseBody> deletePost(long id);
     }
 
@@ -138,6 +140,8 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
                 handler.share(text);
             });
 
+            eventBinding.itemEventParticipants.setOnClickListener(v -> handler.openParticipants(deal.getId()));
+            eventBinding.itemEventParticipantsCount.setOnClickListener(v -> handler.openParticipants(deal.getId()));
 
             eventBinding.itemEventMenu.setOnClickListener(v -> {
                 ChangeState changeState;
@@ -193,6 +197,8 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
                                     response -> {
                                         viewModel.participates.set(response.isParticipates());
                                         viewModel.state.set(response.getStatus());
+                                        viewModel.participantsCount.set(response.getParticipantsCount());
+                                        viewModel.lastParticipants.set(response.getLastParticipants());
 
                                         if (response.isParticipates()) {
                                             handler.showDetail(viewModel.getDeal().getId());

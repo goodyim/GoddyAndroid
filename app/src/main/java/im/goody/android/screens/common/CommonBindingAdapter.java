@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.flexbox.FlexboxLayout;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import im.goody.android.App;
@@ -70,6 +72,30 @@ public class CommonBindingAdapter {
             view.setVisibility(View.VISIBLE);
         } else {
             view.setVisibility(View.GONE);
+        }
+    }
+
+    @BindingAdapter("participants")
+    public static void bindParticipants(LinearLayout container, List<String> avatars) {
+        container.removeAllViews();
+        LayoutInflater inflater = LayoutInflater.from(container.getContext());
+
+        if (avatars == null) return;
+        for (int i = 0; i < avatars.size(); i++) {
+            ImageView view = (ImageView) inflater.inflate(R.layout.participant_avatar, container, false);
+            container.addView(view);
+
+            if (i != 0) {
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view.getLayoutParams();
+                params.setMargins(-(int) view.getResources().getDimension(R.dimen.size_small), 0, 0, 0);
+            }
+
+            Picasso.with(view.getContext())
+                    .load(avatars.get(i))
+                    .placeholder(R.drawable.round_drawable)
+                    .fit()
+                    .centerCrop()
+                    .into(view);
         }
     }
 
@@ -135,7 +161,7 @@ public class CommonBindingAdapter {
 
         String[] tags = resources.split(",");
 
-        for(String tag : tags) {
+        for (String tag : tags) {
             LayoutInflater inflater = LayoutInflater.from(container.getContext());
             TextView view = (TextView) inflater.inflate(R.layout.event_tag, container, false);
             view.setText(tag);
@@ -147,7 +173,7 @@ public class CommonBindingAdapter {
     public static void bindDate(TextView view, Calendar calendar, Boolean timeDisabled, boolean immediately, String hint) {
         String date;
 
-        if(immediately) {
+        if (immediately) {
             date = App.getAppContext().getString(R.string.date_immediately);
         } else if (calendar == null) {
             date = hint != null ? hint : view.getContext().getString(R.string.choose_date);
@@ -161,7 +187,7 @@ public class CommonBindingAdapter {
 
             if (timeDisabled == null || !timeDisabled)
                 date = String.format(Locale.getDefault(), DATE_TIME_FORMAT,
-                    day, month, year, hours, minutes);
+                        day, month, year, hours, minutes);
             else
                 date = String.format(Locale.getDefault(), DATE_FORMAT, day, month, year);
         }

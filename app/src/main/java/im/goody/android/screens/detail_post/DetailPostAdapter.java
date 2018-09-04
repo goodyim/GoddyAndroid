@@ -91,6 +91,8 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
         void reply(String author);
 
         void deleteComment(int commentPosition);
+
+        void openParticipants(long id);
     }
 
     class DetailPostHolder extends RecyclerView.ViewHolder {
@@ -190,6 +192,8 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
                                     response -> {
                                         viewModel.state.set(response.getStatus());
                                         viewModel.participates.set(response.isParticipates());
+                                        viewModel.lastParticipants.set(response.getLastParticipants());
+                                        viewModel.participantsCount.set(response.getParticipantsCount());
                                     },
                                     Throwable::printStackTrace));
 
@@ -200,6 +204,9 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
                     handler.openPhoto(NetUtils.buildDealImageUrl(deal)));
 
             eventBinding.detailEventDescription.setMentionListener(handler::openProfile);
+
+            eventBinding.detailEventParticipants.setOnClickListener(v -> handler.openParticipants(deal.getId()));
+            eventBinding.detailEventParticipantsCount.setOnClickListener(v -> handler.openParticipants(deal.getId()));
         }
 
         private int getCommentPosition() {

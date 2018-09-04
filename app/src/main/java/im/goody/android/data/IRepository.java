@@ -8,6 +8,7 @@ import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Feedback;
 import im.goody.android.data.dto.HelpInfo;
 import im.goody.android.data.dto.Location;
+import im.goody.android.data.dto.Participant;
 import im.goody.android.data.dto.User;
 import im.goody.android.data.network.req.LoginReq;
 import im.goody.android.data.network.req.NewCommentReq;
@@ -85,4 +86,6 @@ public interface IRepository {
     Observable<ResponseBody> fillProfile(HelpInfo body);
 
     Observable<Location> getLastLocation();
+
+    Observable<List<Participant>> getParticipants(long id);
 }

@@ -8,6 +8,7 @@ import im.goody.android.core.BaseController;
 import im.goody.android.data.dto.Feedback;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
+import io.reactivex.disposables.Disposable;
 
 
 public class FeedBackController extends BaseController<FeedBackView> {
@@ -44,7 +45,7 @@ public class FeedBackController extends BaseController<FeedBackView> {
     }
 
     private void loadData() {
-        repository.getFeedback()
+        Disposable disposable = repository.getFeedback()
                 .subscribe(result -> {
                     viewModel.setData(result);
                     view().showData(viewModel.getData());
@@ -53,6 +54,8 @@ public class FeedBackController extends BaseController<FeedBackView> {
                         loadData();
                     });
                 });
+
+        compositeDisposable.add(disposable);
     }
 
     void openDetail(Feedback item) {

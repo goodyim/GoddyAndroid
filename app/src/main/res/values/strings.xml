@@ -213,4 +213,7 @@
     <string name="location_manual">Choose on map</string>
     <string name="finding_location">Getting last location…</string>
     <string name="location_find_error">Cannot get last location. Please try to pick it manually</string>
+
+    <string name="participants_count">+ %d</string>
+    <string name="participants_title">Event Participants</string>
 </resources>

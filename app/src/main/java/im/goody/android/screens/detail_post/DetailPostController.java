@@ -169,6 +169,11 @@ public class DetailPostController extends BaseController<DetailPostView>
 
     // ======= region DetailPostHandler =======
     @Override
+    public void openParticipants(long id) {
+        rootPresenter.openParticipants(id);
+    }
+
+    @Override
     public void share(Deal deal) {
         String text = TextUtils.buildShareText(viewModel.getBody().getDeal());
         super.share(text);

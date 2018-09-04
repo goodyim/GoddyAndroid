@@ -191,6 +191,11 @@ public class NewsController extends BaseController<NewsView> implements NewsAdap
         rootPresenter.showPhotoScreen(imageUrl);
     }
 
+    @Override
+    public void openParticipants(long id) {
+        rootPresenter.openParticipants(id);
+    }
+
     // end
 
     //region ================= BaseController =================
