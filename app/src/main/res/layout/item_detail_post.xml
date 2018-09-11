@@ -82,12 +82,13 @@
             android:textIsSelectable="true"
             android:layout_marginTop="16dp"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-            android:text="@{data.deal.description}"
+            app:link_text="@{data.deal.description}"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/news_item_user_avatar"
-            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis egestas dui, nec commodo sem. Sed in velit metus. Nulla varius vehicula tortor, ut dapibus purus hendrerit vitae. Praesent iaculis." />
+            tools:text="@tools:sample/lorem[20]"
+            />
 
         <TextView
             android:id="@+id/news_item_location"

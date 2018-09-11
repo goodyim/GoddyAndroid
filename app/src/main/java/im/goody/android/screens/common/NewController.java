@@ -94,6 +94,21 @@ public abstract class NewController<V extends BaseView> extends BaseController<V
         }
     }
 
+    public void showLocationDialog() {
+        Disposable d = new OptionsDialog(R.array.choose_location_options)
+                .show(getActivity()).subscribe(integer -> {
+                    switch (integer) {
+                        case 0:
+                            chooseLocation();
+                            break;
+                        case 1:
+                            placeChanged(null);
+                    }
+                });
+
+        compositeDisposable.add(d);
+    }
+
     public void chooseLocation() {
         if (isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
             makePlacePickerRequest();

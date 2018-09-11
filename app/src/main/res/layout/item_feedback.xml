@@ -10,10 +10,12 @@
             type="im.goody.android.data.dto.Feedback" />
 
         <import type="im.goody.android.utils.DateUtils" />
+
         <import type="im.goody.android.Constants.NotificationExtra" />
     </data>
 
-    <android.support.constraint.ConstraintLayout style="@style/FullWidthLayout"
+    <android.support.constraint.ConstraintLayout
+        style="@style/FullWidthLayout"
         android:background="?attr/selectableItemBackground">
 
         <im.goody.android.ui.views.CircleImageView
@@ -24,10 +26,10 @@
             android:layout_marginStart="@dimen/size_normal"
             android:adjustViewBounds="true"
             android:contentDescription="@string/content_avatar"
+            android:src="@drawable/round_drawable"
             app:author_avatar="@{data.author.avatarUrl}"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/feedback_user_name"
-            android:src="@drawable/round_drawable" />
+            app:layout_constraintTop_toTopOf="@+id/feedback_user_name" />
 
         <TextView
             android:id="@+id/feedback_user_name"
@@ -35,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/size_normal"
             android:layout_marginStart="@dimen/size_normal"
-            android:layout_marginTop="@dimen/size_small"
+            android:layout_marginTop="@dimen/size_normal"
             android:text="@{data.author.name}"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             app:layout_constraintLeft_toRightOf="@+id/feedback_avatar"
@@ -48,10 +50,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/size_normal"
             android:layout_marginRight="@dimen/size_normal"
-            android:paddingBottom="@dimen/size_normal"
-            android:text="@{data.type.equals(NotificationExtra.TYPE_COMMENT) ? @string/feedback_comment : @string/feedback_common}"
             android:clickable="false"
             android:focusable="false"
+            android:paddingBottom="@dimen/size_normal"
+            android:text="@{data.type.equals(NotificationExtra.TYPE_COMMENT) ? @string/feedback_comment : @string/feedback_common}"
             app:layout_constraintLeft_toLeftOf="@+id/feedback_user_name"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/feedback_user_name"
@@ -61,23 +63,24 @@
             android:id="@+id/feedback_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_small"
-            android:layout_marginStart="@dimen/size_small"
+            android:layout_marginEnd="@dimen/size_normal"
+            android:layout_marginRight="@dimen/size_normal"
             android:text="@{DateUtils.getReadableDate(data.date)}"
             app:layout_constraintBottom_toBottomOf="@+id/feedback_user_name"
-            app:layout_constraintLeft_toRightOf="@+id/feedback_user_name"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/feedback_user_name"
             tools:text="1d" />
 
         <View
             android:id="@+id/view"
-            style="@style/FullWidthFromParent"
+            android:layout_width="0dp"
             android:layout_height="@dimen/size_divider"
-            android:layout_marginTop="0dp"
+            android:layout_marginLeft="@dimen/size_small"
+            android:layout_marginStart="@dimen/size_small"
             android:background="@color/divider"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/feedback_date"
+            app:layout_constraintStart_toStartOf="@+id/feedback_avatar"
             app:layout_constraintTop_toBottomOf="@+id/feedback_body" />
 
     </android.support.constraint.ConstraintLayout>

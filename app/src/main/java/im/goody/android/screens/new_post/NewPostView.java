@@ -18,7 +18,7 @@ public class NewPostView extends BaseView<NewPostController, ScreenNewPostBindin
 
     @Override
     protected void onAttached() {
-        binding.newPostAddPlace.setOnClickListener(v -> controller.chooseLocation());
+        binding.newPostAddPlace.setOnClickListener(v -> controller.showLocationDialog());
         binding.newPostAddPhoto.setOnClickListener(v -> controller.choosePhoto());
         binding.newPostPhoto.setOnClickListener(v -> controller.choosePhoto());
         binding.newPostLocationClear.setOnClickListener(v -> controller.clearLocation());

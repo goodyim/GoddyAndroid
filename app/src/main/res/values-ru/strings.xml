@@ -211,4 +211,7 @@
     <string name="location_find_error">Не можем получить текущее местоположение. Пожалуйстабъ, выберете место в ручную.</string>
     <string name="finding_location">Получаем текущее местоположение...</string>
     <string name="location_manual">Выбрать на карте</string>
+    <string name="participants_title">Участники события</string>
+    <string name="choose_location_none">Очистить</string>
+    <string name="choose_location_map">На карте</string>
 </resources>

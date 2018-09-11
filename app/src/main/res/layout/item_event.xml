@@ -216,6 +216,7 @@
                 android:layout_marginBottom="@dimen/size_normal"
                 android:layout_marginEnd="@dimen/size_normal"
                 android:layout_marginStart="@dimen/size_normal"
+                android:visibility="@{viewModel.deal.owner ? View.GONE : View.VISIBLE}"
                 android:layout_marginTop="@dimen/size_normal"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textColor="@color/white"

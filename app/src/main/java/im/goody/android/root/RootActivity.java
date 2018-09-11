@@ -258,7 +258,7 @@ public class RootActivity extends AppCompatActivity
         for (Object obj : args) tag.append(obj);
 
         Controller controller = router.getControllerWithTag(tag.toString());
-        if (controller == null) {
+        if (controller == null || controller.isDestroyed() || controller.isAttached()) {
             controller = instantiateController(controllerClass, args);
         }
 

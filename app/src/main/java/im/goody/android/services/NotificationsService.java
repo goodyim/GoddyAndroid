@@ -1,6 +1,7 @@
 package im.goody.android.services;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -40,6 +41,7 @@ public class NotificationsService extends FirebaseMessagingService {
     PreferencesManager preferencesManager;
 
     private static final String GOODY_CHANNEL = "GOODY_CHANNEL";
+    private static final String GOODY_CHANNEL_NAME = "Goody";
     private static final int GOODY_SESSION = 1337;
 
     @Override
@@ -78,28 +80,26 @@ public class NotificationsService extends FirebaseMessagingService {
     }
 
     private void processFolloweeNewEvent(Map<String, String> data) {
-        if (isNotNull(data, ID, AUTHOR_NAME, TITLE)
+        if (isNotNull(data, ID, AUTHOR_NAME)
                 && preferencesManager.isSettingEnabled(SETTINGS_NEW_FOLLOWEE)) {
             Long id = Long.valueOf(data.get(ID));
             String author = data.get(AUTHOR_NAME);
-            String title = data.get(TITLE);
 
             String content = getString(R.string.follow_new_event_content, author);
 
-            sendNotification(title, content, id);
+            sendNotification(null, content, id);
         }
     }
 
     private void processNewParticipator(Map<String, String> data) {
-        if (isNotNull(data, ID, TITLE, MESSAGE)
+        if (isNotNull(data, ID, MESSAGE)
                 && preferencesManager.isSettingEnabled(SETTINGS_NEW_PARTICIPATOR)) {
             Long id = Long.valueOf(data.get(ID));
-            String title = data.get(TITLE);
             String participatorName = data.get(MESSAGE);
 
             String content = getString(R.string.new_participator_content, participatorName);
 
-            sendNotification(title, content, id);
+            sendNotification(null, content, id);
         }
     }
 
@@ -128,16 +128,15 @@ public class NotificationsService extends FirebaseMessagingService {
     }
 
     private void processComment(Map<String, String> data) {
-        if (isNotNull(data, TITLE, AUTHOR_NAME, MESSAGE, ID)
+        if (isNotNull(data, AUTHOR_NAME, MESSAGE, ID)
                 && preferencesManager.isSettingEnabled(SETTINGS_COMMENTS_KEY)) {
-            String notificationTitle = data.get(TITLE);
             String notificationContent = getString(
                     R.string.comment_notification_format,
                     data.get(AUTHOR_NAME),
                     data.get(MESSAGE));
             Long id = Long.valueOf(data.get(ID));
 
-            sendNotification(notificationTitle, notificationContent, id);
+            sendNotification(null, notificationContent, id);
         }
     }
 
@@ -155,6 +154,12 @@ public class NotificationsService extends FirebaseMessagingService {
     }
 
     private void sendNotification(String notificationTitle, String notificationContent, Long id) {
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel mChannel = new NotificationChannel(GOODY_CHANNEL, GOODY_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+            manager.createNotificationChannel(mChannel);
+        }
+
         Notification notification = new NotificationCompat.Builder(this, GOODY_CHANNEL)
                 .setContentIntent(getDetailIntent(id))
                 .setContentTitle(notificationTitle)
@@ -165,7 +170,6 @@ public class NotificationsService extends FirebaseMessagingService {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .build();
 
-        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         if (manager != null) {
             manager.notify(GOODY_SESSION, notification);
         }

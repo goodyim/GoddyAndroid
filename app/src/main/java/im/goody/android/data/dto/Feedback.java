@@ -1,9 +1,17 @@
 package im.goody.android.data.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Feedback {
     private String type;
     private long objectId;
     private Author author;
+
+    @JsonProperty("created_at")
     private String date;
 
     public void setMessage(String message) {

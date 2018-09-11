@@ -20,7 +20,7 @@ public class NewEventView extends BaseView<NewEventController, ScreenNewEventBin
     @Override
     protected void onAttached() {
         binding.newEventDate.setOnClickListener(v -> controller.chooseDate());
-        binding.newEventLocation.setOnClickListener(v -> controller.chooseLocation());
+        binding.newEventLocation.setOnClickListener(v -> controller.showLocationDialog());
         binding.newEventImageChooser.setOnClickListener(v -> controller.choosePhoto());
         binding.newEventPhoto.setOnClickListener(v -> controller.choosePhoto());
         binding.newEventClearImage.setOnClickListener(v -> controller.clearPhoto());
