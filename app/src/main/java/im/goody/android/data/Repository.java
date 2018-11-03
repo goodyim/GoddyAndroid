@@ -30,6 +30,7 @@ import im.goody.android.App;
 import im.goody.android.Constants;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Feedback;
+import im.goody.android.data.dto.Follower;
 import im.goody.android.data.dto.HelpInfo;
 import im.goody.android.data.dto.Location;
 import im.goody.android.data.dto.Participant;
@@ -346,6 +347,12 @@ public class Repository implements IRepository {
     @Override
     public Observable<List<Participant>> getParticipants(long id) {
         return restService.getParticipants(id)
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<List<Follower>> getFollowers(long id) {
+        return restService.getFollowers(id)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

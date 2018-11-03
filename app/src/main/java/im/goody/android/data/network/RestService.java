@@ -5,6 +5,7 @@ import java.util.Map;
 
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Feedback;
+import im.goody.android.data.dto.Follower;
 import im.goody.android.data.dto.HelpInfo;
 import im.goody.android.data.dto.Participant;
 import im.goody.android.data.dto.User;
@@ -111,4 +112,7 @@ public interface RestService {
 
     @GET("events/{id}/members")
     Observable<List<Participant>> getParticipants(@Path("id") long id);
+
+    @GET("users/{id}/followers")
+    Observable<List<Follower>> getFollowers(@Path("id") long id);
 }

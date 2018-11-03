@@ -10,6 +10,7 @@ import im.goody.android.screens.about.AboutController;
 import im.goody.android.screens.choose_help.ChooseHelpController;
 import im.goody.android.screens.detail_post.DetailPostController;
 import im.goody.android.screens.feedback.FeedBackController;
+import im.goody.android.screens.followers.FollowersController;
 import im.goody.android.screens.intro.IntroController;
 import im.goody.android.screens.intro.finish.IntroFinishController;
 import im.goody.android.screens.greet.GreetController;
@@ -68,4 +69,6 @@ public interface RootComponent {
     IntroFinishController.Component plusIntroFinish();
 
     ParticipantsController.Component plusParticipant();
+
+    FollowersController.Component plusFollower();
 }

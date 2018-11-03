@@ -35,6 +35,8 @@ public class NewsController extends BaseController<NewsView> implements NewsAdap
     public static final String CONTENT_POSTS = "deal";
     public static final String CONTENT_All = "all";
 
+    public static final String CONTENT_FEED = "feed";
+
     public NewsController(String contentType, Boolean isRoot, String id) {
         super(new BundleBuilder()
                 .putString(USER_ID_KEY, id)
@@ -193,7 +195,7 @@ public class NewsController extends BaseController<NewsView> implements NewsAdap
 
     @Override
     public void openParticipants(long id) {
-        rootPresenter.openParticipants(id);
+        rootPresenter.showParticipants(id);
     }
 
     // end

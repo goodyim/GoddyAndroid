@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <im.goody.android.screens.followers.FollowersView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/followers_list"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            style="@style/FullExpandFromParent" />
+
+    </im.goody.android.screens.followers.FollowersView>
+</layout>

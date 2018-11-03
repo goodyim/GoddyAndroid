@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+
+        <variable
+            name="data"
+            type="im.goody.android.data.dto.Follower" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <im.goody.android.ui.views.CircleImageView
+            android:id="@+id/feedback_avatar"
+            android:layout_width="@dimen/avatar_size"
+            android:layout_height="@dimen/avatar_size"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="@dimen/size_normal"
+            android:layout_marginStart="@dimen/size_normal"
+            android:layout_marginTop="@dimen/size_small"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/content_avatar"
+            android:src="@drawable/round_drawable"
+            app:author_avatar="@{data.avatarUrl}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/feedback_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_normal"
+            android:layout_marginStart="@dimen/size_normal"
+            android:text="@{data.name}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBottom_toBottomOf="@+id/feedback_avatar"
+            app:layout_constraintLeft_toRightOf="@+id/feedback_avatar"
+            app:layout_constraintTop_toTopOf="@+id/feedback_avatar"
+            tools:text="User name" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

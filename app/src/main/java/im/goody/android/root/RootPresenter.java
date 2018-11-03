@@ -16,6 +16,7 @@ import im.goody.android.screens.about.AboutController;
 import im.goody.android.screens.choose_help.ChooseHelpController;
 import im.goody.android.screens.detail_post.DetailPostController;
 import im.goody.android.screens.feedback.FeedBackController;
+import im.goody.android.screens.followers.FollowersController;
 import im.goody.android.screens.greet.GreetController;
 import im.goody.android.screens.intro.IntroController;
 import im.goody.android.screens.login.LoginController;
@@ -227,9 +228,16 @@ public class RootPresenter implements IRootPresenter {
     }
 
     @Override
-    public void openParticipants(long id) {
+    public void showParticipants(long id) {
         if (rootView != null) {
             rootView.showScreen(ParticipantsController.class, id);
+        }
+    }
+
+    @Override
+    public void showFollowers(String id) {
+        if (rootView != null) {
+            rootView.showScreen(FollowersController.class, id);
         }
     }
 

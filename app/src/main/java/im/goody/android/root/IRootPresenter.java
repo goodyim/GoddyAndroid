@@ -48,5 +48,7 @@ public interface IRootPresenter {
 
     void showFillProfile();
 
-    void openParticipants(long id);
+    void showParticipants(long id);
+
+    void showFollowers(String id);
 }

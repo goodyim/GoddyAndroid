@@ -6,6 +6,7 @@ import java.util.List;
 
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Feedback;
+import im.goody.android.data.dto.Follower;
 import im.goody.android.data.dto.HelpInfo;
 import im.goody.android.data.dto.Location;
 import im.goody.android.data.dto.Participant;
@@ -88,4 +89,6 @@ public interface IRepository {
     Observable<Location> getLastLocation();
 
     Observable<List<Participant>> getParticipants(long id);
+
+    Observable<List<Follower>> getFollowers(long id);
 }

@@ -219,4 +219,6 @@
 
     <string name="choose_location_none">Clear</string>
     <string name="choose_location_map">On map</string>
+    <string name="content_feed">Feed</string>
+    <string name="followers">Followers</string>
 </resources>

@@ -170,7 +170,7 @@ public class DetailPostController extends BaseController<DetailPostView>
     // ======= region DetailPostHandler =======
     @Override
     public void openParticipants(long id) {
-        rootPresenter.openParticipants(id);
+        rootPresenter.showParticipants(id);
     }
 
     @Override

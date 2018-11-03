@@ -134,6 +134,11 @@ public class ProfileController extends BaseController<ProfileView> {
         rootPresenter.showUserPosts(viewModel.getId());
     }
 
+    public void showFollowers() {
+        if (viewModel != null)
+            rootPresenter.showFollowers(getId());
+    }
+
     // end
 
     // ======= region DI =======

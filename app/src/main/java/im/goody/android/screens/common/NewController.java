@@ -158,6 +158,7 @@ public abstract class NewController<V extends BaseView> extends BaseController<V
     }
 
     private void makePlacePickerRequest() {
+
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
         try {
