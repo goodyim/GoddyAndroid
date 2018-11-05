@@ -30,7 +30,7 @@ public class User {
     @JsonProperty("events_count")
     private int eventsCount;
 
-    @JsonProperty("is_subsribed")
+    @JsonProperty("is_subscribed")
     private boolean isFollowing;
 
     // ======= region getters =======

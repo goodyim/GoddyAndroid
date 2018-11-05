@@ -1,5 +1,4 @@
 package im.goody.android.screens.profile;
-
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -66,9 +65,6 @@ public class ProfileController extends BaseController<ProfileView> {
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
 
-        if (isMineProfile())
-            view().hideFollowButton();
-
         if (viewModel == null) loadData();
         else view().setData(viewModel);
     }
@@ -80,7 +76,7 @@ public class ProfileController extends BaseController<ProfileView> {
 
     void loadData() {
         Disposable d = repository.getUserProfile(getId()).subscribe(user -> {
-            viewModel = new ProfileViewModel(user);
+            viewModel = new ProfileViewModel(user, isMineProfile());
             view().setData(viewModel);
 
             if (getActivity() != null)

@@ -1,7 +1,11 @@
 package im.goody.android.data.network.res;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserRes {
     private User user;
 
@@ -14,6 +18,8 @@ public class UserRes {
         return this;
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class User {
         private int id;
         private String token;

@@ -51,6 +51,8 @@ public class ProfileView extends BaseView<ProfileController, ScreenProfileBindin
         finishRefresh();
         binding.setUser(viewModel);
 
+        binding.profileFollow.setVisibility(VISIBLE);
+
         binding.profilePager.setAdapter(new ProfilePageAdapter(controller, viewModel.getId()));
         binding.tabLayout.setupWithViewPager(binding.profilePager);
     }

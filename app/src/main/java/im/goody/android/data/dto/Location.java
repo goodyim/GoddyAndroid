@@ -1,7 +1,11 @@
 package im.goody.android.data.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.android.gms.maps.model.LatLng;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Location {
     private String latitude;
     private String longitude;

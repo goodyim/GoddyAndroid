@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FollowRes {
-    @JsonProperty("is_subsribed")
+    @JsonProperty("is_subscribed")
     private boolean isSubscribed;
 
     @JsonProperty("followers_count")

@@ -14,16 +14,20 @@ public class ProfileViewModel {
     private int events;
     private String registrationDate;
 
+    public final boolean isMineProfile;
+
     public final ObservableBoolean isFollowing = new ObservableBoolean();
 
     public final ObservableInt followers = new ObservableInt();
-    ProfileViewModel(User user) {
+    ProfileViewModel(User user, boolean isMineFrofile) {
         name = user.getName();
         id = String.valueOf(user.getId());
         avatarUrl = user.getAvatarUrl();
         deals = user.getDealsCount();
         events = user.getEventsCount();
         registrationDate = user.getRegistrationDate();
+
+        this.isMineProfile = isMineFrofile;
 
         followers.set(user.getFollowers());
         isFollowing.set(user.isFollowing());
