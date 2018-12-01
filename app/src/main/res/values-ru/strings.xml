@@ -214,4 +214,7 @@
     <string name="participants_title">Участники события</string>
     <string name="choose_location_none">Очистить</string>
     <string name="choose_location_map">На карте</string>
+
+    <string name="content_feed">Лента</string>
+    <string name="followers">Подписчики</string>
 </resources>

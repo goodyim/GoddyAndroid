@@ -10,6 +10,7 @@
             type="im.goody.android.screens.profile.ProfileViewModel" />
 
         <import type="im.goody.android.utils.DateUtils" />
+        <import type="android.view.View" />
     </data>
 
     <im.goody.android.screens.profile.ProfileView
@@ -53,9 +54,9 @@
                     android:layout_width="0dp"
                     android:layout_height="44dp"
                     android:layout_marginTop="@dimen/size_normal"
-                    android:visibility="gone"
+                    android:visibility="@{user.isMineProfile ? View.GONE : View.VISIBLE}"
                     android:background="@drawable/rounded_border_rectangle_accent"
-                    android:text="@{user.isMineProfile ? @string/edit : (user.isFollowing ? @string/unfollow : @string/follow)}"
+                    android:text="@{user.isFollowing ? @string/unfollow : @string/follow}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textColor="@color/accent"
                     app:layout_constraintDimensionRatio="w,4:1"
