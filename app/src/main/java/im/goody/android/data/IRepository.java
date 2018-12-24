@@ -11,6 +11,7 @@ import im.goody.android.data.dto.HelpInfo;
 import im.goody.android.data.dto.Location;
 import im.goody.android.data.dto.Participant;
 import im.goody.android.data.dto.User;
+import im.goody.android.data.network.req.AchievementsReq;
 import im.goody.android.data.network.req.LoginReq;
 import im.goody.android.data.network.req.NewCommentReq;
 import im.goody.android.data.network.req.NewEventReq;
@@ -57,7 +58,7 @@ public interface IRepository {
 
     Observable<Deal> likeDeal(long id);
     Observable<ParticipateRes> changeParticipateState(long id);
-    Observable<EventStateRes> changeEventState(long id);
+    Observable<EventStateRes> finishEvent(long id, AchievementsReq body);
     UserRes.User getCurrentUser();
 
     Observable<ResponseBody> logout();

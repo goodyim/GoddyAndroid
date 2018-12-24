@@ -94,7 +94,7 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
 
         Observable<ParticipateRes> changeParticipateState(long id);
 
-        Observable<EventStateRes> changeEventState(long id);
+        void finishEvent(long id);
 
         void showEdit(Deal deal);
 
@@ -146,12 +146,10 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
             eventBinding.itemEventMenu.setOnClickListener(v -> {
                 ChangeState changeState;
 
-                if (!deal.isOwner()) {
-                    changeState = ChangeState.HIDDEN;
-                } else if (deal.getEvent().isOpen()) {
+                if (deal.isOwner() && deal.getEvent().isOpen()) {
                     changeState = ChangeState.CLOSE;
                 } else {
-                    changeState = ChangeState.OPEN;
+                    changeState = ChangeState.HIDDEN;
                 }
 
                 NewsItemMenu menu = new NewsItemMenu.Builder()
@@ -166,9 +164,7 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
                             handler.report(deal.getId());
                             break;
                         case R.id.action_change_event_state:
-                            handler.changeEventState(deal.getId())
-                                    .subscribe(viewModel::changeEventState,
-                                            Throwable::printStackTrace);
+                            handler.finishEvent(deal.getId());
                             break;
                         case R.id.action_edit_post:
                             handler.showEdit(deal);

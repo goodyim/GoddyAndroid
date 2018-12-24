@@ -78,7 +78,7 @@ public class DetailPostController extends BaseController<DetailPostView>
         deleteItem = menu.add(R.string.delete);
 
         eventStateItem.setOnMenuItemClickListener(item -> {
-            changeEventState();
+            finishEvent();
             return true;
         });
         editItem.setOnMenuItemClickListener(item -> {
@@ -267,8 +267,8 @@ public class DetailPostController extends BaseController<DetailPostView>
     private void updateMenu() {
         Deal deal = viewModel.getDeal();
 
-        if (deal.getEvent() != null && deal.isOwner()) {
-            eventStateItem.setTitle(getCloseOpenItemTitle());
+        if (deal.getEvent() != null && deal.isOwner() && deal.getEvent().isOpen()) {
+            eventStateItem.setTitle(R.string.close_event);
             eventStateItem.setVisible(true);
         } else {
             eventStateItem.setVisible(false);
@@ -279,30 +279,8 @@ public class DetailPostController extends BaseController<DetailPostView>
     }
 
     @SuppressWarnings("CodeBlock2Expr")
-    private void changeEventState() {
-        Disposable disposable = repository.changeEventState(viewModel.getId())
-                .subscribe(
-                        eventStateRes -> {
-                            viewModel.updateEventState(eventStateRes.getState());
-                            eventStateItem.setTitle(getCloseOpenItemTitle());
-
-                            int msgRes = eventStateRes.getState().equals(Deal.Event.CLOSED)
-                                    ? R.string.event_closed
-                                    : R.string.event_opened;
-
-                            view().showMessage(msgRes);
-                        }, this::showError);
-        compositeDisposable.add(disposable);
-    }
-
-    @NonNull
-    private String getCloseOpenItemTitle() {
-        Deal.Event event = viewModel.getDeal().getEvent();
-
-        int titleRes = event.isOpen()
-                ? R.string.close_event
-                : R.string.open_event;
-        return getActivity().getString(titleRes);
+    private void finishEvent() {
+       rootPresenter.openFinishEvent(viewModel.getId());
     }
 
     // endregion

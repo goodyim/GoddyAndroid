@@ -38,6 +38,7 @@ import im.goody.android.data.dto.User;
 import im.goody.android.data.local.PreferencesManager;
 import im.goody.android.data.network.RestService;
 import im.goody.android.data.network.core.RestCallTransformer;
+import im.goody.android.data.network.req.AchievementsReq;
 import im.goody.android.data.network.req.LoginReq;
 import im.goody.android.data.network.req.NewCommentReq;
 import im.goody.android.data.network.req.NewEventReq;
@@ -219,8 +220,8 @@ public class Repository implements IRepository {
     }
 
     @Override
-    public Observable<EventStateRes> changeEventState(long id) {
-        return restService.changeEventState(id)
+    public Observable<EventStateRes> finishEvent(long id, AchievementsReq body) {
+        return restService.closeEvent(id, body)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

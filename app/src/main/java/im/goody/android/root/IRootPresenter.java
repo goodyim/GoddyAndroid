@@ -51,4 +51,6 @@ public interface IRootPresenter {
     void showParticipants(long id);
 
     void showFollowers(String id);
+
+    void openFinishEvent(long id);
 }

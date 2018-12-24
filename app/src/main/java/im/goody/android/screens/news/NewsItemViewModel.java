@@ -46,11 +46,6 @@ public class NewsItemViewModel extends BaseObservable {
         return expanded;
     }
 
-    void changeEventState(EventStateRes stateRes) {
-        state.set(stateRes.getState());
-        deal.getEvent().setState(stateRes.getState());
-    }
-
     void setExpanded(boolean expanded) {
         this.expanded = expanded;
         notifyPropertyChanged(BR.expanded);

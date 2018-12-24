@@ -169,9 +169,8 @@ public class NewsController extends BaseController<NewsView> implements NewsAdap
     }
 
     @Override
-    public Observable<EventStateRes> changeEventState(long id) {
-        return repository.changeEventState(id)
-                .doOnError(this::showError);
+    public void finishEvent(long id) {
+        rootPresenter.openFinishEvent(id);
     }
 
     @Override

@@ -16,7 +16,7 @@ public class NewsItemMenu {
     private ChangeState state;
 
     enum ChangeState {
-        HIDDEN, OPEN, CLOSE
+        HIDDEN, CLOSE
     }
 
     public Observable<Integer> show(View anchor) {
@@ -47,9 +47,6 @@ public class NewsItemMenu {
         switch (state) {
             case HIDDEN:
                 item.setVisible(false);
-                break;
-            case OPEN:
-                item.setTitle(R.string.open_event);
                 break;
             case CLOSE:
                 item.setTitle(R.string.close_event);

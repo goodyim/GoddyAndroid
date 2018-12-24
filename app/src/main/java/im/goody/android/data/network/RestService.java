@@ -9,6 +9,7 @@ import im.goody.android.data.dto.Follower;
 import im.goody.android.data.dto.HelpInfo;
 import im.goody.android.data.dto.Participant;
 import im.goody.android.data.dto.User;
+import im.goody.android.data.network.req.AchievementsReq;
 import im.goody.android.data.network.req.NewCommentReq;
 import im.goody.android.data.network.res.CommentRes;
 import im.goody.android.data.network.res.EventStateRes;
@@ -87,7 +88,8 @@ public interface RestService {
     Observable<ParticipateRes> participate(@Path("id") long id);
 
     @POST("good_deals/{id}/close")
-    Observable<EventStateRes> changeEventState(@Path("id") long id);
+    Observable<EventStateRes> closeEvent(@Path("id") long id,
+                                         @Body AchievementsReq body);
 
     @GET("users/{id}")
     Observable<User> getUserProfile(@Path("id") String id);

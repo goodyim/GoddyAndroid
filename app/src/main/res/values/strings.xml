@@ -221,4 +221,7 @@
     <string name="choose_location_map">On map</string>
     <string name="content_feed">Feed</string>
     <string name="followers">Followers</string>
+    <string name="finish_event_title">Send thanks to participants</string>
+    <string name="finish_event_hint">Say thanks...</string>
+    <string name="finish_event_head">Finish event</string>
 </resources>
