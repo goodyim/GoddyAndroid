@@ -17,7 +17,7 @@ import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.ui.helpers.BarBuilder;
-import im.goody.android.ui.helpers.BundleBuilder;
+import im.goody.android.utils.BundleBuilder;
 import im.goody.android.utils.TextUtils;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;

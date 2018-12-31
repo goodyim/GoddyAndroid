@@ -9,7 +9,7 @@ import im.goody.android.core.BaseController;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.ui.helpers.BarBuilder;
-import im.goody.android.ui.helpers.BundleBuilder;
+import im.goody.android.utils.BundleBuilder;
 import io.reactivex.disposables.Disposable;
 
 public class FinishEventController extends BaseController<FinishEventView> {

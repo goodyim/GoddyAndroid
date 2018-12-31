@@ -22,7 +22,7 @@ import im.goody.android.ui.dialogs.ErrorDialog;
 import im.goody.android.ui.dialogs.InfoDialog;
 import im.goody.android.ui.dialogs.OptionsDialog;
 import im.goody.android.ui.helpers.BarBuilder;
-import im.goody.android.ui.helpers.BundleBuilder;
+import im.goody.android.utils.BundleBuilder;
 import io.reactivex.disposables.Disposable;
 
 import static android.app.Activity.RESULT_OK;

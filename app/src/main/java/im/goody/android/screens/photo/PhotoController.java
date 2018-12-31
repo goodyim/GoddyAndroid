@@ -10,7 +10,7 @@ import im.goody.android.core.BaseController;
 import im.goody.android.di.DaggerScope;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.ui.helpers.BarBuilder;
-import im.goody.android.ui.helpers.BundleBuilder;
+import im.goody.android.utils.BundleBuilder;
 
 public class PhotoController extends BaseController<PhotoView> {
     private static final String URL_KEY = "PhotoController.url";

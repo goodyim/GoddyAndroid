@@ -1,4 +1,4 @@
-package im.goody.android.ui.helpers;
+package im.goody.android.utils;
 
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -31,7 +31,6 @@ public class BundleBuilder {
         bundle.putString(key, value);
         return this;
     }
-
     public BundleBuilder putInt(String key, int value) {
         bundle.putInt(key, value);
         return this;

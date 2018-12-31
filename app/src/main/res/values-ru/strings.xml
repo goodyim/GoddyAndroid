@@ -209,7 +209,7 @@
     <string name="lets_go">Поехали!</string>
     <string name="location_auto">Текущее местоположение</string>
     <string name="location_find_error">Не можем получить текущее местоположение. Пожалуйстабъ, выберете место в ручную.</string>
-    <string name="finding_location">Получаем текущее местоположение...</string>
+    <string name="finding_location">Получаем текущее местоположение…</string>
     <string name="location_manual">Выбрать на карте</string>
     <string name="participants_title">Участники события</string>
     <string name="choose_location_none">Очистить</string>
@@ -217,4 +217,8 @@
 
     <string name="content_feed">Лента</string>
     <string name="followers">Подписчики</string>
+
+    <string name="finish_event_hint">Слова благодарности</string>
+    <string name="finish_event_head">Завершить событие</string>
+    <string name="finish_event_title">Скажите спасибо тем, кто помог!</string>
 </resources>
