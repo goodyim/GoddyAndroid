@@ -3,9 +3,7 @@ package im.goody.android.screens.choose_help;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
 
@@ -13,6 +11,7 @@ import java.util.List;
 
 import im.goody.android.R;
 import im.goody.android.core.BaseView;
+import im.goody.android.data.dto.PresetTag;
 import im.goody.android.databinding.ScreenChooseHelpBinding;
 
 public class ChooseHelpView extends BaseView<ChooseHelpController, ScreenChooseHelpBinding> {
@@ -41,7 +40,7 @@ public class ChooseHelpView extends BaseView<ChooseHelpController, ScreenChooseH
         setTags(viewModel.tags);
 
         binding.presetTagContainer.removeAllViews();
-        for(ChooseHelpViewModel.PresetTag tag: viewModel.presetTags) {
+        for(PresetTag tag: viewModel.presetTags) {
             addPreset(tag);
         }
     }
@@ -65,7 +64,7 @@ public class ChooseHelpView extends BaseView<ChooseHelpController, ScreenChooseH
         container.addView(view);
     }
 
-    public void addPreset(ChooseHelpViewModel.PresetTag tag) {
+    private void addPreset(PresetTag tag) {
         ViewGroup container = binding.presetTagContainer;
 
         LayoutInflater inflater = LayoutInflater.from(getContext());

@@ -17,11 +17,11 @@ import im.goody.android.App;
 import im.goody.android.R;
 import im.goody.android.data.dto.HelpInfo;
 import im.goody.android.data.dto.Location;
+import im.goody.android.data.dto.PresetTag;
+import im.goody.android.screens.common.TagViewModel;
 import io.reactivex.annotations.NonNull;
 
-public class ChooseHelpViewModel {
-    public final List<String> tags;
-    public final PresetTag[] presetTags = loadPresetTags();
+public class ChooseHelpViewModel extends TagViewModel {
     public ObservableField<Location> place = new ObservableField<>();
     public ObservableBoolean isGeoEnabled = new ObservableBoolean(false);
     public ObservableInt radius = new ObservableInt(0);
@@ -53,42 +53,6 @@ public class ChooseHelpViewModel {
                 .setArea(buildArea());
     }
 
-    public void addTags(String rawTags) {
-        rawTags = rawTags.replace(", ", ",");
-        String[] newTags = rawTags.split(",|\\s");
-        tags.addAll(Arrays.asList(newTags));
-
-        Set<String> set = new LinkedHashSet<>(tags);
-        tags.clear();
-        tags.addAll(set);
-    }
-
-    private void movePredefinedTagsToPresets() {
-        ListIterator<String> iterator = tags.listIterator();
-        while (iterator.hasNext()) {
-            String tag = iterator.next();
-            for (PresetTag preset : presetTags) {
-                if (tag.equals(preset.getValue())) {
-                    iterator.remove();
-                    preset.setChecked(true);
-                    break;
-                }
-            }
-        }
-    }
-
-    private List<String> buildTags() {
-        List<String> result = new ArrayList<>(tags);
-
-        for (PresetTag tag : presetTags) {
-            if (tag.isChecked()) {
-                result.add(tag.getValue());
-            }
-        }
-
-        return result;
-    }
-
     private HelpInfo.Area buildArea() {
         if (!isGeoEnabled.get() || place.get() == null) {
             return null;
@@ -99,38 +63,6 @@ public class ChooseHelpViewModel {
                     .setLatitude(coordinates.latitude)
                     .setLongitude(coordinates.longitude)
                     .setRadius(radius.get());
-        }
-    }
-
-    private PresetTag[] loadPresetTags() {
-        String[] presetStrings = App.getAppContext().getResources().getStringArray(R.array.preset_tags);
-
-        PresetTag[] presets = new PresetTag[presetStrings.length];
-        for (int i = 0; i < presetStrings.length; i++) {
-            presets[i] = new PresetTag(presetStrings[i]);
-        }
-
-        return presets;
-    }
-
-    public static class PresetTag {
-        private final String value;
-        private boolean checked = false;
-
-        PresetTag(String value) {
-            this.value = value;
-        }
-
-        public boolean isChecked() {
-            return checked;
-        }
-
-        public void setChecked(boolean checked) {
-            this.checked = checked;
-        }
-
-        public String getValue() {
-            return value;
         }
     }
 }

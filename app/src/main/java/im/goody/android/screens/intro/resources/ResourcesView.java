@@ -11,6 +11,7 @@ import java.util.List;
 
 import im.goody.android.R;
 import im.goody.android.core.BaseView;
+import im.goody.android.data.dto.PresetTag;
 import im.goody.android.databinding.IntroResourcesBinding;
 import im.goody.android.screens.choose_help.ChooseHelpViewModel;
 
@@ -31,7 +32,7 @@ public class ResourcesView extends BaseView<ResourcesController, IntroResourcesB
         setTags(viewModel.tags);
 
         binding.presetTagContainer.removeAllViews();
-        for(ChooseHelpViewModel.PresetTag tag: viewModel.presetTags) {
+        for(PresetTag tag: viewModel.presetTags) {
             addPreset(tag);
         }
     }
@@ -55,7 +56,7 @@ public class ResourcesView extends BaseView<ResourcesController, IntroResourcesB
         container.addView(view);
     }
 
-    public void addPreset(ChooseHelpViewModel.PresetTag tag) {
+    public void addPreset(PresetTag tag) {
         ViewGroup container = binding.presetTagContainer;
 
         LayoutInflater inflater = LayoutInflater.from(getContext());

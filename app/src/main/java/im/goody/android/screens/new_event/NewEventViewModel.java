@@ -22,29 +22,27 @@ import im.goody.android.BR;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Location;
 import im.goody.android.data.network.req.NewEventReq;
+import im.goody.android.screens.common.TagViewModel;
 import im.goody.android.utils.DateUtils;
 import im.goody.android.utils.TextUtils;
 
-public class NewEventViewModel extends BaseObservable {
+public class NewEventViewModel extends TagViewModel {
     public final ObservableField<Calendar> calendar = new ObservableField<>();
     public final ObservableBoolean isDateImmediate = new ObservableBoolean(false);
 
     public final ObservableField<String> title = new ObservableField<>();
     public final ObservableField<String> description = new ObservableField<>();
 
-    final ArrayList<String> tags;
-
     public final ObservableField<Bitmap> image = new ObservableField<>();
 
-    @Bindable
-    private Location location;
+    public final ObservableField<Location> location = new ObservableField<>();
 
     private Uri imageUri;
 
     NewEventViewModel(Deal deal) {
         Location location = deal.getLocation();
         if (location != null && !TextUtils.isEmpty(location.getAddress())) {
-            this.location = deal.getLocation();
+            this.location.set(deal.getLocation());
         }
 
         description.set(deal.getDescription());
@@ -54,6 +52,8 @@ public class NewEventViewModel extends BaseObservable {
 
         String[] temp = event.getResources().split(",");
         tags = new ArrayList<>(Arrays.asList(temp));
+
+        movePredefinedTagsToPresets();
 
         isDateImmediate.set(event.isImmediately());
 
@@ -67,8 +67,8 @@ public class NewEventViewModel extends BaseObservable {
 
     NewEventReq body() {
         return new NewEventReq()
-                .setLatitude(location == null ? null : Double.parseDouble(location.getLatitude()))
-                .setLongitude(location == null ? null : Double.parseDouble(location.getLongitude()))
+                .setLatitude(location.get() == null ? null : Double.parseDouble(location.get().getLatitude()))
+                .setLongitude(location.get() == null ? null : Double.parseDouble(location.get().getLongitude()))
                 .setDate(getStringDate())
                 .setTitle(title.get())
                 .setResources(joinTags())
@@ -86,10 +86,6 @@ public class NewEventViewModel extends BaseObservable {
         if (calendar.get() != null)
             return DateUtils.dateToString(calendar.get().getTime());
         else return null;
-    }
-
-    public Location getLocation() {
-        return location;
     }
 
     // end
@@ -113,28 +109,20 @@ public class NewEventViewModel extends BaseObservable {
 
     public void setLocation(Place place) {
         if (place == null) {
-            location = null;
+            location.set(null);
         } else {
-            location = new Location(place.getLatLng().latitude,
-                    place.getLatLng().longitude, place.getAddress().toString());
+            location.set(new Location(
+                    place.getLatLng().latitude,
+                    place.getLatLng().longitude,
+                    place.getAddress().toString()
+            ));
         }
-        notifyPropertyChanged(BR.location);
-    }
-
-    public void addTags(String rawTags) {
-        rawTags = rawTags.replace(", ", ",");
-        String[] newTags = rawTags.split(",|\\s");
-        tags.addAll(Arrays.asList(newTags));
-
-        Set<String> set = new LinkedHashSet<>(tags);
-        tags.clear();
-        tags.addAll(set);
     }
 
     private String joinTags() {
         StringBuilder sb = new StringBuilder("");
 
-        for (String tag : tags) {
+        for (String tag : buildTags()) {
             sb.append(tag).append(",");
         }
 

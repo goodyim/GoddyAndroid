@@ -148,7 +148,7 @@
     <string name="active_join">Помочь!</string>
     <string name="process_join">Присоедениться</string>
     <string name="finished_event">Завершено</string>
-    <string name="add_tag">Что вам нужно для помощи?</string>
+    <string name="choose_resource_title">Что вам нужно для помощи?</string>
     <string name="choose_tag_title">Введите название ресурса</string>
     <string name="tag_already_present">Этот ресурс уже указан в событии</string>
     <string name="profile_awards">Награды</string>
@@ -167,13 +167,19 @@
     <string name="help_info_updating">Обноляем настройки…</string>
     <string name="preset_tags_title">Используйте популярные</string>
     <string name="custom_tags_title">Или добавьте собственные</string>
+
     <string name="preset_tag_0">Автомобиль</string>
     <string name="preset_tag_1">Время</string>
     <string name="preset_tag_2">Физическая сила</string>
-    <string name="preset_tag_3">Люди</string>
-    <string name="preset_tag_4">Животные</string>
-    <string name="preset_tag_5">Дети</string>
-    <string name="preset_tag_6">Пожилые</string>
+    <string name="preset_tag_3">Фотоаппарат</string>
+    <string name="preset_tag_4">Тросс</string>
+    <string name="preset_tag_5">Ремкомплект</string>
+    <string name="preset_tag_6">Прикуриватель АКБ</string>
+    <string name="preset_tag_7">Канистра</string>
+    <string name="preset_tag_8">Лопата</string>
+    <string name="preset_tag_9">Фонарь</string>
+    <string name="preset_tag_10">Команда добровльцев</string>
+
     <string name="new_event_notification_title">Нужна помощь</string>
     <string name="new_event_notification_content">Новое событие с ресурсами: %s</string>
 
@@ -225,4 +231,6 @@
     <string name="content_location">Рядом</string>
 
     <string name="name_login_hint">Логин</string>
+
+    <string name="new_event_add_tag">Добавить свой</string>
 </resources>

@@ -4,12 +4,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.CheckedTextView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import im.goody.android.R;
 import im.goody.android.core.BaseView;
+import im.goody.android.data.dto.PresetTag;
 import im.goody.android.databinding.ScreenNewEventBinding;
 
 public class NewEventView extends BaseView<NewEventController, ScreenNewEventBinding> {
@@ -35,6 +37,12 @@ public class NewEventView extends BaseView<NewEventController, ScreenNewEventBin
     public void setData(NewEventViewModel viewModel) {
         binding.setViewModel(viewModel);
         setTags(viewModel.tags);
+
+        binding.presetTagContainer.removeAllViews();
+
+        for(PresetTag tag: viewModel.presetTags) {
+            addPreset(tag);
+        }
     }
 
     public void setTags(List<String> tags) {
@@ -58,5 +66,23 @@ public class NewEventView extends BaseView<NewEventController, ScreenNewEventBin
 
     public void removeTag(int position) {
         binding.tagContainer.removeViewAt(position);
+    }
+
+
+    public void addPreset(PresetTag tag) {
+        ViewGroup container = binding.presetTagContainer;
+
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+
+        CheckedTextView view = (CheckedTextView) inflater.inflate(R.layout.checkable_tag, container, false);
+        view.setText(tag.getValue());
+        view.setChecked(tag.isChecked());
+
+        view.setOnClickListener(v -> {
+            view.toggle();
+            tag.setChecked(view.isChecked());
+        });
+
+        container.addView(view);
     }
 }

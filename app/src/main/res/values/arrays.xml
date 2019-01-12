@@ -25,6 +25,10 @@
         <item>@string/preset_tag_4</item>
         <item>@string/preset_tag_5</item>
         <item>@string/preset_tag_6</item>
+        <item>@string/preset_tag_7</item>
+        <item>@string/preset_tag_8</item>
+        <item>@string/preset_tag_9</item>
+        <item>@string/preset_tag_10</item>
     </string-array>
     <string-array name="choose_date_options">
         <item>@string/date_immediately</item>

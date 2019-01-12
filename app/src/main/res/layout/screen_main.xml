@@ -23,6 +23,7 @@
             android:layout_marginRight="@dimen/size_normal"
             android:background="@drawable/button_login"
             android:src="@drawable/ic_add"
+            android:visibility="gone"
             app:fabSize="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
@@ -33,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/size_normal"
             android:src="@drawable/ic_new_deal"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:backgroundTint="@color/white"
             app:fabSize="normal"
             app:layout_constraintBottom_toTopOf="@+id/main_create_fab"
@@ -45,13 +46,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/size_normal"
+            android:layout_marginEnd="@dimen/size_normal"
+            android:layout_marginRight="@dimen/size_normal"
             android:src="@drawable/ic_new_event"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:backgroundTint="@color/white"
             app:fabSize="normal"
-            app:layout_constraintBottom_toTopOf="@+id/main_new_post"
-            app:layout_constraintLeft_toLeftOf="@+id/main_new_post"
-            app:layout_constraintRight_toRightOf="@+id/main_new_post" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
     </im.goody.android.screens.main.MainView>
 </layout>

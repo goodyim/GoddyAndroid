@@ -151,7 +151,7 @@
     <string name="active_join">Help!</string>
     <string name="process_join">Join</string>
     <string name="finished_event">Finished</string>
-    <string name="add_tag">Add tag</string>
+    <string name="choose_resource_title">What is needed for the help?</string>
     <string name="choose_tag_title">Enter the tags, separated by comma</string>
     <string name="tag_already_present">This tag is already present in this post</string>
     <string name="profile_awards">Awards</string>
@@ -176,10 +176,14 @@
     <string name="preset_tag_0">Car</string>
     <string name="preset_tag_1">Time</string>
     <string name="preset_tag_2">Physical strength</string>
-    <string name="preset_tag_3">people</string>
-    <string name="preset_tag_4">animals</string>
-    <string name="preset_tag_5">children</string>
-    <string name="preset_tag_6">aged people</string>
+    <string name="preset_tag_3">Camera</string>
+    <string name="preset_tag_4">Cable</string>
+    <string name="preset_tag_5">Repair kit</string>
+    <string name="preset_tag_6">Lighter battery</string>
+    <string name="preset_tag_7">Canister</string>
+    <string name="preset_tag_8">Shovel</string>
+    <string name="preset_tag_9">Lamp</string>
+    <string name="preset_tag_10">Volunteers</string>
     <string name="new_event_notification_title">Help needed</string>
     <string name="new_event_notification_content">New event with tags: %s</string>
     <string name="settings_mention">Mentions</string>
@@ -226,4 +230,5 @@
     <string name="finish_event_head">Finish event</string>
     <string name="content_location">Near</string>
     <string name="name_login_hint">Login</string>
+    <string name="new_event_add_tag">Add custom</string>
 </resources>
