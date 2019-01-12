@@ -13,16 +13,16 @@ import im.goody.android.screens.news.NewsController;
 
 public class MainPageAdapter extends RouterPagerAdapter {
     private static final int[] TABS_TITLES = {
-            R.string.content_feed, R.string.content_all,
-            R.string.content_deals, R.string.content_events
+            R.string.content_feed, R.string.content_location,
+            R.string.content_all
     };
 
     private static final String[] CONTENT_TYPES = {
-            NewsController.CONTENT_FEED, NewsController.CONTENT_All,
-            NewsController.CONTENT_POSTS, NewsController.CONTENT_EVENTS
+            NewsController.CONTENT_FEED, NewsController.CONTENT_LOCATION,
+            NewsController.CONTENT_All
     };
 
-    private static final int TABS_COUNT = 4;
+    private static final int TABS_COUNT = 3;
 
     public MainPageAdapter(@NonNull Controller host) {
         super(host);

@@ -224,4 +224,5 @@
     <string name="finish_event_title">Send thanks to participants</string>
     <string name="finish_event_hint">Say thanks…</string>
     <string name="finish_event_head">Finish event</string>
+    <string name="content_location">Near</string>
 </resources>

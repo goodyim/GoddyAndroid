@@ -221,4 +221,6 @@
     <string name="finish_event_hint">Слова благодарности</string>
     <string name="finish_event_head">Завершить событие</string>
     <string name="finish_event_title">Скажите спасибо тем, кто помог!</string>
+
+    <string name="content_location">Рядом</string>
 </resources>

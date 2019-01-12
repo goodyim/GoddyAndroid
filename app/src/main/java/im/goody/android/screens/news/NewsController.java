@@ -30,11 +30,12 @@ public class NewsController extends BaseController<NewsView> implements NewsAdap
 
     private static final boolean IS_ROOT_NONE = false;
 
-    public static final String CONTENT_EVENTS = "event";
-    public static final String CONTENT_POSTS = "deal";
-    public static final String CONTENT_All = "all";
+//    public static final String CONTENT_EVENTS = "event";
+//    public static final String CONTENT_POSTS = "deal";
 
     public static final String CONTENT_FEED = "feed";
+    public static final String CONTENT_LOCATION = "location";
+    public static final String CONTENT_All = "all";
 
     public NewsController(String contentType, Boolean isRoot, String id) {
         super(new BundleBuilder()
