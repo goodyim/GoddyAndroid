@@ -67,7 +67,7 @@
                     android:layout_marginTop="@dimen/size_big"
                     android:background="@drawable/rounded_border_rectangle"
                     android:ems="10"
-                    android:hint="@string/name_hint"
+                    android:hint="@string/name_login_hint"
                     android:imeOptions="actionNext"
                     android:inputType="textPersonName"
                     android:nextFocusDown="@+id/sign_in_password"

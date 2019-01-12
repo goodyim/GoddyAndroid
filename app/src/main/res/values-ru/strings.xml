@@ -73,7 +73,7 @@
 
     <string name="menu_report">Сообщить о нарушении</string>
 
-    <string name="name_hint">Имя</string>
+    <string name="name_hint">Логин (латиница, цифры, _)</string>
 
     <string name="new_event_title">Новое событие</string>
     <string name="new_post_create">Создать</string>
@@ -223,4 +223,6 @@
     <string name="finish_event_title">Скажите спасибо тем, кто помог!</string>
 
     <string name="content_location">Рядом</string>
+
+    <string name="name_login_hint">Логин</string>
 </resources>

@@ -32,7 +32,7 @@
     <string name="go">Go</string>
     <string name="password_hint">Password</string>
     <string name="email_hint" translatable="false">Email</string>
-    <string name="name_hint">Name</string>
+    <string name="name_hint">Login (Latin, numbers, _)</string>
     <string name="login_redirect">Do not have account?</string>
     <string name="login_title">Login</string>
     <string name="invalid_fields_message">Please make all fields valid</string>
@@ -225,4 +225,5 @@
     <string name="finish_event_hint">Say thanks…</string>
     <string name="finish_event_head">Finish event</string>
     <string name="content_location">Near</string>
+    <string name="name_login_hint">Login</string>
 </resources>
