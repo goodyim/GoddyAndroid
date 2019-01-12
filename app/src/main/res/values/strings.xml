@@ -166,7 +166,7 @@
     <string name="error">Error</string>
     <string name="help_info_load_error">Failed to load current help settings</string>
     <string name="skip">Skip</string>
-    <string name="setting_choose_help">Events</string>
+    <string name="setting_choose_help">My resources</string>
 
     <string name="distance_value" translatable="false">%d km</string>
     <string name="help_info_updating">Updating help settings…</string>
@@ -202,7 +202,7 @@
     <string name="follow_new_event_content">\@%s needs your help!</string>
     <string name="settings_finished_event">Event finishing</string>
     <string name="settings_new_participator">New participator</string>
-    <string name="settings_new_followee">Subscriptions</string>
+    <string name="settings_new_followee">My followers</string>
     <string name="settings_new_followee_summary">New events of people you are subscribed to</string>
     <string name="settings_finished_event_summary">Finishing event you are participating in</string>
 

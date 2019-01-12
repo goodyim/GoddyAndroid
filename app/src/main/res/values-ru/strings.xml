@@ -163,7 +163,7 @@
     <string name="error">Ошибка</string>
     <string name="help_info_load_error">Не получилось получить текущее состояние. Попробуйте еще раз</string>
     <string name="skip">Пропустить</string>
-    <string name="setting_choose_help">Новые события</string>
+    <string name="setting_choose_help">Мои ресурсы</string>
     <string name="help_info_updating">Обноляем настройки…</string>
     <string name="preset_tags_title">Используйте популярные</string>
     <string name="custom_tags_title">Или добавьте собственные</string>
@@ -202,7 +202,7 @@
     <string name="follow_new_event_content">\@%s нужна ваша помощь!</string>
     <string name="settings_finished_event">Завершение события</string>
     <string name="settings_new_participator">Новый участник</string>
-    <string name="settings_new_followee">Подписки</string>
+    <string name="settings_new_followee">Мои подписчики</string>
     <string name="settings_new_followee_summary">Новые события людей, на которых вы подписаны</string>
     <string name="settings_finished_event_summary">Завершение события, в котором вы учавствуете</string>
 
