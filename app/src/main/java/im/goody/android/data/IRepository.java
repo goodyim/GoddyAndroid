@@ -92,4 +92,6 @@ public interface IRepository {
     Observable<List<Participant>> getParticipants(long id);
 
     Observable<List<Follower>> getFollowers(long id);
+
+    Observable<User> changeAvatar(String id, Uri uri);
 }

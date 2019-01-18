@@ -2,6 +2,7 @@ package im.goody.android.screens.profile;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableInt;
+import android.net.Uri;
 
 import im.goody.android.data.dto.User;
 import im.goody.android.data.network.res.FollowRes;
@@ -19,6 +20,9 @@ public class ProfileViewModel {
     public final ObservableBoolean isFollowing = new ObservableBoolean();
 
     public final ObservableInt followers = new ObservableInt();
+
+    private Uri tempImage;
+
     ProfileViewModel(User user, boolean isMineFrofile) {
         name = user.getName();
         id = String.valueOf(user.getId());
@@ -90,6 +94,14 @@ public class ProfileViewModel {
     void updateFollowState(FollowRes result) {
         followers.set(result.getFollowersCount());
         isFollowing.set(result.isSubscribed());
+    }
+
+    public void setTempImage(Uri tempImage) {
+        this.tempImage = tempImage;
+    }
+
+    public Uri getTempImage() {
+        return tempImage;
     }
     // endregion
 }

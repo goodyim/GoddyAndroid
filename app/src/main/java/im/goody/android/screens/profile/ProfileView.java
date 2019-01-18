@@ -26,7 +26,7 @@ public class ProfileView extends BaseView<ProfileController, ScreenProfileBindin
 
         binding.profileFollow.setOnClickListener(v -> controller.follow());
 
-        binding.profileAvatar.setOnClickListener(v -> controller.showAvatar());
+        binding.profileAvatar.setOnClickListener(v -> controller.avatarClicked());
 
         binding.dealsCount.setOnClickListener(v -> controller.showDeals());
 
@@ -58,7 +58,7 @@ public class ProfileView extends BaseView<ProfileController, ScreenProfileBindin
     }
 
     public void startRefresh() {
-        binding.profileRefresh.setRefreshing(true);
+        binding.profileRefresh.post(() -> binding.profileRefresh.setRefreshing(true));
     }
 
     public void finishRefresh() {

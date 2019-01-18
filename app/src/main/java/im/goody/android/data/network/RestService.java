@@ -117,4 +117,9 @@ public interface RestService {
 
     @GET("users/{id}/followers")
     Observable<List<Follower>> getFollowers(@Path("id") long id);
+
+    @Multipart
+    @PUT("users/{id}")
+    Observable<User> updateAvatar(@Path("id") String id,
+                                  @Part MultipartBody.Part avatar);
 }

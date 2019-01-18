@@ -357,6 +357,14 @@ public class Repository implements IRepository {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    @Override
+    public Observable<User> changeAvatar(String id, Uri uri) {
+        return Observable.just(uri)
+                .map(it -> getPartFromUri(it, "user[avatar]"))
+                .flatMap(partContainer -> restService.updateAvatar(id, partContainer.getPart()))
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     //endregion
 
     // ======= region Comments =======
@@ -377,7 +385,7 @@ public class Repository implements IRepository {
             file.createNewFile();
         }
 
-        Bitmap scaled = Bitmap.createScaledBitmap(bmp,Constants.CACHED_IMAGE_WIDTH, Constants.CACHED_IMAGE_HEIGHT, true);
+        Bitmap scaled = Bitmap.createScaledBitmap(bmp, Constants.CACHED_IMAGE_WIDTH, Constants.CACHED_IMAGE_HEIGHT, true);
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         scaled.compress(Bitmap.CompressFormat.PNG, 100, bos);
