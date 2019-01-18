@@ -225,6 +225,15 @@
     <string name="choose_location_map">On map</string>
     <string name="content_feed">Feed</string>
     <string name="followers">Followers</string>
+
+    <string name="phone_number_hint">Phone number</string>
+    <string name="invalid_phone">Invalid phone format</string>
+    <string name="choose_phone_visibility">Phone visibility</string>
+    <string name="phone_visibility_all">Everyone</string>
+    <string name="phone_visibility_participants">Participants only</string>
+    <string name="phone_visibility_request">By request</string>
+    <string name="choose_phone_visibility_title">Who will see your phone number?</string>
+
     <string name="finish_event_title">Send thanks to participants</string>
     <string name="finish_event_hint">Say thanks…</string>
     <string name="finish_event_head">Finish event</string>

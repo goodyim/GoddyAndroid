@@ -10,13 +10,16 @@
         <item>@string/quick_word_1</item>
         <item>@string/quick_word_2</item>
     </string-array>
+
     <string-array name="comment_options">
         <item>@string/comment_reply</item>
     </string-array>
+
     <string-array name="comment_options_extended">
         <item>@string/comment_reply</item>
         <item>@string/delete</item>
     </string-array>
+
     <string-array name="preset_tags">
         <item>@string/preset_tag_0</item>
         <item>@string/preset_tag_1</item>
@@ -30,14 +33,23 @@
         <item>@string/preset_tag_9</item>
         <item>@string/preset_tag_10</item>
     </string-array>
+
     <string-array name="choose_date_options">
         <item>@string/date_immediately</item>
         <item>@string/date_pick</item>
     </string-array>
+
+    <string-array name="choose_phone_visibility_options">
+        <item>@string/phone_visibility_all</item>
+        <item>@string/phone_visibility_participants</item>
+        <item>@string/phone_visibility_request</item>
+    </string-array>
+
     <string-array name="location_options">
         <item>@string/location_auto</item>
         <item>@string/location_manual</item>
     </string-array>
+
     <string-array name="choose_location_options">
         <item>@string/choose_location_map</item>
         <item>@string/choose_location_none</item>

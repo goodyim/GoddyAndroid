@@ -10,15 +10,22 @@ public class RegisterReq {
     private String email;
     private String password;
 
+    private String phoneNumber;
+
     private int sex;
 
     private String birthday;
 
+
     // ======= region getters =======
+    
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
     public int getSex() {
         return sex;
     }
-
     public String getBirthday() {
         return birthday;
     }
@@ -35,9 +42,14 @@ public class RegisterReq {
         return password;
     }
 
+
     // endregion
 
     // ======= region setters =======
+    public RegisterReq setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
+    }
 
     public RegisterReq setBirthday(String birthday) {
         this.birthday = birthday;

@@ -1,6 +1,6 @@
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -44,16 +44,16 @@
                     android:id="@+id/register_email"
                     style="@style/LoginControl"
                     android:layout_marginEnd="@dimen/size_medium"
-                    android:layout_marginRight="@dimen/size_medium"
                     android:layout_marginLeft="@dimen/margin_right_register"
+                    android:layout_marginRight="@dimen/size_medium"
                     android:layout_marginStart="@dimen/margin_right_register"
                     android:background="@drawable/rounded_border_rectangle"
                     android:gravity="center_vertical"
-                    android:paddingStart="@dimen/form_padding_left"
-                    android:paddingLeft="@dimen/form_padding_left"
                     android:hint="@string/email_hint"
                     android:inputType="textEmailAddress"
                     android:nextFocusDown="@id/register_name"
+                    android:paddingLeft="@dimen/form_padding_left"
+                    android:paddingStart="@dimen/form_padding_left"
                     android:text="@={data.email}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -66,20 +66,35 @@
                     android:ems="10"
                     android:gravity="center_vertical"
                     android:hint="@string/name_hint"
-                    android:paddingStart="@dimen/form_padding_left"
-                    android:paddingLeft="@dimen/form_padding_left"
                     android:inputType="textPersonName"
+                    android:paddingLeft="@dimen/form_padding_left"
+                    android:paddingStart="@dimen/form_padding_left"
                     android:text="@={data.name}"
                     app:layout_constraintEnd_toEndOf="@+id/register_email"
                     app:layout_constraintStart_toStartOf="@+id/register_email"
                     app:layout_constraintTop_toBottomOf="@+id/register_email" />
 
+                <EditText
+                    android:id="@+id/register_phone"
+                    style="@style/LoginControl"
+                    android:layout_marginTop="@dimen/size_normal"
+                    android:background="@drawable/rounded_border_rectangle"
+                    android:gravity="center_vertical"
+                    android:hint="@string/phone_number_hint"
+                    android:inputType="phone"
+                    android:paddingLeft="@dimen/form_padding_left"
+                    android:paddingStart="@dimen/form_padding_left"
+                    android:text="@={data.phoneNumber}"
+                    app:layout_constraintEnd_toEndOf="@+id/register_name"
+                    app:layout_constraintStart_toStartOf="@+id/register_name"
+                    app:layout_constraintTop_toBottomOf="@+id/register_name" />
+
                 <TextView
                     android:id="@+id/register_birthday_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/size_medium"
                     android:layout_marginLeft="@dimen/size_medium"
+                    android:layout_marginStart="@dimen/size_medium"
                     android:text="@string/register_birthday_title"
                     app:layout_constraintBottom_toBottomOf="@+id/register_birthday"
                     app:layout_constraintStart_toStartOf="parent"
@@ -88,22 +103,22 @@
                 <TextView
                     android:id="@+id/register_birthday"
                     style="@style/LoginControl"
+                    date_hint="@{@string/birthday_hint}"
                     android:layout_width="0dp"
-                    android:layout_marginStart="@dimen/size_normal"
                     android:layout_marginLeft="@dimen/size_normal"
-                    android:paddingStart="@dimen/form_padding_left"
-                    android:paddingLeft="@dimen/form_padding_left"
-                    tools:text="11.11.1111"
+                    android:layout_marginStart="@dimen/size_normal"
                     android:layout_marginTop="@dimen/size_normal"
                     android:background="@drawable/rounded_border_rectangle"
                     android:drawableEnd="@drawable/ic_arrow_right"
                     android:drawableRight="@drawable/ic_arrow_right"
+                    android:paddingLeft="@dimen/form_padding_left"
+                    android:paddingStart="@dimen/form_padding_left"
                     app:date="@{data.birthday}"
-                    date_hint="@{@string/birthday_hint}"
                     app:layout_constraintRight_toRightOf="@id/register_name"
                     app:layout_constraintStart_toEndOf="@+id/register_birthday_title"
-                    app:layout_constraintTop_toBottomOf="@+id/register_name"
-                    app:time_disabled="@{true}" />
+                    app:layout_constraintTop_toBottomOf="@+id/register_phone"
+                    app:time_disabled="@{true}"
+                    tools:text="11.11.1111" />
 
                 <TextView
                     android:id="@+id/register_sex_title"
@@ -132,8 +147,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
-                        android:paddingRight="@dimen/size_normal"
                         android:paddingEnd="@dimen/size_normal"
+                        android:paddingRight="@dimen/size_normal"
                         android:text="@string/sex_male" />
 
                     <RadioButton

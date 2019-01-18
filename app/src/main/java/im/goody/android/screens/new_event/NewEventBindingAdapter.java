@@ -10,6 +10,10 @@ import im.goody.android.Constants;
 import im.goody.android.R;
 import im.goody.android.data.dto.Location;
 
+import static im.goody.android.data.dto.Event.PhoneInfo.VISIBILITY_ALL;
+import static im.goody.android.data.dto.Event.PhoneInfo.VISIBILITY_PARTICIPANTS;
+import static im.goody.android.data.dto.Event.PhoneInfo.VISIBILITY_REQUEST;
+
 public class NewEventBindingAdapter {
     @BindingAdapter("event_location")
     public static void bindLocation(TextView view, Location location) {
@@ -41,7 +45,28 @@ public class NewEventBindingAdapter {
 
         visibility = bmp == null ? View.GONE : View.VISIBLE;
 
-        ((View)view.getParent()).setVisibility(visibility);
+        ((View) view.getParent()).setVisibility(visibility);
         view.setImageBitmap(bmp);
+    }
+
+    @BindingAdapter("event_phone")
+    public static void bindPhoneBisibility(TextView view, int visibility) {
+        int stringRes;
+
+        switch (visibility) {
+            case VISIBILITY_ALL:
+                stringRes = R.string.phone_visibility_all;
+                break;
+            case VISIBILITY_PARTICIPANTS:
+                stringRes = R.string.phone_visibility_participants;
+                break;
+            case VISIBILITY_REQUEST:
+                stringRes = R.string.phone_visibility_request;
+                break;
+            default:
+                stringRes = R.string.phone_visibility_all;
+        }
+
+        view.setText(stringRes);
     }
 }

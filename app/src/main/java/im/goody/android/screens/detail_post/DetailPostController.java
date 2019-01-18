@@ -91,7 +91,7 @@ public class DetailPostController extends BaseController<DetailPostView>
             return true;
         });
 
-        if(viewModel.getBody() == null) {
+        if (viewModel.getBody() == null) {
             editItem.setVisible(false);
             eventStateItem.setVisible(false);
             deleteItem.setVisible(false);
@@ -166,7 +166,6 @@ public class DetailPostController extends BaseController<DetailPostView>
     // endregion
 
 
-
     // ======= region DetailPostHandler =======
     @Override
     public void openParticipants(long id) {
@@ -238,7 +237,7 @@ public class DetailPostController extends BaseController<DetailPostView>
     }
 
     private void deletePost() {
-        Disposable d  = repository.deletePost(viewModel.getId())
+        Disposable d = repository.deletePost(viewModel.getId())
                 .subscribe(response -> {
                     showToast(R.string.delete_success);
                     rootPresenter.showMain();
@@ -257,7 +256,7 @@ public class DetailPostController extends BaseController<DetailPostView>
     private void showEditScreen() {
         Deal deal = viewModel.getDeal();
 
-        if(deal.getEvent() == null) {
+        if (deal.getEvent() == null) {
             rootPresenter.showEditPostScreen(deal);
         } else {
             rootPresenter.showEditEventScreen(deal);
@@ -280,7 +279,7 @@ public class DetailPostController extends BaseController<DetailPostView>
 
     @SuppressWarnings("CodeBlock2Expr")
     private void finishEvent() {
-       rootPresenter.openFinishEvent(viewModel.getId());
+        rootPresenter.openFinishEvent(viewModel.getId());
     }
 
     // endregion

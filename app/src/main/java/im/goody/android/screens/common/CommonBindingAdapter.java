@@ -19,7 +19,7 @@ import java.util.Locale;
 import im.goody.android.App;
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
-import im.goody.android.data.dto.Deal.Event;
+import im.goody.android.data.dto.Event;
 import im.goody.android.data.dto.Location;
 import im.goody.android.ui.views.AutoLinkTextView;
 import im.goody.android.utils.DateUtils;

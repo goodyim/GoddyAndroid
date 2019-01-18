@@ -26,6 +26,7 @@ import im.goody.android.ui.helpers.BarBuilder;
 import im.goody.android.utils.NetUtils;
 import im.goody.android.utils.TextUtils;
 import im.goody.android.utils.UIUtils;
+import io.reactivex.disposables.Disposable;
 
 @SuppressLint("CheckResult")
 public class NewEventController extends NewController<NewEventView> {
@@ -52,13 +53,13 @@ public class NewEventController extends NewController<NewEventView> {
     }
 
     public NewEventController() {
-         viewModel = new NewEventViewModel();
+        viewModel = new NewEventViewModel();
     }
 
     // ======= region NewEventController =======
 
     void chooseDate() {
-        new OptionsDialog(R.string.choose_date, R.array.choose_date_options)
+        Disposable disposable = new OptionsDialog(R.string.choose_date, R.array.choose_date_options)
                 .show(getActivity())
                 .subscribe(integer -> {
                     switch (integer) {
@@ -71,6 +72,18 @@ public class NewEventController extends NewController<NewEventView> {
 
                     }
                 });
+
+        compositeDisposable.add(disposable);
+    }
+
+    void choosePhoneVisibility() {
+        Disposable disposable = new OptionsDialog(
+                R.string.choose_phone_visibility_title,
+                R.array.choose_phone_visibility_options)
+                .show(getActivity())
+                .subscribe(viewModel.phoneVisibility::set);
+
+        compositeDisposable.add(disposable);
     }
 
     @Override

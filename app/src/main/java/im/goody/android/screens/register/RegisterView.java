@@ -1,7 +1,10 @@
 package im.goody.android.screens.register;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 
 import im.goody.android.R;
@@ -29,6 +32,21 @@ public class RegisterView extends BaseView<RegisterController, ScreenRegisterBin
             UIUtils.hideKeyboard(getFocusedChild());
             controller.register();
         });
+
+        setPhoneMask();
+
+    }
+
+    private void setPhoneMask() {
+        TextWatcher watcher;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            watcher = new PhoneNumberFormattingTextWatcher("RU");
+        } else {
+            watcher = new PhoneNumberFormattingTextWatcher();
+        }
+
+        binding.registerPhone.addTextChangedListener(watcher);
     }
 
     @Override

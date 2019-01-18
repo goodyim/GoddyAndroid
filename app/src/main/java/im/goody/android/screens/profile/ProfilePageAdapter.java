@@ -9,7 +9,7 @@ import com.bluelinelabs.conductor.support.RouterPagerAdapter;
 
 import im.goody.android.App;
 import im.goody.android.R;
-import im.goody.android.data.dto.Deal;
+import im.goody.android.data.dto.Event;
 import im.goody.android.screens.profile.events.ProfileEventsController;
 
 public class ProfilePageAdapter extends RouterPagerAdapter {
@@ -20,7 +20,7 @@ public class ProfilePageAdapter extends RouterPagerAdapter {
     };
 
     private static final String[] EVENT_TYPES = {
-            Deal.Event.ACTIVE, Deal.Event.IN_PROGRESS, Deal.Event.CLOSED
+            Event.ACTIVE, Event.IN_PROGRESS, Event.CLOSED
     };
 
     private static final int TABS_COUNT = 3;

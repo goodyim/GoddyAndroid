@@ -6,8 +6,10 @@ import im.goody.android.data.network.core.NameSpace;
 
 public class NewEventReq {
     private String description;
+
     @JsonProperty("name")
     private String title;
+
     @JsonProperty("category_id")
     private int category = 0; // required param but not used
 
@@ -17,8 +19,15 @@ public class NewEventReq {
     @NameSpace("event") private Double longitude;
     @NameSpace("event") private boolean immediately;
 
+    @JsonProperty("phone_visibility")
+    @NameSpace("event")
+    private int visibility;
+
     // ======= region getters =======
 
+    public int getVisibility() {
+        return visibility;
+    }
     public Double getLatitude() {
         return latitude;
     }
@@ -50,6 +59,11 @@ public class NewEventReq {
     // end
 
     // ======= region setters =======
+
+    public NewEventReq setVisibility(int visibility) {
+        this.visibility = visibility;
+        return this;
+    }
 
     public NewEventReq setDescription(String description) {
         this.description = description;

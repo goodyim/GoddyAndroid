@@ -3,6 +3,7 @@ package im.goody.android.screens.register;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 import android.text.TextUtils;
+import android.util.Patterns;
 
 import java.util.Calendar;
 
@@ -14,15 +15,20 @@ import im.goody.android.data.validation.ValidateResult;
 import im.goody.android.utils.DateUtils;
 
 import static android.util.Patterns.EMAIL_ADDRESS;
+import static android.util.Patterns.PHONE;
 import static im.goody.android.Constants.MIN_PASSWORD_LENGTH;
 import static im.goody.android.Constants.SEX_MALE;
 
 @SuppressWarnings("unused")
 public class RegisterViewModel extends BaseObservable implements Validatable {
 
+    public static final String NAME_PATTERN = "[a-z0-9_]{4,}";
+
     private String name;
     private String email;
     private String password;
+
+    private String phoneNumber;
 
     public ObservableField<Calendar> birthday = new ObservableField<>();
 
@@ -31,14 +37,19 @@ public class RegisterViewModel extends BaseObservable implements Validatable {
     RegisterReq body() {
         return new RegisterReq()
                 .setEmail(email)
+                .setPhoneNumber(phoneNumber)
                 .setPassword(password)
                 .setName(name)
                 .setBirthday(getStringDate())
                 .setSex(sex);
     }
 
+
     // ======= region getters =======
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
     public int getSex() {
         return sex;
     }
@@ -55,10 +66,10 @@ public class RegisterViewModel extends BaseObservable implements Validatable {
         return name;
     }
 
+
     //endregion
 
     // ======= region setters =======
-
     public void setSex(int id) {
         switch (id) {
             case R.id.sex_male:
@@ -84,12 +95,20 @@ public class RegisterViewModel extends BaseObservable implements Validatable {
         return this;
     }
 
-    // endregion
 
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    // endregion
     // ======= region private methods =======
 
+    private boolean isPhoneValid() {
+        return !TextUtils.isEmpty(phoneNumber) && PHONE.matcher(phoneNumber).matches();
+    }
+
     private boolean isNameValid() {
-        return !TextUtils.isEmpty(name) && name.matches("[a-z0-9_]{4,}");
+        return !TextUtils.isEmpty(name) && name.matches(NAME_PATTERN);
     }
 
     private boolean isEmailValid() {
@@ -109,6 +128,10 @@ public class RegisterViewModel extends BaseObservable implements Validatable {
     @Override
     public ValidateResult validate() {
         ValidateResult result = new ValidateResult();
+
+        if (!isPhoneValid()) {
+            result.addError(R.string.invalid_phone);
+        }
 
         if (!isNameValid()) {
             result.addError(R.string.invalid_name);

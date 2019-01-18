@@ -175,6 +175,21 @@
                     app:date="@{viewModel.calendar}"
                     app:date_immediately="@{viewModel.isDateImmediate}"
                     tools:text="Choose date..." />
+
+                <TextView
+                    android:id="@+id/new_event_phone"
+                    style="@style/FormField"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:drawableEnd="@drawable/ic_arrow_right"
+                    android:drawableLeft="@drawable/ic_phone"
+                    android:drawablePadding="@dimen/size_small"
+                    android:drawableRight="@drawable/ic_arrow_right"
+                    android:drawableStart="@drawable/ic_phone"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="@dimen/size_small"
+                    android:paddingTop="@dimen/size_small"
+                    android:text="@string/choose_phone_visibility"
+                    app:event_phone="@{viewModel.phoneVisibility}" />
             </LinearLayout>
         </ScrollView>
     </im.goody.android.screens.new_event.NewEventView>

@@ -5,6 +5,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -20,11 +21,14 @@ import java.util.Set;
 import im.goody.android.App;
 import im.goody.android.BR;
 import im.goody.android.data.dto.Deal;
+import im.goody.android.data.dto.Event;
 import im.goody.android.data.dto.Location;
 import im.goody.android.data.network.req.NewEventReq;
 import im.goody.android.screens.common.TagViewModel;
 import im.goody.android.utils.DateUtils;
 import im.goody.android.utils.TextUtils;
+
+import static im.goody.android.data.dto.Event.PhoneInfo.VISIBILITY_ALL;
 
 public class NewEventViewModel extends TagViewModel {
     public final ObservableField<Calendar> calendar = new ObservableField<>();
@@ -32,6 +36,10 @@ public class NewEventViewModel extends TagViewModel {
 
     public final ObservableField<String> title = new ObservableField<>();
     public final ObservableField<String> description = new ObservableField<>();
+
+    public final ObservableInt phoneVisibility = new ObservableInt(VISIBILITY_ALL);
+
+    final ArrayList<String> tags;
 
     public final ObservableField<Bitmap> image = new ObservableField<>();
 
@@ -48,9 +56,10 @@ public class NewEventViewModel extends TagViewModel {
         description.set(deal.getDescription());
         title.set(deal.getTitle());
 
-        Deal.Event event = deal.getEvent();
+        Event event = deal.getEvent();
 
         String[] temp = event.getResources().split(",");
+
         tags = new ArrayList<>(Arrays.asList(temp));
 
         movePredefinedTagsToPresets();
@@ -59,6 +68,8 @@ public class NewEventViewModel extends TagViewModel {
 
         if (!event.isImmediately())
             calendar.set(DateUtils.calendarFromString(event.getDate()));
+
+        phoneVisibility.set(event.getPhoneInfo().getVisibility());
     }
 
     NewEventViewModel() {
@@ -73,6 +84,7 @@ public class NewEventViewModel extends TagViewModel {
                 .setTitle(title.get())
                 .setResources(joinTags())
                 .setImmediately(isDateImmediate.get())
+                .setVisibility(phoneVisibility.get())
                 .setDescription(description.get());
     }
 

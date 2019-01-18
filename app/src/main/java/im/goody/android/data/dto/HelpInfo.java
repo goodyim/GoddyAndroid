@@ -30,6 +30,7 @@ public class HelpInfo {
         return this;
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Area {
         private double latitude;
         private double longitude;

@@ -27,6 +27,7 @@ public class NewEventView extends BaseView<NewEventController, ScreenNewEventBin
         binding.newEventPhoto.setOnClickListener(v -> controller.choosePhoto());
         binding.newEventClearImage.setOnClickListener(v -> controller.clearPhoto());
         binding.addTag.setOnClickListener(v -> controller.addTag());
+        binding.newEventPhone.setOnClickListener(v -> controller.choosePhoneVisibility());
     }
 
     @Override
