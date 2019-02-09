@@ -20,7 +20,6 @@ import im.goody.android.data.local.PreferencesManager;
 import im.goody.android.root.RootActivity;
 
 import static im.goody.android.Constants.NotificationExtra.AUTHOR_NAME;
-import static im.goody.android.Constants.NotificationExtra.FOLLOWEE_NEW_EVENT;
 import static im.goody.android.Constants.NotificationExtra.ID;
 import static im.goody.android.Constants.NotificationExtra.MESSAGE;
 import static im.goody.android.Constants.NotificationExtra.TAGS;
@@ -28,10 +27,16 @@ import static im.goody.android.Constants.NotificationExtra.TITLE;
 import static im.goody.android.Constants.NotificationExtra.TYPE;
 import static im.goody.android.Constants.NotificationExtra.TYPE_CLOSE_EVENT;
 import static im.goody.android.Constants.NotificationExtra.TYPE_COMMENT;
+import static im.goody.android.Constants.NotificationExtra.TYPE_FOLLOWEE_NEW_EVENT;
 import static im.goody.android.Constants.NotificationExtra.TYPE_MENTION;
 import static im.goody.android.Constants.NotificationExtra.TYPE_NEW_EVENT;
 import static im.goody.android.Constants.NotificationExtra.TYPE_NEW_PARTICIPATOR;
-import static im.goody.android.data.local.PreferencesManager.*;
+import static im.goody.android.Constants.NotificationExtra.TYPE_PHONE_REQUEST;
+import static im.goody.android.data.local.PreferencesManager.SETTINGS_COMMENTS_KEY;
+import static im.goody.android.data.local.PreferencesManager.SETTINGS_FINISHED_EVENT;
+import static im.goody.android.data.local.PreferencesManager.SETTINGS_MENTIONS_KEY;
+import static im.goody.android.data.local.PreferencesManager.SETTINGS_NEW_FOLLOWEE;
+import static im.goody.android.data.local.PreferencesManager.SETTINGS_NEW_PARTICIPATOR;
 
 
 public class NotificationsService extends FirebaseMessagingService {
@@ -72,10 +77,25 @@ public class NotificationsService extends FirebaseMessagingService {
                 case TYPE_NEW_PARTICIPATOR:
                     processNewParticipator(data);
                     break;
-                case FOLLOWEE_NEW_EVENT:
+                case TYPE_FOLLOWEE_NEW_EVENT:
                     processFolloweeNewEvent(data);
                     break;
+                case TYPE_PHONE_REQUEST:
+                    processPhoneRequest(data);
+                    break;
             }
+        }
+    }
+
+    private void processPhoneRequest(Map<String, String> data) {
+        if (isNotNull(data, AUTHOR_NAME, ID)) {
+            String author = data.get(AUTHOR_NAME);
+
+            Long id = Long.parseLong(data.get(ID));
+
+            String content = getString(R.string.notification_phone_request, author);
+
+            sendNotification(null, content, id, TYPE_PHONE_REQUEST);
         }
     }
 
@@ -87,7 +107,7 @@ public class NotificationsService extends FirebaseMessagingService {
 
             String content = getString(R.string.follow_new_event_content, author);
 
-            sendNotification(null, content, id);
+            sendNotification(null, content, id, TYPE_FOLLOWEE_NEW_EVENT);
         }
     }
 
@@ -99,7 +119,7 @@ public class NotificationsService extends FirebaseMessagingService {
 
             String content = getString(R.string.new_participator_content, participatorName);
 
-            sendNotification(null, content, id);
+            sendNotification(null, content, id, TYPE_NEW_PARTICIPATOR);
         }
     }
 
@@ -113,7 +133,7 @@ public class NotificationsService extends FirebaseMessagingService {
             String title = getString(R.string.title_event_finished);
             String content = getString(R.string.event_finished_message, author, helperNames);
 
-            sendNotification(title, content, id);
+            sendNotification(title, content, id, TYPE_CLOSE_EVENT);
         }
     }
 
@@ -123,7 +143,7 @@ public class NotificationsService extends FirebaseMessagingService {
             String tags = data.get(TAGS);
             String title = data.get(MESSAGE);
             String content = getString(R.string.new_event_notification_content, tags);
-            sendNotification(title, content, id);
+            sendNotification(title, content, id, TYPE_NEW_EVENT);
         }
     }
 
@@ -136,7 +156,7 @@ public class NotificationsService extends FirebaseMessagingService {
                     data.get(MESSAGE));
             Long id = Long.valueOf(data.get(ID));
 
-            sendNotification(null, notificationContent, id);
+            sendNotification(null, notificationContent, id, TYPE_COMMENT);
         }
     }
 
@@ -149,11 +169,11 @@ public class NotificationsService extends FirebaseMessagingService {
                     data.get(AUTHOR_NAME));
             Long id = Long.valueOf(data.get(ID));
 
-            sendNotification(notificationTitle, notificationContent, id);
+            sendNotification(notificationTitle, notificationContent, id, TYPE_MENTION);
         }
     }
 
-    private void sendNotification(String notificationTitle, String notificationContent, Long id) {
+    private void sendNotification(String notificationTitle, String notificationContent, Long id, String type) {
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationChannel mChannel = new NotificationChannel(GOODY_CHANNEL, GOODY_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
@@ -161,7 +181,7 @@ public class NotificationsService extends FirebaseMessagingService {
         }
 
         Notification notification = new NotificationCompat.Builder(this, GOODY_CHANNEL)
-                .setContentIntent(getDetailIntent(id))
+                .setContentIntent(getDetailIntent(id, type))
                 .setContentTitle(notificationTitle)
                 .setContentText(notificationContent)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(notificationContent))
@@ -175,10 +195,12 @@ public class NotificationsService extends FirebaseMessagingService {
         }
     }
 
-    private PendingIntent getDetailIntent(Long id) {
+    private PendingIntent getDetailIntent(Long id, String type) {
         Intent intent = new Intent(this, RootActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
         intent.putExtra(RootActivity.EXTRA_POST_ID, id);
+        intent.putExtra(RootActivity.EXTRA_TYPE, type);
 
         return PendingIntent.getActivity(this,
                 0,

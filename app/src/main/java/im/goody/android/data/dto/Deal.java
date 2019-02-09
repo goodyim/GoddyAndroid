@@ -33,6 +33,7 @@ public class Deal {
     private String imageUrl;
     private Author author;
 
+
     private Location location;
 
     private Event event;

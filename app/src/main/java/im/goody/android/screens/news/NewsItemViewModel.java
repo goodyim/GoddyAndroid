@@ -13,11 +13,13 @@ import im.goody.android.BR;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.network.res.EventStateRes;
 import im.goody.android.screens.common.ActionPanelViewModel;
+import im.goody.android.screens.common.PhoneInfoViewModel;
 
 public class NewsItemViewModel extends BaseObservable {
     private final Deal deal;
 
     public final ActionPanelViewModel panelViewModel;
+    public final PhoneInfoViewModel phoneInfoViewModel;
 
     @Bindable
     private boolean expanded;
@@ -36,9 +38,13 @@ public class NewsItemViewModel extends BaseObservable {
         participates = new ObservableBoolean(deal.isParticipates());
 
         if (deal.getEvent() != null) {
+            phoneInfoViewModel = new PhoneInfoViewModel(deal.getEvent().getPhoneInfo());
+
             state.set(deal.getEvent().getState());
             lastParticipants.set(deal.getEvent().getLastParticipantsAvatars());
             participantsCount.set(deal.getEvent().getParticipantsCount());
+        } else {
+            phoneInfoViewModel = null;
         }
     }
 

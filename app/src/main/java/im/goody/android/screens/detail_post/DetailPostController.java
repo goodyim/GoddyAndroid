@@ -12,6 +12,7 @@ import im.goody.android.R;
 import im.goody.android.core.BaseController;
 import im.goody.android.data.dto.Comment;
 import im.goody.android.data.dto.Deal;
+import im.goody.android.data.dto.Event;
 import im.goody.android.data.dto.Location;
 import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.di.DaggerScope;
@@ -134,6 +135,7 @@ public class DetailPostController extends BaseController<DetailPostView>
 
     void sendComment() {
         view().showCommentProgress();
+
         Disposable d = repository.sendComment(viewModel.getId(), viewModel.getCommentObject())
                 .subscribe(commentRes -> {
                     viewModel.addComment(commentRes);
@@ -143,6 +145,7 @@ public class DetailPostController extends BaseController<DetailPostView>
                     view().hideCommentProgress();
                     showError(error);
                 });
+
         compositeDisposable.add(d);
     }
 
@@ -159,6 +162,7 @@ public class DetailPostController extends BaseController<DetailPostView>
                         loadData();
                     });
                 });
+
         compositeDisposable.add(d);
     }
 
@@ -170,6 +174,12 @@ public class DetailPostController extends BaseController<DetailPostView>
     @Override
     public void openParticipants(long id) {
         rootPresenter.showParticipants(id);
+    }
+
+    @Override
+    public Observable<Event.PhoneInfo> requestPhone(long dealId) {
+        return repository.requestPhone(dealId)
+                .doOnError(this::showError);
     }
 
     @Override
@@ -200,8 +210,7 @@ public class DetailPostController extends BaseController<DetailPostView>
         Deal deal = viewModel.getBody().getDeal();
 
         return repository.likeDeal(deal.getId())
-                .doOnError(error ->
-                        view().showMessage(getErrorMessage(error)));
+                .doOnError(this::showError);
     }
 
     @Override

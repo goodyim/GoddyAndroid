@@ -5,6 +5,7 @@ import android.net.Uri;
 import java.util.List;
 
 import im.goody.android.data.dto.Deal;
+import im.goody.android.data.dto.Event;
 import im.goody.android.data.dto.Feedback;
 import im.goody.android.data.dto.Follower;
 import im.goody.android.data.dto.HelpInfo;
@@ -27,8 +28,8 @@ import okhttp3.ResponseBody;
 
 public interface IRepository {
 
-    Observable<UserRes> login(LoginReq data);
-    Observable<UserRes> register(RegisterReq data);
+    Observable<UserRes.User> login(LoginReq data);
+    Observable<UserRes.User> register(RegisterReq data);
     boolean isSigned();
     boolean isProfileFilled();
     void setProfileFilled(boolean isFilled);
@@ -94,4 +95,8 @@ public interface IRepository {
     Observable<List<Follower>> getFollowers(long id);
 
     Observable<User> changeAvatar(String id, Uri uri);
+
+    Observable<Event.PhoneInfo> requestPhone(long dealId);
+
+    Observable<ResponseBody> processPhoneRequest(long requestId, int state);
 }

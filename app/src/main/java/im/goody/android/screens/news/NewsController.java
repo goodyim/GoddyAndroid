@@ -9,6 +9,7 @@ import java.util.List;
 import im.goody.android.R;
 import im.goody.android.core.BaseController;
 import im.goody.android.data.dto.Deal;
+import im.goody.android.data.dto.Event;
 import im.goody.android.data.dto.Location;
 import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.di.DaggerScope;
@@ -164,13 +165,18 @@ public class NewsController extends BaseController<NewsView> implements NewsAdap
     @Override
     public Observable<ParticipateRes> changeParticipateState(long id) {
         return repository.changeParticipateState(id)
-                .doOnError(error ->
-                        view().showMessage(getErrorMessage(error)));
+                .doOnError(this::showError);
     }
 
     @Override
     public void finishEvent(long id) {
         rootPresenter.openFinishEvent(id);
+    }
+
+    @Override
+    public Observable<Event.PhoneInfo> requestPhone(long dealId) {
+        return repository.requestPhone(dealId)
+                .doOnError(this::showError);
     }
 
     @Override

@@ -14,4 +14,8 @@ public class FeedbackViewModel {
     public void setData(List<Feedback> data) {
         this.data = data;
     }
+
+    public void removeFeedback(int position) {
+        data.remove(position);
+    }
 }

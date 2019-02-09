@@ -183,6 +183,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/item_event_date"
                 tools:text="Location" />
 
+            <include
+                bind:viewModel="@{viewModel.phoneInfoViewModel}"
+                android:id="@+id/phone_info_panel"
+                layout="@layout/phone_info_panel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_normal"
+                android:layout_marginRight="@dimen/size_normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_event_location" />
+
             <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/tag_container"
                 android:layout_width="0dp"
@@ -195,7 +207,7 @@
                 app:flexWrap="wrap"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/item_event_location"
+                app:layout_constraintTop_toBottomOf="@+id/phone_info_panel"
                 app:tags="@{viewModel.deal.event.resources}"
                 tools:layout_height="50dp" />
 
@@ -216,10 +228,10 @@
                 android:layout_marginBottom="@dimen/size_normal"
                 android:layout_marginEnd="@dimen/size_normal"
                 android:layout_marginStart="@dimen/size_normal"
-                android:visibility="@{viewModel.deal.owner ? View.GONE : View.VISIBLE}"
                 android:layout_marginTop="@dimen/size_normal"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textColor="@color/white"
+                android:visibility="@{viewModel.deal.owner ? View.GONE : View.VISIBLE}"
                 app:join_participates="@{viewModel.participates}"
                 app:join_status="@{viewModel.state}"
                 app:layout_constraintBottom_toBottomOf="parent"

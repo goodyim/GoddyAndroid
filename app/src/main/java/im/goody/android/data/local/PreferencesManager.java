@@ -62,9 +62,7 @@ public class PreferencesManager {
 
     //region ================= User =================
 
-    public void saveUser(UserRes userRes) {
-        UserRes.User user = userRes.getUser();
-
+    public void saveUser(UserRes.User user) {
         setStringValue(USER_NAME_KEY, user.getName());
         setStringValue(USER_IMAGE_URL_KEY, user.getAvatarUrl());
         setIntValue(USER_ID_KEY, user.getId());

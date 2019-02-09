@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import im.goody.android.App;
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Event;
+import im.goody.android.data.dto.Event.PhoneInfo;
 import im.goody.android.data.dto.Location;
 import im.goody.android.ui.views.AutoLinkTextView;
 import im.goody.android.utils.DateUtils;
@@ -193,5 +195,35 @@ public class CommonBindingAdapter {
         }
 
         view.setText(date);
+    }
+
+    @BindingAdapter("request_state")
+    public static void bindRequest(Button button, int state) {
+        int buttonVisibility = View.VISIBLE;
+        boolean buttonEnabled = true;
+        int stringRes = R.string.forbidden;
+
+        switch (state) {
+            case PhoneInfo.STATE_ALLOWED:
+                buttonVisibility = View.GONE;
+                break;
+            case PhoneInfo.STATE_REQUEST_NEEDED:
+                buttonVisibility = View.VISIBLE;
+                stringRes = R.string.make_request;
+                break;
+            case PhoneInfo.STATE_REQUESTED:
+                buttonVisibility = View.VISIBLE;
+                buttonEnabled = false;
+                stringRes = R.string.requested;
+                break;
+            case PhoneInfo.STATE_FORBIDDEN:
+                buttonVisibility = View.VISIBLE;
+                buttonEnabled = false;
+                stringRes = R.string.forbidden;
+        }
+
+        button.setVisibility(buttonVisibility);
+        button.setEnabled(buttonEnabled);
+        button.setText(stringRes);
     }
 }

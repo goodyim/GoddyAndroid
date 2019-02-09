@@ -29,6 +29,7 @@ import javax.inject.Inject;
 import im.goody.android.App;
 import im.goody.android.Constants;
 import im.goody.android.data.dto.Deal;
+import im.goody.android.data.dto.Event;
 import im.goody.android.data.dto.Feedback;
 import im.goody.android.data.dto.Follower;
 import im.goody.android.data.dto.HelpInfo;
@@ -83,19 +84,19 @@ public class Repository implements IRepository {
     //region ================= User =================
 
     @Override
-    public Observable<UserRes> register(RegisterReq data) {
+    public Observable<UserRes.User> register(RegisterReq data) {
 
         return restService.registerUser(getFcmToken(),
                 RestCallTransformer.objectToPartMap(data, "user"))
-                .doOnNext(userRes -> {
-                    preferencesManager.saveUser(userRes);
+                .doOnNext(user -> {
+                    preferencesManager.saveUser(user);
                     setProfileFilled(false);
                 })
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
-    public Observable<UserRes> login(LoginReq data) {
+    public Observable<UserRes.User> login(LoginReq data) {
         return restService.loginUser(getFcmToken(), data.getName(), data.getPassword())
                 .doOnNext(preferencesManager::saveUser)
                 .observeOn(AndroidSchedulers.mainThread());
@@ -362,6 +363,18 @@ public class Repository implements IRepository {
         return Observable.just(uri)
                 .map(it -> getPartFromUri(it, "user[avatar]"))
                 .flatMap(partContainer -> restService.updateAvatar(id, partContainer.getPart()))
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<Event.PhoneInfo> requestPhone(long dealId) {
+        return restService.requestPhoneInfo(dealId)
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<ResponseBody> processPhoneRequest(long requestId, int state) {
+        return restService.processPhoneRequest(requestId, state)
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

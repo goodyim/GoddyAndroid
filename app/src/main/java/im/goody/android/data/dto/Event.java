@@ -90,11 +90,14 @@ public class Event {
         return phoneInfo;
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PhoneInfo {
         public static final int STATE_ALLOWED = 0;
         public static final int STATE_REQUEST_NEEDED = 1;
         public static final int STATE_REQUESTED = 2;
-        public static final int STATE_FORBIDEN = 3;
+        public static final int STATE_FORBIDDEN = 3;
+
+        public static final int STATE_UNDEFINED = -1;
 
         public static final int VISIBILITY_ALL = 0;
         public static final int VISIBILITY_PARTICIPANTS = 1;

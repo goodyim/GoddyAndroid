@@ -116,13 +116,13 @@
             android:layout_marginLeft="@dimen/size_normal"
             android:layout_marginRight="@dimen/size_normal"
             android:layout_marginTop="16dp"
-            app:link_text="@{data.deal.description}"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
             android:textIsSelectable="true"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_event_image"
+            app:link_text="@{data.deal.description}"
             tools:text="@tools:sample/lorem[30]" />
 
         <TextView
@@ -162,6 +162,18 @@
             app:layout_constraintTop_toBottomOf="@+id/detail_event_date"
             tools:text="Location" />
 
+        <include
+            android:id="@+id/phone_info_panel"
+            layout="@layout/phone_info_panel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_normal"
+            android:layout_marginRight="@dimen/size_normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail_event_location"
+            bind:viewModel="@{data.phoneInfoViewModel}" />
+
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/tag_container"
             android:layout_width="0dp"
@@ -173,7 +185,7 @@
             app:flexWrap="wrap"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_event_location"
+            app:layout_constraintTop_toBottomOf="@+id/phone_info_panel"
             app:tags="@{data.deal.event.resources}"
             tools:layout_height="50dp" />
 
@@ -182,23 +194,25 @@
             layout="@layout/item_action_panel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/detail_event_join"
+            android:layout_marginTop="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/detail_event_join"
+            app:layout_constraintTop_toBottomOf="@+id/tag_container"
             bind:viewModel="@{data.panelViewModel}" />
 
         <Button
             android:id="@+id/detail_event_join"
             android:layout_width="0dp"
             android:layout_height="@dimen/join_height"
+            android:layout_marginBottom="16dp"
             android:layout_marginEnd="@dimen/size_normal"
             android:layout_marginStart="@dimen/size_normal"
-            android:layout_marginTop="@dimen/size_normal"
+            android:layout_marginTop="16dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="@color/white"
+            android:visibility="@{data.deal.owner ? View.GONE : View.VISIBLE}"
             app:join_participates="@{data.participates}"
             app:join_status="@{data.state}"
-            android:visibility="@{data.deal.owner ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/action_panel"
             app:layout_constraintTop_toBottomOf="@+id/tag_container"
@@ -208,10 +222,11 @@
         <View
             android:layout_width="0dp"
             android:layout_height="@dimen/size_divider"
-            android:layout_marginTop="@dimen/size_normal"
             android:background="@color/divider"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_event_join" />
+            app:layout_constraintTop_toBottomOf="@+id/action_panel"
+            app:layout_constraintVertical_bias="1.0" />
     </android.support.constraint.ConstraintLayout>
 </layout>

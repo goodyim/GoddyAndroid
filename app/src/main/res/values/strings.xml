@@ -240,4 +240,18 @@
     <string name="content_location">Near</string>
     <string name="name_login_hint">Login</string>
     <string name="new_event_add_tag">Add custom</string>
+
+    <string name="phone_number_format">Phone: %s</string>
+    <string name="phone_no_access">No access</string>
+    <string name="make_request">Request</string>
+    <string name="requested">Requested</string>
+    <string name="forbidden">Forbidden</string>
+    <string name="feedback_mentioned">Mentioned you</string>
+    <string name="feedback_close_event">Finished event</string>
+    <string name="feedback_phone_request">Requested your phone</string>
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
+    <string name="request_allowed">Request approved</string>
+    <string name="request_denied">Request denied</string>
+    <string name="notification_phone_request">New phone request from %s</string>
 </resources>

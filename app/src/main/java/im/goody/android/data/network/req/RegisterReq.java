@@ -10,6 +10,7 @@ public class RegisterReq {
     private String email;
     private String password;
 
+    @JsonProperty("msisdn")
     private String phoneNumber;
 
     private int sex;

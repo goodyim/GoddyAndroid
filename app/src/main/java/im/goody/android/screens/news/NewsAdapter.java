@@ -11,6 +11,7 @@ import java.util.List;
 import im.goody.android.BR;
 import im.goody.android.R;
 import im.goody.android.data.dto.Deal;
+import im.goody.android.data.dto.Event;
 import im.goody.android.data.dto.Location;
 import im.goody.android.data.network.res.EventStateRes;
 import im.goody.android.data.network.res.ParticipateRes;
@@ -96,6 +97,8 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
 
         void finishEvent(long id);
 
+        Observable<Event.PhoneInfo> requestPhone(long dealId);
+
         void showEdit(Deal deal);
 
         void openPhoto(String imageUrl);
@@ -127,6 +130,7 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
 
         private void bindEvent(NewsItemViewModel viewModel) {
             Deal deal = viewModel.getDeal();
+
             ItemEventBinding eventBinding = (ItemEventBinding) binding;
 
             eventBinding.eventContainer
@@ -209,6 +213,11 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
                     handler.openPhoto(NetUtils.buildDealImageUrl(deal)));
 
             eventBinding.itemEventDescription.setMentionListener(handler::openProfile);
+
+            eventBinding.phoneInfoPanel.phoneInfoRequest.setOnClickListener(v ->
+                    handler.requestPhone(deal.getId())
+                            .subscribe(viewModel.phoneInfoViewModel::update, Throwable::printStackTrace)
+            );
         }
 
 

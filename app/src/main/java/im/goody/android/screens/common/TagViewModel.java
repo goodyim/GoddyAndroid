@@ -12,7 +12,7 @@ import im.goody.android.R;
 import im.goody.android.data.dto.PresetTag;
 
 public abstract class TagViewModel {
-    public List<String> tags;
+    public List<String> tags = new ArrayList<>();
     public final PresetTag[] presetTags = loadPresetTags();
 
     public void addTags(String rawTags) {

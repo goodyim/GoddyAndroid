@@ -8,27 +8,34 @@ import java.util.List;
 
 import im.goody.android.data.dto.Deal;
 import im.goody.android.screens.common.ActionPanelViewModel;
+import im.goody.android.screens.common.PhoneInfoViewModel;
 
 public class DetailPostBodyViewModel {
     private Deal deal;
     public ActionPanelViewModel panelViewModel;
+    public final PhoneInfoViewModel phoneInfoViewModel;
+
 
     public final ObservableBoolean participates;
     public ObservableField<String> state;
 
-    public final ObservableField<List<String>> lastParticipants = new ObservableField<>() ;
+    public final ObservableField<List<String>> lastParticipants = new ObservableField<>();
     public final ObservableInt participantsCount = new ObservableInt();
 
-    public DetailPostBodyViewModel(Deal deal) {
+    DetailPostBodyViewModel(Deal deal) {
         this.deal = deal;
 
         panelViewModel = new ActionPanelViewModel(deal);
         participates = new ObservableBoolean(deal.isParticipates());
 
         if (deal.getEvent() != null) {
+            phoneInfoViewModel = new PhoneInfoViewModel(deal.getEvent().getPhoneInfo());
+
             state = new ObservableField<>(deal.getEvent().getState());
             lastParticipants.set(deal.getEvent().getLastParticipantsAvatars());
             participantsCount.set(deal.getEvent().getParticipantsCount());
+        } else {
+            phoneInfoViewModel = null;
         }
     }
 

@@ -26,10 +26,12 @@ import com.bluelinelabs.conductor.RouterTransaction;
 import javax.inject.Inject;
 
 import im.goody.android.App;
+import im.goody.android.Constants.NotificationExtra;
 import im.goody.android.R;
 import im.goody.android.databinding.ActivityRootBinding;
 import im.goody.android.di.components.RootComponent;
 import im.goody.android.screens.detail_post.DetailPostController;
+import im.goody.android.screens.feedback.FeedBackController;
 import im.goody.android.ui.helpers.BarBuilder;
 
 @SuppressWarnings("deprecation")
@@ -37,6 +39,7 @@ public class RootActivity extends AppCompatActivity
         implements IRootView, NavigationView.OnNavigationItemSelectedListener {
 
     public static final String EXTRA_POST_ID = "post_id";
+    public static final String EXTRA_TYPE = "type";
 
     private static final long ID_NONE = -1;
 
@@ -163,10 +166,17 @@ public class RootActivity extends AppCompatActivity
         super.onNewIntent(intent);
         ((RootPresenter) presenter).takeView(this);
 
-        long extraPostId = intent.getLongExtra(EXTRA_POST_ID, ID_NONE);
+        long extraId = intent.getLongExtra(EXTRA_POST_ID, ID_NONE);
+        String extraType = intent.getStringExtra(EXTRA_TYPE);
 
-        if (extraPostId != ID_NONE) {
-            showScreen(DetailPostController.class, extraPostId);
+        switch (extraType) {
+            case NotificationExtra.TYPE_PHONE_REQUEST:
+                showScreen(FeedBackController.class);
+                break;
+            default:
+                if (extraId != ID_NONE) {
+                    showScreen(DetailPostController.class, extraId);
+                }
         }
     }
 

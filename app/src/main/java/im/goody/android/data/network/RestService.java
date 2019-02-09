@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import im.goody.android.data.dto.Deal;
+import im.goody.android.data.dto.Event;
 import im.goody.android.data.dto.Feedback;
 import im.goody.android.data.dto.Follower;
 import im.goody.android.data.dto.HelpInfo;
@@ -41,13 +42,13 @@ public interface RestService {
 
     @Multipart
     @POST("users")
-    Observable<UserRes> registerUser(@Header("fcmToken") String fcmToken,
-                                     @PartMap Map<String, RequestBody> params);
+    Observable<UserRes.User> registerUser(@Header("fcmToken") String fcmToken,
+                                          @PartMap Map<String, RequestBody> params);
 
     @GET("users/get_token")
-    Observable<UserRes> loginUser(@Header("fcmToken") String fcmToken,
-                                  @Query("user_name") String name,
-                                  @Query("password") String password);
+    Observable<UserRes.User> loginUser(@Header("fcmToken") String fcmToken,
+                                       @Query("user_name") String name,
+                                       @Query("password") String password);
 
     @GET("users/register_fcm_token")
     Observable<ResponseBody> sendFcmToken(@Header("fcmToken") String fcmToken);
@@ -117,6 +118,13 @@ public interface RestService {
 
     @GET("users/{id}/followers")
     Observable<List<Follower>> getFollowers(@Path("id") long id);
+
+    @POST("good_deals/{id}/request_phone_number")
+    Observable<Event.PhoneInfo> requestPhoneInfo(@Path("id") long id);
+
+    @POST("requests/{id}/process")
+    Observable<ResponseBody> processPhoneRequest(@Path("id") long id,
+                                                 @Query("state") long state);
 
     @Multipart
     @PUT("users/{id}")

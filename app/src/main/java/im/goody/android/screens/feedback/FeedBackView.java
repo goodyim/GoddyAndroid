@@ -16,6 +16,8 @@ public class FeedBackView extends BaseView<FeedBackController, ScreenFeedbackBin
         super(context, attrs);
     }
 
+    private FeedBackAdapter adapter;
+
     @Override
     protected void onAttached() {
         binding.feedbackList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -32,7 +34,9 @@ public class FeedBackView extends BaseView<FeedBackController, ScreenFeedbackBin
             binding.feedbackList.setVisibility(VISIBLE);
             binding.feedbackPlaceholder.setVisibility(GONE);
 
-            binding.feedbackList.setAdapter(new FeedBackAdapter(data, this));
+            adapter = new FeedBackAdapter(data, this);
+
+            binding.feedbackList.setAdapter(adapter);
         } else {
             binding.feedbackList.setVisibility(GONE);
             binding.feedbackPlaceholder.setVisibility(VISIBLE);
@@ -42,5 +46,26 @@ public class FeedBackView extends BaseView<FeedBackController, ScreenFeedbackBin
     @Override
     public void openDetail(Feedback item) {
         controller.openDetail(item);
+    }
+
+    @Override
+    public void openProfile(long id) {
+        controller.openProfile(id);
+    }
+
+    @Override
+    public void allow(int position) {
+        controller.allowClicked(position);
+    }
+
+    @Override
+    public void deny(int position) {
+        controller.denyClicked(position);
+    }
+
+    public void removeItem(int position) {
+        if (adapter != null) {
+            adapter.removeItem(position);
+        }
     }
 }

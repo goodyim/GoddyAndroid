@@ -11,6 +11,7 @@ import im.goody.android.BR;
 import im.goody.android.R;
 import im.goody.android.data.dto.Comment;
 import im.goody.android.data.dto.Deal;
+import im.goody.android.data.dto.Event;
 import im.goody.android.data.dto.Location;
 import im.goody.android.data.network.res.ParticipateRes;
 import im.goody.android.databinding.CommentBinding;
@@ -93,6 +94,8 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
         void deleteComment(int commentPosition);
 
         void openParticipants(long id);
+
+        Observable<Event.PhoneInfo> requestPhone(long dealId);
     }
 
     class DetailPostHolder extends RecyclerView.ViewHolder {
@@ -207,6 +210,11 @@ class DetailPostAdapter extends RecyclerView.Adapter<DetailPostAdapter.DetailPos
 
             eventBinding.detailEventParticipants.setOnClickListener(v -> handler.openParticipants(deal.getId()));
             eventBinding.detailEventParticipantsCount.setOnClickListener(v -> handler.openParticipants(deal.getId()));
+
+            eventBinding.phoneInfoPanel.phoneInfoRequest.setOnClickListener(v ->
+                    handler.requestPhone(deal.getId())
+                            .subscribe(viewModel.phoneInfoViewModel::update, Throwable::printStackTrace)
+            );
         }
 
         private int getCommentPosition() {
