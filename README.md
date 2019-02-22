@@ -1,3 +1,3 @@
 # GoddyAndroid
 
-Open source android client for http://gooddy.herokuapp.com
+Open source android client for http://goody.im
