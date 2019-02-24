@@ -233,4 +233,24 @@
     <string name="name_login_hint">Логин</string>
 
     <string name="new_event_add_tag">Добавить свой</string>
+    <string name="phone_number_hint">Номер телефона</string>
+    <string name="invalid_phone">Неверный формат номера</string>
+    <string name="choose_phone_visibility">Кому будет виден ваш номер?</string>
+    <string name="phone_visibility_all">Всем</string>
+    <string name="phone_visibility_participants">Только участникам</string>
+    <string name="phone_visibility_request">По запросу</string>
+    <string name="choose_phone_visibility_title">Кому будет виден ваш номер?</string>
+    <string name="phone_number_format">Номер телефона: %s</string>
+    <string name="phone_no_access">Нет доступа</string>
+    <string name="make_request">Запросить</string>
+    <string name="requested">Запрошено</string>
+    <string name="forbidden">Отказано в доступе</string>
+    <string name="feedback_mentioned">Упомянул вас</string>
+    <string name="feedback_close_event">Завершил событие</string>
+    <string name="feedback_phone_request">Запросил ваш номер телефона</string>
+    <string name="allow">Разрешить</string>
+    <string name="deny">Запретить</string>
+    <string name="request_allowed">Запрос принят</string>
+    <string name="request_denied">Запрос отклонён</string>
+    <string name="notification_phone_request">Запрос номера телефона от %s</string>
 </resources>
