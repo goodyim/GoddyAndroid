@@ -71,9 +71,16 @@ public class RootActivity extends AppCompatActivity
         }
 
         long extraPostId = getIntent().getLongExtra(EXTRA_POST_ID, ID_NONE);
+        String extraType = getIntent().getStringExtra(EXTRA_TYPE);
 
-        if (extraPostId != ID_NONE) {
-            showScreen(DetailPostController.class, extraPostId);
+        if (extraPostId != ID_NONE && extraType != null) {
+            switch (extraType) {
+                case NotificationExtra.TYPE_PHONE_REQUEST:
+                    showScreen(FeedBackController.class);
+                    break;
+                default:
+                    showScreen(DetailPostController.class, extraPostId);
+            }
         }
     }
 
@@ -129,7 +136,7 @@ public class RootActivity extends AppCompatActivity
             case R.id.action_feedback:
                 presenter.showFeedback();
                 break;
-           /* TODO uncomment after screen will have been realized
+           /* TODO uncomment after screen will have been implemented
            case R.id.action_about:
                 presenter.showAboutScreen();
                 break;*/
@@ -168,6 +175,8 @@ public class RootActivity extends AppCompatActivity
 
         long extraId = intent.getLongExtra(EXTRA_POST_ID, ID_NONE);
         String extraType = intent.getStringExtra(EXTRA_TYPE);
+
+        if (extraType == null) return;
 
         switch (extraType) {
             case NotificationExtra.TYPE_PHONE_REQUEST:

@@ -35,7 +35,7 @@ public class FeedBackAdapter extends RecyclerView.Adapter<FeedBackAdapter.Feedba
         void deny(int position);
     }
 
-    public FeedBackAdapter(List<Feedback> data, Handler handler) {
+    FeedBackAdapter(List<Feedback> data, Handler handler) {
         this.data = data;
         this.handler = handler;
     }
