@@ -1,11 +1,9 @@
 package im.goody.android;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
-import com.crashlytics.android.Crashlytics;
-import com.jakewharton.picasso.OkHttp3Downloader;
+import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
 import dagger.Provides;
@@ -27,7 +25,7 @@ public class App extends MultiDexApplication {
         initDaggerComponents();
 
         Picasso picasso = new Picasso.Builder(this)
-                .downloader(new OkHttp3Downloader(this, Integer.MAX_VALUE))
+                .downloader(new OkHttp3Downloader(this))
                 .build();
 
         picasso.setLoggingEnabled(true);
@@ -66,7 +64,7 @@ public class App extends MultiDexApplication {
         }
 
         @Provides
-        Context provideContext () {
+        Context provideContext() {
             return context;
         }
     }
@@ -74,6 +72,7 @@ public class App extends MultiDexApplication {
     @dagger.Component(modules = AppModule.class)
     interface AppComponent {
         Context getContext();
+
         DataComponent plus(DataModule module);
     }
 

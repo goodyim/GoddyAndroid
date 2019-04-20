@@ -23,7 +23,7 @@ public class NewPostViewModel extends BaseObservable {
     public final ObservableBoolean subscribersOnly = new ObservableBoolean(false);
     public final ObservableField<String> description = new ObservableField<>();
 
-    private Uri imageUri;
+    private Uri currentImageUri;
 
     @Bindable
     private Location location;
@@ -50,8 +50,8 @@ public class NewPostViewModel extends BaseObservable {
 
     // ======= region getters =======
 
-    Uri getImageUri() {
-        return imageUri;
+    Uri getCurrentImageUri() {
+        return currentImageUri;
     }
 
     public Location getLocation() {
@@ -68,13 +68,14 @@ public class NewPostViewModel extends BaseObservable {
         try {
             Bitmap bmp = MediaStore.Images.Media.getBitmap(resolver, imageUri);
             image.set(bmp);
+            this.currentImageUri = imageUri;
         } catch (Exception e) {
             image.set(null);
         }
     }
 
-    void setImageUri(Uri imageUri) {
-        this.imageUri = imageUri;
+    void setCurrentImageUri(Uri currentImageUri) {
+        this.currentImageUri = currentImageUri;
     }
 
     public void setLocation(Place place) {

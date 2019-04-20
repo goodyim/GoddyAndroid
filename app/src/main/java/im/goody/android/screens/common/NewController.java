@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,8 +12,8 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.io.File;
-import java.io.IOException;
 
+import im.goody.android.Constants;
 import im.goody.android.R;
 import im.goody.android.core.BaseController;
 import im.goody.android.core.BaseView;
@@ -39,7 +38,7 @@ public abstract class NewController<V extends BaseView> extends BaseController<V
 
     private OptionsDialog dialog = new ChooseImageOptionsDialog();
 
-    protected String tempImageUrl;
+    protected String tempImageUri;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -60,7 +59,7 @@ public abstract class NewController<V extends BaseView> extends BaseController<V
                 break;
             case CACHE_IMAGE_REQUEST:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    loadImage(tempImageUrl);
+                    loadImage(tempImageUri);
                 } else {
                     view().showMessage(R.string.cache_image_permission_denied);
                 }
@@ -77,19 +76,16 @@ public abstract class NewController<V extends BaseView> extends BaseController<V
                 }
                 break;
             case IMAGE_PICK_REQUEST:
-                if (resultCode == RESULT_OK) {
-                    if (data != null) {
-                        Uri uri = data.getData();
+                if (resultCode == RESULT_OK && data != null) {
 
-                        imageUriChanged(uri);
-                        imageChanged(uri);
-                    }
+                    Uri uri = data.getData();
+
+                    loadImage(uri.toString());
                 }
                 break;
             case CAMERA_REQUEST:
                 if (resultCode == RESULT_OK) {
-                    Uri uri = getImageUri();
-                    imageChanged(uri);
+                    loadImage(tempImageUri);
                 }
         }
     }
@@ -109,14 +105,6 @@ public abstract class NewController<V extends BaseView> extends BaseController<V
         compositeDisposable.add(d);
     }
 
-    public void chooseLocation() {
-        if (isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
-            makePlacePickerRequest();
-        } else {
-            requestPermissions(LOCATION_PERMISSIONS, LOCATION_PERMISSION_REQUEST);
-        }
-    }
-
     public void choosePhoto() {
         if (isPermissionGranted(STORAGE_PERMISSIONS)) {
             showDialog();
@@ -127,21 +115,28 @@ public abstract class NewController<V extends BaseView> extends BaseController<V
 
     public void clearPhoto() {
         imageChanged(null);
-        imageUriChanged(null);
     }
 
     protected void loadImage(String url) {
         Disposable disposable = repository.cacheWebImage(url)
                 .subscribe(uri -> {
-                    tempImageUrl = null;
+                    tempImageUri = null;
                     imageChanged(uri);
-                    imageUriChanged(uri);
-                });
+                }, this::showError);
 
         compositeDisposable.add(disposable);
     }
 
+
     // ======= region private methods =======
+
+    private void chooseLocation() {
+        if (isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            makePlacePickerRequest();
+        } else {
+            requestPermissions(LOCATION_PERMISSIONS, LOCATION_PERMISSION_REQUEST);
+        }
+    }
 
     private void showDialog() {
         Disposable disposable = dialog.show(getActivity()).subscribe(index -> {
@@ -177,8 +172,7 @@ public abstract class NewController<V extends BaseView> extends BaseController<V
 
     private void takePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File photo = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                "photo_" + System.currentTimeMillis() + ".jpg");
+        File photo = new File(FileUtils.getCacheFolder(), Constants.CACHE_FILE_NAME);
 
         Uri uri = FileUtils.uriFromFile(photo);
 
@@ -187,16 +181,12 @@ public abstract class NewController<V extends BaseView> extends BaseController<V
 
         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 
-        imageUriChanged(uri);
+        tempImageUri = uri.toString();
 
         startActivityForResult(intent, CAMERA_REQUEST);
     }
 
     // end
-
-    protected abstract Uri getImageUri();
-
-    protected abstract void imageUriChanged(Uri uri);
 
     protected abstract void imageChanged(Uri uri);
 

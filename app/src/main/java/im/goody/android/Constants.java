@@ -39,6 +39,7 @@ public class Constants {
     public static final String ID_NONE = "none";
 
     public static final String CACHE_FILE_NAME = "goddy_temp.jpeg";
+    public static final String CACHE_COMPRESSED_FILE_NAME = "goddy_temp_compressed.jpeg";
 
     public static final String MENTION_FORMAT = "@%s ";
 

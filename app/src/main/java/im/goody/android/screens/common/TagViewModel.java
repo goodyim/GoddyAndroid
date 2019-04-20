@@ -17,12 +17,12 @@ public abstract class TagViewModel {
 
     public void addTags(String rawTags) {
         rawTags = rawTags.replace(", ", ",");
-        String[] newTags = rawTags.split(",|\\s");
+        String[] newTags = rawTags.split(",");
         tags.addAll(Arrays.asList(newTags));
 
         Set<String> set = new LinkedHashSet<>(tags);
-        tags.clear();
-        tags.addAll(set);
+
+        tags = new ArrayList<>(set);
 
         movePredefinedTagsToPresets();
     }

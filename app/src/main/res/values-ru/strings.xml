@@ -31,7 +31,7 @@
 
     <string name="choose_date">Когда нужна помощь?</string>
     <string name="choose_location">Выберите место…</string>
-    <string name="choose_photo">Выберите фото…</string>
+    <string name    ="choose_photo">Выберите фото…</string>
     <string name="choose_time">Выберите время…</string>
 
     <string name="intro_close">Закрыть</string>

@@ -35,7 +35,7 @@ import static im.goody.android.Constants.DATE_TIME_FORMAT;
 public class CommonBindingAdapter {
     @BindingAdapter("post_image")
     public static void bindImage(ImageView view, Deal deal) {
-        Picasso.with(view.getContext())
+        Picasso.get()
                 .cancelRequest(view);
 
 
@@ -45,7 +45,7 @@ public class CommonBindingAdapter {
         }
         view.setVisibility(View.VISIBLE);
 
-        Picasso.with(view.getContext())
+        Picasso.get()
                 .load(NetUtils.buildDealImageUrl(deal))
                 .placeholder(R.color.placeholder_color)
                 .fit()
@@ -55,12 +55,12 @@ public class CommonBindingAdapter {
 
     @BindingAdapter("author_avatar")
     public static void bindAvatar(ImageView view, String url) {
-        Picasso.with(view.getContext())
+        Picasso.get()
                 .cancelRequest(view);
 
         view.setImageResource(R.drawable.round_drawable);
 
-        Picasso.with(view.getContext())
+        Picasso.get()
                 .load(url)
                 .placeholder(R.drawable.round_drawable)
                 .fit()
@@ -92,7 +92,7 @@ public class CommonBindingAdapter {
                 params.setMargins(-(int) view.getResources().getDimension(R.dimen.size_small), 0, 0, 0);
             }
 
-            Picasso.with(view.getContext())
+            Picasso.get()
                     .load(avatars.get(i))
                     .placeholder(R.drawable.round_drawable)
                     .fit()

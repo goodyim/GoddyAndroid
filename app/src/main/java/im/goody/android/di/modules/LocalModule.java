@@ -9,6 +9,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import id.zelory.compressor.Compressor;
 import im.goody.android.data.local.PreferencesManager;
 
 @Module
@@ -23,5 +24,12 @@ public class LocalModule {
     @Singleton
     FusedLocationProviderClient providerLocationClient(Context context) {
         return LocationServices.getFusedLocationProviderClient(context);
+    }
+
+    @Provides
+    @Singleton
+    Compressor provideCompressor(Context context) {
+        return new Compressor(context)
+                .setQuality(100);
     }
 }

@@ -1,8 +1,6 @@
 package im.goody.android.screens.new_event;
 
 import android.content.ContentResolver;
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
@@ -13,13 +11,9 @@ import android.provider.MediaStore;
 import com.google.android.gms.location.places.Place;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 import im.goody.android.App;
-import im.goody.android.BR;
 import im.goody.android.data.dto.Deal;
 import im.goody.android.data.dto.Event;
 import im.goody.android.data.dto.Location;
@@ -39,13 +33,11 @@ public class NewEventViewModel extends TagViewModel {
 
     public final ObservableInt phoneVisibility = new ObservableInt(VISIBILITY_ALL);
 
-    final ArrayList<String> tags;
-
     public final ObservableField<Bitmap> image = new ObservableField<>();
 
     public final ObservableField<Location> location = new ObservableField<>();
 
-    private Uri imageUri;
+    private Uri currentImageUri;
 
     NewEventViewModel(Deal deal) {
         Location location = deal.getLocation();
@@ -58,11 +50,7 @@ public class NewEventViewModel extends TagViewModel {
 
         Event event = deal.getEvent();
 
-        String[] temp = event.getResources().split(",");
-
-        tags = new ArrayList<>(Arrays.asList(temp));
-
-        movePredefinedTagsToPresets();
+        addTags(event.getResources());
 
         isDateImmediate.set(event.isImmediately());
 
@@ -90,8 +78,8 @@ public class NewEventViewModel extends TagViewModel {
 
     // ======= region getters =======
 
-    Uri getImageUri() {
-        return imageUri;
+    Uri getCurrentImageUri() {
+        return currentImageUri;
     }
 
     private String getStringDate() {
@@ -104,16 +92,13 @@ public class NewEventViewModel extends TagViewModel {
 
     // ======= region setters =======
 
-    void setImageUri(Uri imageUri) {
-        this.imageUri = imageUri;
-    }
-
     void setImageFromUri(Uri imageUri) {
         ContentResolver resolver = App.getAppContext().getContentResolver();
 
         try {
             Bitmap bmp = MediaStore.Images.Media.getBitmap(resolver, imageUri);
             image.set(bmp);
+            currentImageUri = imageUri;
         } catch (Exception e) {
             image.set(null);
         }
@@ -132,7 +117,7 @@ public class NewEventViewModel extends TagViewModel {
     }
 
     private String joinTags() {
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
 
         for (String tag : buildTags()) {
             sb.append(tag).append(",");

@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import id.zelory.compressor.Compressor;
 import im.goody.android.App;
 import im.goody.android.Constants;
 import im.goody.android.data.dto.Deal;
@@ -74,6 +75,8 @@ public class Repository implements IRepository {
     Retrofit retrofit;
     @Inject
     FusedLocationProviderClient locationClient;
+    @Inject
+    Compressor compressor;
 
     public Repository() {
         DataComponent component = App.getDataComponent();
@@ -263,9 +266,10 @@ public class Repository implements IRepository {
         return Observable.just(imageUrl)
                 .subscribeOn(Schedulers.io())
                 .map(url -> {
-                    Bitmap bmp = Picasso.with(App.getAppContext())
+                    Bitmap bmp = Picasso.get()
                             .load(imageUrl)
                             .get();
+
                     File file = cacheBitmap(bmp);
 
                     return FileUtils.uriFromFile(file);
@@ -392,11 +396,12 @@ public class Repository implements IRepository {
 
 
     private File cacheBitmap(Bitmap bmp) throws IOException {
-        File file = new File(getCachePath(), Constants.CACHE_FILE_NAME);
+        File file = new File(FileUtils.getCacheFolder(), Constants.CACHE_FILE_NAME);
         if (!file.exists()) {
             file.getParentFile().mkdirs();
             file.createNewFile();
         }
+
 
         Bitmap scaled = Bitmap.createScaledBitmap(bmp, Constants.CACHED_IMAGE_WIDTH, Constants.CACHED_IMAGE_HEIGHT, true);
 
@@ -409,6 +414,8 @@ public class Repository implements IRepository {
         fos.write(bitmapData);
         fos.flush();
         fos.close();
+
+        file = compressor.compressToFile(file, Constants.CACHE_COMPRESSED_FILE_NAME);
 
         return file;
     }
@@ -425,10 +432,6 @@ public class Repository implements IRepository {
         } catch (Exception e) {
             return null;
         }
-    }
-
-    private String getCachePath() {
-        return String.format(AppConfig.CACHE_PATH_FORMAT, Environment.getExternalStorageDirectory());
     }
 
     private Observable<PartContainer> getPart(Uri uri, String partName) {

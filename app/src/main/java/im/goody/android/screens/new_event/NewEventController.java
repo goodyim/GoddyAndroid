@@ -42,10 +42,10 @@ public class NewEventController extends NewController<NewEventView> {
         viewModel = new NewEventViewModel(deal);
 
         if (!TextUtils.isEmpty(deal.getImageUrl())) {
-            tempImageUrl = NetUtils.buildDealImageUrl(deal);
+            tempImageUri = NetUtils.buildDealImageUrl(deal);
 
             if (isPermissionGranted(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                loadImage(tempImageUrl);
+                loadImage(tempImageUri);
             } else {
                 requestPermissions(STORAGE_PERMISSIONS, CACHE_IMAGE_REQUEST);
             }
@@ -112,15 +112,6 @@ public class NewEventController extends NewController<NewEventView> {
     // end
 
     // ======= region NewController =======
-    @Override
-    protected Uri getImageUri() {
-        return viewModel.getImageUri();
-    }
-
-    @Override
-    protected void imageUriChanged(Uri uri) {
-        viewModel.setImageUri(uri);
-    }
 
     @Override
     protected void imageChanged(Uri uri) {
@@ -211,7 +202,7 @@ public class NewEventController extends NewController<NewEventView> {
 
     private void editEvent() {
         rootPresenter.showProgress(R.string.edit_post_progress);
-        repository.editEvent(id, viewModel.body(), viewModel.getImageUri())
+        repository.editEvent(id, viewModel.body(), viewModel.getCurrentImageUri())
                 .subscribe(
                         result -> {
                             rootPresenter.hideProgress();
@@ -225,7 +216,7 @@ public class NewEventController extends NewController<NewEventView> {
 
     private void createEvent() {
         rootPresenter.showProgress(R.string.create_post_progress);
-        repository.createEvent(viewModel.body(), viewModel.getImageUri())
+        repository.createEvent(viewModel.body(), viewModel.getCurrentImageUri())
                 .subscribe(
                         result -> {
                             rootPresenter.hideProgress();

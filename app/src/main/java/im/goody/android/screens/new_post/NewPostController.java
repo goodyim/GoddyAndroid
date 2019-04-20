@@ -30,10 +30,10 @@ public class NewPostController extends NewController<NewPostView> {
         viewModel = new NewPostViewModel(deal);
 
         if (!TextUtils.isEmpty(deal.getImageUrl())) {
-            tempImageUrl = NetUtils.buildDealImageUrl(deal);
+            tempImageUri = NetUtils.buildDealImageUrl(deal);
 
             if (isPermissionGranted(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                loadImage(tempImageUrl);
+                loadImage(tempImageUri);
             } else {
                 requestPermissions(STORAGE_PERMISSIONS, CACHE_IMAGE_REQUEST);
             }
@@ -96,17 +96,6 @@ public class NewPostController extends NewController<NewPostView> {
     // endregion
 
     // ======= region NewController =======
-
-    @Override
-    protected Uri getImageUri() {
-        return viewModel.getImageUri();
-    }
-
-    @Override
-    protected void imageUriChanged(Uri uri) {
-        viewModel.setImageUri(uri);
-    }
-
     @Override
     protected void imageChanged(Uri uri) {
         viewModel.setImageFromUri(uri);
@@ -123,7 +112,7 @@ public class NewPostController extends NewController<NewPostView> {
 
     private void editPost() {
         rootPresenter.showProgress(R.string.edit_post_progress);
-        Disposable disposable = repository.editPost(id, viewModel.body(), viewModel.getImageUri())
+        Disposable disposable = repository.editPost(id, viewModel.body(), viewModel.getCurrentImageUri())
                 .subscribe(
                         result -> {
                             rootPresenter.hideProgress();
@@ -140,7 +129,7 @@ public class NewPostController extends NewController<NewPostView> {
 
     private void createPost() {
         rootPresenter.showProgress(R.string.create_post_progress);
-        Disposable disposable = repository.createPost(viewModel.body(), viewModel.getImageUri())
+        Disposable disposable = repository.createPost(viewModel.body(), viewModel.getCurrentImageUri())
                 .subscribe(
                         result -> {
                             rootPresenter.hideProgress();

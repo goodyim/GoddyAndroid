@@ -259,10 +259,9 @@ public class RootActivity extends AppCompatActivity
     @Override
     public void setTabs(BarBuilder.TabInfo tabInfo) {
         if (tabInfo == null) {
-            binding.tabLayout.setupWithViewPager(null);
             binding.tabLayout.setVisibility(View.GONE);
         } else {
-            binding.tabLayout.setupWithViewPager(tabInfo.getPager());
+            binding.tabLayout.setViewPager(tabInfo.getPager());
             binding.tabLayout.setVisibility(View.VISIBLE);
         }
     }
