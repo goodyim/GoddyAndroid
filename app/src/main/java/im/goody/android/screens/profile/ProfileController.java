@@ -16,6 +16,7 @@ import java.io.File;
 import javax.inject.Inject;
 
 import dagger.Subcomponent;
+import im.goody.android.Constants;
 import im.goody.android.R;
 import im.goody.android.core.BaseController;
 import im.goody.android.data.local.PreferencesManager;
@@ -206,8 +207,7 @@ public class ProfileController extends BaseController<ProfileView> {
 
     private void takePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File photo = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                "photo_" + System.currentTimeMillis() + ".jpg");
+        File photo = new File(FileUtils.getCacheFolder(), Constants.CACHE_FILE_NAME);
 
         Uri uri = FileUtils.uriFromFile(photo);
 

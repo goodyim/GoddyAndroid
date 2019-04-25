@@ -54,8 +54,8 @@ public class NetworkModule {
     private OkHttpClient createClient(Context context, AuthInterceptor interceptor) {
         SSLContext sslContext = SslUtils.getSslContextForCertificateFile(context, "goody.cer");
         return new OkHttpClient.Builder()
-                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .addInterceptor(interceptor)
+                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .connectTimeout(AppConfig.MAX_CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS)
                 .readTimeout(AppConfig.MAX_READ_TIMEOUT, TimeUnit.MILLISECONDS)
                 .sslSocketFactory(sslContext.getSocketFactory())
