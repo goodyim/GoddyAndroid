@@ -7,18 +7,19 @@
         android:background="@color/white">
 
         <ImageView
+            android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="@dimen/auth_header_height"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:id="@+id/header"
             app:srcCompat="@drawable/auth_header" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/intro_pager"
             style="@style/FullWidthFromParent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/intro_tabs"
             app:layout_constraintTop_toBottomOf="@id/header" />
 
         <android.support.design.widget.TabLayout
