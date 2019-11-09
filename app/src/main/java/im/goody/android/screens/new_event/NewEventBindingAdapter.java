@@ -11,8 +11,7 @@ import im.goody.android.R;
 import im.goody.android.data.dto.Location;
 
 import static im.goody.android.data.dto.Event.PhoneInfo.VISIBILITY_ALL;
-import static im.goody.android.data.dto.Event.PhoneInfo.VISIBILITY_PARTICIPANTS;
-import static im.goody.android.data.dto.Event.PhoneInfo.VISIBILITY_REQUEST;
+import static im.goody.android.data.dto.Event.PhoneInfo.VISIBILITY_NOBODY;
 
 public class NewEventBindingAdapter {
     @BindingAdapter("event_location")
@@ -50,18 +49,21 @@ public class NewEventBindingAdapter {
     }
 
     @BindingAdapter("event_phone")
-    public static void bindPhoneBisibility(TextView view, int visibility) {
+    public static void bindPhoneVisibility(TextView view, int visibility) {
         int stringRes;
 
         switch (visibility) {
             case VISIBILITY_ALL:
                 stringRes = R.string.phone_visibility_all;
                 break;
-            case VISIBILITY_PARTICIPANTS:
+            /*case VISIBILITY_PARTICIPANTS:
                 stringRes = R.string.phone_visibility_participants;
                 break;
             case VISIBILITY_REQUEST:
                 stringRes = R.string.phone_visibility_request;
+                break;*/
+            case VISIBILITY_NOBODY:
+                stringRes = R.string.phone_visibility_never;
                 break;
             default:
                 stringRes = R.string.phone_visibility_all;

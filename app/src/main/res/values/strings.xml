@@ -232,6 +232,7 @@
     <string name="phone_visibility_all">Everyone</string>
     <string name="phone_visibility_participants">Participants only</string>
     <string name="phone_visibility_request">By request</string>
+    <string name="phone_visibility_never">Nobody</string>
     <string name="choose_phone_visibility_title">Who will see your phone number?</string>
 
     <string name="finish_event_title">Send thanks to participants</string>

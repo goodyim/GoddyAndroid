@@ -17,7 +17,7 @@ public class FinishEventController extends BaseController<FinishEventView> {
 
     private static final String EXTRA_ID_KEY = "EXTRA_ID";
 
-    FinishEventController(Long id) {
+    public FinishEventController(Long id) {
         this(new BundleBuilder()
                 .putLong(EXTRA_ID_KEY, id)
                 .build());

@@ -100,8 +100,9 @@ public class Event {
         public static final int STATE_UNDEFINED = -1;
 
         public static final int VISIBILITY_ALL = 0;
-        public static final int VISIBILITY_PARTICIPANTS = 1;
-        public static final int VISIBILITY_REQUEST = 2;
+        public static final int VISIBILITY_NOBODY = 1;
+//        public static final int VISIBILITY_PARTICIPANTS = 2;
+//        public static final int VISIBILITY_REQUEST = 3;
 
         private int state;
 

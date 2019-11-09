@@ -199,11 +199,11 @@ public class CommonBindingAdapter {
 
     @BindingAdapter("request_state")
     public static void bindRequest(Button button, int state) {
-        int buttonVisibility = View.VISIBLE;
-        boolean buttonEnabled = true;
+        int buttonVisibility = View.GONE;
+        boolean buttonEnabled = false;
         int stringRes = R.string.forbidden;
 
-        switch (state) {
+        /*switch (state) {
             case PhoneInfo.STATE_ALLOWED:
                 buttonVisibility = View.GONE;
                 break;
@@ -220,7 +220,7 @@ public class CommonBindingAdapter {
                 buttonVisibility = View.VISIBLE;
                 buttonEnabled = false;
                 stringRes = R.string.forbidden;
-        }
+        }*/
 
         button.setVisibility(buttonVisibility);
         button.setEnabled(buttonEnabled);

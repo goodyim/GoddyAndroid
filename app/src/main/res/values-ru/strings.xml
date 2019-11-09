@@ -235,8 +235,8 @@
     <string name="new_event_add_tag">Добавить свой</string>
     <string name="phone_number_hint">Номер телефона</string>
     <string name="invalid_phone">Неверный формат номера</string>
-    <string name="choose_phone_visibility">Кому будет виден ваш номер?</string>
-    <string name="phone_visibility_all">Всем</string>
+    <string name="choose_phone_visibility">Показывать ваш номер телефона?</string>
+    <string name="phone_visibility_all">Да</string>
     <string name="phone_visibility_participants">Только участникам</string>
     <string name="phone_visibility_request">По запросу</string>
     <string name="choose_phone_visibility_title">Кому будет виден ваш номер?</string>
@@ -253,4 +253,5 @@
     <string name="request_allowed">Запрос принят</string>
     <string name="request_denied">Запрос отклонён</string>
     <string name="notification_phone_request">Запрос номера телефона от %s</string>
+    <string name="phone_visibility_never">Нет</string>
 </resources>

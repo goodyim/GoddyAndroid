@@ -345,7 +345,7 @@ public class Repository implements IRepository {
 
                     if (location == null) throw new NoSuchElementException("No location found");
 
-                    return new Location(location.getLatitude(), location.getLatitude(), null);
+                    return new Location(location.getLatitude(), location.getLongitude(), null);
 
                 });
     }

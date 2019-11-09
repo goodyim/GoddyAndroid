@@ -41,8 +41,9 @@
 
     <string-array name="choose_phone_visibility_options">
         <item>@string/phone_visibility_all</item>
-        <item>@string/phone_visibility_participants</item>
-        <item>@string/phone_visibility_request</item>
+        <item>@string/phone_visibility_never</item>
+        <!--<item>@string/phone_visibility_participants</item>-->
+        <!--<item>@string/phone_visibility_request</item>-->
     </string-array>
 
     <string-array name="location_options">
