@@ -1,15 +1,17 @@
 package im.goody.android.di.modules;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.mklimek.sslutilsandroid.SslUtils;
 
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import dagger.Module;
 import dagger.Provides;
@@ -29,8 +31,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class NetworkModule {
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient(Context context, AuthInterceptor interceptor) {
-        return createClient(context, interceptor);
+    OkHttpClient provideOkHttpClient(AuthInterceptor interceptor) {
+        return createClient(interceptor);
     }
 
     @Provides
@@ -51,16 +53,44 @@ public class NetworkModule {
         return new AuthInterceptor(manager);
     }
 
-    private OkHttpClient createClient(Context context, AuthInterceptor interceptor) {
-        SSLContext sslContext = SslUtils.getSslContextForCertificateFile(context, "goody.cer");
-        return new OkHttpClient.Builder()
-                .addInterceptor(interceptor)
-                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                .connectTimeout(AppConfig.MAX_CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS)
-                .readTimeout(AppConfig.MAX_READ_TIMEOUT, TimeUnit.MILLISECONDS)
-                .sslSocketFactory(sslContext.getSocketFactory())
-                .writeTimeout(AppConfig.MAX_WRITE_TIMEOUT, TimeUnit.MILLISECONDS)
-                .build();
+    @SuppressLint("TrustAllX509TrustManager")
+    private OkHttpClient createClient(AuthInterceptor interceptor) {
+        try {
+            final TrustManager[] trustAllCerts = new TrustManager[]{
+                    new X509TrustManager() {
+
+                        @Override
+                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {}
+
+                        @Override
+                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) {}
+
+                        @Override
+                        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                            return new java.security.cert.X509Certificate[]{};
+                        }
+                    }
+            };
+
+            // Install the all-trusting trust manager
+            final SSLContext sslContext = SSLContext.getInstance("SSL");
+            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+
+            // Create an ssl socket factory with our all-trusting manager
+            final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+
+            return new OkHttpClient.Builder()
+                    .addInterceptor(interceptor)
+                    .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                    .connectTimeout(AppConfig.MAX_CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS)
+                    .readTimeout(AppConfig.MAX_READ_TIMEOUT, TimeUnit.MILLISECONDS)
+                    .sslSocketFactory(sslSocketFactory, (X509TrustManager) trustAllCerts[0])
+                    .writeTimeout(AppConfig.MAX_WRITE_TIMEOUT, TimeUnit.MILLISECONDS)
+                    .build();
+
+        } catch (Exception e){
+            throw new RuntimeException();
+        }
     }
 
     private Retrofit createRetrofit(OkHttpClient okHttp) {

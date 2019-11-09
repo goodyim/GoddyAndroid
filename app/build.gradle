@@ -8,8 +8,8 @@ android {
         applicationId "im.goody.android"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 15
-        versionName "1.4.2"
+        versionCode 16
+        versionName "1.4.3"
         testInstrumentationRunner "android.supkeytooport.test.runner.AndroidJUnitRunner"
         vectorDrawables.generatedDensities = ['hdpi', 'xxhdpi']
 
@@ -40,6 +40,11 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "Goody-${variant.buildType.name}-${variant.versionName}(${variant.versionCode}).apk"
+        }
     }
 }
 
